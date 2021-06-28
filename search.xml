@@ -55,24 +55,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2021/05/04/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>Java代理模式（Proxy）理解</title>
     <url>/2021/06/22/Java%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%EF%BC%88Proxy%EF%BC%89/</url>
     <content><![CDATA[<h2 id="代理模式概念简述"><a href="#代理模式概念简述" class="headerlink" title="代理模式概念简述"></a>代理模式概念简述</h2><p>首先，代理模式是一种<strong>设计模式</strong>。</p>
@@ -122,6 +104,24 @@
         <tag>Java</tag>
         <tag>设计模式</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2021/05/04/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
   </entry>
   <entry>
     <title>程序人生-Hello的前世今生</title>
@@ -494,53 +494,65 @@
 <p>​    要讲汇编，需要先理解指令，之前我们在汇编部分已有谈及，这里给出更明晰的定义：指令被编码为有一个或多个字节序列组成的二进制格式一个处理器支持的指令和指令的字节级编码成为它的指令集体系结构，像Intel IA32和x86-64，x86-64也就是我们现在电脑windows系统所用的指令集体系结构。 </p>
 <p>​    这里就是汇编器（as）将前面得到汇编文件hello.s从汇编语言指令翻译成机器语言指令，把这些指令打包成一种叫做可重定位目标程序的格式，并讲解结果保存在文件hello.o中，hello.o是一个二进制文件，其包含的字节是main函数的指令编码，这些指令的编码是基于该电脑上的指令集体系结构，用文本编辑器打开，将看到一堆乱码，人类完全无法读懂，但是计算机可以读懂并且执行，但部分要经过后续的链接才能执行。</p>
 <h2 id="4-2在Ubuntu下汇编的命令"><a href="#4-2在Ubuntu下汇编的命令" class="headerlink" title="4.2在Ubuntu下汇编的命令"></a>4.2在Ubuntu下汇编的命令</h2><p>在ubutun终端输入如下指令：</p>
-<p>linux&gt; gcc –c hello.s –o hello.o</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">linux&gt; gcc –c hello.s –o hello.o</span><br></pre></td></tr></table></figure>
+
 <p>如下图4-1所示。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image046.jpg" alt="img"></p>
-<p>图 4‑1 Ubutun下汇编的命令及汇编生成hello.o文件</p>
-<h2 id="4-3-可重定位目标elf格式"><a href="#4-3-可重定位目标elf格式" class="headerlink" title="4.3 可重定位目标elf格式"></a>4.3 可重定位目标elf格式</h2><p>分析hello.o的ELF格式，用readelf等列出其各节的基本信息，特别是重定位项目分析。</p>
-<p>Ubutun终端输入以下命令：linux&gt; readelf –a hello.o &gt; hello.elf</p>
-<p>readelf读出hello.o——ELF可重定位目标文件所有信息，保存到hello.elf文件中，便于查看。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image048.jpg" alt="img"></p>
-<p>图 4‑2 readelf读取信息并保持到hello.elf文件</p>
-<p>先回顾典型ELF可重定位目标文件的格式，如图4-2所示。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image050.jpg" alt="img"></p>
-<p>图 4‑3 典型ELF可重定位目标文件</p>
-<p>然后打开hello.elf文件分析。</p>
-<p>先是ELF 头：描述文件的总体格式。它还包括程序的入口点，也就是当程序运行时要执行的第一条指令的地址。如图4-3所示。我们对此分析：首先是magic，</p>
-<p>一个16字节的序列，描述了生成该文件的系统的字的大小和字节顺序。ELF 头剩下的部分包含帮助链接器语法分析和解释目标文件的信息， 其中包括 ELF 头的大小、目标文件的类型、 机器类型、字节头部表（section header table）的文件偏移，以及节头部表中条目的大小和数量等信息。观察其指明了该ELF文件类别为ELF64文件，数据是64位，采用补码为2的小端法存储，系统架构为X86-64，该文件为REL，可重定位文件，程序入口点地址为0x0，节头部表条目数量为14，大小为64字节，偏移量为1240字节，还有符号表等信息。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image052.jpg" alt="img"></p>
-<p>图 4‑4 ELF 头</p>
-<p>再是节头部表：描述目标文件的节，如图4-4所示。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image054.jpg" alt="img"></p>
-<p>图 4‑5 节头部表信息</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image030.png" alt="img"></p>
+<center>图 4‑1 Ubutun下汇编的命令及汇编生成hello.o文件</center>
+
+<h2 id="4-3-可重定位目标elf格式"><a href="#4-3-可重定位目标elf格式" class="headerlink" title="4.3 可重定位目标elf格式"></a>4.3 可重定位目标elf格式</h2><p>​    分析hello.o的ELF格式，用readelf等列出其各节的基本信息，特别是重定位项目分析。</p>
+<p>​    Ubutun终端输入以下命令：linux&gt; readelf –a hello.o &gt; hello.elf</p>
+<p>​    readelf读出hello.o——ELF可重定位目标文件所有信息，保存到hello.elf文件中，便于查看。</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image031.png" alt="img"></p>
+<center>图 4‑2 readelf读取信息并保持到hello.elf文件</center>
+
+<p>​    先回顾典型ELF可重定位目标文件的格式，如图4-2所示。</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image032.png" alt="img"></p>
+<center>图 4‑3 典型ELF可重定位目标文件</center>
+
+<p>​    然后打开hello.elf文件分析。</p>
+<p>​    先是ELF 头：描述文件的总体格式。它还包括程序的入口点，也就是当程序运行时要执行的第一条指令的地址。如图4-3所示。我们对此分析：首先是magic，</p>
+<p>​    一个16字节的序列，描述了生成该文件的系统的字的大小和字节顺序。ELF 头剩下的部分包含帮助链接器语法分析和解释目标文件的信息， 其中包括 ELF 头的大小、目标文件的类型、 机器类型、字节头部表（section header table）的文件偏移，以及节头部表中条目的大小和数量等信息。观察其指明了该ELF文件类别为ELF64文件，数据是64位，采用补码为2的小端法存储，系统架构为X86-64，该文件为REL，可重定位文件，程序入口点地址为0x0，节头部表条目数量为14，大小为64字节，偏移量为1240字节，还有符号表等信息。</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image033.png" alt="img"></p>
+<center>图 4‑4 ELF 头</center>
+
+<p>​    再是节头部表：描述目标文件的节，如图4-4所示。</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image034.png" alt="img"></p>
+<center>图 4‑5 节头部表信息</center>
+
 <p>​    节头部表也是段表，我们观察到有14个节，其给出各个节的节名，在文件中的偏移、大小、访问属性、对齐信息等等。这些数据是由段表中一系列段描述符承载完成的，其中最为重要的就是下一步链接所要使用的信息：该段符号表的位置及重定位表的信息。 </p>
 <p>​    下面针对其比较重要的几个节来说明：</p>
-<p>.text节: 存储已编译程序的机器代码，大小为0x92字节，偏移量为0x0;</p>
-<p>.rodate节: 存储只读数据，如字符串常量，大小为0x33字节，偏移量为0xd8。</p>
-<p>.data节: 存储已初始化的全局和静态C变量，大小为0x0字节，偏移量为0xd2。</p>
-<p>.bss节: 存储未初始化的全局和静态C变量，以及所有被初始化为0的全局或静态变量，大小为0x0字节，偏移量为0xd2。</p>
-<p>.symtab节: 一个符号表，它存放在程序中定义和引用的函数和全局变量的信息，大小为0x1b0字节，偏移量为0x180。</p>
-<p>.strtab节: 一个字符串表，其内容包括.symtab和.debug节中的符号表，以及节头部中的节名字，大小为0x48字节，偏移量为0x340。</p>
-<p>.rela.text节：一个.text节中位置的列表，当链接器把这个目标文件和其他文件组合时，需要修改这信息。大小为0xc0字节，偏移量为0x388。</p>
-<p>再是重定位节：</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image056.jpg" alt="img"></p>
-<p>图 4‑6 重定位节</p>
-<p>先介绍重定位的概念：重定位是连接符号引用与符号定义的过程。例如，程序调用函数时，关联的调用指令必须在执行时将控制权转移到正确的目标地址。可重定位文件必须包含说明如何修改其节内容的信息。通过此信息，可执行文件和共享目标文件可包含进程的程序映像的正确信息。重定位项即是这些数据。该信息就存储在重定位节中。</p>
-<p>重定位节’.rela.text’：一个.text节中位置的列表，包含.text 节中需要进行重定位的信息，当链接器把这个目标文件和其他文件组合时，需要修改这些位置。一般而言，任何调用外部函数或者应用全局变量的指令都需要修改。另一方面，调用本地函数的指令则不需要修改，就如图4-6所示，hello.o的重定位信息：各个节的符号名称、符号值、加数、类型、偏移量、信息等等。</p>
-<p>最后是符号表：一个符号表，用来存放程序中定义和引用的函数和全局变量的信息。每个重定位文件都在.symtab中都有符号表，需要引用的符号都在其中声明。如图4-7所示，里面有我们在hello.c中看到几个函数的符号：exit，printf，atoi等等。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image058.jpg" alt="img"></p>
-<p>图 4‑7 符号表</p>
-<h2 id="4-4-Hello-o的结果解析"><a href="#4-4-Hello-o的结果解析" class="headerlink" title="4.4 Hello.o的结果解析"></a>4.4 Hello.o的结果解析</h2><p>linux&gt;objdump -d -r hello.o，如图4-8所示。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image060.jpg" alt="img"></p>
-<p>图 4‑8 objump反汇编并保存为hello.txt文件</p>
+<p>​    .text节: 存储已编译程序的机器代码，大小为0x92字节，偏移量为0x0;</p>
+<p>​    .rodate节: 存储只读数据，如字符串常量，大小为0x33字节，偏移量为0xd8。</p>
+<p>​    .data节: 存储已初始化的全局和静态C变量，大小为0x0字节，偏移量为0xd2。</p>
+<p>​    .bss节: 存储未初始化的全局和静态C变量，以及所有被初始化为0的全局或静态变量，大小为0x0字节，偏移量为0xd2。</p>
+<p>​    .symtab节: 一个符号表，它存放在程序中定义和引用的函数和全局变量的信息，大小为0x1b0字节，偏移量为0x180。</p>
+<p>​    .strtab节: 一个字符串表，其内容包括.symtab和.debug节中的符号表，以及节头部中的节名字，大小为0x48字节，偏移量为0x340。</p>
+<p>​    .rela.text节：一个.text节中位置的列表，当链接器把这个目标文件和其他文件组合时，需要修改这信息。大小为0xc0字节，偏移量为0x388。</p>
+<p>​    再是重定位节：</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image035.png" alt="img"></p>
+<center>图 4‑6 重定位节</center>
+
+<p>​    先介绍重定位的概念：重定位是连接符号引用与符号定义的过程。例如，程序调用函数时，关联的调用指令必须在执行时将控制权转移到正确的目标地址。可重定位文件必须包含说明如何修改其节内容的信息。通过此信息，可执行文件和共享目标文件可包含进程的程序映像的正确信息。重定位项即是这些数据。该信息就存储在重定位节中。</p>
+<p>​    重定位节’.rela.text’：一个.text节中位置的列表，包含.text 节中需要进行重定位的信息，当链接器把这个目标文件和其他文件组合时，需要修改这些位置。一般而言，任何调用外部函数或者应用全局变量的指令都需要修改。另一方面，调用本地函数的指令则不需要修改，就如图4-6所示，hello.o的重定位信息：各个节的符号名称、符号值、加数、类型、偏移量、信息等等。</p>
+<p>​    最后是符号表：一个符号表，用来存放程序中定义和引用的函数和全局变量的信息。每个重定位文件都在.symtab中都有符号表，需要引用的符号都在其中声明。如图4-7所示，里面有我们在hello.c中看到几个函数的符号：exit，printf，atoi等等。</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image036.png" alt="img"></p>
+<center>图 4‑7 符号表</center>
+
+<h2 id="4-4-Hello-o的结果解析"><a href="#4-4-Hello-o的结果解析" class="headerlink" title="4.4 Hello.o的结果解析"></a>4.4 Hello.o的结果解析</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line">linux&gt;objdump -d -r hello.o</span><br></pre></td></tr></table></figure>
+
+<p>​    如图4-8所示。</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image037.png" alt="img"></p>
+<center>图 4‑8 objump反汇编并保存为hello.txt文件</center>
+
 <p>​    反汇编得到文件后，打开查看：</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image062.jpg" alt="img"></p>
-<p>图 4‑9 hello.o反汇编文件内容</p>
-<p>发现与我们在第3章编译得到的hello.s的汇编代码并不一样，有很多差异。 </p>
-<p>首先我们发现其开头表明其是由hello.o文件反汇编得到，文件格式为elf64-x86-64，而不是我们然后我们之前hello.s文件的存储的字符串常量.LC0和.LC1，在hello.s中，访问全局变量是通过字节使用声明中的助记符+off+%rip来实现的；而在这里hello.o反汇编代码中，访问全局变量是通过用$0x0(%rip)来确定，其因为.data与.rodata段中的数据地址在链接运行后时才确定的，因此，对全局变量的访问需要重定位，全局变量的访问需要添加重定位条目。</p>
-<p>此外，其左侧多了一栏地址（格式为xx:）,以及一串十六进制数，如4: 55，4：表示地址，55则表示指令的字节级编码，是由汇编指令翻译而来，其再翻译成二进制数，就是低级语言，机器指令或是机器语言。以sub $0x20,%rsp这条汇编指令举例，其意思为将寄存器%rsp存储的值减去-0x20然后存储在寄存器内，其对应的指令的字节级编码为48 83 ec 20。我们这里解析一下这个指令编码，其与汇编代码的对应关系。每条指令需要1-10个字节不等，这取决于需要哪些字段，此外每个字节编码都只有唯一的结束，任何一个字节序列要么就是一个为的指令序列的编码，要么就不是一个合法的字节序列。</p>
-<p>指令的编码为48 83 ec 20共8位，按顺序放。</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image038.png" alt="img"></p>
+<center>图 4‑9 hello.o反汇编文件内容</center>
+
+<p>​    发现与我们在第3章编译得到的hello.s的汇编代码并不一样，有很多差异。 </p>
+<p>​    首先我们发现其开头表明其是由hello.o文件反汇编得到，文件格式为elf64-x86-64，而不是我们然后我们之前hello.s文件的存储的字符串常量.LC0和.LC1，在hello.s中，访问全局变量是通过字节使用声明中的助记符+off+%rip来实现的；而在这里hello.o反汇编代码中，访问全局变量是通过用$0x0(%rip)来确定，其因为.data与.rodata段中的数据地址在链接运行后时才确定的，因此，对全局变量的访问需要重定位，全局变量的访问需要添加重定位条目。</p>
+<p>​    此外，其左侧多了一栏地址（格式为xx:）,以及一串十六进制数，如4: 55，4：表示地址，55则表示指令的字节级编码，是由汇编指令翻译而来，其再翻译成二进制数，就是低级语言，机器指令或是机器语言。以sub $0x20,%rsp这条汇编指令举例，其意思为将寄存器%rsp存储的值减去-0x20然后存储在寄存器内，其对应的指令的字节级编码为48 83 ec 20。我们这里解析一下这个指令编码，其与汇编代码的对应关系。每条指令需要1-10个字节不等，这取决于需要哪些字段，此外每个字节编码都只有唯一的结束，任何一个字节序列要么就是一个为的指令序列的编码，要么就不是一个合法的字节序列。</p>
+<p>​    指令的编码为48 83 ec 20共8位，按顺序放。</p>
 <table>
 <thead>
 <tr>
@@ -565,66 +577,84 @@
 <td align="center">0</td>
 </tr>
 </tbody></table>
-<p>每条指令的第一个字节表明指令的类型，这里就是0、1两位存储的一个字节，这个字节分为两个部分，每部分4位：高4位是代码部分，低4位是功能部分，这里0存储的就是高4位代码部分，表明其是什么操作，整数操作、分支条件传送或是函数操作等等；这里1存储的就是低4位功能部分，0里面存储的4表示整数操作，8表示是整数操作里面的减法操作。再接着往下看2、3位存储的字节，是寄存器指示符字节，指定一个或两个寄存器，根据指令类型，其可以指定用于数据源和目的寄存器，或是用地址计算的基址寄存器，其表明使用的寄存器的编号，如3位存储的3为该指令集下寄存器%rsp的相对应的标识符。再往下看是一个常数字，6、7两位存储的0x20，表明要减去立即数0x20。同时我们可以看到，地址8的下一条语句的地址是c，而不是9，有些奇怪，其实这里的地址是等于上一条语句的地址+指令的字节数，这里上一条语句地址为8，指令的字节数为4，8+4=12，反以十六进制就是12。</p>
+<p>​    每条指令的第一个字节表明指令的类型，这里就是0、1两位存储的一个字节，这个字节分为两个部分，每部分4位：高4位是代码部分，低4位是功能部分，这里0存储的就是高4位代码部分，表明其是什么操作，整数操作、分支条件传送或是函数操作等等；这里1存储的就是低4位功能部分，0里面存储的4表示整数操作，8表示是整数操作里面的减法操作。再接着往下看2、3位存储的字节，是寄存器指示符字节，指定一个或两个寄存器，根据指令类型，其可以指定用于数据源和目的寄存器，或是用地址计算的基址寄存器，其表明使用的寄存器的编号，如3位存储的3为该指令集下寄存器%rsp的相对应的标识符。再往下看是一个常数字，6、7两位存储的0x20，表明要减去立即数0x20。同时我们可以看到，地址8的下一条语句的地址是c，而不是9，有些奇怪，其实这里的地址是等于上一条语句的地址+指令的字节数，这里上一条语句地址为8，指令的字节数为4，8+4=12，反以十六进制就是12。</p>
 <p>​    下面还有一个明显区别就是，分支转移。我们在第3章可以观察到其发生跳转都是跳转到另一段中，使用助记符.LX，例如.L2，.L4等。而在反汇编代码中，我们可以发现转跳指令语句中目的地址使用的是实际地址，如&lt;main+0x20&gt;等等。如图4-10所示。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image064.jpg" alt="img"></p>
-<p>图 4‑10 hello.o与hello.s跳转转移的对应</p>
-<p>再看函数调用也有区别，在hello.s文件中，函数调用call的对象直接就是调用函数名称，而在hello.o反汇编中，call 的对象却是目标地址，而不是之前的函数名称，而是当前下一条指令地址，但这并不是目标函数的地址，其是因为hello.c中调用的函数不是本地函数，而是共享库中的函数，需要通过动态链接器要将共享库与程序链接后才能确定函数的运行时真正的地址，而在hello.o可重定位文件生成为机器语言的时候，这些地址并不确定，所以被称为可重定位文件，对于这些不确定地址的函数调用，将其call指令后的相对地址设置为全目标地址正是下一条指令，然后在.rela.text节中为其添加重定位条目，在连接阶段静态链接会重定位。如图4-11所示</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image066.jpg" alt="img"></p>
-<p>图 4‑11 函数调用的对应</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image039.png" alt="img"></p>
+<center>图 4‑10 hello.o与hello.s跳转转移的对应</center>
+
+<p>​    再看函数调用也有区别，在hello.s文件中，函数调用call的对象直接就是调用函数名称，而在hello.o反汇编中，call 的对象却是目标地址，而不是之前的函数名称，而是当前下一条指令地址，但这并不是目标函数的地址，其是因为hello.c中调用的函数不是本地函数，而是共享库中的函数，需要通过动态链接器要将共享库与程序链接后才能确定函数的运行时真正的地址，而在hello.o可重定位文件生成为机器语言的时候，这些地址并不确定，所以被称为可重定位文件，对于这些不确定地址的函数调用，将其call指令后的相对地址设置为全目标地址正是下一条指令，然后在.rela.text节中为其添加重定位条目，在连接阶段静态链接会重定位。如图4-11所示</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image040.png" alt="img"></p>
+<center>图 4‑11 函数调用的对应</center>
+
 <p>​    </p>
-<h2 id="4-5-本章小结"><a href="#4-5-本章小结" class="headerlink" title="4.5 本章小结"></a>4.5 本章小结</h2><p>本章先是介绍了汇编的概念及作用，汇编器as将前面得到汇编文件hello.s从汇编语言指令翻译成机器语言指令，把这些指令打包成一种叫做可重定位目标程序的格式hello.o文件，分析了elf文件的内容，包含的elf头、符号表、.text节等等各种信息，说明其为什么是可重定位文件，其还要经过后续的链接重定位才可运行。然后比较了hello.o饭汇编文件与hello.s编译文件的差异，同为汇编代码，却在表达上有种种差异，如条件转移，函数调用，同时也讲明了汇编代码与机器代码的映射，指令字节级编码的概念。</p>
+<h2 id="4-5-本章小结"><a href="#4-5-本章小结" class="headerlink" title="4.5 本章小结"></a>4.5 本章小结</h2><p>​    本章先是介绍了汇编的概念及作用，汇编器as将前面得到汇编文件hello.s从汇编语言指令翻译成机器语言指令，把这些指令打包成一种叫做可重定位目标程序的格式hello.o文件，分析了elf文件的内容，包含的elf头、符号表、.text节等等各种信息，说明其为什么是可重定位文件，其还要经过后续的链接重定位才可运行。然后比较了hello.o饭汇编文件与hello.s编译文件的差异，同为汇编代码，却在表达上有种种差异，如条件转移，函数调用，同时也讲明了汇编代码与机器代码的映射，指令字节级编码的概念。</p>
 <p>（第4章1分）</p>
-<h1 id="第5章-链接"><a href="#第5章-链接" class="headerlink" title="第5章 链接"></a>第5章 链接</h1><h2 id="5-1-链接的概念与作用"><a href="#5-1-链接的概念与作用" class="headerlink" title="5.1 链接的概念与作用"></a>5.1 链接的概念与作用</h2><p>链接是链接器（ld）将各种代码和数据片段收集并组合成为一个单一文件的过程，这个文件可被加载（复制）到内存并执行。链接可以执行于编译时，也就是在源代码被翻译成机器代码时；也可以执行与加载时，也就是在程序被加载器加载到内存并执行时；甚至执行于运行时，也就是有应用程序来执行。链接由链接器的程序自动执行的。</p>
-<p>链接器在软件开发中扮演着一个关键的角色，因为他们使得分离编译成为可能。我们不用讲一个大型的应用程序组织为一个巨大的源文件，而是可以把它分解为更小、更好管理的模块，可以独立地修改和编译这些模块。当我们改变这些模块的一个时，只需要简单地重新编译它，并重新链接应用，而不必重新编译其他文件。</p>
-<p>举例：hello程序调用了printf函数，它是每个C编译器都提供的标准C库中的一个函数。printf函数存在于一个名为printf.o的单独预编译好了的目标文件中，而这个文件必须以某种方式合并到我们的hello.o程序中。链接器（ld）就负责处理这种合并。结果就是得到hello文件，他是一个可执行目标文件，可以被加载到你内存中，由系统执行。</p>
-<h2 id="5-2-在Ubuntu下链接的命令"><a href="#5-2-在Ubuntu下链接的命令" class="headerlink" title="5.2 在Ubuntu下链接的命令"></a>5.2 在Ubuntu下链接的命令</h2><p>Linux&gt;ld -o hello -dynamic-linker /lib64/ld-linux-x86-64.so.2</p>
-<p> /usr/lib/x86_64-linux-gnu/crt1.o /usr/lib/x86_64-linux-gnu/crti.o hello.o </p>
-<p>/usr/lib/x86_64-linux-gnu/libc.so /usr/lib/x86_64-linux-gnu/crtn.o(注意：其是连续的而不是隔开的的，如图5-1所示。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image068.jpg" alt="img"></p>
-<p>图 5‑1 链接指令及链接生成的hello可执行目标文件</p>
-<h2 id="5-3-可执行目标文件hello的格式"><a href="#5-3-可执行目标文件hello的格式" class="headerlink" title="5.3 可执行目标文件hello的格式"></a>5.3 可执行目标文件hello的格式</h2><p>Ubutun终端输入下列命令，将其保存到hello2.elf文件中，与之前读取hello.elf区别开。</p>
-<p>linux&gt; readelf -a hello &gt; hello2.elf</p>
-<p>同样先回顾一下典型的可执行目标文件的ELF格式，如图5-2所示。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image070.jpg" alt="img"></p>
-<p>图 5‑2 典型的ELF可执行目标文件</p>
-<p>可以发现可执行目标文件的ELF格式与可重定位目标文件的ELF格式基本一致，但其少了部分内容，少了rela.text等等，虽少了这些内容，但hello的ELF文件内容较hello.o多了许多，内容上有差异，我们将hello和hello.o对照观察，有些差异，如图5-3所示。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image072.jpg" alt="img"></p>
-<p>图 5‑3 hello文件elf格式与hello.o文件elf格式对比</p>
+<h1 id="第5章-链接"><a href="#第5章-链接" class="headerlink" title="第5章 链接"></a>第5章 链接</h1><h2 id="5-1-链接的概念与作用"><a href="#5-1-链接的概念与作用" class="headerlink" title="5.1 链接的概念与作用"></a>5.1 链接的概念与作用</h2><p>​    链接是链接器（ld）将各种代码和数据片段收集并组合成为一个单一文件的过程，这个文件可被加载（复制）到内存并执行。链接可以执行于编译时，也就是在源代码被翻译成机器代码时；也可以执行与加载时，也就是在程序被加载器加载到内存并执行时；甚至执行于运行时，也就是有应用程序来执行。链接由链接器的程序自动执行的。</p>
+<p>​    链接器在软件开发中扮演着一个关键的角色，因为他们使得分离编译成为可能。我们不用讲一个大型的应用程序组织为一个巨大的源文件，而是可以把它分解为更小、更好管理的模块，可以独立地修改和编译这些模块。当我们改变这些模块的一个时，只需要简单地重新编译它，并重新链接应用，而不必重新编译其他文件。</p>
+<p>​    举例：hello程序调用了printf函数，它是每个C编译器都提供的标准C库中的一个函数。printf函数存在于一个名为printf.o的单独预编译好了的目标文件中，而这个文件必须以某种方式合并到我们的hello.o程序中。链接器（ld）就负责处理这种合并。结果就是得到hello文件，他是一个可执行目标文件，可以被加载到你内存中，由系统执行。</p>
+<h2 id="5-2-在Ubuntu下链接的命令"><a href="#5-2-在Ubuntu下链接的命令" class="headerlink" title="5.2 在Ubuntu下链接的命令"></a>5.2 在Ubuntu下链接的命令</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line">Linux&gt;ld -o hello -dynamic-linker /lib64/ld-linux-x86<span class="number">-64.</span>so<span class="number">.2</span></span><br><span class="line"></span><br><span class="line"> /usr/lib/x86_64-linux-gnu/crt1.o /usr/lib/x86_64-linux-gnu/crti.o hello.o </span><br><span class="line"></span><br><span class="line">/usr/lib/x86_64-linux-gnu/libc.so /usr/lib/x86_64-linux-gnu/crtn.o</span><br></pre></td></tr></table></figure>
+
+<p>(注意：其是连续的而不是隔开的的，如图5-1所示。</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image041.png" alt="img"></p>
+<center>图 5‑1 链接指令及链接生成的hello可执行目标文件</center>
+
+<h2 id="5-3-可执行目标文件hello的格式"><a href="#5-3-可执行目标文件hello的格式" class="headerlink" title="5.3 可执行目标文件hello的格式"></a>5.3 可执行目标文件hello的格式</h2><p>​    Ubutun终端输入下列命令，将其保存到hello2.elf文件中，与之前读取hello.elf区别开。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">linux&gt; readelf -a hello &gt; hello2.elf</span><br></pre></td></tr></table></figure>
+
+
+
+<p>​    同样先回顾一下典型的可执行目标文件的ELF格式，如图5-2所示。</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image042.png" alt="img"></p>
+<center>图 5‑2 典型的ELF可执行目标文件</center>
+
+<p>​    可以发现可执行目标文件的ELF格式与可重定位目标文件的ELF格式基本一致，但其少了部分内容，少了rela.text等等，虽少了这些内容，但hello的ELF文件内容较hello.o多了许多，内容上有差异，我们将hello和hello.o对照观察，有些差异，如图5-3所示。</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image043.png" alt="img"></p>
+<center>图 5‑3 hello文件elf格式与hello.o文件elf格式对比</center>
+
 <p>​    从hello文件elf格式与hello.o文件的elf格式的对比，可以观察到，文件类型由hello.o的可重定位文件（REL）变为hello的可执行文件（EXEC），入口点地址也由0变为0x4010f0，程序头起点也由0变为64字节，节头部的开始由1240变为14208，</p>
-<p>节的数量和程序头的数量都变多了。</p>
-<p>下面查看hello的ELF文件其各段的基本信息，包括各段的起始地址、大小、偏移量、对齐等信息等，如图5-4及5-5所示。<img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image074.jpg" alt="img"></p>
-<p>图 5‑4 hello的ELF格式的节的信息1 </p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image076.jpg" alt="img"></p>
-<p>图 5‑5 hello的ELF格式的节的信息2</p>
+<p>​    节的数量和程序头的数量都变多了。</p>
+<p>​    下面查看hello的ELF文件其各段的基本信息，包括各段的起始地址、大小、偏移量、对齐等信息等，如图5-4及5-5所示。<img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image044.png" alt="img"></p>
+<center>图 5‑4 hello的ELF格式的节的信息1 </center>
+
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image044.png" alt="img"></p>
+<center>图 5‑5 hello的ELF格式的节的信息2</center>
+
 <p>​    hello文件的ELF格式还较hello.o文件的ELF格式多出了一个程序头的内容：程序头表描述了可执行文件的连续片与连续内存段之间的映射关系，根据程序表头的内容，可以根据可执行文件的内容初始化两个内存片段。如下图5-6所示。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image078.jpg" alt="img"></p>
-<p>图 5‑6 hello文件程序头的内容</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image046.png" alt="img"></p>
+<center>图 5‑6 hello文件程序头的内容</center>
+
 <p>​    此外还多了段节的内容以及动态节的内容，如图5-7所示。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image080.jpg" alt="img"></p>
-<p>图 5‑7 段节及动态节的内容</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image047.png" alt="img"></p>
+<center>图 5‑7 段节及动态节的内容</center>
+
 <p>可重定位节的内容也发生了改变，多了我们hello中所调用系统库内函数的内容。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image082.jpg" alt="img"></p>
-<p>图 5‑8 重定位节的内容</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image048.png" alt="img"></p>
+<center>图 5‑8 重定位节的内容</center>
+
 <p>​    此外，符号表的内容也大大增多，包含51项，较原来的18项大大增多。如下图5-9所示。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image084.jpg" alt="img"></p>
-<p>图 5‑9 符号表的内容</p>
-<h2 id="5-4-hello的虚拟地址空间"><a href="#5-4-hello的虚拟地址空间" class="headerlink" title="5.4 hello的虚拟地址空间"></a>5.4 hello的虚拟地址空间</h2><p>使用edb加载hello，查看本进程的虚拟地址空间各段信息，并与5.3对照分析说明。  </p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image049.png" alt="img"></p>
+<center>图 5‑9 符号表的内容</center>
+
+<h2 id="5-4-hello的虚拟地址空间"><a href="#5-4-hello的虚拟地址空间" class="headerlink" title="5.4 hello的虚拟地址空间"></a>5.4 hello的虚拟地址空间</h2><p>​    使用edb加载hello，查看本进程的虚拟地址空间各段信息，并与5.3对照分析说明。  </p>
 <p>edb运行hello程序，打开data dump可查看hello进程的虚拟地址空间各段信息，如图5-10所示。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image086.jpg" alt="img"></p>
-<p>图 5‑10 hello的虚拟地址空间</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image050.png" alt="img"></p>
+<center>图 5‑10 hello的虚拟地址空间</center>
+
 <p>​     观察发现程序被分配到虚拟地址为0x0400000~0x0405000的虚拟空间上，同时我们观察到点运行后，跳转到地址0x0401000，刚好与我们刚才elf文件（图5-3所示）读出信息，程序入口点地址为0x401000一致，结束地址为0x0401ff0，各个段的顺序与节表头的顺序一一对应。</p>
 <p>​    举例说明：</p>
 <p>​    根据ELF文件读出信息查看：先是ELF头：</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image088.jpg" alt="img"></p>
-<p>图 5‑11 ELF头从0x401000开始</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image051.png" alt="img"></p>
+<center>图 5‑11 ELF头从0x400000开始</center>
+
 <p>​    再是.interp段的地址，存储着动态链接共享库路径：</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image090.jpg" alt="img"></p>
-<p>图 5‑12 .interp从0x4002e0开始</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image051.png" alt="img"></p>
+<center>图 5‑12 .interp从0x4002e0开始</center>
+
 <p>​    此外，我们再查看ELF 格式文件中的程序头，程序头表在执行的时候被使用，通过表中的信息我们可以得知内存与段之间的映射关系，表中得到每一个项提供了各段的基本信息，如图5-11所示，其中offset表示偏移，birtAddr就表示虚拟地址的起始，physAddr表示物理地址的起始，FileSiz表示目标文件中的段大小，MemSiz表示内存中的段大小，Flags表示运行时访问权限，最后Align表示对齐。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image092.jpg" alt="img"></p>
-<p>图 5‑13 程序表头的内容</p>
-<p>程序表头主要有以下几个内容：</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image053.png" alt="img"></p>
+<center>图 5‑13 程序表头的内容</center>
+
+<p>​    程序表头主要有以下几个内容：</p>
 <ol>
 <li><p>PHDR：保存程序头表。</p>
 </li>
@@ -646,44 +676,52 @@
 <li><p>GNU_RELRO： 指定在重定位结束之后那些内存区域是需要设置只读。</p>
 </li>
 </ol>
-<h2 id="5-5-链接的重定位过程分析"><a href="#5-5-链接的重定位过程分析" class="headerlink" title="5.5 链接的重定位过程分析"></a>5.5 链接的重定位过程分析</h2><p>objdump -d -r hello 分析hello与hello.o的不同，说明链接的过程。</p>
-<p>在linux终端下输入下列命令：</p>
-<p>linux &gt; objdump –d –r hello &gt; hello2.txt</p>
-<p>将hello可执行文件反汇编的内容保存到hello2.txt文件中，与hello.o文件做区别，如图5-12所示。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image094.jpg" alt="img"></p>
-<p>图 5‑14 hello文件反汇编得到hello2.txt</p>
-<p>然后将二者比对来看： </p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image096.jpg" alt="img"></p>
-<p>图 5‑15 hello.o文件与hello文件反汇编对比  </p>
-<p>我们发现，程序入口地址其由原来的0变成0x401000，此外也不是以mian函数开始，而是以init函数开始，地址在链接器重定位后，变成了CPU实际分配的虚拟地址，其地址计算是通过0x040000+数据所在节的地址+再加节内偏移量即可得出；此外还多了许多我们在hello里面调用函数的内容，像是puts、getchar等等库文件的内容，如图5-14所示，这是我们之前hello.o反汇编文件里面所没有看到，变化这样一来也是验证了链接，将共享库的内容与hello.o的内容链接、合并了进来。其中</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image098.jpg" alt="img"></p>
-<p>图 5‑16 hello反汇编文件调用函数的内容</p>
-<p>此外，还多出了一些节的内容，像是_init等等。多出来节的作用：</p>
-<p>.init: 程序初始化执行的代码；</p>
-<p>.plt: 静态连接的连接表；</p>
-<p>.plt.got: 保存函数引用的地址；</p>
-<p>.fini: 程序正常终止时执行的代码。</p>
-<p>然后介绍重定位的概念：</p>
-<p>重定位：在连接阶段，连接器将所有的相同类型的节合并为同一类型的新的聚合节，然后连接器将运行时内存地址赋值给新的聚合节，赋值给输入模块定义的每个节，以及以及赋值给输入模块定义的每个符号。当这一步完成时，程序中的每条指令和全局变量都有唯一的运行时内存地址。</p>
-<p>重定位节中的符号引用：在这一步中，连接器修改代码节的符号节中的引用，使它们指向正确的运行时地址，完成这一步，连接器需要依赖可重定位目标模块中称为重定位条目。</p>
-<p>给出重定位条目的数据结构</p>
-<p>typedef struct{</p>
-<p>​    long   offset;             //节内偏移</p>
-<p>​    long   type:32,          //重定位类型</p>
-<p>​         symbol:32;         //说绑定的符号</p>
-<p>​    long   addend;           //偏移调整</p>
-<p>}Elf64_Rela</p>
-<p>我们先看hello.o文件的重定位节的内容，然后举例说明</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image100.jpg" alt="img"></p>
-<p>图 5‑17 hello.o重定位条目与hello.o反汇编文件的对应</p>
+<h2 id="5-5-链接的重定位过程分析"><a href="#5-5-链接的重定位过程分析" class="headerlink" title="5.5 链接的重定位过程分析"></a>5.5 链接的重定位过程分析</h2><p>​    objdump -d -r hello 分析hello与hello.o的不同，说明链接的过程。</p>
+<p>​    在linux终端下输入下列命令：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">linux &gt; objdump –d –r hello &gt; hello2.txt</span><br></pre></td></tr></table></figure>
+
+<p>​    将hello可执行文件反汇编的内容保存到hello2.txt文件中，与hello.o文件做区别，如图5-12所示。</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image054.png" alt="img"></p>
+<center>图 5‑14 hello文件反汇编得到hello2.txt</center>
+
+<p>​    然后将二者比对来看： </p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image055.png" alt="img"></p>
+<center>图 5‑15 hello.o文件与hello文件反汇编对比 </center>
+
+<p>​    我们发现，程序入口地址其由原来的0变成0x401000，此外也不是以mian函数开始，而是以init函数开始，地址在链接器重定位后，变成了CPU实际分配的虚拟地址，其地址计算是通过0x040000+数据所在节的地址+再加节内偏移量即可得出；此外还多了许多我们在hello里面调用函数的内容，像是puts、getchar等等库文件的内容，如图5-14所示，这是我们之前hello.o反汇编文件里面所没有看到，变化这样一来也是验证了链接，将共享库的内容与hello.o的内容链接、合并了进来。其中</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image056.png" alt="img"></p>
+<center>图 5‑16 hello反汇编文件调用函数的内容</center>
+
+<p>​    此外，还多出了一些节的内容，像是_init等等。多出来节的作用：</p>
+<p>​    .init: 程序初始化执行的代码；</p>
+<p>​    .plt: 静态连接的连接表；</p>
+<p>​    .plt.got: 保存函数引用的地址；</p>
+<p>​    .fini: 程序正常终止时执行的代码。</p>
+<p>​    然后介绍重定位的概念：</p>
+<p>​    重定位：在连接阶段，连接器将所有的相同类型的节合并为同一类型的新的聚合节，然后连接器将运行时内存地址赋值给新的聚合节，赋值给输入模块定义的每个节，以及以及赋值给输入模块定义的每个符号。当这一步完成时，程序中的每条指令和全局变量都有唯一的运行时内存地址。</p>
+<p>​    重定位节中的符号引用：在这一步中，连接器修改代码节的符号节中的引用，使它们指向正确的运行时地址，完成这一步，连接器需要依赖可重定位目标模块中称为重定位条目。</p>
+<p>​    给出重定位条目的数据结构</p>
+<p>​    typedef struct{</p>
+<p>​        long   offset;             //节内偏移</p>
+<pre><code>    long   type:32,          //重定位类型
+</code></pre>
+<p>​             symbol:32;         //说绑定的符号</p>
+<pre><code>    long   addend;           //偏移调整
+</code></pre>
+<p>​    }Elf64_Rela</p>
+<p>​    我们先看hello.o文件的重定位节的内容，然后举例说明</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image057.png" alt="img"></p>
+<center>图 5‑17 hello.o重定位条目与hello.o反汇编文件的对应</center>
+
 <p>​    图5-17中R_X86_64_PC32：32位相对地址引用，一个PC相对地址就是据程序计数器（PC）的当前运行值的偏移量。当CPU执行一条使用PC相对寻址的指令时，它就将在指令中编码的32位值加上PC的当前运行时值，得到有效地址，PC值通常是下一条指令在内存中的地址。图5-17中.rodata-4就是PC相对寻址。</p>
 <p>​    那么符号（symbol）puts偏移（offset）是21，类型（type）是R_X86_64_PLT32，</p>
 <p>addend为-4；</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image102.jpg" alt="img"></p>
-<p>图5‑18puts函数在hello文件里的地址</p>
-<p>当运行到call puts函数这条语句的PC值为下一条语句的地址：0x40114a，再看call这条机器指令的字节级编码：e8表是call，后面的46 ff ff ff则是相对寻址的偏移量</p>
-<p>小端存储，为0xffffff46 = -0xba</p>
-<p>故call 指令后面的地址值为0x40 114a-0xba=0x401090。</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image058.png" alt="img"></p>
+<center>图5‑18puts函数在hello文件里的地址</center>
+
+<p>​    当运行到call puts函数这条语句的PC值为下一条语句的地址：0x40114a，再看call这条机器指令的字节级编码：e8表是call，后面的46 ff ff ff则是相对寻址的偏移量</p>
+<p>​    小端存储，为0xffffff46 = -0xba</p>
+<p>​    故call 指令后面的地址值为0x40 114a-0xba=0x401090。</p>
 <h2 id="5-6-hello的执行流程"><a href="#5-6-hello的执行流程" class="headerlink" title="5.6 hello的执行流程"></a>5.6 hello的执行流程</h2><p>使用edb执行hello，从加载hello到_start，到call main,以及程序终止的所有过程。</p>
 <table>
 <thead>
@@ -749,9 +787,9 @@
 <td>0x00007f69325cf390</td>
 </tr>
 </tbody></table>
-<h2 id="5-7-Hello的动态链接分析"><a href="#5-7-Hello的动态链接分析" class="headerlink" title="5.7 Hello的动态链接分析"></a>5.7 Hello的动态链接分析</h2><p>分析hello程序的动态链接项目，通过edb调试，分析在dl_init前后，这些项目的内容变化。要截图标识说明。</p>
-<p>动态链接的概念：</p>
-<p>动态链接，在可执行文件装载时或运行时，由操作系统的装载程序加载库。大多数操作系统将解析外部引用（比如库）作为加载过程的一部分。</p>
+<h2 id="5-7-Hello的动态链接分析"><a href="#5-7-Hello的动态链接分析" class="headerlink" title="5.7 Hello的动态链接分析"></a>5.7 Hello的动态链接分析</h2><p>​    分析hello程序的动态链接项目，通过edb调试，分析在dl_init前后，这些项目的内容变化。要截图标识说明。</p>
+<p>​    动态链接的概念：</p>
+<p>​    动态链接，在可执行文件装载时或运行时，由操作系统的装载程序加载库。大多数操作系统将解析外部引用（比如库）作为加载过程的一部分。</p>
 <p>以下两个概念较为重要</p>
 <ol>
 <li><p>装载时重定位：对于动态共享库中的函数，在编译阶段无法获得其真实地址；在动态连接阶段，连接器将共享函数设置一个重定位项，其中包含重定位信息（ADDR(.plt)+offset）和符号表信息，然后在运行时根据重定位项信息才能确定其真实地址。</p>
@@ -759,22 +797,26 @@
 <li><p>PIC（地址无关代码）：动态链接库希望所有进程共享指令段而各自拥有数据段的私有副本，为了实现这个目标，就要采用与地址无关代码的技术。该实现的基本思想是：把指令中需要修改的部分分离出来，跟数据部分放在一起，这样指令部分就可以保持不变，而数据部分则在每个进程拥有一个副本。</p>
 </li>
 </ol>
-<p>在之前读取hello的ELF格式文件时，发现了一个dynamic section。假如一个object文件参与动态的连接，它的程序头表将有一个类型为PT_DYNAMIC</p>
+<p>​    在之前读取hello的ELF格式文件时，发现了一个dynamic section。假如一个object文件参与动态的连接，它的程序头表将有一个类型为PT_DYNAMIC</p>
 <p>的元素。该“段”包含了.dynamic sectio。说明有下列这些项目参与了动态的链接，</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image104.jpg" alt="img"></p>
-<p>图 5‑19 Dynamic section</p>
-<p>此外，我们分析在dl_init前后，观察这些项目的内容变化。</p>
-<p>我们先观察没有dl_init的.plt和.pot的内容，如图所示：</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image106.jpg" alt="img"></p>
-<p>图 5‑20 未dl_init的内存</p>
-<p>dl_init后.plt和.pot的内容，如图所示</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image108.jpg" alt="img"></p>
-<p>图 5‑21 dl_init后的内存</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image059.png." alt="img"></p>
+<center>图 5‑19 Dynamic section</center>
+
+<p>​    此外，我们分析在dl_init前后，观察这些项目的内容变化。</p>
+<p>​    我们先观察没有dl_init的.plt和.pot的内容，如图所示：</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image060.png" alt="img"></p>
+<center>图 5‑20 未dl_init的内存</center>
+
+<p>​    dl_init后.plt和.pot的内容，如图所示</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image061.png" alt="img"></p>
+<center>图 5‑21 dl_init后的内存</center>
+
 <p>​    可以发现，原先有些内存存储的是0被赋值，其内容对应着那些动态链接进来的项目，举例第二行的地址内容即为以下函数的地址;libc-2.31.so!_libc_start_main , ox00007fe977429bc0。</p>
-<p>同时还可以发现其增加了链接了一些库，如图所示。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image110.jpg" alt="img"></p>
-<p>图 5‑22 dl_init后增加的库</p>
-<h2 id="5-8-本章小结"><a href="#5-8-本章小结" class="headerlink" title="5.8 本章小结"></a>5.8 本章小结</h2><p>本章主要介绍了链接的概念，链接器（ld）将各种代码和数据片段收集并组合成为一个单一文件的过程，这个文件可被加载（复制）到内存并执行。其中我们观察了链接前后，hello.o的elf格式文件与hello的elf格式文件内容上的差异，以及由二者反汇编代码的差异去分析、理解链接的概念，包括重定位等等。</p>
+<p>​    同时还可以发现其增加了链接了一些库，如图所示。</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image062.png" alt="img"></p>
+<center>图 5‑22 dl_init后增加的库</center>
+
+<h2 id="5-8-本章小结"><a href="#5-8-本章小结" class="headerlink" title="5.8 本章小结"></a>5.8 本章小结</h2><p>​    本章主要介绍了链接的概念，链接器（ld）将各种代码和数据片段收集并组合成为一个单一文件的过程，这个文件可被加载（复制）到内存并执行。其中我们观察了链接前后，hello.o的elf格式文件与hello的elf格式文件内容上的差异，以及由二者反汇编代码的差异去分析、理解链接的概念，包括重定位等等。</p>
 <p>（第5章1分)</p>
 <h1 id="第6章-hello进程管理"><a href="#第6章-hello进程管理" class="headerlink" title="第6章 hello进程管理"></a>第6章 hello进程管理</h1><h2 id="6-1-进程的概念与作用"><a href="#6-1-进程的概念与作用" class="headerlink" title="6.1 进程的概念与作用"></a>6.1 进程的概念与作用</h2><p>进程：一个执行中程序的实例，系统中的每个程序都运行在某个进程的上下文中。上下文是由程序正常运行所需的状态组成。</p>
 <p>关注进程提供给应用程序的关键抽象：</p>
