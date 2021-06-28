@@ -138,7 +138,7 @@
 <p>​                                                           <strong>计算机科学与技术学院</strong></p>
 <p>​                                                                  <strong>2021年5月</strong>    </p>
 <p><strong>摘 要</strong></p>
-<p>Hello是最简单的程序，是每个程序员的初见，不过短短几行，不是很难理解和编写，但从其出生到死亡可谓是一段漫长而又丰富的历程，本论文主要介绍了hello这一最简单程序的生命周期。在这一生命周期，他遇到过生命中的“贵人”帮助他从program变成process，“从静止到跑起来”，即从.c源文件经过预处理、编译、汇编、链接生成可执行文件，再到shell为其fork进程成为process。还有020，从无到有再到化为历史长河的一粒沙，execbe加载运行hello完成内存映射，访问内存读取数据、再到结束shell回收相关资源。从诞生到结束，从运行到终止，探讨追踪了hello这一最简单程序在计算机系统内软硬件结合如何一步步运行直到死亡的过程。</p>
+<p>​    Hello是最简单的程序，是每个程序员的初见，不过短短几行，不是很难理解和编写，但从其出生到死亡可谓是一段漫长而又丰富的历程，本论文主要介绍了hello这一最简单程序的生命周期。在这一生命周期，他遇到过生命中的“贵人”帮助他从program变成process，“从静止到跑起来”，即从.c源文件经过预处理、编译、汇编、链接生成可执行文件，再到shell为其fork进程成为process。还有020，从无到有再到化为历史长河的一粒沙，execbe加载运行hello完成内存映射，访问内存读取数据、再到结束shell回收相关资源。从诞生到结束，从运行到终止，探讨追踪了hello这一最简单程序在计算机系统内软硬件结合如何一步步运行直到死亡的过程。</p>
 <p><strong>关键词：编译汇编链接，进程管理，内存管理，IO管理。</strong>             </p>
 <p>（摘要0分，缺失-1分，根据内容精彩称都酌情加分0-1分）</p>
 <p><strong>目 录</strong></p>
@@ -200,12 +200,11 @@
 <p><a href="#_Toc532238451">结论……………………………………………………………………………………………… - 66 -</a></p>
 <p><a href="#_Toc532238452">附件……………………………………………………………………………………………… - 68 -</a></p>
 <p><a href="#_Toc532238453">参考文献………………………………………………………………………………………. - 69 -</a></p>
-<h1 id="第1章-概述"><a href="#第1章-概述" class="headerlink" title="第1章 概述"></a>第1章 概述</h1><h2 id="1-1-Hello简介"><a href="#1-1-Hello简介" class="headerlink" title="1.1 Hello简介"></a>1.1 Hello简介</h2><p>P2P：即从 Program to process由我们在IDE像是VScode、Codeblocks里一行行用C语言这一高级语言编写代码开始，在静态检查无错误后保存得到hello.c文件，而这样的文件仅我们程序员可理解，机器无法理解，也就是programmer（程序员）写出的程序（program），然后经过一系列处理：预处理（预处理器cpp生成hello.i修改的源文件代码）、编译（编译器cc1生成编译文件hello.s）、汇编(汇编器as生成hello.o可重定位目标文件)、链接（链接器ld生成hello可执行目标文件），最后在shell里输入命令运行hello可执行目标文件，shell为其fork一个子进程， hello就实现了从program到process（进程）的转变。</p>
-<p>020：即: From Zero-0 to Zero-0。shell为hello程序fork进程后，子进程调用execve，将hello加载到内存，由0开始，对hello这个文件进行内存映射，将可执行目标文件中的代码和数据从磁盘中复制到内存中，设置当前进程上下文中的程序计数器，使PC为hello的入口点，然后开始运行hello，运行过程中，PC发生变化，将指令和数据入内存，CPU以流水线形式读取并执行指令，执行逻辑控制流。操作系统负责进程调度，为进程分时间片，进行上下文切换。执行过程其多次访问L1、L2、L3高速缓存、TLB、多级页表等进行存储管理，通过I/O系统进行键盘输入输出来改变异常控制流直到结束。当程序运行结束后，成为僵死进程，hello的父进程shell/bash回收hello进程的内存，hello结束了，又回归到0，则就是O2O过程。</p>
-<h2 id="1-2-环境与工具"><a href="#1-2-环境与工具" class="headerlink" title="1.2 环境与工具"></a>1.2 环境与工具</h2><p>硬件环境：X64 CPU Intel酷睿i7 9750H;2.9GHZ;16G RAM; 512G SSD;</p>
-<p>软件环境：Windows10 64位；VMware WorkStation Pro16.1；Ubuntu 20.04 LTS；</p>
-<p>开发工具：Visual Studio 2019 64位；CodeBlocks 64位；GDB；edb-debugger；</p>
-<p>gedit；</p>
+<h1 id="第1章-概述"><a href="#第1章-概述" class="headerlink" title="第1章 概述"></a>第1章 概述</h1><h2 id="1-1-Hello简介"><a href="#1-1-Hello简介" class="headerlink" title="1.1 Hello简介"></a>1.1 Hello简介</h2><p>​    P2P：即从 Program to process由我们在IDE像是VScode、Codeblocks里一行行用C语言这一高级语言编写代码开始，在静态检查无错误后保存得到hello.c文件，而这样的文件仅我们程序员可理解，机器无法理解，也就是programmer（程序员）写出的程序（program），然后经过一系列处理：预处理（预处理器cpp生成hello.i修改的源文件代码）、编译（编译器cc1生成编译文件hello.s）、汇编(汇编器as生成hello.o可重定位目标文件)、链接（链接器ld生成hello可执行目标文件），最后在shell里输入命令运行hello可执行目标文件，shell为其fork一个子进程， hello就实现了从program到process（进程）的转变。</p>
+<p>​    020：即: From Zero-0 to Zero-0。shell为hello程序fork进程后，子进程调用execve，将hello加载到内存，由0开始，对hello这个文件进行内存映射，将可执行目标文件中的代码和数据从磁盘中复制到内存中，设置当前进程上下文中的程序计数器，使PC为hello的入口点，然后开始运行hello，运行过程中，PC发生变化，将指令和数据入内存，CPU以流水线形式读取并执行指令，执行逻辑控制流。操作系统负责进程调度，为进程分时间片，进行上下文切换。执行过程其多次访问L1、L2、L3高速缓存、TLB、多级页表等进行存储管理，通过I/O系统进行键盘输入输出来改变异常控制流直到结束。当程序运行结束后，成为僵死进程，hello的父进程shell/bash回收hello进程的内存，hello结束了，又回归到0，则就是O2O过程。</p>
+<h2 id="1-2-环境与工具"><a href="#1-2-环境与工具" class="headerlink" title="1.2 环境与工具"></a>1.2 环境与工具</h2><p>​    硬件环境：X64 CPU Intel酷睿i7 9750H;2.9GHZ;16G RAM; 512G SSD;</p>
+<p>​    软件环境：Windows10 64位；VMware WorkStation Pro16.1；Ubuntu 20.04 LTS；</p>
+<p>​    开发工具：Visual Studio 2019 64位；CodeBlocks 64位；GDB；edb-debugger；gedit；</p>
 <h2 id="1-3-中间结果"><a href="#1-3-中间结果" class="headerlink" title="1.3 中间结果"></a>1.3 中间结果</h2><table>
 <thead>
 <tr>
@@ -252,10 +251,10 @@
 </tbody></table>
 <h2 id="1-4-本章小结"><a href="#1-4-本章小结" class="headerlink" title="1.4 本章小结"></a>1.4 本章小结</h2><p>​    本章主要简述了hello的诞生，即Hello的简介，介绍了个人的实验环境包括硬件环境和软件环境，以及大作业中用到的开发工具，列出了论文中间文件的名字及作用，是本篇论文的背景和简要介绍。</p>
 <p>（第1章0.5分）</p>
-<h1 id="第2章-预处理"><a href="#第2章-预处理" class="headerlink" title="第2章 预处理"></a>第2章 预处理</h1><h2 id="2-1-预处理的概念与作用"><a href="#2-1-预处理的概念与作用" class="headerlink" title="2.1 预处理的概念与作用"></a>2.1 预处理的概念与作用</h2><p>预处理的概念：</p>
-<p>先介绍预处理指令的概念：C 语言编程过程中，经常会用到如 #include、#define 等指令，这些标识开头的指令被称为预处理指令，预处理指令由预处理程序（预处理器）操作。</p>
-<p>预处理指令及分类：</p>
-<p>ANSI C 定义的预处理指令主要包括：文件包含、宏定义、条件编译和特殊控制等 4 类。</p>
+<h1 id="第2章-预处理"><a href="#第2章-预处理" class="headerlink" title="第2章 预处理"></a>第2章 预处理</h1><h2 id="2-1-预处理的概念与作用"><a href="#2-1-预处理的概念与作用" class="headerlink" title="2.1 预处理的概念与作用"></a>2.1 预处理的概念与作用</h2><p>​    预处理的概念：</p>
+<p>​    先介绍预处理指令的概念：C 语言编程过程中，经常会用到如 #include、#define 等指令，这些标识开头的指令被称为预处理指令，预处理指令由预处理程序（预处理器）操作。</p>
+<p>​    预处理指令及分类：</p>
+<p>​    ANSI C 定义的预处理指令主要包括：文件包含、宏定义、条件编译和特殊控制等 4 类。</p>
 <ol>
 <li><p>文件包含：#include 是 C 程序设计中最常用的预处理指令。例如，几乎每个需要输入输出的 C 程序，都要包含 #include&lt;stdio.h&gt; 指令，表示把 stdio.h 文件中的全部内容，替换该行指令。</p>
 <p>此外，包含文件的格式有 #include 后面跟尖括号 &lt;&gt; 和双引号 “” 之分。两者的主要差别是搜索路径的不同。</p>
@@ -273,7 +272,7 @@
 <p>再介绍一下C预处理器（C Pre-Processor）也常简写为 CPP，是一个与 C 编译器独立的小程序，预处理器并不理解 C 语言语法，它仅是在程序源文件被编译之前，实现文本替换的功能。如我们常用#define N 100，其会将程序.c文件所有的N替换为100，仅仅修改程序源文件罢了。</p>
 </li>
 </ol>
-<p>预处理过程进行的操作：</p>
+<p>​    预处理过程进行的操作：</p>
 <ol>
 <li><p>将所有的“#define”删除，并且展开所有的宏定义</p>
 </li>
@@ -288,8 +287,8 @@
 <li><p>保留所有的#pragma编译指令，因为编译器需要使用它们。</p>
 </li>
 </ol>
-<p>预处理的作用：</p>
-<p>我们先看hello.c的源代码</p>
+<p>​    预处理的作用：</p>
+<p>​    我们先看hello.c的源代码</p>
 <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image002.png"></p>
 <center>图2‑1 hello.c的源代码</center>
 
@@ -300,6 +299,8 @@
 <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image003.png"></p>
 <center>图2‑2 ubutun下预处理命令及生成的hello.i文件</center>
 
+
+
 <h2 id="2-3-Hello的预处理结果解析"><a href="#2-3-Hello的预处理结果解析" class="headerlink" title="2.3 Hello的预处理结果解析"></a>2.3 Hello的预处理结果解析</h2><p>​    linux下gedit打开刚才所得到hello.i文件进行查看：</p>
 <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image004.png"></p>
 <center>图2‑3 hello.i文件的内容</center>
@@ -307,7 +308,6 @@
 <p>​    从上图可以看到其不再是#include &lt;stdio.h&gt;; #include &lt;unistd.h&gt;;#include&lt;stdlib.h&gt;;等语句，而是高速预处理器读取读取系统头文件stdio.h、unistd.h 、stdlib.h的内容，然后将这些系统头文件的内容直接插入到程序文本中，那我们原来main函数的内容还在吗？继续往下查看hello.i的内容，原来hello.c文件中，main函数在最后面，cpp将原来#include的预处理指令替换成系统头文件的内容，那么main函数应该也是在hello.i的末尾，查看后果然如此，前面三千多行都是头文件内容，并未发生变化。</p>
 <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image005.png"></p>
 <center>图2‑4 hello.i文件中main函数的内容</center>
-
 
 <p>​    这里我们就验证了预处理的作用：就是预处理器CPP处理预处理指令，预处理器读取了系统头文件unistd.h 、stdlib.h的内容，然后将这些系统头文件的内容直接插入到程序文本中，对原来的预处理指令进行文本替换，得到修改了的源程序hello.i，便于后面的编译器对程序进行编译。</p>
 <h2 id="2-4-本章小结"><a href="#2-4-本章小结" class="headerlink" title="2.4 本章小结"></a>2.4 本章小结</h2><p>​    这一章主要先是介绍了预处理指令的概念，通常以#开头，再介绍了预处理器，然后预处理器CPP处理预处理指令，其并不理解 C 语言语法，它仅是在程序源文件被编译之前，实现文本替换的功能，将预处理指令替换，在hello.c文件中就是，预处理器读取了系统头文件unistd.h 、stdlib.h的内容，然后将这些系统头文件的内容直接插入到程序文本中，对原来的预处理指令进行文本替换，得到修改了的源程序hello.i，便于后面的编译器对程序进行编译。</p>
@@ -334,6 +334,8 @@
 
 <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image006.png" alt="img"></p>
 <center>图3‑1 Ubuntu下编译的命令及编译生成的hello.s文件</center>
+
+
 
 
 <h2 id="3-3-Hello的编译结果解析"><a href="#3-3-Hello的编译结果解析" class="headerlink" title="3.3 Hello的编译结果解析"></a>3.3 Hello的编译结果解析</h2><p>​    先观察hello.c的源代码：</p>
@@ -406,7 +408,7 @@
 
 <p>​    再看另一处关系操作&lt;：cmpl $7, 44(%rbp)</p>
 <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image016.png" alt="img"></p>
-<center>图 3‑13 关系操作</center>
+<center>图 3‑13 &lt关系操作</center>
 
 
 <p>​    通过对前面分析，已经得知栈内%rbp-4处存放的是main函数中定义的局部整型变量i，这里与7作比较，似乎与我们图3-7所示对应源代码不一致，再看下一条汇编指令jle，表示i小于等于7才跳转执行循环，其就等价于i&lt;8，才执行循环，与之相对应。</p>
@@ -481,7 +483,6 @@
 <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image029.png" alt="img"></p>
 <center>图3‑26 main函数返回</center>
 
-
 <p>​    这里也较为简单，main函数结尾return 0；返回值设为0，保存在寄存器%eax中，然后main函数返回，程序退出。对应源代码图3-19中划线的7。</p>
 <h2 id="3-4-本章小结"><a href="#3-4-本章小结" class="headerlink" title="3.4 本章小结"></a>3.4 本章小结</h2><p>   本章主要介绍编译，编译是C语言编译器对经过预处理后修改完的源代码hello.i文件的一个翻译，基于编程语言的规则、目标机器的指令集和操作系统遵循的惯例将其翻译为人类可读、可理解的二进制代码或者说机器代码的文本表示——汇编代码，保存在hello.s文件中，依然是文本文件，接下来一步就是将汇编代码通过汇编器转换为机器代码，机器可读懂并执行的代码，一串二进制数，人很难理解。所以汇编代码就十分重要，其可以帮助我们去查看用高级语言所写代码在计算机内运行的逻辑及过程，理解汇编代码，可以帮助我们debug以及运用维护，同时也要注意到，有时候编译器会程序进行一定的优化，会改变一些库函数的调用，比如我们第一处调用printf函数，其计算机实际调用的却是puts函数。</p>
 <p>（第3章2分）</p>
@@ -495,6 +496,8 @@
 <p>如下图4-1所示。</p>
 <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image030.png" alt="img"></p>
 <center>图 4‑1 Ubutun下汇编的命令及汇编生成hello.o文件</center>
+
+
 
 <h2 id="4-3-可重定位目标elf格式"><a href="#4-3-可重定位目标elf格式" class="headerlink" title="4.3 可重定位目标elf格式"></a>4.3 可重定位目标elf格式</h2><p>​    分析hello.o的ELF格式，用readelf等列出其各节的基本信息，特别是重定位项目分析。</p>
 <p>​    Ubutun终端输入以下命令：linux&gt; readelf –a hello.o &gt; hello.elf</p>
@@ -534,6 +537,8 @@
 <p>​    最后是符号表：一个符号表，用来存放程序中定义和引用的函数和全局变量的信息。每个重定位文件都在.symtab中都有符号表，需要引用的符号都在其中声明。如图4-7所示，里面有我们在hello.c中看到几个函数的符号：exit，printf，atoi等等。</p>
 <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image036.png" alt="img"></p>
 <center>图 4‑7 符号表</center>
+
+
 
 <h2 id="4-4-Hello-o的结果解析"><a href="#4-4-Hello-o的结果解析" class="headerlink" title="4.4 Hello.o的结果解析"></a>4.4 Hello.o的结果解析</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line">linux&gt;objdump -d -r hello.o</span><br></pre></td></tr></table></figure>
 
@@ -594,6 +599,8 @@
 <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image041.png" alt="img"></p>
 <center>图 5‑1 链接指令及链接生成的hello可执行目标文件</center>
 
+
+
 <h2 id="5-3-可执行目标文件hello的格式"><a href="#5-3-可执行目标文件hello的格式" class="headerlink" title="5.3 可执行目标文件hello的格式"></a>5.3 可执行目标文件hello的格式</h2><p>​    Ubutun终端输入下列命令，将其保存到hello2.elf文件中，与之前读取hello.elf区别开。</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">linux&gt; readelf -a hello &gt; hello2.elf</span><br></pre></td></tr></table></figure>
 
@@ -623,13 +630,15 @@
 <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image047.png" alt="img"></p>
 <center>图 5‑7 段节及动态节的内容</center>
 
-<p>可重定位节的内容也发生了改变，多了我们hello中所调用系统库内函数的内容。</p>
+<p>​    可重定位节的内容也发生了改变，多了我们hello中所调用系统库内函数的内容。</p>
 <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image048.png" alt="img"></p>
 <center>图 5‑8 重定位节的内容</center>
 
 <p>​    此外，符号表的内容也大大增多，包含51项，较原来的18项大大增多。如下图5-9所示。</p>
 <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image049.png" alt="img"></p>
 <center>图 5‑9 符号表的内容</center>
+
+
 
 <h2 id="5-4-hello的虚拟地址空间"><a href="#5-4-hello的虚拟地址空间" class="headerlink" title="5.4 hello的虚拟地址空间"></a>5.4 hello的虚拟地址空间</h2><p>​    使用edb加载hello，查看本进程的虚拟地址空间各段信息，并与5.3对照分析说明。  </p>
 <p>edb运行hello程序，打开data dump可查看hello进程的虚拟地址空间各段信息，如图5-10所示。</p>
@@ -659,18 +668,12 @@
 </ol>
 <p>器（如动态链接器）。</p>
 <ol start="3">
-<li><p>LOAD：只读代码段。</p>
-</li>
-<li><p>LOAD：读写数据段：表示一个需要从二进制文件映射到虚拟地址空间的段。其中保存了常量数据（如字符串） 、程序的目标代码等。</p>
-</li>
-<li><p>DYNAMIC：保存了由动态链接器使用的信息。</p>
-</li>
-<li><p>NOTE：保存辅助信息。</p>
-</li>
-<li><p>GNU_STACK： 权限标志，标志栈是否是可执行的。</p>
-</li>
-<li><p>GNU_RELRO： 指定在重定位结束之后那些内存区域是需要设置只读。</p>
-</li>
+<li>LOAD：只读代码段。</li>
+<li>LOAD：读写数据段：表示一个需要从二进制文件映射到虚拟地址空间的段。其中保存了常量数据（如字符串） 、程序的目标代码等。</li>
+<li>DYNAMIC：保存了由动态链接器使用的信息。</li>
+<li>NOTE：保存辅助信息。</li>
+<li>GNU_STACK： 权限标志，标志栈是否是可执行的。</li>
+<li>GNU_RELRO： 指定在重定位结束之后那些内存区域是需要设置只读。</li>
 </ol>
 <h2 id="5-5-链接的重定位过程分析"><a href="#5-5-链接的重定位过程分析" class="headerlink" title="5.5 链接的重定位过程分析"></a>5.5 链接的重定位过程分析</h2><p>​    objdump -d -r hello 分析hello与hello.o的不同，说明链接的过程。</p>
 <p>​    在linux终端下输入下列命令：</p>
@@ -808,6 +811,8 @@
 <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image062.png" alt="img"></p>
 <center>图 5‑22 dl_init后增加的库</center>
 
+
+
 <h2 id="5-8-本章小结"><a href="#5-8-本章小结" class="headerlink" title="5.8 本章小结"></a>5.8 本章小结</h2><p>​    本章主要介绍了链接的概念，链接器（ld）将各种代码和数据片段收集并组合成为一个单一文件的过程，这个文件可被加载（复制）到内存并执行。其中我们观察了链接前后，hello.o的elf格式文件与hello的elf格式文件内容上的差异，以及由二者反汇编代码的差异去分析、理解链接的概念，包括重定位等等。</p>
 <p>（第5章1分)</p>
 <h1 id="第6章-hello进程管理"><a href="#第6章-hello进程管理" class="headerlink" title="第6章 hello进程管理"></a>第6章 hello进程管理</h1><h2 id="6-1-进程的概念与作用"><a href="#6-1-进程的概念与作用" class="headerlink" title="6.1 进程的概念与作用"></a>6.1 进程的概念与作用</h2><p>​    进程：一个执行中程序的实例，系统中的每个程序都运行在某个进程的上下文中。上下文是由程序正常运行所需的状态组成。</p>
@@ -821,7 +826,8 @@
 </ol>
 <p>回收方法：</p>
 <p>​    1. 当一个进程终止时，内核并不是立即把它从系统中清除，直到被其父进程回收。当父进程回收已终止的子进程时，内核将子进程的退出状态传递给父进程，然后抛弃已终止的进程，完成进程回收。</p>
-<p>​    2. 如果一个父进程终止了，内核会安排init进程成为其子进程的父进程，负责回收父进程已终止的子进程。</p>
+<pre><code>2. 如果一个父进程终止了，内核会安排init进程成为其子进程的父进程，负责回收父进程已终止的子进程。
+</code></pre>
 <h2 id="6-2-简述壳Shell-bash的作用与处理流程"><a href="#6-2-简述壳Shell-bash的作用与处理流程" class="headerlink" title="6.2 简述壳Shell-bash的作用与处理流程"></a>6.2 简述壳Shell-bash的作用与处理流程</h2><p>​    shell是一个用C语言编写的程序，通过Shell用户可以访问操作系统内核服务，类似于DOS下的command和后来的cmd.exe。shell既是一种命令语言，又是一种程序设计语言。shell是一个应用程序。shell还是系统的用户界面，提供了用户与内核进行交互操作的一种接口，其接收用户输入的命令并把它传入内核去执行。</p>
 <p>​    shell的功能：</p>
 <ol>
@@ -832,14 +838,10 @@
 </ol>
 <p>shell的处理流程：</p>
 <ol>
-<li><p>从终端读取输入的命令。</p>
-</li>
-<li><p>将输入字符串切分获得所有的参数</p>
-</li>
-<li><p>如果是内置命令则调用内部函数立即执行，否则调用相应的程序执行</p>
-</li>
-<li><p>shell可接受键盘输入信号，并对这些信号进行相应处理</p>
-</li>
+<li>从终端读取输入的命令。</li>
+<li>将输入字符串切分获得所有的参数</li>
+<li>如果是内置命令则调用内部函数立即执行，否则调用相应的程序执行</li>
+<li>shell可接受键盘输入信号，并对这些信号进行相应处理</li>
 </ol>
 <h2 id="6-3-Hello的fork进程创建过程"><a href="#6-3-Hello的fork进程创建过程" class="headerlink" title="6.3 Hello的fork进程创建过程"></a>6.3 Hello的fork进程创建过程</h2><p>​    在linux在终端下执行下列语句来启动hello程序。</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">linux&gt; ./hello <span class="number">1190201307</span> 徐伟 <span class="number">30</span></span><br></pre></td></tr></table></figure>
@@ -854,7 +856,9 @@
 <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image064.png" alt="img"></p>
 <center>图 6‑2 hello的fork进程创建</center>
 
-<h2 id="6-4-Hello的execve过程"><a href="#6-4-Hello的execve过程" class="headerlink" title="6.4 Hello的execve过程"></a>6.4 Hello的execve过程</h2><p>​    因为shell判断出hello不是内置命令，且hello是一个可执行文件，所以shell在当前进程的上下文中调用execve函数加载并运行hello程序，且带参数列表argv和环境变量列表envp。argv变量指向一个以null结尾的指针数组，其中每个指针都指向一个参数字符串，按照惯例，argv[0]是可执行目标文件的名字，所以我们可以想到hello.c文件中，其访问的是argv[1],argv[2],argv[3]，存储的参数分别是我们的学号、姓名、sleep时间的字符串，就是刚才我们在终端输入“1190201307 徐伟 30”，即为参数。环境变量的列表是有一个类似的数据结构表示的，envp变量指向一个以null结尾的指针数组，其中每一个指针指向一个环境变量字符串。execve是通过调用驻留在存储器中称为加载器的操作系统代码来运行hello， 其删除进程现有虚拟内存映射关系，给hello分配新的虚拟内存地址,并映射hello中的文件或匿名文件至虚拟内存中。然后跳转至_start函数，再通过调用libc_start_main函数初始化环境变量等内容，并将程序执行至main函数入口。加载器将可执行目标文件中的代码和数据从磁盘中复制到内存中，然后通过跳转到程序的第一条指令或者入口点来运行hello。 </p>
+
+
+<h2 id="6-4-Hello的execve过程"><a href="#6-4-Hello的execve过程" class="headerlink" title="6.4 Hello的execve过程"></a>6.4 Hello的execve过程</h2><p>​    因为shell判断出hello不是内置命令，且hello是一个可执行文件，所以shell在当前进程的上下文中调用execve函数加载并运行hello程序，且带参数列表argv和环境变量列表envp。argv变量指向一个以null结尾的指针数组，其中每个指针都指向一个参数字符串，按照惯例，argv[0]是可执行目标文件的名字，所以我们可以想到hello.c文件中，其访问的是argv[1],argv[2],argv[3]，存储的参数分别是我们的学号、姓名、sleep时间的字符串，就是刚才我们在终端输入“1190201307 徐伟 30”，即为参数。环境变量的列表是有一个类似的数据结构表示的，envp变量指向一个以null结尾的指针数组，其中每一个指针指向一个环境变量字符串。execve是通过调用驻留在存储器中称为加载器的操作系统代码来运行hello， 其删除进程现有虚拟内存映射关系，给hello分配新的虚拟内存地址,并映射hello中的文件或匿名文件至虚拟内存中。然后跳转至_start函数，再通过调用libc_start_main函数初始化环境变量等内容，并将程序执行至main函数入口。加载器将可执行目标文件中的代码和数据从磁盘中复制到内存中，然后通过跳转到程序的第一条指令或者入口点来运行hello。</p>
 <h2 id="6-5-Hello的进程执行"><a href="#6-5-Hello的进程执行" class="headerlink" title="6.5 Hello的进程执行"></a>6.5 Hello的进程执行</h2><p>​    前面已经介绍过了进程的概念。我们提到了进程向每个程序提供了一个假象，好像它在独占地使用处理器。如果用调试器单步之形成，可以看到一系列的程序计数器（PC）的值，这些值唯一地对应于包含在程序的可执行目标文件中的指令，或是包含在运行时动态链接到程序的共享库对象中的指令。这个PC值的序列就叫叫做逻辑控制流，简称逻辑流。若一个逻辑流的执行时间和另一个流重叠，则成为并发流，这两个流被称为并发地运行。多个流并发地执行地一般现象被称为并发。一个进程和其他进程轮流运行的概念为多任务，一个进程执行它的控制流的一部分的每一时间段叫做时间片，因此多任务也叫做时间分片。</p>
 <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image065.png" alt="img"></p>
 <center>图 6‑3 逻辑并发流</center>
@@ -870,6 +874,8 @@
 <p>​    （3）将控制传递给新恢复的进程。如图6-4所示。</p>
 <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image066.png" alt="img"></p>
 <center>图 6-4 hello的上下文切换</center>
+
+
 
 <h2 id="6-6-hello的异常与信号处理"><a href="#6-6-hello的异常与信号处理" class="headerlink" title="6.6 hello的异常与信号处理"></a>6.6 hello的异常与信号处理</h2><p>​    hello执行过程中，四类异常都可能会出现：故障，中断，陷阱，终止，图6-5总结了异常的类别。</p>
 <p>​    故障：由错误情况引起的，它可能能够被故障处理程序修正。如果修正成功，则将控制返回到引起故障的指令，否则将终止程序。</p>
@@ -903,6 +909,8 @@
 <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image073.png" alt="img"></p>
 <center>图 6-11 杀死hello进程</center>
 
+
+
 <h2 id="6-7本章小结"><a href="#6-7本章小结" class="headerlink" title="6.7本章小结"></a>6.7本章小结</h2><p>​    本章主要涉及到异常控制流的内容，引入了进程、上下文的概念，简述了壳Shell-bash的作用与处理流程，结合hello程序讲述了hello的fork进程创建过程、hello的execve过程和hello的进程执行，一个程序在计算机里运行的状态，前台作业或后台作业，以及运行各种可能出现的异常，以及对异常的处理，主要是各种来自键盘的中断等等。</p>
 <p>（第6章1分）</p>
 <h1 id="第7章-hello的存储管理"><a href="#第7章-hello的存储管理" class="headerlink" title="第7章 hello的存储管理"></a>第7章 hello的存储管理</h1><h2 id="7-1-hello的存储器地址空间"><a href="#7-1-hello的存储器地址空间" class="headerlink" title="7.1 hello的存储器地址空间"></a>7.1 hello的存储器地址空间</h2><p>​    先分别给出这4种地址的概念：</p>
@@ -929,6 +937,8 @@
 <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image077.png" alt="img"></p>
 <center>图 7‑4 逻辑地址到线性地址的转换过程</center>
 
+
+
 <h2 id="7-3-Hello的线性地址到物理地址的变换-页式管理"><a href="#7-3-Hello的线性地址到物理地址的变换-页式管理" class="headerlink" title="7.3 Hello的线性地址到物理地址的变换-页式管理"></a>7.3 Hello的线性地址到物理地址的变换-页式管理</h2><p>​    前面我们已经介绍到了，由逻辑地址经过段式管理得到线性地址，也就是虚拟地址，而又虚拟地址并不够，还需要物理地址，才能到磁盘上存取。而线性地址（虚拟地址VA）到物理地址（PA）之间的转换通过分页机制以及页式管理来完成。</p>
 <p>​    概念上而言，虚拟内存被组织为一个由存放在磁盘上的N个连续的字节大小的单元组成的数组，磁盘上数组的内容被缓存在物理内存。 这些内存块被称为页。</p>
 <p>​    操作系统通过将虚拟内存空间以页为单位分割管理，一页大小4KB；类似地，物理内存空间也以页以页为单位分割管理，一页大小4KB。通过MMU，可以将虚拟地址映射到唯一物理地址。</p>
@@ -944,6 +954,8 @@
 <p>​    整个流程如下图：</p>
 <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image079.png" alt="img"></p>
 <center>图 7‑6 基于页表的地址翻译</center>
+
+
 
 <h2 id="7-4-TLB与四级页表支持下的VA到PA的变换"><a href="#7-4-TLB与四级页表支持下的VA到PA的变换" class="headerlink" title="7.4 TLB与四级页表支持下的VA到PA的变换"></a>7.4 TLB与四级页表支持下的VA到PA的变换</h2><p>先介绍TLB的概念：TLB，也称翻译后备缓冲器，是在MMU中包括一个关于PTE的缓存。TLB是一个小的、虚拟寻址的缓存，每一行保存着一个由单个PTE组成的块。由于VA到PA的转换过程中，需要使用VPN确定相应的页表条目，因此TLB需要通过VPN来寻找PTE。和其他缓存一样，需要进行组索引和行匹配。如果TLB有2t个组，那么TLB的索引TLBI由VPN的t个最低位组成，TLB标记TLBT由VPN中剩余的位组成。如图7-7所示。</p>
 <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image080.png" alt="img"></p>
@@ -965,6 +977,8 @@
 <p>​    再将页表翻译：首先四级页表中，第一级页表为第二级页表的索引，第二级页表为第三级页表的索引，第三级为第四级的索引，最终的第四级页表映射到物理地址。然后对虚拟地址进行划分，得到VPN，则根据VPN访问页表，根据页表判断相应地址的数据是否缓存，若缓存，可直接从页表中读出PPN，则VPO与PPN组成一个完整的物理地址，接下来便可访存。</p>
 <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image083.png" alt="img"></p>
 <center>图 7‑10 使用4级页表的地址翻译</center>
+
+
 
 <h2 id="7-5-三级Cache支持下的物理内存访问"><a href="#7-5-三级Cache支持下的物理内存访问" class="headerlink" title="7.5 三级Cache支持下的物理内存访问"></a>7.5 三级Cache支持下的物理内存访问</h2><p>​    先介绍cache的概念：高速缓存cache被组成一个有S=2s个高速缓存组的数组，每个组包含E个高速缓存行。每个是由一个B=2b字节的数据块组成，一个有效位指明这个行是否存储有意义的信息，还有t=m-b-s个标记为，唯一标识存在这个高速缓存的块。如图7-11所示。</p>
 <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image084.png" alt="img"></p>
@@ -999,6 +1013,8 @@
 <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image088.png" alt="img"></p>
 <center>图 7‑15 加载器映射用户地址空间的区域</center>
 
+
+
 <h2 id="7-8-缺页故障与缺页中断处理"><a href="#7-8-缺页故障与缺页中断处理" class="headerlink" title="7.8 缺页故障与缺页中断处理"></a>7.8 缺页故障与缺页中断处理</h2><p>​    同样先给出缺页故障的概念，缺页故障：CPU产生一个虚拟地址给MMU，MMU经过一系列步骤获得了相应的PTE，当PTE的有效位未设置时，说明虚拟地址对应的内容还没有缓存在内存中，这时MMU会触发缺页故障。</p>
 <p>​    而缺页故障则会使正在运行的程序陷入内核，从而触发缺页中断处理程序。缺缺页处理程序主要会执行以下三个步骤：</p>
 <ol>
@@ -1024,7 +1040,8 @@
 <p>​    分配器的数据结构：</p>
 <p>​    隐式空闲链表，在隐式空闲链表中，一个块是由一个字（4字节）的头部、有效载荷，以及可能的一些额外的填充组成的。头部编码了这个块的大小（包括头部和所有填充），且标记了这个块是已分配的还是空闲的，如图7-17所示。</p>
 <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image090.png" alt="img"></p>
-<center>图 7‑17 隐式空闲链表的堆块格式<center>
+<center>图 7‑17 隐式空闲链表的堆块格式</center>
+
 
 <p>头部后面就是应用调用malloc时请求的有效载荷，有效载荷后面是一片不使用的填充块，其大小是任意的，满足对齐要求。</p>
 <p>在设计完成了堆块的结构后，我们将一个对组织成为一个连续的已分配块和空闲块的序列，隐式空闲链表指的是并不直接对空闲块进行链接，而是将对内存空间中的所有块组织成一个大链表，其中头部和脚部中的信息隐式地起到连接的作用。如图7-18所示。</p>
@@ -1207,7 +1224,7 @@
 <p>[6] <a href="https://blog.csdn.net/cherisegege/article/details/80708143">https://blog.csdn.net/cherisegege/article/details/80708143</a></p>
 <p>[7]  <a href="https://blog.csdn.net/weixin_41571493/article/details/80692749">https://blog.csdn.net/weixin_41571493/article/details/80692749</a></p>
 <p>（参考文献0分，缺失 -1分)</p>
-</center></center>]]></content>
+]]></content>
       <categories>
         <category>计算机系统、CS</category>
       </categories>
