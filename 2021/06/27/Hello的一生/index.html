@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>Hello的一生 |  知无涯也</title>
+      <title>程序人生-Hello的前世今生 |  知无涯也</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/panda.ico" />
@@ -58,7 +58,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Hello的一生
+  程序人生-Hello的前世今生
 </h1>
  
 
@@ -78,7 +78,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">26.3k</span>
+            <span class="post-count">5.5k</span>
         </span>
     </span>
 
@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">94 min</span>
+            <span class="post-count">20 min</span>
         </span>
     </span>
 </div>
@@ -103,16 +103,16 @@
     <div class="article-entry" itemprop="articleBody">
        
   <p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image001.jpg"></p>
-<p><strong>计算机系统</strong></p>
-<p><strong>大作业</strong></p>
-<p>题   目  程序人生-Hello’s P2P  </p>
-<p>专   业      计算学部    </p>
-<p>学   号     1190201307    </p>
-<p>班   级      1903010    </p>
-<p>学   生      徐伟     　</p>
-<p>指 导 教 师     史先俊老师    </p>
-<p><strong>计算机科学与技术学院</strong></p>
-<p><strong>2021年5月</strong></p>
+<p>​                                                                 <strong>计算机系统</strong></p>
+<p>​                                                                     <strong>大作业</strong></p>
+<p>​                                                     题   目：   程序人生-Hello’s P2P  </p>
+<p>​                                                     专   业：   计算学部    </p>
+<p>​                                                     学   号：   1190201307    </p>
+<p>​                                                     班   级：   1903010    </p>
+<p>​                                                     学   生：    徐伟     　</p>
+<p>​                                                     指 导 教 师：  史先俊老师    </p>
+<p>​                                                           <strong>计算机科学与技术学院</strong></p>
+<p>​                                                                  <strong>2021年5月</strong>    </p>
 <p><strong>摘 要</strong></p>
 <p>Hello是最简单的程序，是每个程序员的初见，不过短短几行，不是很难理解和编写，但从其出生到死亡可谓是一段漫长而又丰富的历程，本论文主要介绍了hello这一最简单程序的生命周期。在这一生命周期，他遇到过生命中的“贵人”帮助他从program变成process，“从静止到跑起来”，即从.c源文件经过预处理、编译、汇编、链接生成可执行文件，再到shell为其fork进程成为process。还有020，从无到有再到化为历史长河的一粒沙，execbe加载运行hello完成内存映射，访问内存读取数据、再到结束shell回收相关资源。从诞生到结束，从运行到终止，探讨追踪了hello这一最简单程序在计算机系统内软硬件结合如何一步步运行直到死亡的过程。</p>
 <p><strong>关键词：编译汇编链接，进程管理，内存管理，IO管理。</strong>             </p>
@@ -266,19 +266,24 @@
 </ol>
 <p>预处理的作用：</p>
 <p>我们先看hello.c的源代码</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image004.jpg" alt="img"></p>
-<p>图2‑1 hello.c的源代码</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image002.png"></p>
+<center>图2‑1 hello.c的源代码</center>
+
 <p>预处理器（cpp）根据以字符#开头的命令，修改原始的C程序。比如上图中hello.c中第一行的代码：#include &lt;stdio.h&gt; 命令高速预处理器读取系统头文件stdio.h的内容，以此类推，第二、三行代码#include &lt;unistd.h&gt;;#include&lt;stdlib.h&gt;则是命令高速预处理器读取系统头文件unistd.h 、stdlib.h的内容，然后将这些系统头文件的内容直接插入到程序文本中。结果得到另一个C程序，通常是以.i作为文件拓展名，其是一个修改了的源程序（文本），将源程序文件hello.c进行拓展，便于后面编译。</p>
 <h2 id="2-2在Ubuntu下预处理的命令"><a href="#2-2在Ubuntu下预处理的命令" class="headerlink" title="2.2在Ubuntu下预处理的命令"></a>2.2在Ubuntu下预处理的命令</h2><p>在ubutun终端输入如下指令：</p>
-<p>linux&gt; gcc –E –o hello.i hello.c</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image006.jpg" alt="img"></p>
-<p>图2‑2 ubutun下预处理命令及生成的hello.i文件</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Linux&gt; gcc –E –o hello.i hello.c</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image003.png"></p>
+<center>图2‑2 ubutun下预处理命令及生成的hello.i文件</center>
+
 <h2 id="2-3-Hello的预处理结果解析"><a href="#2-3-Hello的预处理结果解析" class="headerlink" title="2.3 Hello的预处理结果解析"></a>2.3 Hello的预处理结果解析</h2><p>linux下gedit打开刚才所得到hello.i文件进行查看：</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image008.jpg" alt="img"></p>
-<p>图2‑3 hello.i文件的内容</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image004.png"></p>
+<center>图2‑3 hello.i文件的内容</center>
+
 <p>从上图可以看到其不再是#include &lt;stdio.h&gt;; #include &lt;unistd.h&gt;;#include&lt;stdlib.h&gt;;等语句，而是高速预处理器读取读取系统头文件stdio.h、unistd.h 、stdlib.h的内容，然后将这些系统头文件的内容直接插入到程序文本中，那我们原来main函数的内容还在吗？继续往下查看hello.i的内容，原来hello.c文件中，main函数在最后面，cpp将原来#include的预处理指令替换成系统头文件的内容，那么main函数应该也是在hello.i的末尾，查看后果然如此，前面三千多行都是头文件内容，并未发生变化。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image010.jpg" alt="img"></p>
-<p>图2‑4 hello.i文件中main函数的内容</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image005.png"></p>
+<center>图2‑4 hello.i文件中main函数的内容
+
 <p>这里我们就验证了预处理的作用：就是预处理器CPP处理预处理指令，预处理器读取了系统头文件unistd.h 、stdlib.h的内容，然后将这些系统头文件的内容直接插入到程序文本中，对原来的预处理指令进行文本替换，得到修改了的源程序hello.i，便于后面的编译器对程序进行编译。</p>
 <h2 id="2-4-本章小结"><a href="#2-4-本章小结" class="headerlink" title="2.4 本章小结"></a>2.4 本章小结</h2><p>这一章主要先是介绍了预处理指令的概念，通常以#开头，再介绍了预处理器，然后预处理器CPP处理预处理指令，其并不理解 C 语言语法，它仅是在程序源文件被编译之前，实现文本替换的功能，将预处理指令替换，在hello.c文件中就是，预处理器读取了系统头文件unistd.h 、stdlib.h的内容，然后将这些系统头文件的内容直接插入到程序文本中，对原来的预处理指令进行文本替换，得到修改了的源程序hello.i，便于后面的编译器对程序进行编译。</p>
 <p>（第2章0.5分）</p>
@@ -300,12 +305,13 @@
 </li>
 </ol>
 <h2 id="3-2-在Ubuntu下编译的命令"><a href="#3-2-在Ubuntu下编译的命令" class="headerlink" title="3.2 在Ubuntu下编译的命令"></a>3.2 在Ubuntu下编译的命令</h2><p>在ubutun终端输入如下指令：</p>
-<p>linux&gt; gcc –S –o hello.s hello.i</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image012.jpg" alt="img"></p>
-<p>图3‑1 Ubuntu下编译的命令及编译生成的hello.s文件</p>
-<h2 id="3-3-Hello的编译结果解析"><a href="#3-3-Hello的编译结果解析" class="headerlink" title="3.3 Hello的编译结果解析"></a>3.3 Hello的编译结果解析</h2><p>​    先观察hello.c的源代码：</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image013.jpg" alt="img"></p>
-<p>图3‑2 hello.c的源代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">linux&gt; gcc –S –o hello.s hello.i</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image006.png" alt="img"></p>
+<center>图3‑1 Ubuntu下编译的命令及编译生成的hello.s文件</center><a href="#3-3-Hello的编译结果解析" class="headerlink" title="3.3 Hello的编译结果解析"></a>3.3 Hello的编译结果解析<p>​    先观察hello.c的源代码：</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image002.png" alt="img"></p>
+<center>图3‑2 hello.c的源代码
+
 <p>我们可以发现其中主要定义了3中类型的数据：</p>
 <p>  int argc，main函数的形参全局int型变量：argc，表示传入main函数的参数个数；</p>
 <p>  char *argv[]，main函数的形参全局char指针类型变量：argv，表示传入main函数的参数序列或指针，该指针指向一个字符串数组的首地址。</p>
@@ -316,90 +322,112 @@
 <p>此外还有函数操作，最常见的printf函数，sleep函数，getchar函数的调用，其中包含了参数传递，最后是main函数返回 return 0。</p>
 <p>下面则根据上述这些数据类型及操作说明，编译器是怎么处理C语言的各个数据类型以及各类操作的。</p>
 <h3 id="3-3-1常量"><a href="#3-3-1常量" class="headerlink" title="3.3.1常量"></a>3.3.1常量</h3><p>这里主要有两个字符串常量，既然是字符串常量，那么存放在文件.rodata节中，只读，如图3-3所示，</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image015.jpg" alt="img"></p>
-<p>图 3‑3 字符串常量</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image007.png" alt="img"></p>
+<center>图 3‑3 字符串常量
+
 <p>那么这两个字符串常量又在哪里使用呢？查看汇编代码可发现，其是printf函数输出的语句，作为参数被传入printf函数调用，如图3-4划线所示。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image017.jpg" alt="img"></p>
-<p>图 3‑4 字符串常量对应汇编代码</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image008.png" alt="img"></p>
+<center>图 3‑4 字符串常量对应汇编代码
+
 <p>再看对应源代码，其就是被printf函数输出，只是汇编代码中汉字被编码，而不是汉字的形式。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image019.jpg" alt="img"></p>
-<p>图 3‑5 字符串对应源代码</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image009.png"></p>
+<center>图 3‑5 字符串对应源代码
+
 <h3 id="3-3-2变量"><a href="#3-3-2变量" class="headerlink" title="3.3.2变量"></a>3.3.2变量</h3><p>​    这里主要有三个变量：argc，argv，i；</p>
 <p>​    先是argc，其作为main函数的第一个参数，那么根据CPU传参寄存器顺序，其应该保存在%edi中，为什么不是%rdi，因为这里argc为int类型，4字节，32位寄存器%edi恰好放得下，这里就是movl %edi, -20(%rbp)，movl传送双字，4字节，将argc的值保存到栈内%rbp-20处，栈内保存的是局部变量。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image021.jpg" alt="img"></p>
-<p>图 3‑6 参数argc和argv</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image010.png" alt="img"></p>
+<center>图 3‑6 参数argc和argv
+
 <p>​       再是第二个参数<em>argv，其应该保存在%rsi中，对应汇编语句movq $rsi,-32(%rbp)；</em>argv是一个指针，指向一个字符串数组，其存储的就是字符串数组的首地址，8字节，64位寄存器%rsi恰好能放得下，movq表示传送四字，8字节，将argv的值保存到栈内%rbp-32处。</p>
 <p>​       再是另一个整形变量i，我们在上面的汇编代码中并没有找到，其实因为这里只是对其定义，而未赋值初始化，所以找不到，但是栈内开辟了存储这个局部变量i的空间。在后面.L2节中，对i赋值为0，我们发现了i。如下图所示。</p>
-<p>​                  <img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image022.png" alt="img"></p>
-<p>图 3‑7 变量i</p>
-<h3 id="3-3-3赋值操作"><a href="#3-3-3赋值操作" class="headerlink" title="3.3.3赋值操作"></a>3.3.3赋值操作</h3><p>​    这里仅有一处赋值操作，对应movl $0, -4 (%rbp)</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image022.png" alt="img"></p>
-<p>图 3‑8 赋值i=0</p>
-<p>​    movl就是将0传递给栈内%rbp-4处的变量i，也就是将i的值赋为0。</p>
-<p>​    </p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image024.jpg" alt="img"></p>
-<p>图 3‑9 赋值对应源代码</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image011.png" alt="img"></p>
+<center>图 3‑7 变量i
+
+<h3 id="3-3-3赋值操作"><a href="#3-3-3赋值操作" class="headerlink" title="3.3.3赋值操作"></a>3.3.3赋值操作</h3><p>​        这里仅有一处赋值操作，对应movl $0, -4 (%rbp)</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image011.png" alt="img"></p>
+<center>图 3‑8 赋值i=0
+
+<p>​        movl就是将0传递给栈内%rbp-4处的变量i，也就是将i的值赋为0。</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image012.png" alt="img"></p>
+<center>图 3‑9 赋值对应源代码
+
 <h3 id="3-3-4算术操作"><a href="#3-3-4算术操作" class="headerlink" title="3.3.4算术操作"></a>3.3.4算术操作</h3><p>​    源代码只有一处算术操作，查看汇编代码，寻找对应汇编语句：</p>
 <p>addl $1, -4(%rbp)，如图3-6所示：</p>
 <p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image025.png" alt="img"></p>
-<p>图 3‑10 算术操作++</p>
+<center>图 3‑10 算术操作++
+
 <p>​    通过前面赋值操作已知，栈内%rbp-4存放的是局部变量i，这里是对其进行i+1的算术操作，同时我们可以发现其是.L4段的最后一条语句，.L4段对应for循环体内容，i++就应该在循环体内的语句都执行完以后再执行，然后再判断i&lt;8，符合C语言逻辑。其对应源代码就是：i++;</p>
 <h3 id="3-3-5关系操作"><a href="#3-3-5关系操作" class="headerlink" title="3.3.5关系操作"></a>3.3.5关系操作</h3><p>​    源代码共有2处关系操作，我们查看汇编代码来寻找对应的关系操作，先是!=关系操作: cmpl $4, -20(%rbp)</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image026.png" alt="img"></p>
-<p>图 3‑11 !=关系操作</p>
+<p>![img](这里仅有一处赋值操作，对应movl $0, -4 (%rbp)</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image014.png" alt="img"></p>
+<center>图 3‑11 !=关系操作
+
 <p>​    通过对前面数据的分析，已经得知栈内%rbp-20处存放的是传进main函数的形参argc，这里将其与4比较，mpl指令行为和sub指令的行为指令是一样的，其根据两个操作数之差来设置条件码，下一条汇编指令je，根据条件码，相等才发生跳转.L2执行，不相等则不跳转执行下一条语句，正好对应了图3-5所展示源代码所作的比较。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image027.png" alt="img"></p>
-<p>图 3‑12 !=关系操作对于源代码</p>
-<p>再看另一处关系操作&lt;：cmpl $7, 44(%rbp)</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image028.png" alt="img"></p>
-<p>图 3‑13 关系操作&lt;</p>
-<p>通过对前面分析，已经得知栈内%rbp-4处存放的是main函数中定义的局部整型变量i，这里与7作比较，似乎与我们图3-7所示对应源代码不一致，再看下一条汇编指令jle，表示i小于等于7才跳转执行循环，其就等价于i&lt;8，才执行循环，与之相对应。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image029.png" alt="img"></p>
-<p>图 3‑14 &lt;关系操作对应源代码</p>
-<h3 id="3-3-6控制转移"><a href="#3-3-6控制转移" class="headerlink" title="3.3.6控制转移"></a>3.3.6控制转移</h3><p>源代码共有2处控制转移，我们查看汇编代码来寻找对应的控制转移，先是if控制转，对应图3-8划线两条语句所示。</p>
-<p>  <img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image030.png" alt="img"></p>
-<p>图 3‑15 控制转移if</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image015.png" alt="img"></p>
+<center>图 3‑12 !=关系操作对于源代码
+
+<p>​    再看另一处关系操作&lt;：cmpl $7, 44(%rbp)</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image016.png" alt="img"></p>
+<center>图 3‑13 关系操作<
+
+<p>​    通过对前面分析，已经得知栈内%rbp-4处存放的是main函数中定义的局部整型变量i，这里与7作比较，似乎与我们图3-7所示对应源代码不一致，再看下一条汇编指令jle，表示i小于等于7才跳转执行循环，其就等价于i&lt;8，才执行循环，与之相对应。</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image017.png" alt="img"></p>
+<center>图 3‑14 <关系操作对应源代码 <h3 id="3-3-6控制转移"><a href="#3-3-6控制转移" class="headerlink" title="3.3.6控制转移"></a>3.3.6控制转移<p>​    源代码共有2处控制转移，我们查看汇编代码来寻找对应的控制转移，先是if控制转，对应图3-8划线两条语句所示。</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image018.png"></p>
+<center>图 3‑15 控制转移if
+
 <p>​    前面我们已经分析过了关系操作，这里先将argc与4比较对应cmpl，cmpl指令行为和sub指令的行为指令是一样的，其根据两个操作数之差来设置条件码，je根据条件码，argc等于4则跳转执行.L2的代码，不等于就执行下一条语句调用printf函数输出，对应源码图3-5所示的“if(argc!=4);”的这条语句。</p>
 <p>再看另一处控制转移，for的控制转移，对应图3-9划线两条汇编代码所示。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image032.jpg" alt="img"></p>
-<p>图 3‑16 for控制转移的汇编代码</p>
-<p>前面我们已经分析过了关系操作，这里先将i与7比较对应cmpl，其根据两个操作数之差来设置条件码，jle根据条件码，i&lt;= 7则跳转执行.L4的代码，即for循环体内的代码，i&gt;8则跳出循环执行下一条语句调用getchar函数，对应源码图3-9所示的for循环的源代码。</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image019.png" alt="img"></p>
+<center>图 3‑16 for控制转移的汇编代码
+
+<p>​    前面我们已经分析过了关系操作，这里先将i与7比较对应cmpl，其根据两个操作数之差来设置条件码，jle根据条件码，i&lt;= 7则跳转执行.L4的代码，即for循环体内的代码，i&gt;8则跳出循环执行下一条语句调用getchar函数，对应源码图3-9所示的for循环的源代码。</p>
 <h3 id="3-3-7-数组-指针-结构体操作"><a href="#3-3-7-数组-指针-结构体操作" class="headerlink" title="3.3.7 数组/指针/结构体操作"></a>3.3.7 数组/指针/结构体操作</h3><p>​       在源代码中我们共发现了三处数组操作，我们在汇编代码中寻找，如图3-17所示：</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image033.png" alt="img"></p>
-<p>图 3‑17 对argv数组的操作</p>
-<p>我们前面已知%rbp-32存放的是argv，即argv数组的首地址，这里先是通过地址+16的偏移量访问argv[2]，将其传入寄存器%rdx中，再是通过地址+8的偏移量访问argv[1]，将其传入寄存器%rsi中，为下面调用printf函数做传参准备；再往下走，通过地址+24的偏移量访问argv[3]，将其传入寄存器%rdi中，为下面调用atoi函数做传参准备，如下图对应源码。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image034.png" alt="img"></p>
-<p>图 3‑18 数组操作对应源码</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image020.png" alt="img"></p>
+<center>图 3‑17 对argv数组的操作
+
+<p>​    我们前面已知%rbp-32存放的是argv，即argv数组的首地址，这里先是通过地址+16的偏移量访问argv[2]，将其传入寄存器%rdx中，再是通过地址+8的偏移量访问argv[1]，将其传入寄存器%rsi中，为下面调用printf函数做传参准备；再往下走，通过地址+24的偏移量访问argv[3]，将其传入寄存器%rdi中，为下面调用atoi函数做传参准备，如下图对应源码。</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image021.png" alt="img"></p>
+<center>图 3‑18 数组操作对应源码
+
 <h3 id="3-3-8函数操作"><a href="#3-3-8函数操作" class="headerlink" title="3.3.8函数操作"></a>3.3.8函数操作</h3><p>​    这里的函数操作较多，从头到尾先看源码分析。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image036.jpg" alt="img"></p>
-<p>图 3‑19 hello.c中源代码的函数操作</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image022.png" alt="img"></p>
+<center>图 3‑19 hello.c中源代码的函数操作
+
 <p>​    第一处调用printf函数输出，汇编代码如图3-20所示，</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image037.png" alt="img"></p>
-<p>图 3‑20 第一处printf函数调用</p>
-<p>我们可以看到，其将.L0存储的字符串传入寄存器%rdi，恰好也是CPU传参使用寄存器的传递第一个参数所用的寄存器，然后调用puts函数输出，对应源代码图3-19中划线的1。</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image023.png" alt="img"></p>
+<center>图 3‑20 第一处printf函数调用
+
+<p>​    我们可以看到，其将.L0存储的字符串传入寄存器%rdi，恰好也是CPU传参使用寄存器的传递第一个参数所用的寄存器，然后简化调用puts函数输出，对应源代码图3-19中划线的1。</p>
 <p>​    然后是调用exit函数退出，其汇编代码如图3-21所示。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image038.png" alt="img"></p>
-<p>图 3‑21 调用exit函数退出</p>
-<p>其先是将1传递到寄存器%edi，恰好也是CPU传参使用寄存器的传递第一个参数所用的寄存器，1为参数，为exit(1)中的‘1’，exit(1)表示异常退出，在退出前可以给出一些提示信息，然后调用exit函数退出，对应源代码图3-19中划线的2。</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image024.png" alt="img"></p>
+<center>图 3‑21 调用exit函数退出
+
+<p>​    其先是将1传递到寄存器%edi，恰好也是CPU传参使用寄存器的传递第一个参数所用的寄存器，1为参数，为exit(1)中的‘1’，exit(1)表示异常退出，在退出前可以给出一些提示信息，然后调用exit函数退出，对应源代码图3-19中划线的2。</p>
 <p>​    再是第二处调用printf函数输出，汇编代码如图3-22所示。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image040.jpg" alt="img"></p>
-<p>图 3‑22 第二处调用printf函数</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image025.png" alt="img"></p>
+<center>图 3‑22 第二处调用printf函数
+
 <p>​    之前对数组操作分析可知，通过对栈内存放argv数组首地址加偏移量+16、+8，访问了argv[2]、argv[1]，并将其分别传入寄存器%rdx、%rsi中，传参使用对应寄存器的第三个、第二个，而传参用的第一个寄存器却是传进的.LC1的字符串常量，有些奇怪，与我们的源代码并不符合。这里其实对printf函数的一个理解，其先传进去的是printf函数输出的格式，告诉printf按照一个什么样的格式输出，然后再是传递我们要输出的值的参数，对应源代码图3-19中划线的3。</p>
 <p>​    再是调用atoi函数，汇编代码如图3-23所示。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image041.png" alt="img"></p>
-<p>图 3‑23 调用atoi函数</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image026.png" alt="img"></p>
+<center>图 3‑23 调用atoi函数
+
 <p>​    之前对数组操作分析可知，通过对栈内存放argv数组首地址加偏移量+24，访问了argv[3]，然后传入%rdi，作为调用atoi函数的参数，atoi是将字符串存储的数转化为整数类型，对应源代码图3-19中划线的4。</p>
 <p>​    接着是调用sleep函数，汇编代码如图3-24所示。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image042.png" alt="img"></p>
-<p>图 3‑24调用sleep函数</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image027.png" alt="img"></p>
+<center>图 3‑24调用sleep函数
+
 <p>​    前面我们已经分析了atoi函数的调用，其将argv[3]作为参数，将argv[3]字符串类型转换为整数数值，然后返回，其返回值就保存在寄存器%eax中，然后这里在传递给%edi，变成了sleep函数的参数，然后调用sleep函数，对应源代码图3-19中划线的5。</p>
 <p>​    再接着是调用getchar函数，汇编代码如图3-25所示。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image043.png" alt="img"></p>
-<p>图 3‑25 getchar函数的调用</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image028.png" alt="img"></p>
+<center>图 3‑25 getchar函数的调用
+
 <p>​    这里getchar函数的调用的汇编代码较为简单，但没有运行，不知道其功能，猜测可能是读取键盘输入，对应源代码图3-19中划线的6。</p>
 <p>​    然后最后一个函数操作，汇编代码如图3-26所示。</p>
-<p><img src="file:///C:/Users/admini/AppData/Local/Temp/msohtmlclip1/01/clip_image044.png" alt="img"></p>
-<p>图3‑26 main函数返回</p>
+<p><img src="/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/image029.png" alt="img"></p>
+<center>图3‑26 main函数返回
+
 <p>​    这里也较为简单，main函数结尾return 0；返回值设为0，保存在寄存器%eax中，然后main函数返回，程序退出。对应源代码图3-19中划线的7。</p>
 <h2 id="3-4-本章小结"><a href="#3-4-本章小结" class="headerlink" title="3.4 本章小结"></a>3.4 本章小结</h2><p>   本章主要介绍编译，编译是C语言编译器对经过预处理后修改完的源代码hello.i文件的一个翻译，基于编程语言的规则、目标机器的指令集和操作系统遵循的惯例将其翻译为人类可读、可理解的二进制代码或者说机器代码的文本表示——汇编代码，保存在hello.s文件中，依然是文本文件，接下来一步就是将汇编代码通过汇编器转换为机器代码，机器可读懂并执行的代码，一串二进制数，人很难理解。所以汇编代码就十分重要，其可以帮助我们去查看用高级语言所写代码在计算机内运行的逻辑及过程，理解汇编代码，可以帮助我们debug以及运用维护，同时也要注意到，有时候编译器会程序进行一定的优化，会改变一些库函数的调用，比如我们第一处调用printf函数，其计算机实际调用的却是puts函数。</p>
 <p>（第3章2分）</p>
@@ -1051,7 +1079,7 @@
 <p>[6] <a target="_blank" rel="noopener" href="https://blog.csdn.net/cherisegege/article/details/80708143">https://blog.csdn.net/cherisegege/article/details/80708143</a></p>
 <p>[7]  <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41571493/article/details/80692749">https://blog.csdn.net/weixin_41571493/article/details/80692749</a></p>
 <p>（参考文献0分，缺失 -1分)</p>
- 
+</center></center></center></center></center></center></center></center></center></center></center></center></关系操作对应源代码></center></center></center></center></center></center></center></center></center></center></center></center></center></center> 
       <!-- reward -->
       
     </div>
