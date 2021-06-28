@@ -1075,12 +1075,12 @@
 </ol>
 <p>   函数声明：int open(char* filename,int flags,mode_t mode);</p>
 <p>   open函数将filename转换为一个文件描述符，并且返回描述符数字。返回的描述符总是在进程中当前没有打开的最小描述符。flags参数指明了进程打算如何访问这个文件；mode参数指定了新文件的访问权限位。</p>
-<p>   flags参数如下：</p>
-<p>​        O_RDONLY：只读</p>
-<p>​        O_WDONLY：只写</p>
-<p>​        O_RDWR：可读可写</p>
-<p>​        O_CREAT：如果文件不存在，就创建它的一个截断的空文件</p>
-<p>​        O_TRUNC：如果文件已经存在，就截断它</p>
+<p>   ​    flags参数如下：</p>
+<p>   ​        O_RDONLY：只读</p>
+<p>   ​        O_WDONLY：只写</p>
+<p>   ​        O_RDWR：可读可写</p>
+<p>   ​        O_CREAT：如果文件不存在，就创建它的一个截断的空文件</p>
+<p>   ​        O_TRUNC：如果文件已经存在，就截断它</p>
 <ol start="2">
 <li><p>进程通过调用close函数关闭一个打开的文件，所需头文件： #include &lt;unistd.h&gt;。</p>
 <p>函数声明：int close（int fd）;</p>
