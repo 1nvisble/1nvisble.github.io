@@ -1,22 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2021/05/04/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+    <title>Hello的自白.</title>
+    <url>/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/</url>
+    <content><![CDATA[<h1 id="Hello的自白"><a href="#Hello的自白" class="headerlink" title="Hello的自白"></a>Hello的自白</h1><img src="/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/Hello1.jpg" class title="This is a Hello1s image">
 
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>俺是Hello，额是每一个程序猿🐵的初恋(😊羞羞……)，</p>
+<p>却在短短几分钟后惨遭每个菜鸟的无情抛弃(😭呜呜….)，他们很快喜欢上sum、sort、matrix、PR、AI、IOT、BD、MIS……，从不回头😞。</p>
+</blockquote>
+<p><strong>只有我自己知道，我的出身有多么高贵，我的一生多么坎坷! ╰（‵□′）╯</strong></p>
+<p><strong>多年以后，那些真正懂我的大佬(也是曾经的<del>菜鸟一枚</del>)，才恍然感悟我的伟大 !</strong></p>
+<hr>
+<blockquote>
+<p>······<em>想当年</em>：</p>
+<p><strong>俺</strong>才是第一个玩P2P的:<em><strong><font color="#FF0000">From Program to Process</font></strong></em></p>
+<p>懵懵懂懂的你笨笨磕磕地将我一字一键敲进电脑存成<font color="#FF0000">hello.c(Program)</font>，无意识中将我<strong>预处理、编译、汇编、链接</strong>，历经<strong>艰辛-神秘-高贵-欣喜</strong>，我—<font color="#FF0000"><em><strong>Hello</strong></em></font>一个完美的生命诞生了 <strong>o((&gt;ω&lt; ))o</strong>。</p>
+<blockquote>
+<h6 id="你造吗？"><a href="#你造吗？" class="headerlink" title="你造吗？"></a>你造吗？</h6><ul>
+<li><p>在<strong>壳(Bash)<strong>里，</strong><font color="#000080">伟大的OS(进程管理)</font><strong>为我</strong><font color="#000080">fork(Process) </font><strong>，为我</strong><font color="#000080">execve</font></strong>, 为我<font color="#000080"><strong>mmap</strong></font>，</p>
+<p>分我时间片，让我得以在<font color="#000080"><strong>Hardware(CPU/RAM/IO)</strong></font>上驰骋<font color="#000080"><strong>（取指译码执行、流水线等）</strong></font>  </p>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<h6 id="你造吗？-1"><a href="#你造吗？-1" class="headerlink" title="你造吗？"></a>你造吗？</h6><ul>
+<li><strong>OS(存储管理)与MMU</strong>为VA到PA操碎了心:<strong>TLB、4级页表、3级Cache，Pagefile</strong>等等各显神通为我加速；<strong>IO管理与信号处理</strong>使尽了浑身解数，软硬结合，才使我能在键盘、主板、显卡、屏幕间游刃有余，虽说我在台上的表演只是一瞬间😶、演技看起来很Low、效果很苍白 （︶^︶）。</li>
+</ul>
+</blockquote>
+<p><strong>感谢OS!感谢Bash!在我完美谢幕后为我收尸</strong>。我赤条条来去无牵挂!😌</p>
+</blockquote>
+<hr>
+<p><strong>我朝CS(计算机系统-</strong><u><strong>Editor+Cpp+Compiler+AS+LD+OS+CPU/RAM/IO等</strong></u>)<strong>挥一挥手，不带走一片云彩!</strong> 😛    </p>
+<p><strong>想想俺也是<font color="#FF0000"> <em><strong>020:From Zero-0 to Zero-0</strong></em></font>.</strong>  <strong>(^人^)</strong>   </p>
+<p><strong>历史长河中一个个<del>菜鸟</del>与我擦肩而过，只有CS知道我的生、我的死，我的坎坷，“只有CS知道……我曾经……来…………过……”</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello world!\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+
+<img src="/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/Hello2.jpg" class title="This is a Hello2 image">
+
+
+
+<hr>
+<p><strong>《Hello的自白》为哈工大CSAPP老师史老师原创的大作业——“程序人生”的导读，本人只是觉其有趣，哪一个程序猿与代码的初见不是“Hello world”呢，从而尝试用markdown写成博客发表，进行二次加工搬运，如有侵权，立即删除！</strong></p>
 ]]></content>
+      <categories>
+        <category>CS</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+      </tags>
   </entry>
   <entry>
     <title>Java代理模式（Proxy）理解</title>
@@ -70,57 +106,224 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello的自白.</title>
-    <url>/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/</url>
-    <content><![CDATA[<h1 id="Hello的自白"><a href="#Hello的自白" class="headerlink" title="Hello的自白"></a>Hello的自白</h1><img src="/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/Hello1.jpg" class title="This is a Hello1s image">
+    <title>Hello World</title>
+    <url>/2021/05/04/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
 
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
 
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>俺是Hello，额是每一个程序猿🐵的初恋(😊羞羞……)，</p>
-<p>却在短短几分钟后惨遭每个菜鸟的无情抛弃(😭呜呜….)，他们很快喜欢上sum、sort、matrix、PR、AI、IOT、BD、MIS……，从不回头😞。</p>
-</blockquote>
-<p><strong>只有我自己知道，我的出身有多么高贵，我的一生多么坎坷! ╰（‵□′）╯</strong></p>
-<p><strong>多年以后，那些真正懂我的大佬(也是曾经的<del>菜鸟一枚</del>)，才恍然感悟我的伟大 !</strong></p>
-<hr>
-<blockquote>
-<p>······<em>想当年</em>：</p>
-<p><strong>俺</strong>才是第一个玩P2P的:<em><strong><font color="#FF0000">From Program to Process</font></strong></em></p>
-<p>懵懵懂懂的你笨笨磕磕地将我一字一键敲进电脑存成<font color="#FF0000">hello.c(Program)</font>，无意识中将我<strong>预处理、编译、汇编、链接</strong>，历经<strong>艰辛-神秘-高贵-欣喜</strong>，我—<font color="#FF0000"><em><strong>Hello</strong></em></font>一个完美的生命诞生了 <strong>o((&gt;ω&lt; ))o</strong>。</p>
-<blockquote>
-<h6 id="你造吗？"><a href="#你造吗？" class="headerlink" title="你造吗？"></a>你造吗？</h6><ul>
-<li><p>在<strong>壳(Bash)<strong>里，</strong><font color="#000080">伟大的OS(进程管理)</font><strong>为我</strong><font color="#000080">fork(Process) </font><strong>，为我</strong><font color="#000080">execve</font></strong>, 为我<font color="#000080"><strong>mmap</strong></font>，</p>
-<p>分我时间片，让我得以在<font color="#000080"><strong>Hardware(CPU/RAM/IO)</strong></font>上驰骋<font color="#000080"><strong>（取指译码执行、流水线等）</strong></font>  </p>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>UML类图简述及IDEA中UML插件的安装和使用</title>
+    <url>/2021/06/20/UML%E7%B1%BB%E5%9B%BE/</url>
+    <content><![CDATA[<h1 id="UML类图简述及IDEA中UML插件的安装和使用"><a href="#UML类图简述及IDEA中UML插件的安装和使用" class="headerlink" title="UML类图简述及IDEA中UML插件的安装和使用"></a>UML类图简述及IDEA中UML插件的安装和使用</h1><p><strong>序言</strong>：在上软件构造这门课中，随着课程的深入，PPT上出现了许多的类图，初次看起来不太懂各种箭头指向表明的含义；此外，老师还提到了许多类与类之间的关系，依赖、组合、泛化、实现等等，其在UML类图上都有体现。同时考虑到UML类图的在工作学习种会广泛使用，以及其清晰简洁的类与类之间关系的表示，同时可以在我们的实验报告中用类图展示类与类之间关系，简洁明了，由此产生了学习UML类图的想法，到网上查阅资料学习并撰写博客记录。</p>
+<h2 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h2><h3 id="UML图定义"><a href="#UML图定义" class="headerlink" title="UML图定义"></a>UML图定义</h3><p>​        UML图，实际上是一种<strong>语言</strong>， 统一建模语言，又称标准建模语言，是用来对软件密集系统进行可视化建模的一种语言。UML的包括<strong>UML语义</strong>和<strong>UML表示法</strong>两个元素。</p>
+<p>​        UML是在开发阶段，说明、可视化、构建和书写一个<strong>面向对象</strong>软件密集系统的制品的开放方法。最佳的应用是工程实践，对大规模，复杂系统进行建模方面，特别是在<strong>软件架构</strong>层次，已经被验证有效。统一建模语言（UML）是一种模型化语言。模型大多以<strong>图表</strong>的方式表现出来。一份典型的建模图表通常包含几个块或框，连接线和作为模型附加信息之用的文本。这些虽简单却非常重要，在UML规则中相互联系和扩展。</p>
+<p>​        UML本身是一套符号的规定，就像数学符号和化学符号一样，这些符号用于描述软件模型中的各个元素和他们之间的关系，比如类、接口、实现、泛化、依赖、组合、聚合等</p>
+<h3 id="UML图分类"><a href="#UML图分类" class="headerlink" title="UML图分类"></a>UML图分类</h3><ol>
+<li>用例图。</li>
+<li>静态结构图：<strong>类图</strong>、对象图、包图、组件图、部署图。</li>
+<li>动态行为图：交互图（时序图与协作图）、状态图、活动图。</li>
+</ol>
+<p>说明：</p>
+<ul>
+<li>类图是描述<strong>类与类</strong>之间的<strong>关系</strong>，是UML图中最<strong>核心</strong>的。</li>
+</ul>
+<p>下面着重介绍UML类图</p>
+<h2 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h2><p>​        UML类图的介绍：</p>
+<ul>
+<li>描述系统中类（对象）本身的组成（成员属性和成员方法）和类（对象）之间的各种<strong>静态关系</strong>。</li>
+<li>类之间的关系：依赖、泛化、实现、关联、聚合与组合。</li>
+</ul>
+<h3 id="类图的依赖关系（Dependence）"><a href="#类图的依赖关系（Dependence）" class="headerlink" title="类图的依赖关系（Dependence）"></a>类图的依赖关系（Dependence）</h3><p>​        只要是在类中用到了对方，那么他们之间就存在依赖关系，如果没有对方，甚至连编译都过不了。依赖关系是类与类之间最广泛、最普遍也是最基础的关系。</p>
+<p>​        下面几条为判断类依赖关系的依据：</p>
+<ul>
+<li><p>类中用到了对方</p>
+</li>
+<li><p>类的成员属性</p>
+</li>
+<li><p>方法中使用到</p>
+</li>
+<li><p>是方法的返回类型</p>
+</li>
+<li><p>是方法接收的参数类型</p>
+<p>​    就拿最简单的Person来举例。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDnumber id;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIDnumber</span><span class="params">(IDnumber id)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.IDnumber = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDnumber <span class="title">getIDnumber</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IDnumber</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    每个人Person都有自己的身份证号，这里新建一个IDnumber类，使用到了IDnumber类，而id又是Peroson的成员变量，同时在setIDnumber方法传入参数类型也为IDnumber ，getIDnumber方法中返回的类型也为IDnumber，只要存在上述的任意一条出现，就可以说IDnumber类和Peroson类构成了依赖关系。</p>
+<p>​    在UML类图中，用带箭头的虚线表示，箭头指向被依赖方，比如说，这里Person类指向IDnumber类。如下图所示。</p>
+<p><img src="/2021/06/20/UML%E7%B1%BB%E5%9B%BE/Dependence.jpg"></p>
 </li>
 </ul>
-</blockquote>
-<blockquote>
-<h6 id="你造吗？-1"><a href="#你造吗？-1" class="headerlink" title="你造吗？"></a>你造吗？</h6><ul>
-<li><strong>OS(存储管理)与MMU</strong>为VA到PA操碎了心:<strong>TLB、4级页表、3级Cache，Pagefile</strong>等等各显神通为我加速；<strong>IO管理与信号处理</strong>使尽了浑身解数，软硬结合，才使我能在键盘、主板、显卡、屏幕间游刃有余，虽说我在台上的表演只是一瞬间😶、演技看起来很Low、效果很苍白 （︶^︶）。</li>
+<h3 id="类图中的泛化关系（Generalization）"><a href="#类图中的泛化关系（Generalization）" class="headerlink" title="类图中的泛化关系（Generalization）"></a>类图中的泛化关系（Generalization）</h3><p>​        泛化关系实际上就是继承关系，比如B类（子类）继承了A类（父类），二者构成了泛化关系。泛化关系是依赖关系的特例。前面已经提到依赖关系是最普遍的关系，而这里则是针对关系的特点再细分。</p>
+<p>​        这里就用Human和Person来举例，每个人都是人类，都要吃饭和睡觉。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Human</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">extends</span> <span class="title">Human</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDnumber idnumber;</span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span></span>&#123;</span><br><span class="line">       System.out.println(<span class="string">&quot;人吃饭&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;人睡觉&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        在UML类图中，用带三角箭头的实线表示泛化关系，其箭头指向父类。如下图所示。</p>
+<p><img src="/2021/06/20/UML%E7%B1%BB%E5%9B%BE/extend.jpg"></p>
+<h3 id="类图中的实现关系（Realization）"><a href="#类图中的实现关系（Realization）" class="headerlink" title="类图中的实现关系（Realization）"></a>类图中的实现关系（Realization）</h3><p>​        实现关系就是A类实现B接口，表示类具备了某种能力，也是依赖关系的特例。</p>
+<p>​        这里就用Person类和Swimming接口来举例，并不是每个人都会游泳，就比如说我这只“旱鸭子”。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Swimming</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swim</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="title">implenment</span> <span class="title">Swimming</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"> 	<span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swim</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;人游泳&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        在UML类图中带三角箭头的虚线表示依赖关系，其箭头指向实现的接口。如下图所示。</p>
+<p><img src="/2021/06/20/UML%E7%B1%BB%E5%9B%BE/implement.jpg"></p>
+<h3 id="类图中的关联关系（Association）"><a href="#类图中的关联关系（Association）" class="headerlink" title="类图中的关联关系（Association）"></a>类图中的关联关系（Association）</h3><p>​        一个类中的成员变量（成员属性）用到了其他类，则称二者构成关联关系。关联关系实际上就是类与类之间的联系，也是依赖关系的特例。</p>
+<p>​        关系具有导航性，即双向关系或单向关系，单向一对一关系，双向一对一关系。</p>
+<p>​        关系具有多重性，如“1”表示有且仅有一个，“0…”表示0个或者多个，“0，1”表示0个或1个，“i…j”表示i到j个都可以，“m…*”表示至少m个。</p>
+<p>​        这里依旧拿Person和IDnumber来举例。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">现在Person类和IDnumber类的关系就是关联关系，Person类的成员属性中用到了IDnumber类，此时是单向一对一的，Person对应IDnumber，而IDnumber并没对应Person。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDnumber id;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIDnumber</span><span class="params">(IDnumber id)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.IDnumber = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDnumber <span class="title">getIDnumber</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IDnumber</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>UML类图如下：</p>
+<p><img src="/2021/06/20/UML%E7%B1%BB%E5%9B%BE/Associate1.jpg"></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">这段表示Person与IDnumber关系仍是关联关系，但与上面的单向一对一的不同，此时，Person对应IDnumber，而IDnumber也对应Person，是双向一对一关系。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDnumber id;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIDnumber</span><span class="params">(IDnumber id)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.IDnumber = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDnumber <span class="title">getIDnumber</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IDnumber</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Person person;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    UML类图如下：</p>
+<p><img src="/2021/06/20/UML%E7%B1%BB%E5%9B%BE/Associate2.jpg"></p>
+<p>​    在UML类图中带箭头的实线表示关联关系，箭头指向关联类。</p>
+<h3 id="类图中的聚合关系（Aggregation）"><a href="#类图中的聚合关系（Aggregation）" class="headerlink" title="类图中的聚合关系（Aggregation）"></a>类图中的聚合关系（Aggregation）</h3><p>​        聚合关系表示的是整体和部分的关系，整体与部分可以分离，部分具有一定的独立性。整体和部分具有各自的生命周期，部分可以属于多个对象，也可以被多个对象共享；比如计算机和CPU、鼠标、键盘，公司与员工的关系。</p>
+<p>​        在代码层面来讲，聚合与关联是一致的，只能从语义上来区分。聚合关系是关联关系的特例，具有关联的导航性与多重性。</p>
+<p>​        这里拿Computer类和Mouse类、Keyboard类来举例，电脑有鼠标、键盘等组成，但鼠标、键盘都可以拔下来，电脑损害不会损坏到鼠标、键盘，鼠标、键盘损坏也不会损坏电脑，换个新鼠标、键盘就是了。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Computer</span></span></span><br><span class="line"><span class="class">    <span class="title">private</span> <span class="title">Mouse</span> <span class="title">mouse</span></span>;</span><br><span class="line">	<span class="keyword">private</span> Keyboard keyboard;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMouse</span><span class="params">(Mouse mouse)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.mouse = mouse;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setKeyboard</span><span class="params">(Keyboard keyboard)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.keyboard= keyboard;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Mouse</span></span>&#123;  </span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Keyboard</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        在UML类图中用带空心菱形的实线表示，菱形指向整体。如图所示。</p>
+<p><img src="/2021/06/20/UML%E7%B1%BB%E5%9B%BE/Aggreation.jpg"></p>
+<h3 id="类图中的组合关系（Composition-）"><a href="#类图中的组合关系（Composition-）" class="headerlink" title="类图中的组合关系（Composition    ）"></a>类图中的组合关系（Composition    ）</h3><p>​        组合关系表示的也是整体和部分的关系，但是聚合关系的升级，整体和部分不可以分开，部分不能从整体中分离出来，创建了整体的同时，部分也随之创立，共诞生、共灭亡。同样是关联关系的特例。</p>
+<p>​        这里依旧拿Person和Heart类举例，每个人都有心脏，自一出生下来，心脏无时无刻不跳动，当然不跳动了，人就die了，同生共死。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDnumber id;   <span class="comment">//聚合关系</span></span><br><span class="line">    <span class="keyword">private</span> Heart heart = <span class="keyword">new</span> Heart();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIDnumber</span><span class="params">(IDnumber id)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.IDnumber = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDnumber <span class="title">getIDnumber</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IDnumber</span></span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Heart</span></span>&#123;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>UML类图如下：</p>
+<p><img src="/2021/06/20/UML%E7%B1%BB%E5%9B%BE/composition.jpg"></p>
+<p>​        此外，还有一种特例，会将聚合关系升级成组合关系，即级联删除。其前提是：类A与类B是聚合关系，A是整体，B是部分；当销毁删除A的同时，连同B一块销毁删除，这就是级联删除。当定义了级联删除时，那么A与B由原来的聚合关系升级为组合关系。就比如说上面举的Person和IDnumber的例子，删除Person时连同IDnumber一块删除，那么IDnumber和Person就是组合关系了。</p>
+<p>​        在UML类图中用带实心菱形的实线表示，菱形指向整体。</p>
+<h3 id="类图关系小结"><a href="#类图关系小结" class="headerlink" title="类图关系小结"></a>类图关系小结</h3><p>​        类图的6种关系中，其中依赖关系是最普遍、最基础、最广泛的一类关系，再根据关系的特点细分，可以划分出泛型、实现、关联、组合、聚合关系，其都是依赖关系的特例。就像人类社会一般，每个人都与他人之间有着依赖关系，维持着人际关系，再根据人际关系特点或身份等等，分成各种关系，诸如父子、师生、朋友等等关系。</p>
+<h2 id="IDEA中UML插件的安装与使用"><a href="#IDEA中UML插件的安装与使用" class="headerlink" title="IDEA中UML插件的安装与使用"></a>IDEA中UML插件的安装与使用</h2><p>​        第一步：打开IDEA，选中左上角的<strong>文件（File）—&gt;设置（Settings）—&gt;插件（Plugins）</strong>，搜索UML，这里推荐PlantUML，然后安装，安装完成后需要重新启动IDEA。</p>
+<p><img src="/2021/06/20/UML%E7%B1%BB%E5%9B%BE/1.png"></p>
+<p>​        第二步：重启IDEA完成后，选中左上角的<strong>文件（File）—&gt;新建（new）</strong>，可以发现一个<strong>PlantUML File</strong>，说明可以创建UML文件了</p>
+<p><img src="/2021/06/20/UML%E7%B1%BB%E5%9B%BE/2.png"></p>
+<p>​        点击出现文件创建，输入文件名，以及选择UML图的类型，这里选择class，即我们最常用的UML类图。</p>
+<p>​        下面是初次创建其给我们的示例：</p>
+<p><img src="/2021/06/20/UML%E7%B1%BB%E5%9B%BE/3.PNG"></p>
+<p>​        如想了解更多有关其类图的信息可以到其官网。</p>
+<p>​        传送门：<a href="https://plantuml.com/class-diagram">https://plantuml.com/class-diagram</a></p>
+<p>​        若要学习绘制UML图的语法，可以到PlantUML的github上获取资源。</p>
+<p>​        传送门：<a href="https://github.com/plantuml/plantuml">https://github.com/plantuml/plantuml</a></p>
+<p>​        这里给出常用语法：        </p>
+<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">含义</th>
+<th align="center">示例</th>
+<th align="center">示例含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">–</td>
+<td align="center">UML图中体现为实线</td>
+<td align="center">无</td>
+<td align="center">无</td>
+</tr>
+<tr>
+<td align="center">..</td>
+<td align="center">UML图中体现为虚线</td>
+<td align="center">无</td>
+<td align="center">无</td>
+</tr>
+<tr>
+<td align="center">..&gt;</td>
+<td align="center">依赖</td>
+<td align="center">A..&gt;B</td>
+<td align="center">类A依赖于B</td>
+</tr>
+<tr>
+<td align="center">–&gt;</td>
+<td align="center">关联</td>
+<td align="center">A..&gt;B</td>
+<td align="center">类A关联于B</td>
+</tr>
+<tr>
+<td align="center">–|&gt;</td>
+<td align="center">继承</td>
+<td align="center">A–|&gt;B</td>
+<td align="center">类A继承于B</td>
+</tr>
+<tr>
+<td align="center">..|&gt;</td>
+<td align="center">实现</td>
+<td align="center">A..|&gt;B</td>
+<td align="center">类A实现接口B</td>
+</tr>
+<tr>
+<td align="center">–o</td>
+<td align="center">聚合</td>
+<td align="center">A–oB</td>
+<td align="center">类A聚合了B</td>
+</tr>
+<tr>
+<td align="center">–*</td>
+<td align="center">组合</td>
+<td align="center">A–*B</td>
+<td align="center">类A组合了B</td>
+</tr>
+</tbody></table>
+<p>​        注：</p>
+<ul>
+<li>这里给符号&gt;, o, *指向那一侧，在UML图中会如实体现。</li>
+<li>还支持双向箭头&gt;、o、*，比如说关联关系中的双向单一关系，可以用A&lt;–&gt;B，其效果如前面所展示的Person和IDnumber的双向单一关系的UML类图一致。</li>
+<li>在左侧的类一般在UML图的上侧，如Human–|&gt;Person，Person..&gt;IDnumber，其UML图如前面所说类图中泛化关系的类图所示。</li>
 </ul>
-</blockquote>
-<p><strong>感谢OS!感谢Bash!在我完美谢幕后为我收尸</strong>。我赤条条来去无牵挂!😌</p>
-</blockquote>
-<hr>
-<p><strong>我朝CS(计算机系统-</strong><u><strong>Editor+Cpp+Compiler+AS+LD+OS+CPU/RAM/IO等</strong></u>)<strong>挥一挥手，不带走一片云彩!</strong> 😛    </p>
-<p><strong>想想俺也是<font color="#FF0000"> <em><strong>020:From Zero-0 to Zero-0</strong></em></font>.</strong>  <strong>(^人^)</strong>   </p>
-<p><strong>历史长河中一个个<del>菜鸟</del>与我擦肩而过，只有CS知道我的生、我的死，我的坎坷，“只有CS知道……我曾经……来…………过……”</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello world!\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<img src="/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/Hello2.jpg" class title="This is a Hello2 image">
-
-
-
-<hr>
-<p><strong>《Hello的自白》为哈工大CSAPP老师史老师原创的大作业——“程序人生”的导读，本人只是觉其有趣，哪一个程序猿与代码的初见不是“Hello world”呢，从而尝试用markdown写成博客发表，进行二次加工搬运，如有侵权，立即删除！</strong></p>
+<p>​        然后是权限修饰符：</p>
+<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">含义</th>
+<th align="center">示例</th>
+<th align="center">示例含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-</td>
+<td align="center">private</td>
+<td align="center">-id: IDnumber</td>
+<td align="center">private IDnumber id;</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="center">public</td>
+<td align="center">+id: IDnumber</td>
+<td align="center">public IDnumber id;</td>
+</tr>
+<tr>
+<td align="center">#</td>
+<td align="center">protected</td>
+<td align="center">#id: IDnumber</td>
+<td align="center">protected IDnumber id;</td>
+</tr>
+</tbody></table>
+<p>​        再是抽象类和接口：</p>
+<p>​        可直接用抽象类和接口对应关键词即可，abstract和interface来声明即可。</p>
+<p>​        建议：根据第一次新建UML类图文件其官方给出的示例，照猫画虎，稍加研究，很快就可以上手，需要时间不到半小时，而且一旦熟练掌握后，效率十分之高，比拖拽画类图方便很多，同时plantUML做到了所见即所得，就是实时预览，十分方便。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>[1] 尚硅谷UML介绍：<a href="https://www.bilibili.com/video/BV1G4411c7N4?p=23&amp;spm_id_from=pageDriver">https://www.bilibili.com/video/BV1G4411c7N4?p=23&amp;spm_id_from=pageDriver</a></p>
+<p>[2] PlantUML语法：<a href="https://www.cnblogs.com/liruilong/p/11506280.html">https://www.cnblogs.com/liruilong/p/11506280.html</a></p>
 ]]></content>
       <categories>
-        <category>CS</category>
+        <category>UML类图、</category>
       </categories>
       <tags>
-        <tag>C</tag>
+        <tag>JAVA</tag>
+        <tag>IDEA</tag>
+        <tag>UML类图、依赖</tag>
       </tags>
   </entry>
   <entry>
