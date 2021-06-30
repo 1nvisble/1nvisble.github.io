@@ -102,7 +102,7 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="UML类图简述及IDEA中UML插件的安装和使用"><a href="#UML类图简述及IDEA中UML插件的安装和使用" class="headerlink" title="UML类图简述及IDEA中UML插件的安装和使用"></a>UML类图简述及IDEA中UML插件的安装和使用</h1><p><strong>序言</strong>：在上软件构造这门课中，随着课程的深入，PPT上出现了许多的类图，初次看起来不太懂各种箭头指向表明的含义；此外，老师还提到了许多类与类之间的关系，依赖、组合、泛化、实现等等，其在UML类图上都有体现。同时考虑到UML类图的在工作学习种会广泛使用，以及其清晰简洁的类与类之间关系的表示，同时可以在我们的实验报告中用类图展示类与类之间关系，简洁明了，由此产生了学习UML类图的想法，到网上查阅资料学习并撰写博客记录。</p>
+  <h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>在上软件构造这门课中，随着课程的深入，PPT上出现了许多的类图，初次看起来不太懂各种箭头指向表明的含义；此外，老师还提到了许多类与类之间的关系，依赖、组合、泛化、实现等等，其在UML类图上都有体现。同时考虑到UML类图的在工作学习种会广泛使用，以及其清晰简洁的类与类之间关系的表示，同时可以在我们的实验报告中用类图展示类与类之间关系，简洁明了，由此产生了学习UML类图的想法，到网上查阅资料学习并撰写博客记录。</p>
 <h2 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h2><h3 id="UML图定义"><a href="#UML图定义" class="headerlink" title="UML图定义"></a>UML图定义</h3><p>​        UML图，实际上是一种<strong>语言</strong>， 统一建模语言，又称标准建模语言，是用来对软件密集系统进行可视化建模的一种语言。UML的包括<strong>UML语义</strong>和<strong>UML表示法</strong>两个元素。</p>
 <p>​        UML是在开发阶段，说明、可视化、构建和书写一个<strong>面向对象</strong>软件密集系统的制品的开放方法。最佳的应用是工程实践，对大规模，复杂系统进行建模方面，特别是在<strong>软件架构</strong>层次，已经被验证有效。统一建模语言（UML）是一种模型化语言。模型大多以<strong>图表</strong>的方式表现出来。一份典型的建模图表通常包含几个块或框，连接线和作为模型附加信息之用的文本。这些虽简单却非常重要，在UML规则中相互联系和扩展。</p>
 <p>​        UML本身是一套符号的规定，就像数学符号和化学符号一样，这些符号用于描述软件模型中的各个元素和他们之间的关系，比如类、接口、实现、泛化、依赖、组合、聚合等</p>
@@ -182,7 +182,7 @@
 <p>​        此外，还有一种特例，会将聚合关系升级成组合关系，即级联删除。其前提是：类A与类B是聚合关系，A是整体，B是部分；当销毁删除A的同时，连同B一块销毁删除，这就是级联删除。当定义了级联删除时，那么A与B由原来的聚合关系升级为组合关系。就比如说上面举的Person和IDnumber的例子，删除Person时连同IDnumber一块删除，那么IDnumber和Person就是组合关系了。</p>
 <p>​        在UML类图中用带实心菱形的实线表示，菱形指向整体。</p>
 <h3 id="类图关系小结"><a href="#类图关系小结" class="headerlink" title="类图关系小结"></a>类图关系小结</h3><p>​        类图的6种关系中，其中依赖关系是最普遍、最基础、最广泛的一类关系，再根据关系的特点细分，可以划分出泛型、实现、关联、组合、聚合关系，其都是依赖关系的特例。就像人类社会一般，每个人都与他人之间有着依赖关系，维持着人际关系，再根据人际关系特点或身份等等，分成各种关系，诸如父子、师生、朋友等等关系。</p>
-<h2 id="IDEA中UML插件的安装与使用"><a href="#IDEA中UML插件的安装与使用" class="headerlink" title="IDEA中UML插件的安装与使用"></a>IDEA中UML插件的安装与使用</h2><p>​        第一步：打开IDEA，选中左上角的<strong>文件（File）—&gt;设置（Settings）—&gt;插件（Plugins）</strong>，搜索UML，这里推荐PlantUML，然后安装，安装完成后需要重新启动IDEA。</p>
+<h2 id="IDEA中UML插件的安装与使用"><a href="#IDEA中UML插件的安装与使用" class="headerlink" title="IDEA中UML插件的安装与使用"></a>IDEA中UML插件的安装与使用</h2><h3 id="UML的安装"><a href="#UML的安装" class="headerlink" title="UML的安装"></a>UML的安装</h3><p>​        第一步：打开IDEA，选中左上角的<strong>文件（File）—&gt;设置（Settings）—&gt;插件（Plugins）</strong>，搜索UML，这里推荐PlantUML，然后安装，安装完成后需要重新启动IDEA。</p>
 <p><img src="/2021/06/20/UML%E7%B1%BB%E5%9B%BE/1.png"></p>
 <p>​        第二步：重启IDEA完成后，选中左上角的<strong>文件（File）—&gt;新建（new）</strong>，可以发现一个<strong>PlantUML File</strong>，说明可以创建UML文件了</p>
 <p><img src="/2021/06/20/UML%E7%B1%BB%E5%9B%BE/2.png"></p>
@@ -193,7 +193,7 @@
 <p>​        传送门：<a target="_blank" rel="noopener" href="https://plantuml.com/class-diagram">https://plantuml.com/class-diagram</a></p>
 <p>​        若要学习绘制UML图的语法，可以到PlantUML的github上获取资源。</p>
 <p>​        传送门：<a target="_blank" rel="noopener" href="https://github.com/plantuml/plantuml">https://github.com/plantuml/plantuml</a></p>
-<p>​        这里给出常用语法：        </p>
+<h3 id="PlantUML语法"><a href="#PlantUML语法" class="headerlink" title="PlantUML语法"></a>PlantUML语法</h3><p>​        这里给出常用语法：        </p>
 <table>
 <thead>
 <tr>
