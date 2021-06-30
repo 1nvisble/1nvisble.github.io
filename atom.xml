@@ -6,7 +6,7 @@
   <link href="https://1nvisble.github.io/atom.xml" rel="self"/>
   
   <link href="https://1nvisble.github.io/"/>
-  <updated>2021-06-28T07:54:55.375Z</updated>
+  <updated>2021-06-30T02:05:36.177Z</updated>
   <id>https://1nvisble.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://1nvisble.github.io/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/"/>
     <id>https://1nvisble.github.io/2021/06/27/Hello%E7%9A%84%E4%B8%80%E7%94%9F/</id>
     <published>2021-06-27T09:23:13.000Z</published>
-    <updated>2021-06-28T07:54:55.375Z</updated>
+    <updated>2021-06-30T02:05:36.177Z</updated>
     
     
       
@@ -35,10 +35,14 @@
     
     
     
-    <category term="计算机系统、CS" scheme="https://1nvisble.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E3%80%81CS/"/>
+    <category term="计算机系统" scheme="https://1nvisble.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/"/>
     
     
-    <category term="C语言、CSAPP、计算机系统" scheme="https://1nvisble.github.io/tags/C%E8%AF%AD%E8%A8%80%E3%80%81CSAPP%E3%80%81%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/"/>
+    <category term="C语言" scheme="https://1nvisble.github.io/tags/C%E8%AF%AD%E8%A8%80/"/>
+    
+    <category term="CSAPP" scheme="https://1nvisble.github.io/tags/CSAPP/"/>
+    
+    <category term="计算机系统" scheme="https://1nvisble.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/"/>
     
   </entry>
   
@@ -76,7 +80,7 @@
     <link href="https://1nvisble.github.io/2021/06/20/UML%E7%B1%BB%E5%9B%BE/"/>
     <id>https://1nvisble.github.io/2021/06/20/UML%E7%B1%BB%E5%9B%BE/</id>
     <published>2021-06-20T10:25:43.000Z</published>
-    <updated>2021-06-30T02:02:01.222Z</updated>
+    <updated>2021-06-30T02:05:06.236Z</updated>
     
     
       
@@ -89,14 +93,16 @@
     
     
     
-    <category term="UML类图、" scheme="https://1nvisble.github.io/categories/UML%E7%B1%BB%E5%9B%BE%E3%80%81/"/>
+    <category term="UML类图" scheme="https://1nvisble.github.io/categories/UML%E7%B1%BB%E5%9B%BE/"/>
     
     
     <category term="JAVA" scheme="https://1nvisble.github.io/tags/JAVA/"/>
     
     <category term="IDEA" scheme="https://1nvisble.github.io/tags/IDEA/"/>
     
-    <category term="UML类图、依赖" scheme="https://1nvisble.github.io/tags/UML%E7%B1%BB%E5%9B%BE%E3%80%81%E4%BE%9D%E8%B5%96/"/>
+    <category term="UML类图" scheme="https://1nvisble.github.io/tags/UML%E7%B1%BB%E5%9B%BE/"/>
+    
+    <category term="依赖" scheme="https://1nvisble.github.io/tags/%E4%BE%9D%E8%B5%96/"/>
     
   </entry>
   

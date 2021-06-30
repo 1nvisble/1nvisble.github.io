@@ -300,12 +300,13 @@
 <p>[2] PlantUML语法：<a href="https://www.cnblogs.com/liruilong/p/11506280.html">https://www.cnblogs.com/liruilong/p/11506280.html</a></p>
 ]]></content>
       <categories>
-        <category>UML类图、</category>
+        <category>UML类图</category>
       </categories>
       <tags>
         <tag>JAVA</tag>
         <tag>IDEA</tag>
-        <tag>UML类图、依赖</tag>
+        <tag>UML类图</tag>
+        <tag>依赖</tag>
       </tags>
   </entry>
   <entry>
@@ -1429,10 +1430,12 @@
 <p>（参考文献0分，缺失 -1分)</p>
 ]]></content>
       <categories>
-        <category>计算机系统、CS</category>
+        <category>计算机系统</category>
       </categories>
       <tags>
-        <tag>C语言、CSAPP、计算机系统</tag>
+        <tag>C语言</tag>
+        <tag>CSAPP</tag>
+        <tag>计算机系统</tag>
       </tags>
   </entry>
 </search>
