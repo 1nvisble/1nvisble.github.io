@@ -126,7 +126,7 @@
 </li>
 </ol>
 <p>整型常量：默认类型为int型； 浮点型常量：默认类型为double型。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">publicclassTest&#123;</span><br><span class="line">	publicstaticvoidmain(String[]args)&#123;</span><br><span class="line">	<span class="keyword">long</span> a = <span class="number">2147483647</span>;        <span class="comment">//编译可通过</span></span><br><span class="line">   	<span class="keyword">long</span> a = <span class="number">2147483648</span>;        <span class="comment">//编译不通过，显示数过大</span></span><br><span class="line">    <span class="keyword">long</span> a = <span class="number">2147483648l</span>;      <span class="comment">//编译可通过</span></span><br><span class="line">    <span class="keyword">float</span> f1 = <span class="number">12.3</span>;   <span class="comment">//编译不通过，因为12.3默认为double型，需要12.3加f</span></span><br><span class="line">    byteb = <span class="number">12</span>;   <span class="comment">//编译可通过</span></span><br><span class="line">    byteb = b + <span class="number">1</span>;   <span class="comment">//编译不通过，因为1被认为是int型</span></span><br><span class="line">    <span class="keyword">float</span> f1 = b + <span class="number">12.3</span>;  <span class="comment">//编译不通过，因为12.3被认为是doble型</span></span><br><span class="line">	System.out.println(a);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		<span class="keyword">long</span> a = <span class="number">2147483647</span>;        <span class="comment">//编译可通过</span></span><br><span class="line">   		<span class="keyword">long</span> a = <span class="number">2147483648</span>;        <span class="comment">//编译不通过，显示数过大</span></span><br><span class="line">   	 	<span class="keyword">long</span> a = <span class="number">2147483648l</span>;      <span class="comment">//编译可通过</span></span><br><span class="line">    	<span class="keyword">float</span> f1 = <span class="number">12.3</span>;   <span class="comment">//编译不通过，因为12.3默认为double型，需要12.3加f</span></span><br><span class="line">   		<span class="keyword">byte</span> b = <span class="number">12</span>;   <span class="comment">//编译可通过</span></span><br><span class="line">   	    <span class="keyword">byte</span> b = b + <span class="number">1</span>;   <span class="comment">//编译不通过，因为1被认为是int型</span></span><br><span class="line">   	    <span class="keyword">float</span> f1 = b + <span class="number">12.3</span>;  <span class="comment">//编译不通过，因为12.3被认为是doble型</span></span><br><span class="line">	System.out.println(a);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h2 id="引用数据类型"><a href="#引用数据类型" class="headerlink" title="引用数据类型"></a>引用数据类型</h2><p>引用数据类型主要有：类（字符串）、接口、数组、枚举类等。其被称为引用数据类型的原因是：创建变量并赋值后，且不是直接存储的值，而是存储的是堆中创建值的地址，通过地址寻值，有点类似于C语言的指针。</p>
 <p>举例String：</p>
@@ -160,7 +160,7 @@
 <tr>
 <td align="center">可变/不可变数据类型</td>
 <td align="center">全都为不可变数据类型</td>
-<td align="center">有些时可变的，有些是不可变的</td>
+<td align="center">有些是可变的，有些是不可变的</td>
 </tr>
 <tr>
 <td align="center">赋值</td>
@@ -219,7 +219,7 @@
 <h3 id="不可变对象"><a href="#不可变对象" class="headerlink" title="不可变对象"></a>不可变对象</h3><p> 其在对象类型的基础上改为双线椭圆。</p>
 <p>如之前前面所举的例子。</p>
 <p><img src="/2021/05/20/Snaphot/4.png" alt="image-20210706190855510"></p>
-<h2 id="可变对象"><a href="#可变对象" class="headerlink" title="可变对象"></a>可变对象</h2><p>这个也较为简单，就是之前举的例子。</p>
+<h3 id="可变对象"><a href="#可变对象" class="headerlink" title="可变对象"></a>可变对象</h3><p>这个也较为简单，就是之前举的例子。</p>
 <p><img src="/2021/05/20/Snaphot/5.png" alt="image-20210706190817364"></p>
 <h3 id="不可变的引用"><a href="#不可变的引用" class="headerlink" title="不可变的引用"></a>不可变的引用</h3><p>这里不可变的引用是指，变量指不可变。其用双线箭头表示。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="keyword">int</span> y =<span class="number">3</span>;</span><br></pre></td></tr></table></figure>
@@ -229,6 +229,7 @@
 <p>同时我们还要注意：引用是不可变的，但指向的值却可以是可变的。比如说，定义了一个final StringBuilder sb，我们不能改变其指向，但其指向的值却是可改变的。</p>
 <p>可变的引用，也可指向不可变的值，比如说，定义了一个String s，其指向一个存储在堆中不可变的值“Hello”，但我们可以改变s的指向，指向“Hello world”。</p>
 <p>这就是关于Snophot的内容。</p>
+<p>这些只是自己的一些浅薄的理解，若有问题，恳请批评指正。</p>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>【1】软件构造课程PPT</p>
 <p>【2】自学JAVA的笔记</p>
 ]]></content>
