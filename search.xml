@@ -56,20 +56,37 @@
   </entry>
   <entry>
     <title>Java代理模式（Proxy）理解</title>
-    <url>/2021/06/22/Java%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%EF%BC%88Proxy%EF%BC%89/</url>
-    <content><![CDATA[<h2 id="代理模式概念简述"><a href="#代理模式概念简述" class="headerlink" title="代理模式概念简述"></a>代理模式概念简述</h2><p>首先，代理模式是一种<strong>设计模式</strong>。</p>
-<p>先给出代理模式的概念：代理模式是指通过<strong>代理对象</strong>访问目标对象，而不是直接访问目标对象，通过字面理解即可，要通过一个代理人或者说中间人来访问我们想要访问的对象。举例就像房屋中介，买房人不想自己去一个找房主询问其是否卖房，而卖房人也不想麻烦去一个个找买房人，中介就承担起这个功能，买房人（用户）通过中介（代理对象）获知在售的其意向房产的信息（如房价、面积、位置等的）。</p>
+    <url>/2021/06/27/Java%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%EF%BC%88Proxy%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>老师上课讲到了一些设计模式，但是由于课程较赶，时间较紧，吃不太透，于是自己课下再学习一些，加深理解，同时在编程中多多用到。</p>
+<h2 id="代理模式简述"><a href="#代理模式简述" class="headerlink" title="代理模式简述"></a>代理模式简述</h2><p>首先，代理模式是一种<strong>设计模式</strong>。</p>
+<p>先给出代理模式的<strong>概念</strong>：代理模式是指通过<strong>代理对象</strong>访问目标对象，而不是直接访问<strong>目标对象</strong>，通过字面理解即可，要通过一个代理人或者说中间人来访问我们想要访问的对象。举例就像房屋中介，买房人不想自己去一个找房主询问其是否卖房，而卖房人也不想麻烦去一个个找买房人，中介就承担起这个功能，买房人（用户）通过中介（代理对象）获知在售的其意向房产的信息（如房价、面积、位置等的）。</p>
+<p><strong>意图</strong>：为其他对象提供一种代理以控制对这个对象的访问。</p>
+<p><strong>何时使用</strong>：为其他对象提供一种代理以控制对这个对象的访问。</p>
+<p><strong>关键代码：</strong>实现与被代理类组合。</p>
 <p>那么为什么要有代理模式呢？其好处是可以在目标对象实现的基础上，增强额外的功能操作，即拓展目标对象的功能，如添加权限进行访问控制和审计等功能，其中举添加权限这个功能说明，通过代理对象判断访问目标对象的用户是否拥有访问的权限，没有则禁止访问，实现对信息的一个保护。</p>
 <p>同时，代理模式也是遵循了设计思想中类的单一性原则，就是每个类功能应该单一，即专一，就是说什么人干什么事，一个人尽可能负责一个工作，同时也是去尽量实现低耦合。</p>
-<img src="/2021/06/22/Java%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%EF%BC%88Proxy%EF%BC%89/Proxy.png" class title="This is a Proxys image">
+<img src="/2021/06/27/Java%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%EF%BC%88Proxy%EF%BC%89/Proxy.png" class title="This is a Proxys image">
 
 <p>代理模式要着重理解代理对象和目标对象的概念，代理对象是对目标对象的扩展,并会调用目标对象。就像房屋中介调用目标对象（卖房人）获取其房产信息，但不仅限于房产信息，房屋中介还会审计其掌握的房产资源，而后挑选合适的房产给买房人。</p>
+<p><strong>使用场景：</strong>按职责来划分，通常有以下使用场景： 1、远程代理。 2、虚拟代理。 3、Copy-on-Write 代理。 4、保护（Protect or Access）代理。 5、Cache代理。 6、防火墙（Firewall）代理。 7、同步化（Synchronization）代理。 8、智能引用（Smart Reference）代理</p>
 <h2 id="代理模式的分类"><a href="#代理模式的分类" class="headerlink" title="代理模式的分类"></a>代理模式的分类</h2><p>代理模式主要分为三类：</p>
 <p> 1.静态代理；</p>
 <p> 2.动态代理；</p>
 <p> 3.Cglib代理。</p>
 <p>下面分别论述。</p>
 <h3 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h3><p>静态代理在使用时,需要定义接口或者父类,被代理对象与代理对象一起实现相同的接口或者是继承相同父类。需要注意的是，代理对象与目标对象要实现相同的接口，然后通过调用相同的方法来调用目标对象的方法。</p>
+<p>我们举个买房这个例子来说明：</p>
+<p>首先要先创建一个服务类的接口：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HouseService</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">buyHouse</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后要实现这个服务接口：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HouseServiceImpl</span> <span class="keyword">implements</span> <span class="title">HouseService</span> </span>&#123;</span><br><span class="line">     <span class="meta">@Override</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buyHouse</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         System.out.println(<span class="string">&quot;我要买房&quot;</span>);</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>有了服务后，我们就需要一个中间类也就是代理类。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HouseServiceProxy</span> <span class="keyword">implements</span> <span class="title">HouseService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> HouseService houseService;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HouseServiceProxy</span><span class="params">(<span class="keyword">final</span> HouseService houseService)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.houseService = houseService;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buyHosue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;攒钱买房&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;挑房看房&quot;</span>);</span><br><span class="line">        houseService.buyHosue();</span><br><span class="line">        System.out.println(<span class="string">&quot;买房装修&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;入住&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <p>优点：在不修改目标对象的功能前提下,可以实现对目标对象功能的扩展。</p>
 <p>缺点：</p>
 <ol>
@@ -79,7 +96,12 @@
 </li>
 </ol>
 <p>如何解决静态代理中的缺点呢?答案是可以使用动态代理方式。</p>
-<h3 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h3><p><strong>动态代理的特点:</strong></p>
+<h3 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h3><p>　在动态代理中我们不再需要再手动的创建代理类，我们只需要编写一个动态处理器就可以了。真正的代理对象由JDK再运行时为我们动态的来创建。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicProxyHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Object object;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DynamicProxyHandler</span><span class="params">(<span class="keyword">final</span> Object object)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.object = object;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable 		</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;攒钱买房&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;挑房看房&quot;</span>);</span><br><span class="line">        Object result = method.invoke(object, args);</span><br><span class="line">        System.out.println(<span class="string">&quot;买房装修&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;入住&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>动态代理的特点:</strong></p>
 <p>1.代理对象,不需要实现接口；<br>2.代理对象的生成,是利用JDK的API,动态的在内存中构建代理对象(需要我们指定创建代理对象/目标对象实现的接口的类型)；<br>3.动态代理也叫做: JDK代理,接口代理。</p>
 <p><strong>JDK中生成代理对象的API</strong><br>代理类所在包:java.lang.reflect.Proxy</p>
 <p><strong>总结</strong>：代理对象不需要实现接口,但是目标对象一定要实现接口,否则不能用动态代理。</p>
@@ -90,223 +112,25 @@
 <p>JDK的动态代理有一个限制,就是使用动态代理的对象必须实现一个或多个接口,如果想代理没有实现接口的类,就可以使用Cglib实现。</p>
 <p>Cglib是一个强大的高性能的代码生成包,它可以在运行期扩展java类与实现java接口.它广泛的被许多AOP的框架使用,例如Spring AOP和synaop,为他们提供方法的interception(拦截)。</p>
 <p>Cglib包的底层是通过使用一个小而块的字节码处理框架ASM来转换字节码并生成新的类.不鼓励直接使用ASM,因为它要求你必须对JVM内部结构包括class文件的格式和指令集都很熟悉。</p>
+<p>步骤：创建Cglib代理类。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> net.sf.cglib.proxy.Enhancer;</span><br><span class="line"><span class="keyword">import</span> net.sf.cglib.proxy.MethodInterceptor;</span><br><span class="line"><span class="keyword">import</span> net.sf.cglib.proxy.MethodProxy;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CglibProxy</span> <span class="keyword">implements</span> <span class="title">MethodInterceptor</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Object target;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getInstance</span><span class="params">(<span class="keyword">final</span> Object target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.target = target;</span><br><span class="line">        Enhancer enhancer = <span class="keyword">new</span> Enhancer();</span><br><span class="line">        enhancer.setSuperclass(<span class="keyword">this</span>.target.getClass());</span><br><span class="line">        enhancer.setCallback(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">return</span> enhancer.create();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Object object, Method method, Object[] args, MethodProxy methodProxy)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;攒钱买房&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;挑房看房&quot;</span>);</span><br><span class="line">        Object result = methodProxy.invoke(object, args);</span><br><span class="line">        System.out.println(<span class="string">&quot;买房装修&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;入住&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <p>Cglib子类代理实现方法:</p>
 <ol>
 <li>需要引入cglib的jar文件,但是因为pring的核心包中已经包括了Cglib功能,所以可以直接引入<code>pring-core-3.2.5.jar</code>。</li>
 <li>引入功能包后,就可以在内存中动态构建子类</li>
 </ol>
+<p>以上就是代理模式的内容，仅个人拙见，若有错误，恳请批评指正。</p>
+<h2 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h2><p>【1】<a href="https://www.runoob.com/design-pattern/proxy-pattern.html">https://www.runoob.com/design-pattern/proxy-pattern.html</a></p>
 ]]></content>
       <categories>
-        <category>Java</category>
-        <category>设计模式</category>
+        <category>Java|设计模式</category>
       </categories>
       <tags>
         <tag>Java</tag>
         <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>UML类图简述及IDEA中UML插件的安装和使用</title>
-    <url>/2021/06/20/UML%E7%B1%BB%E5%9B%BE/</url>
-    <content><![CDATA[<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>在上软件构造这门课中，随着课程的深入，PPT上出现了许多的类图，初次看起来不太懂各种箭头指向表明的含义；此外，老师还提到了许多类与类之间的关系，依赖、组合、泛化、实现等等，其在UML类图上都有体现。同时考虑到UML类图的在工作学习种会广泛使用，以及其清晰简洁的类与类之间关系的表示，同时可以在我们的实验报告中用类图展示类与类之间关系，简洁明了，由此产生了学习UML类图的想法，到网上查阅资料学习并撰写博客记录。</p>
-<h2 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h2><h3 id="UML图定义"><a href="#UML图定义" class="headerlink" title="UML图定义"></a>UML图定义</h3><p>​        UML图，实际上是一种<strong>语言</strong>， 统一建模语言，又称标准建模语言，是用来对软件密集系统进行可视化建模的一种语言。UML的包括<strong>UML语义</strong>和<strong>UML表示法</strong>两个元素。</p>
-<p>​        UML是在开发阶段，说明、可视化、构建和书写一个<strong>面向对象</strong>软件密集系统的制品的开放方法。最佳的应用是工程实践，对大规模，复杂系统进行建模方面，特别是在<strong>软件架构</strong>层次，已经被验证有效。统一建模语言（UML）是一种模型化语言。模型大多以<strong>图表</strong>的方式表现出来。一份典型的建模图表通常包含几个块或框，连接线和作为模型附加信息之用的文本。这些虽简单却非常重要，在UML规则中相互联系和扩展。</p>
-<p>​        UML本身是一套符号的规定，就像数学符号和化学符号一样，这些符号用于描述软件模型中的各个元素和他们之间的关系，比如类、接口、实现、泛化、依赖、组合、聚合等</p>
-<h3 id="UML图分类"><a href="#UML图分类" class="headerlink" title="UML图分类"></a>UML图分类</h3><ol>
-<li>用例图。</li>
-<li>静态结构图：<strong>类图</strong>、对象图、包图、组件图、部署图。</li>
-<li>动态行为图：交互图（时序图与协作图）、状态图、活动图。</li>
-</ol>
-<p>说明：</p>
-<ul>
-<li>类图是描述<strong>类与类</strong>之间的<strong>关系</strong>，是UML图中最<strong>核心</strong>的。</li>
-</ul>
-<p>下面着重介绍UML类图</p>
-<h2 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h2><p>​        UML类图的介绍：</p>
-<ul>
-<li>描述系统中类（对象）本身的组成（成员属性和成员方法）和类（对象）之间的各种<strong>静态关系</strong>。</li>
-<li>类之间的关系：依赖、泛化、实现、关联、聚合与组合。</li>
-</ul>
-<h3 id="类图的依赖关系（Dependence）"><a href="#类图的依赖关系（Dependence）" class="headerlink" title="类图的依赖关系（Dependence）"></a>类图的依赖关系（Dependence）</h3><p>​        只要是在类中用到了对方，那么他们之间就存在依赖关系，如果没有对方，甚至连编译都过不了。依赖关系是类与类之间最广泛、最普遍也是最基础的关系。</p>
-<p>​        下面几条为判断类依赖关系的依据：</p>
-<ul>
-<li><p>类中用到了对方</p>
-</li>
-<li><p>类的成员属性</p>
-</li>
-<li><p>方法中使用到</p>
-</li>
-<li><p>是方法的返回类型</p>
-</li>
-<li><p>是方法接收的参数类型</p>
-<p>​    就拿最简单的Person来举例。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDnumber id;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIDnumber</span><span class="params">(IDnumber id)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.IDnumber = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDnumber <span class="title">getIDnumber</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IDnumber</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>​    每个人Person都有自己的身份证号，这里新建一个IDnumber类，使用到了IDnumber类，而id又是Peroson的成员变量，同时在setIDnumber方法传入参数类型也为IDnumber ，getIDnumber方法中返回的类型也为IDnumber，只要存在上述的任意一条出现，就可以说IDnumber类和Peroson类构成了依赖关系。</p>
-<p>​    在UML类图中，用带箭头的虚线表示，箭头指向被依赖方，比如说，这里Person类指向IDnumber类。如下图所示。</p>
-<p><img src="/2021/06/20/UML%E7%B1%BB%E5%9B%BE/Dependence.jpg"></p>
-</li>
-</ul>
-<h3 id="类图中的泛化关系（Generalization）"><a href="#类图中的泛化关系（Generalization）" class="headerlink" title="类图中的泛化关系（Generalization）"></a>类图中的泛化关系（Generalization）</h3><p>​        泛化关系实际上就是继承关系，比如B类（子类）继承了A类（父类），二者构成了泛化关系。泛化关系是依赖关系的特例。前面已经提到依赖关系是最普遍的关系，而这里则是针对关系的特点再细分。</p>
-<p>​        这里就用Human和Person来举例，每个人都是人类，都要吃饭和睡觉。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Human</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">extends</span> <span class="title">Human</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDnumber idnumber;</span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span></span>&#123;</span><br><span class="line">       System.out.println(<span class="string">&quot;人吃饭&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;人睡觉&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>​        在UML类图中，用带三角箭头的实线表示泛化关系，其箭头指向父类。如下图所示。</p>
-<p><img src="/2021/06/20/UML%E7%B1%BB%E5%9B%BE/extend.jpg"></p>
-<h3 id="类图中的实现关系（Realization）"><a href="#类图中的实现关系（Realization）" class="headerlink" title="类图中的实现关系（Realization）"></a>类图中的实现关系（Realization）</h3><p>​        实现关系就是A类实现B接口，表示类具备了某种能力，也是依赖关系的特例。</p>
-<p>​        这里就用Person类和Swimming接口来举例，并不是每个人都会游泳，就比如说我这只“旱鸭子”。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Swimming</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swim</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="title">implenment</span> <span class="title">Swimming</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"> 	<span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swim</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;人游泳&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>​        在UML类图中带三角箭头的虚线表示依赖关系，其箭头指向实现的接口。如下图所示。</p>
-<p><img src="/2021/06/20/UML%E7%B1%BB%E5%9B%BE/implement.jpg"></p>
-<h3 id="类图中的关联关系（Association）"><a href="#类图中的关联关系（Association）" class="headerlink" title="类图中的关联关系（Association）"></a>类图中的关联关系（Association）</h3><p>​        一个类中的成员变量（成员属性）用到了其他类，则称二者构成关联关系。关联关系实际上就是类与类之间的联系，也是依赖关系的特例。</p>
-<p>​        关系具有导航性，即双向关系或单向关系，单向一对一关系，双向一对一关系。</p>
-<p>​        关系具有多重性，如“1”表示有且仅有一个，“0…”表示0个或者多个，“0，1”表示0个或1个，“i…j”表示i到j个都可以，“m…*”表示至少m个。</p>
-<p>​        这里依旧拿Person和IDnumber来举例。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">现在Person类和IDnumber类的关系就是关联关系，Person类的成员属性中用到了IDnumber类，此时是单向一对一的，Person对应IDnumber，而IDnumber并没对应Person。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDnumber id;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIDnumber</span><span class="params">(IDnumber id)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.IDnumber = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDnumber <span class="title">getIDnumber</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IDnumber</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>UML类图如下：</p>
-<p><img src="/2021/06/20/UML%E7%B1%BB%E5%9B%BE/Associate1.jpg"></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">这段表示Person与IDnumber关系仍是关联关系，但与上面的单向一对一的不同，此时，Person对应IDnumber，而IDnumber也对应Person，是双向一对一关系。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDnumber id;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIDnumber</span><span class="params">(IDnumber id)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.IDnumber = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDnumber <span class="title">getIDnumber</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IDnumber</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Person person;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>​    UML类图如下：</p>
-<p><img src="/2021/06/20/UML%E7%B1%BB%E5%9B%BE/Associate2.jpg"></p>
-<p>​    在UML类图中带箭头的实线表示关联关系，箭头指向关联类。</p>
-<h3 id="类图中的聚合关系（Aggregation）"><a href="#类图中的聚合关系（Aggregation）" class="headerlink" title="类图中的聚合关系（Aggregation）"></a>类图中的聚合关系（Aggregation）</h3><p>​        聚合关系表示的是整体和部分的关系，整体与部分可以分离，部分具有一定的独立性。整体和部分具有各自的生命周期，部分可以属于多个对象，也可以被多个对象共享；比如计算机和CPU、鼠标、键盘，公司与员工的关系。</p>
-<p>​        在代码层面来讲，聚合与关联是一致的，只能从语义上来区分。聚合关系是关联关系的特例，具有关联的导航性与多重性。</p>
-<p>​        这里拿Computer类和Mouse类、Keyboard类来举例，电脑有鼠标、键盘等组成，但鼠标、键盘都可以拔下来，电脑损害不会损坏到鼠标、键盘，鼠标、键盘损坏也不会损坏电脑，换个新鼠标、键盘就是了。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Computer</span></span></span><br><span class="line"><span class="class">    <span class="title">private</span> <span class="title">Mouse</span> <span class="title">mouse</span></span>;</span><br><span class="line">	<span class="keyword">private</span> Keyboard keyboard;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMouse</span><span class="params">(Mouse mouse)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.mouse = mouse;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setKeyboard</span><span class="params">(Keyboard keyboard)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.keyboard= keyboard;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Mouse</span></span>&#123;  </span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Keyboard</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>​        在UML类图中用带空心菱形的实线表示，菱形指向整体。如图所示。</p>
-<p><img src="/2021/06/20/UML%E7%B1%BB%E5%9B%BE/Aggreation.jpg"></p>
-<h3 id="类图中的组合关系（Composition-）"><a href="#类图中的组合关系（Composition-）" class="headerlink" title="类图中的组合关系（Composition    ）"></a>类图中的组合关系（Composition    ）</h3><p>​        组合关系表示的也是整体和部分的关系，但是聚合关系的升级，整体和部分不可以分开，部分不能从整体中分离出来，创建了整体的同时，部分也随之创立，共诞生、共灭亡。同样是关联关系的特例。</p>
-<p>​        这里依旧拿Person和Heart类举例，每个人都有心脏，自一出生下来，心脏无时无刻不跳动，当然不跳动了，人就die了，同生共死。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDnumber id;   <span class="comment">//聚合关系</span></span><br><span class="line">    <span class="keyword">private</span> Heart heart = <span class="keyword">new</span> Heart();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIDnumber</span><span class="params">(IDnumber id)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.IDnumber = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDnumber <span class="title">getIDnumber</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IDnumber</span></span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Heart</span></span>&#123;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>UML类图如下：</p>
-<p><img src="/2021/06/20/UML%E7%B1%BB%E5%9B%BE/composition.jpg"></p>
-<p>​        此外，还有一种特例，会将聚合关系升级成组合关系，即级联删除。其前提是：类A与类B是聚合关系，A是整体，B是部分；当销毁删除A的同时，连同B一块销毁删除，这就是级联删除。当定义了级联删除时，那么A与B由原来的聚合关系升级为组合关系。就比如说上面举的Person和IDnumber的例子，删除Person时连同IDnumber一块删除，那么IDnumber和Person就是组合关系了。</p>
-<p>​        在UML类图中用带实心菱形的实线表示，菱形指向整体。</p>
-<h3 id="类图关系小结"><a href="#类图关系小结" class="headerlink" title="类图关系小结"></a>类图关系小结</h3><p>​        类图的6种关系中，其中依赖关系是最普遍、最基础、最广泛的一类关系，再根据关系的特点细分，可以划分出泛型、实现、关联、组合、聚合关系，其都是依赖关系的特例。就像人类社会一般，每个人都与他人之间有着依赖关系，维持着人际关系，再根据人际关系特点或身份等等，分成各种关系，诸如父子、师生、朋友等等关系。</p>
-<h2 id="IDEA中UML插件的安装与使用"><a href="#IDEA中UML插件的安装与使用" class="headerlink" title="IDEA中UML插件的安装与使用"></a>IDEA中UML插件的安装与使用</h2><h3 id="UML的安装"><a href="#UML的安装" class="headerlink" title="UML的安装"></a>UML的安装</h3><p>​        第一步：打开IDEA，选中左上角的<strong>文件（File）—&gt;设置（Settings）—&gt;插件（Plugins）</strong>，搜索UML，这里推荐PlantUML，然后安装，安装完成后需要重新启动IDEA。</p>
-<p><img src="/2021/06/20/UML%E7%B1%BB%E5%9B%BE/1.png"></p>
-<p>​        第二步：重启IDEA完成后，选中左上角的<strong>文件（File）—&gt;新建（new）</strong>，可以发现一个<strong>PlantUML File</strong>，说明可以创建UML文件了</p>
-<p><img src="/2021/06/20/UML%E7%B1%BB%E5%9B%BE/2.png"></p>
-<p>​        点击出现文件创建，输入文件名，以及选择UML图的类型，这里选择class，即我们最常用的UML类图。</p>
-<p>​        下面是初次创建其给我们的示例：</p>
-<p><img src="/2021/06/20/UML%E7%B1%BB%E5%9B%BE/3.png"></p>
-<p>​        如想了解更多有关其类图的信息可以到其官网。</p>
-<p>​        传送门：<a href="https://plantuml.com/class-diagram">https://plantuml.com/class-diagram</a></p>
-<p>​        若要学习绘制UML图的语法，可以到PlantUML的github上获取资源。</p>
-<p>​        传送门：<a href="https://github.com/plantuml/plantuml">https://github.com/plantuml/plantuml</a></p>
-<h3 id="PlantUML语法"><a href="#PlantUML语法" class="headerlink" title="PlantUML语法"></a>PlantUML语法</h3><p>​        这里给出常用语法：        </p>
-<table>
-<thead>
-<tr>
-<th align="center">符号</th>
-<th align="center">含义</th>
-<th align="center">示例</th>
-<th align="center">示例含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">–</td>
-<td align="center">UML图中体现为实线</td>
-<td align="center">无</td>
-<td align="center">无</td>
-</tr>
-<tr>
-<td align="center">..</td>
-<td align="center">UML图中体现为虚线</td>
-<td align="center">无</td>
-<td align="center">无</td>
-</tr>
-<tr>
-<td align="center">..&gt;</td>
-<td align="center">依赖</td>
-<td align="center">A..&gt;B</td>
-<td align="center">类A依赖于B</td>
-</tr>
-<tr>
-<td align="center">–&gt;</td>
-<td align="center">关联</td>
-<td align="center">A..&gt;B</td>
-<td align="center">类A关联于B</td>
-</tr>
-<tr>
-<td align="center">–|&gt;</td>
-<td align="center">继承</td>
-<td align="center">A–|&gt;B</td>
-<td align="center">类A继承于B</td>
-</tr>
-<tr>
-<td align="center">..|&gt;</td>
-<td align="center">实现</td>
-<td align="center">A..|&gt;B</td>
-<td align="center">类A实现接口B</td>
-</tr>
-<tr>
-<td align="center">–o</td>
-<td align="center">聚合</td>
-<td align="center">A–oB</td>
-<td align="center">类A聚合了B</td>
-</tr>
-<tr>
-<td align="center">–*</td>
-<td align="center">组合</td>
-<td align="center">A–*B</td>
-<td align="center">类A组合了B</td>
-</tr>
-</tbody></table>
-<p>​        注：</p>
-<ul>
-<li>这里给符号&gt;, o, *指向那一侧，在UML图中会如实体现。</li>
-<li>还支持双向箭头&gt;、o、*，比如说关联关系中的双向单一关系，可以用A&lt;–&gt;B，其效果如前面所展示的Person和IDnumber的双向单一关系的UML类图一致。</li>
-<li>在左侧的类一般在UML图的上侧，如Human–|&gt;Person，Person..&gt;IDnumber，其UML图如前面所说类图中泛化关系的类图所示。</li>
-</ul>
-<p>​        然后是权限修饰符：</p>
-<table>
-<thead>
-<tr>
-<th align="center">符号</th>
-<th align="center">含义</th>
-<th align="center">示例</th>
-<th align="center">示例含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">-</td>
-<td align="center">private</td>
-<td align="center">-id: IDnumber</td>
-<td align="center">private IDnumber id;</td>
-</tr>
-<tr>
-<td align="center">+</td>
-<td align="center">public</td>
-<td align="center">+id: IDnumber</td>
-<td align="center">public IDnumber id;</td>
-</tr>
-<tr>
-<td align="center">#</td>
-<td align="center">protected</td>
-<td align="center">#id: IDnumber</td>
-<td align="center">protected IDnumber id;</td>
-</tr>
-</tbody></table>
-<p>​        再是抽象类和接口：</p>
-<p>​        可直接用抽象类和接口对应关键词即可，abstract和interface来声明即可。</p>
-<p>​        建议：根据第一次新建UML类图文件其官方给出的示例，照猫画虎，稍加研究，很快就可以上手，需要时间不到半小时，而且一旦熟练掌握后，效率十分之高，比拖拽画类图方便很多，同时plantUML做到了所见即所得，就是实时预览，十分方便。</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>[1] 尚硅谷UML介绍：<a href="https://www.bilibili.com/video/BV1G4411c7N4?p=23&amp;spm_id_from=pageDriver">https://www.bilibili.com/video/BV1G4411c7N4?p=23&amp;spm_id_from=pageDriver</a></p>
-<p>[2] PlantUML语法：<a href="https://www.cnblogs.com/liruilong/p/11506280.html">https://www.cnblogs.com/liruilong/p/11506280.html</a></p>
-]]></content>
-      <categories>
-        <category>UML类图</category>
-      </categories>
-      <tags>
-        <tag>JAVA</tag>
-        <tag>IDEA</tag>
-        <tag>UML类图</tag>
-        <tag>依赖</tag>
       </tags>
   </entry>
   <entry>
@@ -443,6 +267,210 @@
       <tags>
         <tag>Java</tag>
         <tag>Snaphot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>UML类图简述及IDEA中UML插件的安装和使用</title>
+    <url>/2021/06/15/UML%E7%B1%BB%E5%9B%BE/</url>
+    <content><![CDATA[<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>在上软件构造这门课中，随着课程的深入，PPT上出现了许多的类图，初次看起来不太懂各种箭头指向表明的含义；此外，老师还提到了许多类与类之间的关系，依赖、组合、泛化、实现等等，其在UML类图上都有体现。同时考虑到UML类图的在工作学习种会广泛使用，以及其清晰简洁的类与类之间关系的表示，同时可以在我们的实验报告中用类图展示类与类之间关系，简洁明了，由此产生了学习UML类图的想法，到网上查阅资料学习并撰写博客记录。</p>
+<h2 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h2><h3 id="UML图定义"><a href="#UML图定义" class="headerlink" title="UML图定义"></a>UML图定义</h3><p>​        UML图，实际上是一种<strong>语言</strong>， 统一建模语言，又称标准建模语言，是用来对软件密集系统进行可视化建模的一种语言。UML的包括<strong>UML语义</strong>和<strong>UML表示法</strong>两个元素。</p>
+<p>​        UML是在开发阶段，说明、可视化、构建和书写一个<strong>面向对象</strong>软件密集系统的制品的开放方法。最佳的应用是工程实践，对大规模，复杂系统进行建模方面，特别是在<strong>软件架构</strong>层次，已经被验证有效。统一建模语言（UML）是一种模型化语言。模型大多以<strong>图表</strong>的方式表现出来。一份典型的建模图表通常包含几个块或框，连接线和作为模型附加信息之用的文本。这些虽简单却非常重要，在UML规则中相互联系和扩展。</p>
+<p>​        UML本身是一套符号的规定，就像数学符号和化学符号一样，这些符号用于描述软件模型中的各个元素和他们之间的关系，比如类、接口、实现、泛化、依赖、组合、聚合等</p>
+<h3 id="UML图分类"><a href="#UML图分类" class="headerlink" title="UML图分类"></a>UML图分类</h3><ol>
+<li>用例图。</li>
+<li>静态结构图：<strong>类图</strong>、对象图、包图、组件图、部署图。</li>
+<li>动态行为图：交互图（时序图与协作图）、状态图、活动图。</li>
+</ol>
+<p>说明：</p>
+<ul>
+<li>类图是描述<strong>类与类</strong>之间的<strong>关系</strong>，是UML图中最<strong>核心</strong>的。</li>
+</ul>
+<p>下面着重介绍UML类图</p>
+<h2 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h2><p>​        UML类图的介绍：</p>
+<ul>
+<li>描述系统中类（对象）本身的组成（成员属性和成员方法）和类（对象）之间的各种<strong>静态关系</strong>。</li>
+<li>类之间的关系：依赖、泛化、实现、关联、聚合与组合。</li>
+</ul>
+<h3 id="类图的依赖关系（Dependence）"><a href="#类图的依赖关系（Dependence）" class="headerlink" title="类图的依赖关系（Dependence）"></a>类图的依赖关系（Dependence）</h3><p>​        只要是在类中用到了对方，那么他们之间就存在依赖关系，如果没有对方，甚至连编译都过不了。依赖关系是类与类之间最广泛、最普遍也是最基础的关系。</p>
+<p>​        下面几条为判断类依赖关系的依据：</p>
+<ul>
+<li><p>类中用到了对方</p>
+</li>
+<li><p>类的成员属性</p>
+</li>
+<li><p>方法中使用到</p>
+</li>
+<li><p>是方法的返回类型</p>
+</li>
+<li><p>是方法接收的参数类型</p>
+<p>​    就拿最简单的Person来举例。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDnumber id;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIDnumber</span><span class="params">(IDnumber id)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.IDnumber = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDnumber <span class="title">getIDnumber</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IDnumber</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    每个人Person都有自己的身份证号，这里新建一个IDnumber类，使用到了IDnumber类，而id又是Peroson的成员变量，同时在setIDnumber方法传入参数类型也为IDnumber ，getIDnumber方法中返回的类型也为IDnumber，只要存在上述的任意一条出现，就可以说IDnumber类和Peroson类构成了依赖关系。</p>
+<p>​    在UML类图中，用带箭头的虚线表示，箭头指向被依赖方，比如说，这里Person类指向IDnumber类。如下图所示。</p>
+<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/Dependence.jpg"></p>
+</li>
+</ul>
+<h3 id="类图中的泛化关系（Generalization）"><a href="#类图中的泛化关系（Generalization）" class="headerlink" title="类图中的泛化关系（Generalization）"></a>类图中的泛化关系（Generalization）</h3><p>​        泛化关系实际上就是继承关系，比如B类（子类）继承了A类（父类），二者构成了泛化关系。泛化关系是依赖关系的特例。前面已经提到依赖关系是最普遍的关系，而这里则是针对关系的特点再细分。</p>
+<p>​        这里就用Human和Person来举例，每个人都是人类，都要吃饭和睡觉。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Human</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">extends</span> <span class="title">Human</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDnumber idnumber;</span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span></span>&#123;</span><br><span class="line">       System.out.println(<span class="string">&quot;人吃饭&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;人睡觉&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        在UML类图中，用带三角箭头的实线表示泛化关系，其箭头指向父类。如下图所示。</p>
+<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/extend.jpg"></p>
+<h3 id="类图中的实现关系（Realization）"><a href="#类图中的实现关系（Realization）" class="headerlink" title="类图中的实现关系（Realization）"></a>类图中的实现关系（Realization）</h3><p>​        实现关系就是A类实现B接口，表示类具备了某种能力，也是依赖关系的特例。</p>
+<p>​        这里就用Person类和Swimming接口来举例，并不是每个人都会游泳，就比如说我这只“旱鸭子”。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Swimming</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swim</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="title">implenment</span> <span class="title">Swimming</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"> 	<span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swim</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;人游泳&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        在UML类图中带三角箭头的虚线表示依赖关系，其箭头指向实现的接口。如下图所示。</p>
+<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/implement.jpg"></p>
+<h3 id="类图中的关联关系（Association）"><a href="#类图中的关联关系（Association）" class="headerlink" title="类图中的关联关系（Association）"></a>类图中的关联关系（Association）</h3><p>​        一个类中的成员变量（成员属性）用到了其他类，则称二者构成关联关系。关联关系实际上就是类与类之间的联系，也是依赖关系的特例。</p>
+<p>​        关系具有导航性，即双向关系或单向关系，单向一对一关系，双向一对一关系。</p>
+<p>​        关系具有多重性，如“1”表示有且仅有一个，“0…”表示0个或者多个，“0，1”表示0个或1个，“i…j”表示i到j个都可以，“m…*”表示至少m个。</p>
+<p>​        这里依旧拿Person和IDnumber来举例。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">现在Person类和IDnumber类的关系就是关联关系，Person类的成员属性中用到了IDnumber类，此时是单向一对一的，Person对应IDnumber，而IDnumber并没对应Person。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDnumber id;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIDnumber</span><span class="params">(IDnumber id)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.IDnumber = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDnumber <span class="title">getIDnumber</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IDnumber</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>UML类图如下：</p>
+<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/Associate1.jpg"></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">这段表示Person与IDnumber关系仍是关联关系，但与上面的单向一对一的不同，此时，Person对应IDnumber，而IDnumber也对应Person，是双向一对一关系。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDnumber id;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIDnumber</span><span class="params">(IDnumber id)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.IDnumber = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDnumber <span class="title">getIDnumber</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IDnumber</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Person person;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    UML类图如下：</p>
+<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/Associate2.jpg"></p>
+<p>​    在UML类图中带箭头的实线表示关联关系，箭头指向关联类。</p>
+<h3 id="类图中的聚合关系（Aggregation）"><a href="#类图中的聚合关系（Aggregation）" class="headerlink" title="类图中的聚合关系（Aggregation）"></a>类图中的聚合关系（Aggregation）</h3><p>​        聚合关系表示的是整体和部分的关系，整体与部分可以分离，部分具有一定的独立性。整体和部分具有各自的生命周期，部分可以属于多个对象，也可以被多个对象共享；比如计算机和CPU、鼠标、键盘，公司与员工的关系。</p>
+<p>​        在代码层面来讲，聚合与关联是一致的，只能从语义上来区分。聚合关系是关联关系的特例，具有关联的导航性与多重性。</p>
+<p>​        这里拿Computer类和Mouse类、Keyboard类来举例，电脑有鼠标、键盘等组成，但鼠标、键盘都可以拔下来，电脑损害不会损坏到鼠标、键盘，鼠标、键盘损坏也不会损坏电脑，换个新鼠标、键盘就是了。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Computer</span></span></span><br><span class="line"><span class="class">    <span class="title">private</span> <span class="title">Mouse</span> <span class="title">mouse</span></span>;</span><br><span class="line">	<span class="keyword">private</span> Keyboard keyboard;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMouse</span><span class="params">(Mouse mouse)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.mouse = mouse;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setKeyboard</span><span class="params">(Keyboard keyboard)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.keyboard= keyboard;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Mouse</span></span>&#123;  </span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Keyboard</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        在UML类图中用带空心菱形的实线表示，菱形指向整体。如图所示。</p>
+<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/Aggreation.jpg"></p>
+<h3 id="类图中的组合关系（Composition-）"><a href="#类图中的组合关系（Composition-）" class="headerlink" title="类图中的组合关系（Composition    ）"></a>类图中的组合关系（Composition    ）</h3><p>​        组合关系表示的也是整体和部分的关系，但是聚合关系的升级，整体和部分不可以分开，部分不能从整体中分离出来，创建了整体的同时，部分也随之创立，共诞生、共灭亡。同样是关联关系的特例。</p>
+<p>​        这里依旧拿Person和Heart类举例，每个人都有心脏，自一出生下来，心脏无时无刻不跳动，当然不跳动了，人就die了，同生共死。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDnumber id;   <span class="comment">//聚合关系</span></span><br><span class="line">    <span class="keyword">private</span> Heart heart = <span class="keyword">new</span> Heart();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIDnumber</span><span class="params">(IDnumber id)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.IDnumber = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDnumber <span class="title">getIDnumber</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IDnumber</span></span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Heart</span></span>&#123;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>UML类图如下：</p>
+<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/composition.jpg"></p>
+<p>​        此外，还有一种特例，会将聚合关系升级成组合关系，即级联删除。其前提是：类A与类B是聚合关系，A是整体，B是部分；当销毁删除A的同时，连同B一块销毁删除，这就是级联删除。当定义了级联删除时，那么A与B由原来的聚合关系升级为组合关系。就比如说上面举的Person和IDnumber的例子，删除Person时连同IDnumber一块删除，那么IDnumber和Person就是组合关系了。</p>
+<p>​        在UML类图中用带实心菱形的实线表示，菱形指向整体。</p>
+<h3 id="类图关系小结"><a href="#类图关系小结" class="headerlink" title="类图关系小结"></a>类图关系小结</h3><p>​        类图的6种关系中，其中依赖关系是最普遍、最基础、最广泛的一类关系，再根据关系的特点细分，可以划分出泛型、实现、关联、组合、聚合关系，其都是依赖关系的特例。就像人类社会一般，每个人都与他人之间有着依赖关系，维持着人际关系，再根据人际关系特点或身份等等，分成各种关系，诸如父子、师生、朋友等等关系。</p>
+<h2 id="IDEA中UML插件的安装与使用"><a href="#IDEA中UML插件的安装与使用" class="headerlink" title="IDEA中UML插件的安装与使用"></a>IDEA中UML插件的安装与使用</h2><h3 id="UML的安装"><a href="#UML的安装" class="headerlink" title="UML的安装"></a>UML的安装</h3><p>​        第一步：打开IDEA，选中左上角的<strong>文件（File）—&gt;设置（Settings）—&gt;插件（Plugins）</strong>，搜索UML，这里推荐PlantUML，然后安装，安装完成后需要重新启动IDEA。</p>
+<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/1.png"></p>
+<p>​        第二步：重启IDEA完成后，选中左上角的<strong>文件（File）—&gt;新建（new）</strong>，可以发现一个<strong>PlantUML File</strong>，说明可以创建UML文件了</p>
+<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/2.png"></p>
+<p>​        点击出现文件创建，输入文件名，以及选择UML图的类型，这里选择class，即我们最常用的UML类图。</p>
+<p>​        下面是初次创建其给我们的示例：</p>
+<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/3.png"></p>
+<p>​        如想了解更多有关其类图的信息可以到其官网。</p>
+<p>​        传送门：<a href="https://plantuml.com/class-diagram">https://plantuml.com/class-diagram</a></p>
+<p>​        若要学习绘制UML图的语法，可以到PlantUML的github上获取资源。</p>
+<p>​        传送门：<a href="https://github.com/plantuml/plantuml">https://github.com/plantuml/plantuml</a></p>
+<h3 id="PlantUML语法"><a href="#PlantUML语法" class="headerlink" title="PlantUML语法"></a>PlantUML语法</h3><p>​        这里给出常用语法：        </p>
+<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">含义</th>
+<th align="center">示例</th>
+<th align="center">示例含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">–</td>
+<td align="center">UML图中体现为实线</td>
+<td align="center">无</td>
+<td align="center">无</td>
+</tr>
+<tr>
+<td align="center">..</td>
+<td align="center">UML图中体现为虚线</td>
+<td align="center">无</td>
+<td align="center">无</td>
+</tr>
+<tr>
+<td align="center">..&gt;</td>
+<td align="center">依赖</td>
+<td align="center">A..&gt;B</td>
+<td align="center">类A依赖于B</td>
+</tr>
+<tr>
+<td align="center">–&gt;</td>
+<td align="center">关联</td>
+<td align="center">A..&gt;B</td>
+<td align="center">类A关联于B</td>
+</tr>
+<tr>
+<td align="center">–|&gt;</td>
+<td align="center">继承</td>
+<td align="center">A–|&gt;B</td>
+<td align="center">类A继承于B</td>
+</tr>
+<tr>
+<td align="center">..|&gt;</td>
+<td align="center">实现</td>
+<td align="center">A..|&gt;B</td>
+<td align="center">类A实现接口B</td>
+</tr>
+<tr>
+<td align="center">–o</td>
+<td align="center">聚合</td>
+<td align="center">A–oB</td>
+<td align="center">类A聚合了B</td>
+</tr>
+<tr>
+<td align="center">–*</td>
+<td align="center">组合</td>
+<td align="center">A–*B</td>
+<td align="center">类A组合了B</td>
+</tr>
+</tbody></table>
+<p>​        注：</p>
+<ul>
+<li>这里给符号&gt;, o, *指向那一侧，在UML图中会如实体现。</li>
+<li>还支持双向箭头&gt;、o、*，比如说关联关系中的双向单一关系，可以用A&lt;–&gt;B，其效果如前面所展示的Person和IDnumber的双向单一关系的UML类图一致。</li>
+<li>在左侧的类一般在UML图的上侧，如Human–|&gt;Person，Person..&gt;IDnumber，其UML图如前面所说类图中泛化关系的类图所示。</li>
+</ul>
+<p>​        然后是权限修饰符：</p>
+<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">含义</th>
+<th align="center">示例</th>
+<th align="center">示例含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-</td>
+<td align="center">private</td>
+<td align="center">-id: IDnumber</td>
+<td align="center">private IDnumber id;</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="center">public</td>
+<td align="center">+id: IDnumber</td>
+<td align="center">public IDnumber id;</td>
+</tr>
+<tr>
+<td align="center">#</td>
+<td align="center">protected</td>
+<td align="center">#id: IDnumber</td>
+<td align="center">protected IDnumber id;</td>
+</tr>
+</tbody></table>
+<p>​        再是抽象类和接口：</p>
+<p>​        可直接用抽象类和接口对应关键词即可，abstract和interface来声明即可。</p>
+<p>​        建议：根据第一次新建UML类图文件其官方给出的示例，照猫画虎，稍加研究，很快就可以上手，需要时间不到半小时，而且一旦熟练掌握后，效率十分之高，比拖拽画类图方便很多，同时plantUML做到了所见即所得，就是实时预览，十分方便。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>[1] 尚硅谷UML介绍：<a href="https://www.bilibili.com/video/BV1G4411c7N4?p=23&amp;spm_id_from=pageDriver">https://www.bilibili.com/video/BV1G4411c7N4?p=23&amp;spm_id_from=pageDriver</a></p>
+<p>[2] PlantUML语法：<a href="https://www.cnblogs.com/liruilong/p/11506280.html">https://www.cnblogs.com/liruilong/p/11506280.html</a></p>
+]]></content>
+      <categories>
+        <category>UML类图</category>
+      </categories>
+      <tags>
+        <tag>JAVA</tag>
+        <tag>IDEA</tag>
+        <tag>UML类图</tag>
+        <tag>依赖</tag>
       </tags>
   </entry>
   <entry>
