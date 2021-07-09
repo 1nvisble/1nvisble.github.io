@@ -55,6 +55,67 @@
       </tags>
   </entry>
   <entry>
+    <title>Java中equals方法和hashCode方法</title>
+    <url>/2021/06/15/Java%E4%B8%ADequals%E6%96%B9%E6%B3%95%E5%92%8ChashCode%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>软件构造课上，之前介绍了ADT，讲了RI、AF，AF，及抽象函数解释了该类型是如何将内部表示映射为使用者理解的抽象数据的。那如何判断这些ADT的相等性，这就涉及到了java中很重要的一个知识点，equals方法和hashCode方法。</p>
+<h2 id="VS-equals"><a href="#VS-equals" class="headerlink" title="== VS equals()"></a>== VS equals()</h2><p>我们在C中常使用==操作来判断相等。而在Java中，不仅提供了==来判断相等</p>
+<p>，还提供了equals()方法，其主要用于比较ADT的相等。</p>
+<h3 id><a href="#" class="headerlink" title="=="></a>==</h3><p>==这个相等判断比较的是两个比较对象的索引的相等，或者说是引用相等。如果两个索引指向同一块存储区域，那它们就是==的，也就是相等的。在snophot图中，<code>==</code>就意味着两个比较对象的箭头指向同一个对象或值。</p>
+<h3 id="equals-方法"><a href="#equals-方法" class="headerlink" title="equals()方法"></a>equals()方法</h3><p>equals方法操作比较的是两个对象（object）的内容，或者说，比较的是对象值相等。每当我们定义一个ADT时，我们需要判断，对于这个ADT来说对象值相等是如何定义的，或者说如何实现equals方法。</p>
+<p>假设存在一个Person的ADT，其成员属性有两个，一个为name，一个为number。</p>
+<p>那我如和判断Person这个ADT实例的两个对象是否相等呢？是判断其name和number相等就算相等，还是只要判断name就算相等，可能一个人有多个手机号。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所以这时候我们要想清楚如何实现equals方法。</p>
+<p>我们先看java给出的equal方法的定义，其是在Object类中就定义的，我们又知道Object类是所有类的父类或基类，如果不在子类中重写equals()方法，那么默认继承使用的就是Object类的equals方法。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Object</span> </span>&#123;   </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object that)</span> </span>&#123;        </span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">this</span> == that;   </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>equals() 在Object类中的实现方法就是测试指向/索引相等。对于<strong>不可变类型的对象</strong>来说，这很容易在调用equals方法时出现bug。所以你需要**重写(override) **equals() 方法，重写为你所定义的两个对象的相等的实现。</p>
+<p>举上课的例子，这是一个不可变类型的ADT：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Duration</span> </span>&#123;   </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Duration that)</span> </span>&#123;        </span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.getLength() == that.getLength();         </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可能想当然认为我们比较的是对于这一个ADT，两个对象值的相等，那么参数类型也就为这个类，这里要特别<strong>注意</strong>:这里并不是<strong>重写</strong>了Object类的方法，而是<strong>重载</strong>了equals方法，因为参数类型的不同，其构成的是重载，意思是说，这时Duration中有两个 equals()方法：一个是从 Object隐式继承下来的equals(Object)，还有一个就是我们写的 equals(Duration)。然后编译器，会在编译时而不是运行时，根据传入的参数类型，选择调用哪一个equals方法。</p>
+<p>那到底该如何重写equals方法呢？</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object that)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> that <span class="keyword">instanceof</span> Duration &amp;&amp; 			<span class="keyword">this</span>.sameValue((Duration)that);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">sameValue</span><span class="params">(Duration that)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.getLength() == that.getLength();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其首先测试了传入的that对象是 Duration，然后调用sameValue()去判断它们的值是否相等。表达式 (Duration)that 是进行了一个类型转换操作，它告诉编译器that指向的是一个 Duration对象。</p>
+<p>此外，这里的instance操作符进行了一个动态检查，测试一个实例是否属于特定的类型。但老师又提到，在面向对象编程中使用 instanceof是一个不好的选择。在本门课程中——在很多Java编程中也是这样——<strong>除了实现相等操作，instanceof不能被使用。</strong>这也包括其他在运行时确定对象类型的操作，还有getClass方法。</p>
+<p>然后我们再说说hashCode方法：</p>
+<h2 id="hashCode-方法："><a href="#hashCode-方法：" class="headerlink" title="hashCode()方法："></a>hashCode()方法：</h2><p>java规定了一个对象相等的契约：</p>
+<p>如果两个对象使用 equals操作后结果为真，那么它们各自的hashCode操作的结果也应该相同。</p>
+<p>那hashCode又是什么呢？这就需要对哈希表的工作原理有一定的了解。听到hash或哈希，我们会联系到学习数据结构时的散列，在Java中，两个常见的聚合类型 HashSet和 HashMap 就用到了哈希表的数据结构，并且依赖hashCode保存集合中的对象以及产生合适的键（key）。</p>
+<p>一个哈希表表示的是一种映射：从键值映射到值的抽象数据类型。哈希表提供了常数级别的查找，查找速度比其他唱常规的链表都要快。键不一定是有序的，也不一定有什么特别的属性，除了类型必须提供 equals 和 hashCode两个方法。</p>
+<blockquote>
+<p>哈希表是怎么工作的呢？它包含了一个初始化的数组，其大小是我们设计好的。当一个键值对准备插入时，我们通过hashcode计算这个键，产生一个索引，它在我们数组大小的范围内（例如取模运算）。最后我们将值插入到数组索引对应的位置。 哈希表的一个基本不变量就是键必须在hashcode规定的范围内。</p>
+<p>Hashcode最好被设计为键计算后的索引应该平滑、均匀的分布在所有范围内。但是偶尔冲突也会发生，例如两个键计算出了同样的索引。因此哈希表通常存储的是一个键值对的列表而非一个单个的值，这通常被称为哈希桶（hash  bucket）。而在Java中，键值对就是一个有着两个域的对象。当插入时，你只要像计算出的索引位置插入一个键值对。当查找时，你先根据键哈希出对应的索引，然后在索引对应的位置找到键值对列表，最后在这个列表中查找你的键。</p>
+</blockquote>
+<p>Object默认的 hashCode()`实现和默认的 equals()保持一致：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Object</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object that)</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">this</span> == that; &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="comment">/* the memory address of this */</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于索引a和b，如果 a == b，那么a和b的存储地址也就相同，hashCode()的结果也就相同，那么就满足了相等的契约。</p>
+<p>但对于前面提到的 Duration这个不可变的ADT，因为我们还没有覆盖默认的 hashCode() ，其实际上打破了对象契约。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Duration d1 = <span class="keyword">new</span> Duration(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">Duration d2 = <span class="keyword">new</span> Duration(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">d1.equals(d2) → <span class="keyword">true</span></span><br><span class="line">d1.hashCode() → <span class="number">2392</span></span><br><span class="line">d2.hashCode() → <span class="number">4823</span></span><br></pre></td></tr></table></figure>
+
+<p>那么该怎么解决这个问题呢？</p>
+<ol>
+<li>简单粗暴的将所有对象的hashCode值都改为一样的。但会严重性能严重下降，这样将每一个值对都保存到相同的位置，每次查找会遍历所有对象。</li>
+<li>另一个方法是计算对象每一个内容的hashcode然后对它们进行一系列算术运算，最终返回一个综合hashcode。</li>
+</ol>
+<p>还是我们上面例子：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">int</span>) getLength();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p> equals方法和hashCode方法都是Java比较特殊的存在，在构造ADT时，要主要二者方法的重写，来判断等价性。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>【1】软件构造PPT</p>
+<p>【2】 <a href="https://www.cnblogs.com/liqiuhao/p/8810465.html">https://www.cnblogs.com/liqiuhao/p/8810465.html</a></p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java代理模式（Proxy）理解</title>
     <url>/2021/06/27/Java%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%EF%BC%88Proxy%EF%BC%89/</url>
     <content><![CDATA[<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>老师上课讲到了一些设计模式，但是由于课程较赶，时间较紧，吃不太透，于是自己课下再学习一些，加深理解，同时在编程中多多用到。</p>
@@ -126,7 +187,7 @@
 <h2 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h2><p>【1】<a href="https://www.runoob.com/design-pattern/proxy-pattern.html">https://www.runoob.com/design-pattern/proxy-pattern.html</a></p>
 ]]></content>
       <categories>
-        <category>Java|设计模式</category>
+        <category>设计模式</category>
       </categories>
       <tags>
         <tag>Java</tag>
