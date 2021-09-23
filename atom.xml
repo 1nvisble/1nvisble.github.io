@@ -6,7 +6,7 @@
   <link href="https://1nvisble.github.io/atom.xml" rel="self"/>
   
   <link href="https://1nvisble.github.io/"/>
-  <updated>2021-09-19T00:50:12.829Z</updated>
+  <updated>2021-09-23T14:12:46.377Z</updated>
   <id>https://1nvisble.github.io/</id>
   
   <author>
@@ -17,15 +17,52 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>post</title>
-    <link href="https://1nvisble.github.io/2021/09/19/post/"/>
-    <id>https://1nvisble.github.io/2021/09/19/post/</id>
+    <title>python学习</title>
+    <link href="https://1nvisble.github.io/2021/09/23/python%E5%AD%A6%E4%B9%A0/"/>
+    <id>https://1nvisble.github.io/2021/09/23/python%E5%AD%A6%E4%B9%A0/</id>
+    <published>2021-09-23T11:21:09.000Z</published>
+    <updated>2021-09-23T14:12:46.377Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;strong&gt;前言：&lt;/strong&gt;恰逢机器学习要做实验，肯定选择用python写代码来完成实验，那就快速恶补一下Python基本知识，一些语法之类的，就简单做些笔记，一份面向已有编程基础的速成笔记，主要记录一些Python基础语法不同之处所在，简单的、相似的就略去了。</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Python" scheme="https://1nvisble.github.io/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【论文翻译】--Requirements, Bottlenecks, and Good Fortune:Agents for Microprocessor Evolution</title>
+    <link href="https://1nvisble.github.io/2021/09/19/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91/"/>
+    <id>https://1nvisble.github.io/2021/09/19/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91/</id>
     <published>2021-09-19T00:50:12.000Z</published>
-    <updated>2021-09-19T00:50:12.829Z</updated>
+    <updated>2021-09-23T14:12:38.972Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;需求，瓶颈，好运：微处理器演变的代理&quot;&gt;&lt;a href=&quot;#需求，瓶颈，好运：微处理器演变的代理&quot; class=&quot;headerlink&quot; title=&quot;需求，瓶颈，好运：微处理器演变的代理&quot;&gt;&lt;/a&gt;需求，瓶颈，好运：微处理器演变的代理&lt;/h1&gt;&lt;h2</summary>
+        
+      
     
     
     
+    <category term="计算机组成原理与体系结构" scheme="https://1nvisble.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%E4%B8%8E%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/"/>
     
+    
+    <category term="计算机组成原理" scheme="https://1nvisble.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"/>
+    
+    <category term="计算机体系结构" scheme="https://1nvisble.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/"/>
     
   </entry>
   

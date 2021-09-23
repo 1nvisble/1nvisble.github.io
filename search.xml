@@ -55,6 +55,67 @@
       </tags>
   </entry>
   <entry>
+    <title>Java中equals方法和hashCode方法</title>
+    <url>/2021/06/15/Java%E4%B8%ADequals%E6%96%B9%E6%B3%95%E5%92%8ChashCode%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>软件构造课上，之前介绍了ADT，讲了RI、AF，AF，及抽象函数解释了该类型是如何将内部表示映射为使用者理解的抽象数据的。那如何判断这些ADT的相等性，这就涉及到了java中很重要的一个知识点，equals方法和hashCode方法。</p>
+<h2 id="VS-equals"><a href="#VS-equals" class="headerlink" title="== VS equals()"></a>== VS equals()</h2><p>我们在C中常使用==操作来判断相等。而在Java中，不仅提供了==来判断相等</p>
+<p>，还提供了equals()方法，其主要用于比较ADT的相等。</p>
+<h3 id><a href="#" class="headerlink" title="=="></a>==</h3><p>==这个相等判断比较的是两个比较对象的索引的相等，或者说是引用相等。如果两个索引指向同一块存储区域，那它们就是==的，也就是相等的。在snophot图中，<code>==</code>就意味着两个比较对象的箭头指向同一个对象或值。</p>
+<h3 id="equals-方法"><a href="#equals-方法" class="headerlink" title="equals()方法"></a>equals()方法</h3><p>equals方法操作比较的是两个对象（object）的内容，或者说，比较的是对象值相等。每当我们定义一个ADT时，我们需要判断，对于这个ADT来说对象值相等是如何定义的，或者说如何实现equals方法。</p>
+<p>假设存在一个Person的ADT，其成员属性有两个，一个为name，一个为number。</p>
+<p>那我如和判断Person这个ADT实例的两个对象是否相等呢？是判断其name和number相等就算相等，还是只要判断name就算相等，可能一个人有多个手机号。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所以这时候我们要想清楚如何实现equals方法。</p>
+<p>我们先看java给出的equal方法的定义，其是在Object类中就定义的，我们又知道Object类是所有类的父类或基类，如果不在子类中重写equals()方法，那么默认继承使用的就是Object类的equals方法。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Object</span> </span>&#123;   </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object that)</span> </span>&#123;        </span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">this</span> == that;   </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>equals() 在Object类中的实现方法就是测试指向/索引相等。对于<strong>不可变类型的对象</strong>来说，这很容易在调用equals方法时出现bug。所以你需要**重写(override) **equals() 方法，重写为你所定义的两个对象的相等的实现。</p>
+<p>举上课的例子，这是一个不可变类型的ADT：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Duration</span> </span>&#123;   </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Duration that)</span> </span>&#123;        </span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.getLength() == that.getLength();         </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可能想当然认为我们比较的是对于这一个ADT，两个对象值的相等，那么参数类型也就为这个类，这里要特别<strong>注意</strong>:这里并不是<strong>重写</strong>了Object类的方法，而是<strong>重载</strong>了equals方法，因为参数类型的不同，其构成的是重载，意思是说，这时Duration中有两个 equals()方法：一个是从 Object隐式继承下来的equals(Object)，还有一个就是我们写的 equals(Duration)。然后编译器，会在编译时而不是运行时，根据传入的参数类型，选择调用哪一个equals方法。</p>
+<p>那到底该如何重写equals方法呢？</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object that)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> that <span class="keyword">instanceof</span> Duration &amp;&amp; 			<span class="keyword">this</span>.sameValue((Duration)that);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">sameValue</span><span class="params">(Duration that)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.getLength() == that.getLength();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其首先测试了传入的that对象是 Duration，然后调用sameValue()去判断它们的值是否相等。表达式 (Duration)that 是进行了一个类型转换操作，它告诉编译器that指向的是一个 Duration对象。</p>
+<p>此外，这里的instance操作符进行了一个动态检查，测试一个实例是否属于特定的类型。但老师又提到，在面向对象编程中使用 instanceof是一个不好的选择。在本门课程中——在很多Java编程中也是这样——<strong>除了实现相等操作，instanceof不能被使用。</strong>这也包括其他在运行时确定对象类型的操作，还有getClass方法。</p>
+<p>然后我们再说说hashCode方法：</p>
+<h2 id="hashCode-方法："><a href="#hashCode-方法：" class="headerlink" title="hashCode()方法："></a>hashCode()方法：</h2><p>java规定了一个对象相等的契约：</p>
+<p>如果两个对象使用 equals操作后结果为真，那么它们各自的hashCode操作的结果也应该相同。</p>
+<p>那hashCode又是什么呢？这就需要对哈希表的工作原理有一定的了解。听到hash或哈希，我们会联系到学习数据结构时的散列，在Java中，两个常见的聚合类型 HashSet和 HashMap 就用到了哈希表的数据结构，并且依赖hashCode保存集合中的对象以及产生合适的键（key）。</p>
+<p>一个哈希表表示的是一种映射：从键值映射到值的抽象数据类型。哈希表提供了常数级别的查找，查找速度比其他唱常规的链表都要快。键不一定是有序的，也不一定有什么特别的属性，除了类型必须提供 equals 和 hashCode两个方法。</p>
+<blockquote>
+<p>哈希表是怎么工作的呢？它包含了一个初始化的数组，其大小是我们设计好的。当一个键值对准备插入时，我们通过hashcode计算这个键，产生一个索引，它在我们数组大小的范围内（例如取模运算）。最后我们将值插入到数组索引对应的位置。 哈希表的一个基本不变量就是键必须在hashcode规定的范围内。</p>
+<p>Hashcode最好被设计为键计算后的索引应该平滑、均匀的分布在所有范围内。但是偶尔冲突也会发生，例如两个键计算出了同样的索引。因此哈希表通常存储的是一个键值对的列表而非一个单个的值，这通常被称为哈希桶（hash  bucket）。而在Java中，键值对就是一个有着两个域的对象。当插入时，你只要像计算出的索引位置插入一个键值对。当查找时，你先根据键哈希出对应的索引，然后在索引对应的位置找到键值对列表，最后在这个列表中查找你的键。</p>
+</blockquote>
+<p>Object默认的 hashCode()`实现和默认的 equals()保持一致：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Object</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object that)</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">this</span> == that; &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="comment">/* the memory address of this */</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于索引a和b，如果 a == b，那么a和b的存储地址也就相同，hashCode()的结果也就相同，那么就满足了相等的契约。</p>
+<p>但对于前面提到的 Duration这个不可变的ADT，因为我们还没有覆盖默认的 hashCode() ，其实际上打破了对象契约。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Duration d1 = <span class="keyword">new</span> Duration(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">Duration d2 = <span class="keyword">new</span> Duration(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">d1.equals(d2) → <span class="keyword">true</span></span><br><span class="line">d1.hashCode() → <span class="number">2392</span></span><br><span class="line">d2.hashCode() → <span class="number">4823</span></span><br></pre></td></tr></table></figure>
+
+<p>那么该怎么解决这个问题呢？</p>
+<ol>
+<li>简单粗暴的将所有对象的hashCode值都改为一样的。但会严重性能严重下降，这样将每一个值对都保存到相同的位置，每次查找会遍历所有对象。</li>
+<li>另一个方法是计算对象每一个内容的hashcode然后对它们进行一系列算术运算，最终返回一个综合hashcode。</li>
+</ol>
+<p>还是我们上面例子：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">int</span>) getLength();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p> equals方法和hashCode方法都是Java比较特殊的存在，在构造ADT时，要主要二者方法的重写，来判断等价性。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>【1】软件构造PPT</p>
+<p>【2】 <a href="https://www.cnblogs.com/liqiuhao/p/8810465.html">https://www.cnblogs.com/liqiuhao/p/8810465.html</a></p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java代理模式（Proxy）理解</title>
     <url>/2021/06/27/Java%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%EF%BC%88Proxy%EF%BC%89/</url>
     <content><![CDATA[<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>老师上课讲到了一些设计模式，但是由于课程较赶，时间较紧，吃不太透，于是自己课下再学习一些，加深理解，同时在编程中多多用到。</p>
@@ -131,6 +192,142 @@
       <tags>
         <tag>Java</tag>
         <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>可变数据类型和不可变数据类型以及Snaphot图</title>
+    <url>/2021/05/20/Snaphot/</url>
+    <content><![CDATA[<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>在上软件构造这门课时，在讲数据类型时引入了可变数据类型和不可变数据类型，这是以前未接触过的概念，以前自学Java时，仅有基本数据类型，和引用数据类型这两种概念；此外，老师还引入了Snaphot digrams，其用于描述程序运行时的内部状态，较为实用，今天“趁热打铁”，写博客记录一下。</p>
+<p>先回顾一下Java的基本数据类型和引用数据类型。</p>
+<h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><p>基本数据类型主要是我们最熟悉的几个变量类型：</p>
+<p>byte、short、int、long,float,double,bool,char；</p>
+<p>基本数据类型运算的规则：（不包含布尔类型）</p>
+<ol>
+<li><p>自动类型提升：当容量小的数据类型的变量与大的数据类型做运算时，结果自动提升为容量大的数据类型。 </p>
+<p>byte、char、short（这三者做运算均转为int）-&gt;int-&gt;long-&gt;-&gt;float-&gt;double。</p>
+<p>容量大小指的是表示属的范围的大和小，比如float的容量大于long</p>
+</li>
+<li><p>强制类型转换：需要使用强转符，可能导致精度损失 </p>
+</li>
+<li><p>整数型定义时，常量存储的类型为int型，若定义变量类型为long，或容量大于int型，且常量超过int型可表示的最大范围数，编译不通过，需要加l</p>
+</li>
+<li><p>浮点型定义时，常量存储的类型为double类型，若定义变量类型为float，double类型向float转换，报错，常量后面需加f</p>
+</li>
+</ol>
+<p>整型常量：默认类型为int型； 浮点型常量：默认类型为double型。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		<span class="keyword">long</span> a = <span class="number">2147483647</span>;        <span class="comment">//编译可通过</span></span><br><span class="line">   		<span class="keyword">long</span> a = <span class="number">2147483648</span>;        <span class="comment">//编译不通过，显示数过大</span></span><br><span class="line">   	 	<span class="keyword">long</span> a = <span class="number">2147483648l</span>;      <span class="comment">//编译可通过</span></span><br><span class="line">    	<span class="keyword">float</span> f1 = <span class="number">12.3</span>;   <span class="comment">//编译不通过，因为12.3默认为double型，需要12.3加f</span></span><br><span class="line">   		<span class="keyword">byte</span> b = <span class="number">12</span>;   <span class="comment">//编译可通过</span></span><br><span class="line">   	    <span class="keyword">byte</span> b = b + <span class="number">1</span>;   <span class="comment">//编译不通过，因为1被认为是int型</span></span><br><span class="line">   	    <span class="keyword">float</span> f1 = b + <span class="number">12.3</span>;  <span class="comment">//编译不通过，因为12.3被认为是doble型</span></span><br><span class="line">	System.out.println(a);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="引用数据类型"><a href="#引用数据类型" class="headerlink" title="引用数据类型"></a>引用数据类型</h2><p>引用数据类型主要有：类（字符串）、接口、数组、枚举类等。其被称为引用数据类型的原因是：创建变量并赋值后，且不是直接存储的值，而是存储的是堆中创建值的地址，通过地址寻值，有点类似于C语言的指针。</p>
+<p>举例String：</p>
+<p>String不是基本数据类型，而是为引用数据类型,字符串。</p>
+<p>String类型变量的使用: </p>
+<p>String可以和8种基本数据类型做运算，只能做连接，用string类接收，运算结果仍然是String 。</p>
+<p>二者区别对比：</p>
+<table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">基本数据类型</th>
+<th align="center">引用数据类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">成员</td>
+<td align="center">byte、short、int、long,float,double,bool,char</td>
+<td align="center">类、接口、数组、枚举类</td>
+</tr>
+<tr>
+<td align="center">分配内存区域</td>
+<td align="center">在栈中分配内存</td>
+<td align="center">在堆中分配内存</td>
+</tr>
+<tr>
+<td align="center">是否与其他值可区分</td>
+<td align="center">只有值，没有ID，与其他值无法区分</td>
+<td align="center">既有ID，也有值</td>
+</tr>
+<tr>
+<td align="center">可变/不可变数据类型</td>
+<td align="center">全都为不可变数据类型</td>
+<td align="center">有些是可变的，有些是不可变的</td>
+</tr>
+<tr>
+<td align="center">赋值</td>
+<td align="center">传递的是值</td>
+<td align="center">传递的是地址</td>
+</tr>
+</tbody></table>
+<p>下面再谈谈上课所讲的可变和不可变数据类型。</p>
+<h2 id="不可变数据类型-Immutable-types"><a href="#不可变数据类型-Immutable-types" class="headerlink" title="不可变数据类型(Immutable types)"></a>不可变数据类型(Immutable types)</h2><p>定义：一旦一个变量被创建且被赋初值，其值不能再改变。此外，如果如果是引用类型，也可以是不变的，即一旦确定其指向的对象，不能再被改变指向其他对象。</p>
+<p>我们一般用final标识符，来说明这个变量的值不能再被改变。一旦一个变量被final修饰后并进行首次赋值后，编译器进行静态类型检查时，如判断 final 变量首次赋值后发生了改变，会提示错误。如图idea报错。</p>
+<p><img src="/2021/05/20/Snaphot/1.png"></p>
+<p>下面举一个不可变数据类型String的例子：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String str = <span class="string">&quot;Hello&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>此时创建了一个String类型的变量str，值为”Hello”，这里是一个局部变量，下图给出其在内存中的表示。</p>
+<p><img src="/2021/05/20/Snaphot/2.png"></p>
+<p>再执行了下面一条语句后，其变化：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">str = str + <span class="string">&quot;World&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/05/20/Snaphot/3.png" alt="image-20210706184856276"></p>
+<p>可以看到，其并没有改变堆里地址为0x2233存储的原来的字符串值，而是在堆里新建一个对象，其值为“HelloWorld”，然后改变栈里str的存储值。</p>
+<p>用Snaphot图表示变化：</p>
+<p><img src="/2021/05/20/Snaphot/4.png" alt="image-20210706190855510"></p>
+<p>不可变数据类型的<strong>优点</strong>：因为其值不能改变，不可变类型更“安全”，在其他质量指标上表现更好。其安全性会在下面与可变数据类型对比时体现出来。</p>
+<p><strong>缺点</strong>：使用不可变类型，对其频繁修改会产生大量的临时拷贝，需要垃圾回收。就正如上面所举的例子：改变了str的值，但“Hello”的值仍然在堆中，就需要垃圾回收。</p>
+<h2 id="可变数据类型"><a href="#可变数据类型" class="headerlink" title="可变数据类型"></a>可变数据类型</h2><p>定义:可以<strong>改变</strong>值，且拥有方法可以修改自己的值。</p>
+<p>这里举一个可变数据类型StringBuilder的例子：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">StringBuilder str1 = <span class="keyword">new</span> StringBuilder(<span class="string">&quot;Hello&quot;</span>);</span><br><span class="line">str1.append(<span class="string">&quot;World&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这里选择直接用Snaphot图表示变化：</p>
+<p><img src="/2021/05/20/Snaphot/5.png" alt="image-20210706190817364"></p>
+<p>看到这里，可能就会产生疑惑：这里的StringBuilder和前面的String的结果不都一样吗？没有什么区别啊。但这个还需要我们深思一下。</p>
+<p>如果是当只有<strong>一个</strong>引用指向该对象，二者没有区别。</p>
+<p>但是<strong>注意：</strong>有多个引用的时候，差异就出现了！！！</p>
+<p>给出上课老师举的例子：</p>
+<p><img src="/2021/05/20/Snaphot/6.png" alt="image-20210706191223709"></p>
+<p>可以看到，变量t和s都最开始都指向同一个值“ab”，但当t修改值变为“abc”时，仅仅改变了t的指向，指向“abc”，而并未更改原来的值，s的值不变仍为“ab”；</p>
+<p>再看变量sb和tb二者最开始都指向同一个值“ab”，但当tb改变值为“abc”时，是在原有的值上直接修改，不同于之前String类型变量t，这样一来sb也并未改变值，但其由于指向的值的改变，导致sb的值变为“abc”；这就相当危险了，看上去是对一个变量值的修改，却也同时改变了另一个变量的值，很难让人察觉出这一变化，从而产生一些副影响。这里就体现了不可变数据类型的<strong>安全性</strong>所在！</p>
+<p>但可变数据类型还是有<strong>优点</strong>的：首先就是，我们的程序需要值的变化，其必不可少。</p>
+<p>可变类型最少化拷贝以提高效率，减少垃圾；其次，也适合于在多个模块之间共享数据，例如全局变量。</p>
+<p>但是我们上面提到了可变数据类型的一些<strong>“危险”</strong>，那就讲一讲如何<strong>安全</strong>的使用可变类型：</p>
+<p>局部变量，只有一个引用，不会涉及共享，不会有危险。</p>
+<p>但如果有多个引用（别名），使用可变类型就非常不安全。</p>
+<p>主要办法就是：防御性拷贝，给客户端返回一个全新的对象，是要返回值的拷贝，但是新建的，地址不同，避免直接返回，传递地址，致使产生多个引用。</p>
+<h2 id="Snophot-Diagram"><a href="#Snophot-Diagram" class="headerlink" title="Snophot Diagram"></a>Snophot Diagram</h2><p>Snophot图十分常用，其主要用于描述程序运行时的内部变化，如在栈中和堆中的对象、变量等等。</p>
+<p>其优点是：直观、简洁，便于程序员之间交流，便于刻画各类变量随时间发生的变化，便于解释思路。</p>
+<p>下面讲一讲其表示规范。</p>
+<h3 id="基本类型的值"><a href="#基本类型的值" class="headerlink" title="基本类型的值"></a>基本类型的值</h3><p>其用箭头指向一个常量表示变量对这个值的引用。如图所示：</p>
+<p><img src="/2021/05/20/Snaphot/7.png" alt="image-20210706195413812"></p>
+<h3 id="对象类型的值"><a href="#对象类型的值" class="headerlink" title="对象类型的值"></a>对象类型的值</h3><p>对象类型的值用一个按其类型标记的圆表示。</p>
+<p>定义一个圆。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Circle</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> x;  <span class="comment">//圆心横坐标</span></span><br><span class="line">    <span class="keyword">int</span> y;  <span class="comment">//圆心纵坐标</span></span><br><span class="line">    <span class="keyword">int</span> r;  <span class="comment">//圆的半径</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果要显示更多的细节时，可在这个圆里面写明成员变量名，用箭头指向它们的值。若想要更详细，可以标明其成员变量的类型。</p>
+<p><img src="/2021/05/20/Snaphot/8.png" alt="image-20210706200318325"></p>
+<h3 id="不可变对象"><a href="#不可变对象" class="headerlink" title="不可变对象"></a>不可变对象</h3><p> 其在对象类型的基础上改为双线椭圆。</p>
+<p>如之前前面所举的例子。</p>
+<p><img src="/2021/05/20/Snaphot/4.png" alt="image-20210706190855510"></p>
+<h3 id="可变对象"><a href="#可变对象" class="headerlink" title="可变对象"></a>可变对象</h3><p>这个也较为简单，就是之前举的例子。</p>
+<p><img src="/2021/05/20/Snaphot/5.png" alt="image-20210706190817364"></p>
+<h3 id="不可变的引用"><a href="#不可变的引用" class="headerlink" title="不可变的引用"></a>不可变的引用</h3><p>这里不可变的引用是指，变量指不可变。其用双线箭头表示。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="keyword">int</span> y =<span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<p>如图所示：</p>
+<p><img src="/2021/05/20/Snaphot/9.png" alt="image-20210706200914860"></p>
+<p>同时我们还要注意：引用是不可变的，但指向的值却可以是可变的。比如说，定义了一个final StringBuilder sb，我们不能改变其指向，但其指向的值却是可改变的。</p>
+<p>可变的引用，也可指向不可变的值，比如说，定义了一个String s，其指向一个存储在堆中不可变的值“Hello”，但我们可以改变s的指向，指向“Hello world”。</p>
+<p>这就是关于Snophot的内容。</p>
+<p>这些只是自己的一些浅薄的理解，若有问题，恳请批评指正。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>【1】软件构造课程PPT</p>
+<p>【2】自学JAVA的笔记</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Snaphot</tag>
       </tags>
   </entry>
   <entry>
@@ -338,67 +535,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Java中equals方法和hashCode方法</title>
-    <url>/2021/06/15/Java%E4%B8%ADequals%E6%96%B9%E6%B3%95%E5%92%8ChashCode%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>软件构造课上，之前介绍了ADT，讲了RI、AF，AF，及抽象函数解释了该类型是如何将内部表示映射为使用者理解的抽象数据的。那如何判断这些ADT的相等性，这就涉及到了java中很重要的一个知识点，equals方法和hashCode方法。</p>
-<h2 id="VS-equals"><a href="#VS-equals" class="headerlink" title="== VS equals()"></a>== VS equals()</h2><p>我们在C中常使用==操作来判断相等。而在Java中，不仅提供了==来判断相等</p>
-<p>，还提供了equals()方法，其主要用于比较ADT的相等。</p>
-<h3 id><a href="#" class="headerlink" title="=="></a>==</h3><p>==这个相等判断比较的是两个比较对象的索引的相等，或者说是引用相等。如果两个索引指向同一块存储区域，那它们就是==的，也就是相等的。在snophot图中，<code>==</code>就意味着两个比较对象的箭头指向同一个对象或值。</p>
-<h3 id="equals-方法"><a href="#equals-方法" class="headerlink" title="equals()方法"></a>equals()方法</h3><p>equals方法操作比较的是两个对象（object）的内容，或者说，比较的是对象值相等。每当我们定义一个ADT时，我们需要判断，对于这个ADT来说对象值相等是如何定义的，或者说如何实现equals方法。</p>
-<p>假设存在一个Person的ADT，其成员属性有两个，一个为name，一个为number。</p>
-<p>那我如和判断Person这个ADT实例的两个对象是否相等呢？是判断其name和number相等就算相等，还是只要判断name就算相等，可能一个人有多个手机号。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>所以这时候我们要想清楚如何实现equals方法。</p>
-<p>我们先看java给出的equal方法的定义，其是在Object类中就定义的，我们又知道Object类是所有类的父类或基类，如果不在子类中重写equals()方法，那么默认继承使用的就是Object类的equals方法。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Object</span> </span>&#123;   </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object that)</span> </span>&#123;        </span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">this</span> == that;   </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>equals() 在Object类中的实现方法就是测试指向/索引相等。对于<strong>不可变类型的对象</strong>来说，这很容易在调用equals方法时出现bug。所以你需要**重写(override) **equals() 方法，重写为你所定义的两个对象的相等的实现。</p>
-<p>举上课的例子，这是一个不可变类型的ADT：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Duration</span> </span>&#123;   </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Duration that)</span> </span>&#123;        </span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.getLength() == that.getLength();         </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我们可能想当然认为我们比较的是对于这一个ADT，两个对象值的相等，那么参数类型也就为这个类，这里要特别<strong>注意</strong>:这里并不是<strong>重写</strong>了Object类的方法，而是<strong>重载</strong>了equals方法，因为参数类型的不同，其构成的是重载，意思是说，这时Duration中有两个 equals()方法：一个是从 Object隐式继承下来的equals(Object)，还有一个就是我们写的 equals(Duration)。然后编译器，会在编译时而不是运行时，根据传入的参数类型，选择调用哪一个equals方法。</p>
-<p>那到底该如何重写equals方法呢？</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object that)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> that <span class="keyword">instanceof</span> Duration &amp;&amp; 			<span class="keyword">this</span>.sameValue((Duration)that);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">sameValue</span><span class="params">(Duration that)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.getLength() == that.getLength();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其首先测试了传入的that对象是 Duration，然后调用sameValue()去判断它们的值是否相等。表达式 (Duration)that 是进行了一个类型转换操作，它告诉编译器that指向的是一个 Duration对象。</p>
-<p>此外，这里的instance操作符进行了一个动态检查，测试一个实例是否属于特定的类型。但老师又提到，在面向对象编程中使用 instanceof是一个不好的选择。在本门课程中——在很多Java编程中也是这样——<strong>除了实现相等操作，instanceof不能被使用。</strong>这也包括其他在运行时确定对象类型的操作，还有getClass方法。</p>
-<p>然后我们再说说hashCode方法：</p>
-<h2 id="hashCode-方法："><a href="#hashCode-方法：" class="headerlink" title="hashCode()方法："></a>hashCode()方法：</h2><p>java规定了一个对象相等的契约：</p>
-<p>如果两个对象使用 equals操作后结果为真，那么它们各自的hashCode操作的结果也应该相同。</p>
-<p>那hashCode又是什么呢？这就需要对哈希表的工作原理有一定的了解。听到hash或哈希，我们会联系到学习数据结构时的散列，在Java中，两个常见的聚合类型 HashSet和 HashMap 就用到了哈希表的数据结构，并且依赖hashCode保存集合中的对象以及产生合适的键（key）。</p>
-<p>一个哈希表表示的是一种映射：从键值映射到值的抽象数据类型。哈希表提供了常数级别的查找，查找速度比其他唱常规的链表都要快。键不一定是有序的，也不一定有什么特别的属性，除了类型必须提供 equals 和 hashCode两个方法。</p>
-<blockquote>
-<p>哈希表是怎么工作的呢？它包含了一个初始化的数组，其大小是我们设计好的。当一个键值对准备插入时，我们通过hashcode计算这个键，产生一个索引，它在我们数组大小的范围内（例如取模运算）。最后我们将值插入到数组索引对应的位置。 哈希表的一个基本不变量就是键必须在hashcode规定的范围内。</p>
-<p>Hashcode最好被设计为键计算后的索引应该平滑、均匀的分布在所有范围内。但是偶尔冲突也会发生，例如两个键计算出了同样的索引。因此哈希表通常存储的是一个键值对的列表而非一个单个的值，这通常被称为哈希桶（hash  bucket）。而在Java中，键值对就是一个有着两个域的对象。当插入时，你只要像计算出的索引位置插入一个键值对。当查找时，你先根据键哈希出对应的索引，然后在索引对应的位置找到键值对列表，最后在这个列表中查找你的键。</p>
-</blockquote>
-<p>Object默认的 hashCode()`实现和默认的 equals()保持一致：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Object</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object that)</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">this</span> == that; &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="comment">/* the memory address of this */</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对于索引a和b，如果 a == b，那么a和b的存储地址也就相同，hashCode()的结果也就相同，那么就满足了相等的契约。</p>
-<p>但对于前面提到的 Duration这个不可变的ADT，因为我们还没有覆盖默认的 hashCode() ，其实际上打破了对象契约。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Duration d1 = <span class="keyword">new</span> Duration(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">Duration d2 = <span class="keyword">new</span> Duration(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">d1.equals(d2) → <span class="keyword">true</span></span><br><span class="line">d1.hashCode() → <span class="number">2392</span></span><br><span class="line">d2.hashCode() → <span class="number">4823</span></span><br></pre></td></tr></table></figure>
-
-<p>那么该怎么解决这个问题呢？</p>
-<ol>
-<li>简单粗暴的将所有对象的hashCode值都改为一样的。但会严重性能严重下降，这样将每一个值对都保存到相同的位置，每次查找会遍历所有对象。</li>
-<li>另一个方法是计算对象每一个内容的hashcode然后对它们进行一系列算术运算，最终返回一个综合hashcode。</li>
-</ol>
-<p>还是我们上面例子：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">int</span>) getLength();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p> equals方法和hashCode方法都是Java比较特殊的存在，在构造ADT时，要主要二者方法的重写，来判断等价性。</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>【1】软件构造PPT</p>
-<p>【2】 <a href="https://www.cnblogs.com/liqiuhao/p/8810465.html">https://www.cnblogs.com/liqiuhao/p/8810465.html</a></p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hello World</title>
     <url>/2021/05/04/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -417,145 +553,214 @@
 ]]></content>
   </entry>
   <entry>
-    <title>可变数据类型和不可变数据类型以及Snaphot图</title>
-    <url>/2021/05/20/Snaphot/</url>
-    <content><![CDATA[<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>在上软件构造这门课时，在讲数据类型时引入了可变数据类型和不可变数据类型，这是以前未接触过的概念，以前自学Java时，仅有基本数据类型，和引用数据类型这两种概念；此外，老师还引入了Snaphot digrams，其用于描述程序运行时的内部状态，较为实用，今天“趁热打铁”，写博客记录一下。</p>
-<p>先回顾一下Java的基本数据类型和引用数据类型。</p>
-<h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><p>基本数据类型主要是我们最熟悉的几个变量类型：</p>
-<p>byte、short、int、long,float,double,bool,char；</p>
-<p>基本数据类型运算的规则：（不包含布尔类型）</p>
-<ol>
-<li><p>自动类型提升：当容量小的数据类型的变量与大的数据类型做运算时，结果自动提升为容量大的数据类型。 </p>
-<p>byte、char、short（这三者做运算均转为int）-&gt;int-&gt;long-&gt;-&gt;float-&gt;double。</p>
-<p>容量大小指的是表示属的范围的大和小，比如float的容量大于long</p>
-</li>
-<li><p>强制类型转换：需要使用强转符，可能导致精度损失 </p>
-</li>
-<li><p>整数型定义时，常量存储的类型为int型，若定义变量类型为long，或容量大于int型，且常量超过int型可表示的最大范围数，编译不通过，需要加l</p>
-</li>
-<li><p>浮点型定义时，常量存储的类型为double类型，若定义变量类型为float，double类型向float转换，报错，常量后面需加f</p>
-</li>
-</ol>
-<p>整型常量：默认类型为int型； 浮点型常量：默认类型为double型。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		<span class="keyword">long</span> a = <span class="number">2147483647</span>;        <span class="comment">//编译可通过</span></span><br><span class="line">   		<span class="keyword">long</span> a = <span class="number">2147483648</span>;        <span class="comment">//编译不通过，显示数过大</span></span><br><span class="line">   	 	<span class="keyword">long</span> a = <span class="number">2147483648l</span>;      <span class="comment">//编译可通过</span></span><br><span class="line">    	<span class="keyword">float</span> f1 = <span class="number">12.3</span>;   <span class="comment">//编译不通过，因为12.3默认为double型，需要12.3加f</span></span><br><span class="line">   		<span class="keyword">byte</span> b = <span class="number">12</span>;   <span class="comment">//编译可通过</span></span><br><span class="line">   	    <span class="keyword">byte</span> b = b + <span class="number">1</span>;   <span class="comment">//编译不通过，因为1被认为是int型</span></span><br><span class="line">   	    <span class="keyword">float</span> f1 = b + <span class="number">12.3</span>;  <span class="comment">//编译不通过，因为12.3被认为是doble型</span></span><br><span class="line">	System.out.println(a);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    <title>python学习</title>
+    <url>/2021/09/23/python%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<p><strong>前言：</strong>恰逢机器学习要做实验，肯定选择用python写代码来完成实验，那就快速恶补一下Python基本知识，一些语法之类的，就简单做些笔记，一份面向已有编程基础的速成笔记，主要记录一些Python基础语法不同之处所在，简单的、相似的就略去了。</p>
+<h2 id="行和缩进"><a href="#行和缩进" class="headerlink" title="行和缩进"></a>行和缩进</h2><p>首先，我们需要注意的是缩进在Python中非常重要，因为Python不使用我们习惯的<code>&#123;&#125;</code>来划分逻辑块，<del>有些痛苦，刚开始看起来比较费劲</del>，但其目的是为了简明，就举个例子。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a, b = <span class="number">10</span>, <span class="number">3</span></span><br><span class="line"><span class="keyword">if</span> a &gt; <span class="number">1</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;a&gt;1&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> b &gt; <span class="number">1</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;b&gt;1&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;b&lt;=1&quot;</span>)</span><br><span class="line"><span class="keyword">elif</span> a == <span class="number">1</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;a=1&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;a&lt;1&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(a)</span><br></pre></td></tr></table></figure>
 
-<h2 id="引用数据类型"><a href="#引用数据类型" class="headerlink" title="引用数据类型"></a>引用数据类型</h2><p>引用数据类型主要有：类（字符串）、接口、数组、枚举类等。其被称为引用数据类型的原因是：创建变量并赋值后，且不是直接存储的值，而是存储的是堆中创建值的地址，通过地址寻值，有点类似于C语言的指针。</p>
-<p>举例String：</p>
-<p>String不是基本数据类型，而是为引用数据类型,字符串。</p>
-<p>String类型变量的使用: </p>
-<p>String可以和8种基本数据类型做运算，只能做连接，用string类接收，运算结果仍然是String 。</p>
-<p>二者区别对比：</p>
+<p>等价的C语言代码：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">if</span>(a&gt;<span class="number">1</span>)&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;a&gt;1&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(b&gt;<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;b&gt;1&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;b&lt;=1&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(a==<span class="number">1</span>)&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;a=1&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;a&lt;1&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,a);</span><br></pre></td></tr></table></figure>
+
+<p>一般建议在每个缩进层次使用 <strong>单个制表符</strong> 或 <strong>两个空格</strong> 或 <strong>四个空格</strong> , 此外还要注意不能混用。</p>
+<p>我们还可以注意到其不用以  <code>;</code> 结束，可谓’;’遗忘患者的福音了，其一般用新行作为语句的结束符。</p>
+<p>既然Python不用<code>;</code>结束，且行和缩进这么重要，那么多行语句该怎么办呢？可以用多行连接符<code>\</code>进行连接，但存在 [], {} 或 () 括号就不需要使用多行连接符。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c = <span class="number">1</span> + \</span><br><span class="line">    <span class="number">2</span> + \</span><br><span class="line">    <span class="number">3</span></span><br><span class="line">members = [<span class="string">&quot;Hans&quot;</span>, <span class="string">&quot;Tom&quot;</span>, <span class="string">&quot;Jerry&quot;</span>,</span><br><span class="line">          <span class="string">&quot;Stephen&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<h2 id="输入和输出"><a href="#输入和输出" class="headerlink" title="输入和输出"></a>输入和输出</h2><p>举例说明</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = <span class="built_in">input</span>(<span class="string">&quot;请输入a的值:&quot;</span>)  <span class="comment"># 暂且不考虑变量a的类型，默认为int,后面再细讲。</span></span><br></pre></td></tr></table></figure>
+
+<p>等价C语言代码</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;请输入a的值&quot;</span>);</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;a);</span><br></pre></td></tr></table></figure>
+
+<p><code>print</code>表示输出，但其默认换行，若要实现不换行需要在变量末尾加上逗号 <code>,</code>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"><span class="built_in">print</span>(b)  <span class="comment"># 换行输出</span></span><br><span class="line"><span class="built_in">print</span>(a,b) <span class="comment"># 不换行输出</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Python保留字"><a href="#Python保留字" class="headerlink" title="Python保留字"></a>Python保留字</h2><p>保留字就表示其有特殊用途，不能用作标识符，像是变量名，类名之类的，就比如说java语言中的<code>if</code>和<code>class</code>一样。Python的保留字只由小写字母组成。</p>
 <table>
 <thead>
 <tr>
-<th align="center">类型</th>
-<th align="center">基本数据类型</th>
-<th align="center">引用数据类型</th>
+<th align="center">and</th>
+<th align="center">exec</th>
+<th align="center">not</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">成员</td>
-<td align="center">byte、short、int、long,float,double,bool,char</td>
-<td align="center">类、接口、数组、枚举类</td>
+<td align="center">assert</td>
+<td align="center">finally</td>
+<td align="center">or</td>
 </tr>
 <tr>
-<td align="center">分配内存区域</td>
-<td align="center">在栈中分配内存</td>
-<td align="center">在堆中分配内存</td>
+<td align="center">break</td>
+<td align="center">for</td>
+<td align="center">pass</td>
 </tr>
 <tr>
-<td align="center">是否与其他值可区分</td>
-<td align="center">只有值，没有ID，与其他值无法区分</td>
-<td align="center">既有ID，也有值</td>
+<td align="center">class</td>
+<td align="center">from</td>
+<td align="center">print</td>
 </tr>
 <tr>
-<td align="center">可变/不可变数据类型</td>
-<td align="center">全都为不可变数据类型</td>
-<td align="center">有些是可变的，有些是不可变的</td>
+<td align="center">continue</td>
+<td align="center">global</td>
+<td align="center">raise</td>
 </tr>
 <tr>
-<td align="center">赋值</td>
-<td align="center">传递的是值</td>
-<td align="center">传递的是地址</td>
+<td align="center">def</td>
+<td align="center">if</td>
+<td align="center">return</td>
+</tr>
+<tr>
+<td align="center">del</td>
+<td align="center">import</td>
+<td align="center">try</td>
+</tr>
+<tr>
+<td align="center">elif</td>
+<td align="center">in</td>
+<td align="center">while</td>
+</tr>
+<tr>
+<td align="center">else</td>
+<td align="center">is</td>
+<td align="center">with</td>
+</tr>
+<tr>
+<td align="center">except</td>
+<td align="center">lambda</td>
+<td align="center">yield</td>
 </tr>
 </tbody></table>
-<p>下面再谈谈上课所讲的可变和不可变数据类型。</p>
-<h2 id="不可变数据类型-Immutable-types"><a href="#不可变数据类型-Immutable-types" class="headerlink" title="不可变数据类型(Immutable types)"></a>不可变数据类型(Immutable types)</h2><p>定义：一旦一个变量被创建且被赋初值，其值不能再改变。此外，如果如果是引用类型，也可以是不变的，即一旦确定其指向的对象，不能再被改变指向其他对象。</p>
-<p>我们一般用final标识符，来说明这个变量的值不能再被改变。一旦一个变量被final修饰后并进行首次赋值后，编译器进行静态类型检查时，如判断 final 变量首次赋值后发生了改变，会提示错误。如图idea报错。</p>
-<p><img src="/2021/05/20/Snaphot/1.png"></p>
-<p>下面举一个不可变数据类型String的例子：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String str = <span class="string">&quot;Hello&quot;</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="变量类型"><a href="#变量类型" class="headerlink" title="变量类型"></a>变量类型</h2><h3 id="变量赋值"><a href="#变量赋值" class="headerlink" title="变量赋值"></a>变量赋值</h3><p>允许为多个变量同时赋值</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = b = c = <span class="number">1</span>   <span class="comment"># 为a,b,c三个整型变量赋值为1</span></span><br><span class="line">a, b, c = <span class="number">1</span>, <span class="number">2.1</span>, <span class="string">&quot;john&quot;</span> </span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">为a整型变量赋值为1</span></span><br><span class="line"><span class="string">b浮点类型赋值为2.1</span></span><br><span class="line"><span class="string">c字符串类型赋值为“john</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
 
-<p>此时创建了一个String类型的变量str，值为”Hello”，这里是一个局部变量，下图给出其在内存中的表示。</p>
-<p><img src="/2021/05/20/Snaphot/2.png"></p>
-<p>再执行了下面一条语句后，其变化：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">str = str + <span class="string">&quot;World&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p>注：Python注释并不是用我们熟悉的<code>//</code>而是<code>#  </code>注释，且<code>#</code>后面需要空一格进行注释；或者是用<code>&#39;&#39;&#39;</code>（三个单引号）或<code> &quot;&quot;&quot;</code>(三个双引号)进行多行注释。</p>
+<h3 id="标准数据类型"><a href="#标准数据类型" class="headerlink" title="标准数据类型"></a>标准数据类型</h3><p>Python有五个标准的数据类型：</p>
+<ul>
+<li>Numbers（数字）</li>
+<li>String（字符串）</li>
+<li>List（列表）</li>
+<li>Tuple （元组）</li>
+<li>Dictionary（字典）</li>
+</ul>
+<h4 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h4><p>Python支持四种不同的数字类型，用于存储数值，是不可改变的数据类型，其意思是如果数字数据类型会分配一个新的对象（关于不可见数据类型，详情请见前面博客不可见数据类型文章）。</p>
+<ul>
+<li>int（整型）    </li>
+<li>float（浮点型）    </li>
+<li>complex（复数）    </li>
+</ul>
+<p>不需要定义数字类型，其会自动识别</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = <span class="number">1</span> <span class="comment"># int型</span></span><br><span class="line">b = <span class="number">1.1</span> <span class="comment"># 浮点型</span></span><br><span class="line">c = <span class="number">1</span> + <span class="number">2j</span> <span class="comment"># 复数</span></span><br><span class="line">d = <span class="built_in">complex</span>(<span class="number">1</span>, <span class="number">2</span>) <span class="comment"># 复数：1为实部，2为虚部</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/05/20/Snaphot/3.png" alt="image-20210706184856276"></p>
-<p>可以看到，其并没有改变堆里地址为0x2233存储的原来的字符串值，而是在堆里新建一个对象，其值为“HelloWorld”，然后改变栈里str的存储值。</p>
-<p>用Snaphot图表示变化：</p>
-<p><img src="/2021/05/20/Snaphot/4.png" alt="image-20210706190855510"></p>
-<p>不可变数据类型的<strong>优点</strong>：因为其值不能改变，不可变类型更“安全”，在其他质量指标上表现更好。其安全性会在下面与可变数据类型对比时体现出来。</p>
-<p><strong>缺点</strong>：使用不可变类型，对其频繁修改会产生大量的临时拷贝，需要垃圾回收。就正如上面所举的例子：改变了str的值，但“Hello”的值仍然在堆中，就需要垃圾回收。</p>
-<h2 id="可变数据类型"><a href="#可变数据类型" class="headerlink" title="可变数据类型"></a>可变数据类型</h2><p>定义:可以<strong>改变</strong>值，且拥有方法可以修改自己的值。</p>
-<p>这里举一个可变数据类型StringBuilder的例子：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">StringBuilder str1 = <span class="keyword">new</span> StringBuilder(<span class="string">&quot;Hello&quot;</span>);</span><br><span class="line">str1.append(<span class="string">&quot;World&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>也可以使用del语句删除一些对象的引用。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">del</span> a, b</span><br></pre></td></tr></table></figure>
 
-<p>这里选择直接用Snaphot图表示变化：</p>
-<p><img src="/2021/05/20/Snaphot/5.png" alt="image-20210706190817364"></p>
-<p>看到这里，可能就会产生疑惑：这里的StringBuilder和前面的String的结果不都一样吗？没有什么区别啊。但这个还需要我们深思一下。</p>
-<p>如果是当只有<strong>一个</strong>引用指向该对象，二者没有区别。</p>
-<p>但是<strong>注意：</strong>有多个引用的时候，差异就出现了！！！</p>
-<p>给出上课老师举的例子：</p>
-<p><img src="/2021/05/20/Snaphot/6.png" alt="image-20210706191223709"></p>
-<p>可以看到，变量t和s都最开始都指向同一个值“ab”，但当t修改值变为“abc”时，仅仅改变了t的指向，指向“abc”，而并未更改原来的值，s的值不变仍为“ab”；</p>
-<p>再看变量sb和tb二者最开始都指向同一个值“ab”，但当tb改变值为“abc”时，是在原有的值上直接修改，不同于之前String类型变量t，这样一来sb也并未改变值，但其由于指向的值的改变，导致sb的值变为“abc”；这就相当危险了，看上去是对一个变量值的修改，却也同时改变了另一个变量的值，很难让人察觉出这一变化，从而产生一些副影响。这里就体现了不可变数据类型的<strong>安全性</strong>所在！</p>
-<p>但可变数据类型还是有<strong>优点</strong>的：首先就是，我们的程序需要值的变化，其必不可少。</p>
-<p>可变类型最少化拷贝以提高效率，减少垃圾；其次，也适合于在多个模块之间共享数据，例如全局变量。</p>
-<p>但是我们上面提到了可变数据类型的一些<strong>“危险”</strong>，那就讲一讲如何<strong>安全</strong>的使用可变类型：</p>
-<p>局部变量，只有一个引用，不会涉及共享，不会有危险。</p>
-<p>但如果有多个引用（别名），使用可变类型就非常不安全。</p>
-<p>主要办法就是：防御性拷贝，给客户端返回一个全新的对象，是要返回值的拷贝，但是新建的，地址不同，避免直接返回，传递地址，致使产生多个引用。</p>
-<h2 id="Snophot-Diagram"><a href="#Snophot-Diagram" class="headerlink" title="Snophot Diagram"></a>Snophot Diagram</h2><p>Snophot图十分常用，其主要用于描述程序运行时的内部变化，如在栈中和堆中的对象、变量等等。</p>
-<p>其优点是：直观、简洁，便于程序员之间交流，便于刻画各类变量随时间发生的变化，便于解释思路。</p>
-<p>下面讲一讲其表示规范。</p>
-<h3 id="基本类型的值"><a href="#基本类型的值" class="headerlink" title="基本类型的值"></a>基本类型的值</h3><p>其用箭头指向一个常量表示变量对这个值的引用。如图所示：</p>
-<p><img src="/2021/05/20/Snaphot/7.png" alt="image-20210706195413812"></p>
-<h3 id="对象类型的值"><a href="#对象类型的值" class="headerlink" title="对象类型的值"></a>对象类型的值</h3><p>对象类型的值用一个按其类型标记的圆表示。</p>
-<p>定义一个圆。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Circle</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> x;  <span class="comment">//圆心横坐标</span></span><br><span class="line">    <span class="keyword">int</span> y;  <span class="comment">//圆心纵坐标</span></span><br><span class="line">    <span class="keyword">int</span> r;  <span class="comment">//圆的半径</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><p>其大致与C语言差不多，不过其字符列表有两种取值顺序。</p>
+<ul>
+<li>从左到右索引默认0开始的，最大范围是字符串长度少1</li>
+<li>从右到左索引默认-1开始的，最大范围是字符串开头</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">H</th>
+<th align="center">e</th>
+<th align="center">l</th>
+<th align="center">l</th>
+<th align="center">o</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">3</td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="center">-5</td>
+<td align="center">-4</td>
+<td align="center">-3</td>
+<td align="center">-2</td>
+<td align="center">-1</td>
+</tr>
+</tbody></table>
+<p>一些其他操作</p>
+<ul>
+<li><p>从字符在截取一段字符，采用<code>[头下标:尾下标]</code>来截取相应的字符串，其中下标是从 0 开始算起，可以是正数或负数，下标可以为空表示取到头或尾，此外它是“左闭右开”的形式，截取的子串包含<strong>头下标</strong>的字符，但不包含<strong>尾下标</strong>的字符；</p>
+</li>
+<li><p><code>*</code>表示重复，<code>+</code>表示连接；</p>
+</li>
+<li><p>P字符串截取还可以有第三个参数，其表示的截取的步长，在索引 1 到索引 4 的区间内并设置为步长为 2（间隔1位）来截取字符串</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">str</span> = <span class="string">&quot;Hello World!&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>)            <span class="comment"># 输出完整的字符串</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>[<span class="number">4</span>])         <span class="comment"># 输出字符串中第5个字符</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>[:<span class="number">5</span>])        <span class="comment"># 输出字符串中第1个至第5个之间的子串</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>[<span class="number">2</span>:<span class="number">5</span>])       <span class="comment"># 输出字符串中第3个至第5个之间的子串</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>[<span class="number">3</span>:])        <span class="comment"># 输出字符串中第4个开始的子串</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span> * <span class="number">2</span>)        <span class="comment"># 输出字符串两次</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span> + <span class="string">&quot; test&quot;</span>)  <span class="comment"># 输出连接的字符串</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>[<span class="number">0</span>:<span class="number">5</span>:<span class="number">2</span>])     <span class="comment"># 从第1个字符开始至第5个字符间隔1位截取子串</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>[<span class="number">0</span>:<span class="number">5</span>:<span class="number">3</span>])     <span class="comment"># 从第1个字符开始至第5个字符间隔2位截取子串 </span></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">输出结果：</span></span><br><span class="line"><span class="string">Hello World!</span></span><br><span class="line"><span class="string">o</span></span><br><span class="line"><span class="string">Hello</span></span><br><span class="line"><span class="string">llo</span></span><br><span class="line"><span class="string">lo World!</span></span><br><span class="line"><span class="string">Hello World!Hello World!</span></span><br><span class="line"><span class="string">Hello World! test</span></span><br><span class="line"><span class="string">Hlo</span></span><br><span class="line"><span class="string">Hl</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><p>列表主要作用是：其可以完成大多数集合类的数据结构实现，它支持字符，数字，字符串甚至可以包含列表（即嵌套），即列表是个有序的大集合，里面可以存放字符串，数字，字符，甚至嵌套个列表。下面举例说明。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">lisT = [<span class="string">&quot;list&quot;</span>, <span class="string">&#x27;l&#x27;</span>, <span class="number">1</span>, <span class="number">1.1</span>, <span class="number">1</span> + <span class="number">2j</span>, [<span class="number">1</span>, <span class="number">1.1</span>, <span class="number">1.2</span>]]</span><br></pre></td></tr></table></figure>
 
-<p>如果要显示更多的细节时，可在这个圆里面写明成员变量名，用箭头指向它们的值。若想要更详细，可以标明其成员变量的类型。</p>
-<p><img src="/2021/05/20/Snaphot/8.png" alt="image-20210706200318325"></p>
-<h3 id="不可变对象"><a href="#不可变对象" class="headerlink" title="不可变对象"></a>不可变对象</h3><p> 其在对象类型的基础上改为双线椭圆。</p>
-<p>如之前前面所举的例子。</p>
-<p><img src="/2021/05/20/Snaphot/4.png" alt="image-20210706190855510"></p>
-<h3 id="可变对象"><a href="#可变对象" class="headerlink" title="可变对象"></a>可变对象</h3><p>这个也较为简单，就是之前举的例子。</p>
-<p><img src="/2021/05/20/Snaphot/5.png" alt="image-20210706190817364"></p>
-<h3 id="不可变的引用"><a href="#不可变的引用" class="headerlink" title="不可变的引用"></a>不可变的引用</h3><p>这里不可变的引用是指，变量指不可变。其用双线箭头表示。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="keyword">int</span> y =<span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+<p>同字符串类型一样，其也可以用切割操作，此外，其索引取值方式也同字符串类似。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">list1 = [<span class="string">&#x27;list&#x27;</span>, <span class="string">&#x27;t&#x27;</span>, <span class="number">2.23</span>, <span class="string">&#x27;john&#x27;</span>, <span class="number">1111</span>, <span class="number">1</span> + <span class="number">2j</span>]</span><br><span class="line">tinylist = [<span class="number">123</span>, <span class="string">&#x27;john&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(list1)  <span class="comment"># 输出完整列表</span></span><br><span class="line"><span class="built_in">print</span>(list1[<span class="number">0</span>])  <span class="comment"># 输出列表的第一个元素</span></span><br><span class="line"><span class="built_in">print</span>(list1[<span class="number">1</span>:<span class="number">3</span>])  <span class="comment"># 输出第二个至第三个元素</span></span><br><span class="line"><span class="built_in">print</span>(list1[<span class="number">2</span>:])  <span class="comment"># 输出从第三个开始至列表末尾的所有元素</span></span><br><span class="line"><span class="built_in">print</span>(tinylist * <span class="number">2</span>)  <span class="comment"># 输出列表两次</span></span><br><span class="line"><span class="built_in">print</span>(list1 + tinylist)  <span class="comment"># 打印组合的列表</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">[&#x27;list&#x27;, &#x27;t&#x27;, 2.23, &#x27;john&#x27;, 1111, (1+2j)]</span></span><br><span class="line"><span class="string">list</span></span><br><span class="line"><span class="string">[&#x27;t&#x27;, 2.23]</span></span><br><span class="line"><span class="string">[2.23, &#x27;john&#x27;, 1111, (1+2j)]</span></span><br><span class="line"><span class="string">[123, &#x27;john&#x27;, 123, &#x27;john&#x27;]</span></span><br><span class="line"><span class="string">[&#x27;list&#x27;, &#x27;t&#x27;, 2.23, &#x27;john&#x27;, 1111, (1+2j), 123, &#x27;john&#x27;]</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
 
-<p>如图所示：</p>
-<p><img src="/2021/05/20/Snaphot/9.png" alt="image-20210706200914860"></p>
-<p>同时我们还要注意：引用是不可变的，但指向的值却可以是可变的。比如说，定义了一个final StringBuilder sb，我们不能改变其指向，但其指向的值却是可改变的。</p>
-<p>可变的引用，也可指向不可变的值，比如说，定义了一个String s，其指向一个存储在堆中不可变的值“Hello”，但我们可以改变s的指向，指向“Hello world”。</p>
-<p>这就是关于Snophot的内容。</p>
-<p>这些只是自己的一些浅薄的理解，若有问题，恳请批评指正。</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>【1】软件构造课程PPT</p>
-<p>【2】自学JAVA的笔记</p>
+<h4 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h4><p>元组是另一个数据类型，类似于 List（列表）。</p>
+<p>元组用 ()  标识。内部元素用逗号隔开。但是元组不能二次赋值，赋完初值后，其就相当于只读列表。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tuple1 = [<span class="string">&#x27;list&#x27;</span>, <span class="string">&#x27;t&#x27;</span>, <span class="number">2.23</span>, <span class="string">&#x27;john&#x27;</span>, <span class="number">1111</span>, <span class="number">1</span> + <span class="number">2j</span>]</span><br><span class="line">tinytuple = [<span class="number">123</span>, <span class="string">&#x27;john&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(tuple1)  <span class="comment"># 输出完整元组</span></span><br><span class="line"><span class="built_in">print</span>(tuple1[<span class="number">0</span>])  <span class="comment"># 输出元组的第一个元素</span></span><br><span class="line"><span class="built_in">print</span>(tuple1[<span class="number">1</span>:<span class="number">3</span>])  <span class="comment"># 输出第二个至第三个元素</span></span><br><span class="line"><span class="built_in">print</span>(tuple1[<span class="number">2</span>:])  <span class="comment"># 输出从第三个开始至元组末尾的所有元素</span></span><br><span class="line"><span class="built_in">print</span>(tinytuple * <span class="number">2</span>)  <span class="comment"># 输出元组两次</span></span><br><span class="line"><span class="built_in">print</span>(tuple1 + tinytuple)  <span class="comment"># 打印组合的元组</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">[&#x27;list&#x27;, &#x27;t&#x27;, 2.23, &#x27;john&#x27;, 1111, (1+2j)]</span></span><br><span class="line"><span class="string">list</span></span><br><span class="line"><span class="string">[&#x27;t&#x27;, 2.23]</span></span><br><span class="line"><span class="string">[2.23, &#x27;john&#x27;, 1111, (1+2j)]</span></span><br><span class="line"><span class="string">[123, &#x27;john&#x27;, 123, &#x27;john&#x27;]</span></span><br><span class="line"><span class="string">[&#x27;list&#x27;, &#x27;t&#x27;, 2.23, &#x27;john&#x27;, 1111, (1+2j), 123, &#x27;john&#x27;]</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">tuple1[<span class="number">2</span>] = <span class="number">0.13</span>    <span class="comment"># 元组中是非法应用</span></span><br><span class="line">list1[<span class="number">2</span>] = <span class="number">1.13</span>     <span class="comment"># 列表中是合法操作</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h4><p>字典(dictionary)是除列表以外python之中最灵活的内置数据结构类型。列表是有序的对象集合，字典是无序的对象集合。</p>
+<p>两者之间的区别在于：字典当中的元素是通过键来访问存取的，而不是通过下标访问存取，有点类似于java中的Map。</p>
+<p>字典用”{ }”标识。字典由索引(key)和它对应的值value组成，用<code>:</code>来区分键和值，<code>1 : 123</code>中，1表示键，123为整型值。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">dict</span> = &#123;&#125;</span><br><span class="line"><span class="built_in">dict</span>[<span class="string">&#x27;one&#x27;</span>] = <span class="string">&quot;This is one&quot;</span></span><br><span class="line"><span class="built_in">dict</span>[<span class="number">2</span>] = <span class="string">&quot;This is two&quot;</span></span><br><span class="line"> </span><br><span class="line">tinydict = &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;runoob&#x27;</span>,<span class="string">&#x27;code&#x27;</span>:<span class="number">6734</span>, <span class="string">&#x27;dept&#x27;</span>: <span class="string">&#x27;sales&#x27;</span>&#125;</span><br><span class="line"> </span><br><span class="line"><span class="built_in">print</span> <span class="built_in">dict</span>[<span class="string">&#x27;one&#x27;</span>]          <span class="comment"># 输出键为&#x27;one&#x27; 的值</span></span><br><span class="line"><span class="built_in">print</span> <span class="built_in">dict</span>[<span class="number">2</span>]              <span class="comment"># 输出键为 2 的值</span></span><br><span class="line"><span class="built_in">print</span> tinydict             <span class="comment"># 输出完整的字典</span></span><br><span class="line"><span class="built_in">print</span> tinydict.keys()      <span class="comment"># 输出所有键</span></span><br><span class="line"><span class="built_in">print</span> tinydict.values()    <span class="comment"># 输出所有值</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">This is one</span></span><br><span class="line"><span class="string">This is two</span></span><br><span class="line"><span class="string">&#123;&#x27;dept&#x27;: &#x27;sales&#x27;, &#x27;code&#x27;: 6734, &#x27;name&#x27;: &#x27;runoob&#x27;&#125;</span></span><br><span class="line"><span class="string">[&#x27;dept&#x27;, &#x27;code&#x27;, &#x27;name&#x27;]</span></span><br><span class="line"><span class="string">[&#x27;sales&#x27;, 6734, &#x27;runoob&#x27;]</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
 ]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
       <tags>
-        <tag>Java</tag>
-        <tag>Snaphot</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
-    <title>post</title>
-    <url>/2021/09/19/post/</url>
-    <content><![CDATA[]]></content>
+    <title>【论文翻译】--Requirements, Bottlenecks, and Good Fortune:Agents for Microprocessor Evolution</title>
+    <url>/2021/09/19/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91/</url>
+    <content><![CDATA[<h1 id="需求，瓶颈，好运：微处理器演变的代理"><a href="#需求，瓶颈，好运：微处理器演变的代理" class="headerlink" title="需求，瓶颈，好运：微处理器演变的代理"></a>需求，瓶颈，好运：微处理器演变的代理</h1><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>​    第一台微处理器——Intel 4004于1971年问世，其集成了2300个晶体管，时钟频率为108KHz。在三十年后的今天，一个微处理器中集成了近2亿个晶体管，其时钟频率超过了1GHz。在未来的5年里，集成在单个芯片上的晶体管的数量预计将超过10亿，以从6GHz到10GHz的时钟频率运行。</p>
+<p>​    微处理器的演变，始于1971年，发展到今日的状况，再到未来5年后可能到达的位置，是因为几个贡献性的力量。我们的立场是：这种演变不是恰好发生的，而是演变的每一步都是三件事其一影响的结果，而且其背景总是计算机架构师于三者中做权衡、折衷。这三件事是：1)新需求；2)瓶颈；3)好运气。我将它们统称为演变的代理。</p>
+<p>​    这篇文章尝试从三个方面展开：描述微处理器领域的一个基本框架，展示自第一台微处理器问世后的三十年里的重大发展，最后，提出一些新事物，有望于在未来的5年内看到发生在高性能微处理器上的新事物。</p>
+<p>​    <strong>关键词</strong>——计算机体系结构，微体系结构，微处理器， 微处理器设计，微处理器进化。</p>
+<h2 id="Ⅰ基本框架"><a href="#Ⅰ基本框架" class="headerlink" title="Ⅰ基本框架"></a>Ⅰ基本框架</h2><h3 id="A-计算机体系结构：折衷（权衡）的科学"><a href="#A-计算机体系结构：折衷（权衡）的科学" class="headerlink" title="A.计算机体系结构：折衷（权衡）的科学"></a><em>A.计算机体系结构：折衷（权衡）的科学</em></h3><p>​    计算机体系结构，与其说是“科学”，不如说是“艺术”。随着阅历的增长，我们的能力和洞察力都有所提升。计算机架构师会借鉴以往的设计经验来对当前项目做出决策。如果说计算机体系结构是一门科学，那么它是一门关于权衡的科学。在过去的半个世纪里，计算机架构师一直在学习钻研基础知识，以帮助他们能够实践他们的工艺。 计算机架构师的工作几乎总是需要使用这些基础知识来进行权衡，尤其在微处理器的整个发展过程中，亦是如此。 </p>
+<p><img src="/2021/09/19/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91/fig1.jpg" alt="image"></p>
+<p>​                                            图1  现代微处理器</p>
+<h3 id="B-抽象变换的层次结构"><a href="#B-抽象变换的层次结构" class="headerlink" title="B.抽象变换的层次结构"></a><em>B.抽象变换的层次结构</em></h3><p>​    晶体管的数量以及其开关时间是工艺技术所提供的资源。（以上为直译，个人理解为：集成在单个芯片上的晶体管的数量和晶体管的开关时间由加工技术决定。）我们将这些资源用于什么则取决于市场的需求。 我们如何使用这些资源就是微处理器的全部意义所在（个人理解为：根据市场需求，而后使用这些资源来制造微处理器，也就是需求和资源的一种折衷）。 图1展示了抽象变换的层次结构，一个用自然语言描述的问题如英语，必须通过这几层的抽象变换（根据问题，求解算法，选择适当算法编写程序，然后高级语言程序翻译成机器语言程序，再到微程序解释机器语言程序，最后硬件执行微指令，再到底层的电路，最后是最底层的电子，也就高低电平变换01变换，也就是电子）最终才能得以解决。在现实中，是电子运动做动解决了问题。然而，我们并不会在实际中说“电子”，同时“电子”也不会说任何自然语言，我们能做的最好的事情就是通过图1所示的层次结构系统地来转换问题，直到到达电子（或着说设备）层，这一层也就是集成了2亿个集体管，时钟频率为1GHz的芯片。</p>
+<p>​    在这个过程中，问题的解决方案首先被用算法的形式来明确阐述以致消除自然语言的一些不可接受的特性，如歧义性。然后用机器语言对其编码并编译为特定微处理器的指令集架构（ISA）。ISA是一致商定的接口:1)编译后的程序用来告诉微处理器该程序需要做什么；2）微处理器用来知道它必须代表程序执行什么。ISA由一组硬件结构实现，其被统称为微处理器的微体系架构。每个硬件结构以及之间的相互连接均由电子数字电路组成，而电子数字电路又由电子设备组成。</p>
+<p>​    当我们今天讨论微处理器时，我们通常是指图1的阴影部分。每个微处理器由电路组成，电路实现了硬件结构（统称为微体系架构），其提供了一个面向软件的接口（被称为ISA）。在个人计算机中，ISA一般是IA-32，个人电脑的ISA是IA-32，微架构是Intel的Pentium IV，或者是早期的Pentium III、Pentium II、Pentium Pro、486等等，或者AMD的K-8， 或者为更早的K-7、K-6 等。 </p>
+<p>​    还有一些其他的ISA：例如SPARC(来自Sun Microsystems)，Alpha（来自Compaq），以及Power-PC(来自Motorola and IBM)。每种ISA都有其自己的特性来为编译器提供更好或更坏的接口，或者说微体系架构跟好或更坏地执行工作。对于每个ISA，都有多个不同的微体系架构。 我们已经提到了IA-32 的几个微架构。 于Alpha而言， 有 21064、21164 和 21264。</p>
+<p>​    在层次结构的每一步中，从算法的选择到语言，到ISA 到微体系结构，到电路，都有选择，因此就有权衡。 </p>
+<p>​    人们通常在更高的性能和更低的价格之间做选择，但并非总是如此。举一个汽车的类比可能更有启发性。可以制造一台高性能跑车，其可以在几乎0秒内从0英里/小时加速到 100 英里/小时。但是其造价会非常高。或者，可以制造一辆非常便宜的汽车，它的时速永远无法达到 100 英里/小时，但每加仑汽油可以行驶 100 英里。性能和经济性不可兼得。这就是权衡。</p>
+<h3 id="C-设计要点"><a href="#C-设计要点" class="headerlink" title="C.设计要点"></a><em>C.设计要点</em></h3><p>​    微处理器的设计就是做相关的权衡（折衷）。我们将微处理器设计中的这组考虑因素以及每个考虑因素相关重要性成为微处理器的“设计要点”–也就是说，于微处理器用途而言最重要的特性，以至于较少关注于其他特性。性能、成本、散热和功耗是强烈影响设计点的特性的示例。另一个示例是“高可用性”——设计一个微处理器时其中考虑最多的就是这个微处理器永远不会出故障。如果可以确保微处理器永远不会出现故障，一些客户愿意接受更低的性能或更高的价格。我们将这种处理器称为“容错”或高可用性的。</p>
+<p>​    其他客户则愿意为节能、续航牺牲一部分性能，随着最高性能芯片的功率和能耗越来越大，大得令人无法接受，这个设计要点愈发重要。这就存在一个最高性能与功耗意识的权衡。</p>
+<p>​    值得一提的是，“功耗意识”与另一个重要的设计要点“低功耗”不同，在许多应用中，首先考虑的是微处理器消耗非常少量的能源但能长时间运行。</p>
+<h3 id="D-应用空间"><a href="#D-应用空间" class="headerlink" title="D.应用空间"></a><em>D.应用空间</em></h3><p>图1中“问题”一词是应用空间的统称，或者说我们希望使用微处理器的一组应用程序。应用程序的数量正在以惊人的速度增加，而且预计未来仍会保持增长的趋势。实际上，只要人们期望计算机的用途更加广泛（或者说计算机能实现更多功能），则对于微处理器的需求和权衡将会持续扩大。也就是说，应用空间（或更准确说，具有核心重要性的应用）驱动着这个设计要点。我们前面那已经提到了高可用性处理器，其中应用程序要求微处理器永远不出故障，以及在低功耗处理器中，应用程序必须能够消耗少量能量而能长时间运行。</p>
+<p>​    持续驱动独特设计要点需求的应用空间的其他示例如下：</p>
+<p>​    1)科学应用，例如，计算控制核电站，决定开采石油的位置，预测天气；</p>
+<p>​    2)基于事务的应用程序，例如办理ATM转账和电子商务业务;</p>
+<p>​    3)业务数据处理应用程序，例如处理库存控制、工资、IRS活动和各种个人记录的应用程序，无论这些个人是雇员、学生还是选民;</p>
+<p>​    4)网络应用，例如高速路由的互联网数据包，使你的家庭系统连接利用互联网;    </p>
+<p>​    5)有保证的交付(即实时)应用程序，要求在某个关键期限之前得到计算结果;</p>
+<p>​    6)嵌入式应用程序，其中处理器是更大系统的一个组件，用于解决(通常)专用应用程序;</p>
+<p>​    7)解码视频和音频文件等媒体应用程序;</p>
+<p>​    8)桌面用户希望在自己的电脑上运行的随机软件包。</p>
+<p>每个应用领域都有其特点，与其他领域大不同。每个应用领域都要求做不同的权衡、折衷来设计微处理器来满足其完成工作。</p>
+<h3 id="E-基本处理"><a href="#E-基本处理" class="headerlink" title="E. 基本处理"></a>E. 基本处理</h3><p>​        微处理器处理执行指令，简单地说，有三个步骤：1)向处理器核心提供指令，让每条指令都能完成它的工作;2)提供每条指令所需的数据;3)执行每条指令。</p>
+]]></content>
+      <categories>
+        <category>计算机组成原理与体系结构</category>
+      </categories>
+      <tags>
+        <tag>计算机组成原理</tag>
+        <tag>计算机体系结构</tag>
+      </tags>
   </entry>
   <entry>
     <title>适配器模式</title>
