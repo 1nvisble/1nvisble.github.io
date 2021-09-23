@@ -55,67 +55,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Java中equals方法和hashCode方法</title>
-    <url>/2021/06/15/Java%E4%B8%ADequals%E6%96%B9%E6%B3%95%E5%92%8ChashCode%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>软件构造课上，之前介绍了ADT，讲了RI、AF，AF，及抽象函数解释了该类型是如何将内部表示映射为使用者理解的抽象数据的。那如何判断这些ADT的相等性，这就涉及到了java中很重要的一个知识点，equals方法和hashCode方法。</p>
-<h2 id="VS-equals"><a href="#VS-equals" class="headerlink" title="== VS equals()"></a>== VS equals()</h2><p>我们在C中常使用==操作来判断相等。而在Java中，不仅提供了==来判断相等</p>
-<p>，还提供了equals()方法，其主要用于比较ADT的相等。</p>
-<h3 id><a href="#" class="headerlink" title="=="></a>==</h3><p>==这个相等判断比较的是两个比较对象的索引的相等，或者说是引用相等。如果两个索引指向同一块存储区域，那它们就是==的，也就是相等的。在snophot图中，<code>==</code>就意味着两个比较对象的箭头指向同一个对象或值。</p>
-<h3 id="equals-方法"><a href="#equals-方法" class="headerlink" title="equals()方法"></a>equals()方法</h3><p>equals方法操作比较的是两个对象（object）的内容，或者说，比较的是对象值相等。每当我们定义一个ADT时，我们需要判断，对于这个ADT来说对象值相等是如何定义的，或者说如何实现equals方法。</p>
-<p>假设存在一个Person的ADT，其成员属性有两个，一个为name，一个为number。</p>
-<p>那我如和判断Person这个ADT实例的两个对象是否相等呢？是判断其name和number相等就算相等，还是只要判断name就算相等，可能一个人有多个手机号。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>所以这时候我们要想清楚如何实现equals方法。</p>
-<p>我们先看java给出的equal方法的定义，其是在Object类中就定义的，我们又知道Object类是所有类的父类或基类，如果不在子类中重写equals()方法，那么默认继承使用的就是Object类的equals方法。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Object</span> </span>&#123;   </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object that)</span> </span>&#123;        </span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">this</span> == that;   </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>equals() 在Object类中的实现方法就是测试指向/索引相等。对于<strong>不可变类型的对象</strong>来说，这很容易在调用equals方法时出现bug。所以你需要**重写(override) **equals() 方法，重写为你所定义的两个对象的相等的实现。</p>
-<p>举上课的例子，这是一个不可变类型的ADT：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Duration</span> </span>&#123;   </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Duration that)</span> </span>&#123;        </span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.getLength() == that.getLength();         </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我们可能想当然认为我们比较的是对于这一个ADT，两个对象值的相等，那么参数类型也就为这个类，这里要特别<strong>注意</strong>:这里并不是<strong>重写</strong>了Object类的方法，而是<strong>重载</strong>了equals方法，因为参数类型的不同，其构成的是重载，意思是说，这时Duration中有两个 equals()方法：一个是从 Object隐式继承下来的equals(Object)，还有一个就是我们写的 equals(Duration)。然后编译器，会在编译时而不是运行时，根据传入的参数类型，选择调用哪一个equals方法。</p>
-<p>那到底该如何重写equals方法呢？</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object that)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> that <span class="keyword">instanceof</span> Duration &amp;&amp; 			<span class="keyword">this</span>.sameValue((Duration)that);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">sameValue</span><span class="params">(Duration that)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.getLength() == that.getLength();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其首先测试了传入的that对象是 Duration，然后调用sameValue()去判断它们的值是否相等。表达式 (Duration)that 是进行了一个类型转换操作，它告诉编译器that指向的是一个 Duration对象。</p>
-<p>此外，这里的instance操作符进行了一个动态检查，测试一个实例是否属于特定的类型。但老师又提到，在面向对象编程中使用 instanceof是一个不好的选择。在本门课程中——在很多Java编程中也是这样——<strong>除了实现相等操作，instanceof不能被使用。</strong>这也包括其他在运行时确定对象类型的操作，还有getClass方法。</p>
-<p>然后我们再说说hashCode方法：</p>
-<h2 id="hashCode-方法："><a href="#hashCode-方法：" class="headerlink" title="hashCode()方法："></a>hashCode()方法：</h2><p>java规定了一个对象相等的契约：</p>
-<p>如果两个对象使用 equals操作后结果为真，那么它们各自的hashCode操作的结果也应该相同。</p>
-<p>那hashCode又是什么呢？这就需要对哈希表的工作原理有一定的了解。听到hash或哈希，我们会联系到学习数据结构时的散列，在Java中，两个常见的聚合类型 HashSet和 HashMap 就用到了哈希表的数据结构，并且依赖hashCode保存集合中的对象以及产生合适的键（key）。</p>
-<p>一个哈希表表示的是一种映射：从键值映射到值的抽象数据类型。哈希表提供了常数级别的查找，查找速度比其他唱常规的链表都要快。键不一定是有序的，也不一定有什么特别的属性，除了类型必须提供 equals 和 hashCode两个方法。</p>
-<blockquote>
-<p>哈希表是怎么工作的呢？它包含了一个初始化的数组，其大小是我们设计好的。当一个键值对准备插入时，我们通过hashcode计算这个键，产生一个索引，它在我们数组大小的范围内（例如取模运算）。最后我们将值插入到数组索引对应的位置。 哈希表的一个基本不变量就是键必须在hashcode规定的范围内。</p>
-<p>Hashcode最好被设计为键计算后的索引应该平滑、均匀的分布在所有范围内。但是偶尔冲突也会发生，例如两个键计算出了同样的索引。因此哈希表通常存储的是一个键值对的列表而非一个单个的值，这通常被称为哈希桶（hash  bucket）。而在Java中，键值对就是一个有着两个域的对象。当插入时，你只要像计算出的索引位置插入一个键值对。当查找时，你先根据键哈希出对应的索引，然后在索引对应的位置找到键值对列表，最后在这个列表中查找你的键。</p>
-</blockquote>
-<p>Object默认的 hashCode()`实现和默认的 equals()保持一致：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Object</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object that)</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">this</span> == that; &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="comment">/* the memory address of this */</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对于索引a和b，如果 a == b，那么a和b的存储地址也就相同，hashCode()的结果也就相同，那么就满足了相等的契约。</p>
-<p>但对于前面提到的 Duration这个不可变的ADT，因为我们还没有覆盖默认的 hashCode() ，其实际上打破了对象契约。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Duration d1 = <span class="keyword">new</span> Duration(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">Duration d2 = <span class="keyword">new</span> Duration(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">d1.equals(d2) → <span class="keyword">true</span></span><br><span class="line">d1.hashCode() → <span class="number">2392</span></span><br><span class="line">d2.hashCode() → <span class="number">4823</span></span><br></pre></td></tr></table></figure>
-
-<p>那么该怎么解决这个问题呢？</p>
-<ol>
-<li>简单粗暴的将所有对象的hashCode值都改为一样的。但会严重性能严重下降，这样将每一个值对都保存到相同的位置，每次查找会遍历所有对象。</li>
-<li>另一个方法是计算对象每一个内容的hashcode然后对它们进行一系列算术运算，最终返回一个综合hashcode。</li>
-</ol>
-<p>还是我们上面例子：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">int</span>) getLength();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p> equals方法和hashCode方法都是Java比较特殊的存在，在构造ADT时，要主要二者方法的重写，来判断等价性。</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>【1】软件构造PPT</p>
-<p>【2】 <a href="https://www.cnblogs.com/liqiuhao/p/8810465.html">https://www.cnblogs.com/liqiuhao/p/8810465.html</a></p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java代理模式（Proxy）理解</title>
     <url>/2021/06/27/Java%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%EF%BC%88Proxy%EF%BC%89/</url>
     <content><![CDATA[<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>老师上课讲到了一些设计模式，但是由于课程较赶，时间较紧，吃不太透，于是自己课下再学习一些，加深理解，同时在编程中多多用到。</p>
@@ -192,142 +131,6 @@
       <tags>
         <tag>Java</tag>
         <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>可变数据类型和不可变数据类型以及Snaphot图</title>
-    <url>/2021/05/20/Snaphot/</url>
-    <content><![CDATA[<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>在上软件构造这门课时，在讲数据类型时引入了可变数据类型和不可变数据类型，这是以前未接触过的概念，以前自学Java时，仅有基本数据类型，和引用数据类型这两种概念；此外，老师还引入了Snaphot digrams，其用于描述程序运行时的内部状态，较为实用，今天“趁热打铁”，写博客记录一下。</p>
-<p>先回顾一下Java的基本数据类型和引用数据类型。</p>
-<h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><p>基本数据类型主要是我们最熟悉的几个变量类型：</p>
-<p>byte、short、int、long,float,double,bool,char；</p>
-<p>基本数据类型运算的规则：（不包含布尔类型）</p>
-<ol>
-<li><p>自动类型提升：当容量小的数据类型的变量与大的数据类型做运算时，结果自动提升为容量大的数据类型。 </p>
-<p>byte、char、short（这三者做运算均转为int）-&gt;int-&gt;long-&gt;-&gt;float-&gt;double。</p>
-<p>容量大小指的是表示属的范围的大和小，比如float的容量大于long</p>
-</li>
-<li><p>强制类型转换：需要使用强转符，可能导致精度损失 </p>
-</li>
-<li><p>整数型定义时，常量存储的类型为int型，若定义变量类型为long，或容量大于int型，且常量超过int型可表示的最大范围数，编译不通过，需要加l</p>
-</li>
-<li><p>浮点型定义时，常量存储的类型为double类型，若定义变量类型为float，double类型向float转换，报错，常量后面需加f</p>
-</li>
-</ol>
-<p>整型常量：默认类型为int型； 浮点型常量：默认类型为double型。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		<span class="keyword">long</span> a = <span class="number">2147483647</span>;        <span class="comment">//编译可通过</span></span><br><span class="line">   		<span class="keyword">long</span> a = <span class="number">2147483648</span>;        <span class="comment">//编译不通过，显示数过大</span></span><br><span class="line">   	 	<span class="keyword">long</span> a = <span class="number">2147483648l</span>;      <span class="comment">//编译可通过</span></span><br><span class="line">    	<span class="keyword">float</span> f1 = <span class="number">12.3</span>;   <span class="comment">//编译不通过，因为12.3默认为double型，需要12.3加f</span></span><br><span class="line">   		<span class="keyword">byte</span> b = <span class="number">12</span>;   <span class="comment">//编译可通过</span></span><br><span class="line">   	    <span class="keyword">byte</span> b = b + <span class="number">1</span>;   <span class="comment">//编译不通过，因为1被认为是int型</span></span><br><span class="line">   	    <span class="keyword">float</span> f1 = b + <span class="number">12.3</span>;  <span class="comment">//编译不通过，因为12.3被认为是doble型</span></span><br><span class="line">	System.out.println(a);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="引用数据类型"><a href="#引用数据类型" class="headerlink" title="引用数据类型"></a>引用数据类型</h2><p>引用数据类型主要有：类（字符串）、接口、数组、枚举类等。其被称为引用数据类型的原因是：创建变量并赋值后，且不是直接存储的值，而是存储的是堆中创建值的地址，通过地址寻值，有点类似于C语言的指针。</p>
-<p>举例String：</p>
-<p>String不是基本数据类型，而是为引用数据类型,字符串。</p>
-<p>String类型变量的使用: </p>
-<p>String可以和8种基本数据类型做运算，只能做连接，用string类接收，运算结果仍然是String 。</p>
-<p>二者区别对比：</p>
-<table>
-<thead>
-<tr>
-<th align="center">类型</th>
-<th align="center">基本数据类型</th>
-<th align="center">引用数据类型</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">成员</td>
-<td align="center">byte、short、int、long,float,double,bool,char</td>
-<td align="center">类、接口、数组、枚举类</td>
-</tr>
-<tr>
-<td align="center">分配内存区域</td>
-<td align="center">在栈中分配内存</td>
-<td align="center">在堆中分配内存</td>
-</tr>
-<tr>
-<td align="center">是否与其他值可区分</td>
-<td align="center">只有值，没有ID，与其他值无法区分</td>
-<td align="center">既有ID，也有值</td>
-</tr>
-<tr>
-<td align="center">可变/不可变数据类型</td>
-<td align="center">全都为不可变数据类型</td>
-<td align="center">有些是可变的，有些是不可变的</td>
-</tr>
-<tr>
-<td align="center">赋值</td>
-<td align="center">传递的是值</td>
-<td align="center">传递的是地址</td>
-</tr>
-</tbody></table>
-<p>下面再谈谈上课所讲的可变和不可变数据类型。</p>
-<h2 id="不可变数据类型-Immutable-types"><a href="#不可变数据类型-Immutable-types" class="headerlink" title="不可变数据类型(Immutable types)"></a>不可变数据类型(Immutable types)</h2><p>定义：一旦一个变量被创建且被赋初值，其值不能再改变。此外，如果如果是引用类型，也可以是不变的，即一旦确定其指向的对象，不能再被改变指向其他对象。</p>
-<p>我们一般用final标识符，来说明这个变量的值不能再被改变。一旦一个变量被final修饰后并进行首次赋值后，编译器进行静态类型检查时，如判断 final 变量首次赋值后发生了改变，会提示错误。如图idea报错。</p>
-<p><img src="/2021/05/20/Snaphot/1.png"></p>
-<p>下面举一个不可变数据类型String的例子：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String str = <span class="string">&quot;Hello&quot;</span>;</span><br></pre></td></tr></table></figure>
-
-<p>此时创建了一个String类型的变量str，值为”Hello”，这里是一个局部变量，下图给出其在内存中的表示。</p>
-<p><img src="/2021/05/20/Snaphot/2.png"></p>
-<p>再执行了下面一条语句后，其变化：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">str = str + <span class="string">&quot;World&quot;</span>;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2021/05/20/Snaphot/3.png" alt="image-20210706184856276"></p>
-<p>可以看到，其并没有改变堆里地址为0x2233存储的原来的字符串值，而是在堆里新建一个对象，其值为“HelloWorld”，然后改变栈里str的存储值。</p>
-<p>用Snaphot图表示变化：</p>
-<p><img src="/2021/05/20/Snaphot/4.png" alt="image-20210706190855510"></p>
-<p>不可变数据类型的<strong>优点</strong>：因为其值不能改变，不可变类型更“安全”，在其他质量指标上表现更好。其安全性会在下面与可变数据类型对比时体现出来。</p>
-<p><strong>缺点</strong>：使用不可变类型，对其频繁修改会产生大量的临时拷贝，需要垃圾回收。就正如上面所举的例子：改变了str的值，但“Hello”的值仍然在堆中，就需要垃圾回收。</p>
-<h2 id="可变数据类型"><a href="#可变数据类型" class="headerlink" title="可变数据类型"></a>可变数据类型</h2><p>定义:可以<strong>改变</strong>值，且拥有方法可以修改自己的值。</p>
-<p>这里举一个可变数据类型StringBuilder的例子：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">StringBuilder str1 = <span class="keyword">new</span> StringBuilder(<span class="string">&quot;Hello&quot;</span>);</span><br><span class="line">str1.append(<span class="string">&quot;World&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p>这里选择直接用Snaphot图表示变化：</p>
-<p><img src="/2021/05/20/Snaphot/5.png" alt="image-20210706190817364"></p>
-<p>看到这里，可能就会产生疑惑：这里的StringBuilder和前面的String的结果不都一样吗？没有什么区别啊。但这个还需要我们深思一下。</p>
-<p>如果是当只有<strong>一个</strong>引用指向该对象，二者没有区别。</p>
-<p>但是<strong>注意：</strong>有多个引用的时候，差异就出现了！！！</p>
-<p>给出上课老师举的例子：</p>
-<p><img src="/2021/05/20/Snaphot/6.png" alt="image-20210706191223709"></p>
-<p>可以看到，变量t和s都最开始都指向同一个值“ab”，但当t修改值变为“abc”时，仅仅改变了t的指向，指向“abc”，而并未更改原来的值，s的值不变仍为“ab”；</p>
-<p>再看变量sb和tb二者最开始都指向同一个值“ab”，但当tb改变值为“abc”时，是在原有的值上直接修改，不同于之前String类型变量t，这样一来sb也并未改变值，但其由于指向的值的改变，导致sb的值变为“abc”；这就相当危险了，看上去是对一个变量值的修改，却也同时改变了另一个变量的值，很难让人察觉出这一变化，从而产生一些副影响。这里就体现了不可变数据类型的<strong>安全性</strong>所在！</p>
-<p>但可变数据类型还是有<strong>优点</strong>的：首先就是，我们的程序需要值的变化，其必不可少。</p>
-<p>可变类型最少化拷贝以提高效率，减少垃圾；其次，也适合于在多个模块之间共享数据，例如全局变量。</p>
-<p>但是我们上面提到了可变数据类型的一些<strong>“危险”</strong>，那就讲一讲如何<strong>安全</strong>的使用可变类型：</p>
-<p>局部变量，只有一个引用，不会涉及共享，不会有危险。</p>
-<p>但如果有多个引用（别名），使用可变类型就非常不安全。</p>
-<p>主要办法就是：防御性拷贝，给客户端返回一个全新的对象，是要返回值的拷贝，但是新建的，地址不同，避免直接返回，传递地址，致使产生多个引用。</p>
-<h2 id="Snophot-Diagram"><a href="#Snophot-Diagram" class="headerlink" title="Snophot Diagram"></a>Snophot Diagram</h2><p>Snophot图十分常用，其主要用于描述程序运行时的内部变化，如在栈中和堆中的对象、变量等等。</p>
-<p>其优点是：直观、简洁，便于程序员之间交流，便于刻画各类变量随时间发生的变化，便于解释思路。</p>
-<p>下面讲一讲其表示规范。</p>
-<h3 id="基本类型的值"><a href="#基本类型的值" class="headerlink" title="基本类型的值"></a>基本类型的值</h3><p>其用箭头指向一个常量表示变量对这个值的引用。如图所示：</p>
-<p><img src="/2021/05/20/Snaphot/7.png" alt="image-20210706195413812"></p>
-<h3 id="对象类型的值"><a href="#对象类型的值" class="headerlink" title="对象类型的值"></a>对象类型的值</h3><p>对象类型的值用一个按其类型标记的圆表示。</p>
-<p>定义一个圆。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Circle</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> x;  <span class="comment">//圆心横坐标</span></span><br><span class="line">    <span class="keyword">int</span> y;  <span class="comment">//圆心纵坐标</span></span><br><span class="line">    <span class="keyword">int</span> r;  <span class="comment">//圆的半径</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果要显示更多的细节时，可在这个圆里面写明成员变量名，用箭头指向它们的值。若想要更详细，可以标明其成员变量的类型。</p>
-<p><img src="/2021/05/20/Snaphot/8.png" alt="image-20210706200318325"></p>
-<h3 id="不可变对象"><a href="#不可变对象" class="headerlink" title="不可变对象"></a>不可变对象</h3><p> 其在对象类型的基础上改为双线椭圆。</p>
-<p>如之前前面所举的例子。</p>
-<p><img src="/2021/05/20/Snaphot/4.png" alt="image-20210706190855510"></p>
-<h3 id="可变对象"><a href="#可变对象" class="headerlink" title="可变对象"></a>可变对象</h3><p>这个也较为简单，就是之前举的例子。</p>
-<p><img src="/2021/05/20/Snaphot/5.png" alt="image-20210706190817364"></p>
-<h3 id="不可变的引用"><a href="#不可变的引用" class="headerlink" title="不可变的引用"></a>不可变的引用</h3><p>这里不可变的引用是指，变量指不可变。其用双线箭头表示。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="keyword">int</span> y =<span class="number">3</span>;</span><br></pre></td></tr></table></figure>
-
-<p>如图所示：</p>
-<p><img src="/2021/05/20/Snaphot/9.png" alt="image-20210706200914860"></p>
-<p>同时我们还要注意：引用是不可变的，但指向的值却可以是可变的。比如说，定义了一个final StringBuilder sb，我们不能改变其指向，但其指向的值却是可改变的。</p>
-<p>可变的引用，也可指向不可变的值，比如说，定义了一个String s，其指向一个存储在堆中不可变的值“Hello”，但我们可以改变s的指向，指向“Hello world”。</p>
-<p>这就是关于Snophot的内容。</p>
-<p>这些只是自己的一些浅薄的理解，若有问题，恳请批评指正。</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>【1】软件构造课程PPT</p>
-<p>【2】自学JAVA的笔记</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>Snaphot</tag>
       </tags>
   </entry>
   <entry>
@@ -535,6 +338,67 @@
       </tags>
   </entry>
   <entry>
+    <title>Java中equals方法和hashCode方法</title>
+    <url>/2021/06/15/Java%E4%B8%ADequals%E6%96%B9%E6%B3%95%E5%92%8ChashCode%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>软件构造课上，之前介绍了ADT，讲了RI、AF，AF，及抽象函数解释了该类型是如何将内部表示映射为使用者理解的抽象数据的。那如何判断这些ADT的相等性，这就涉及到了java中很重要的一个知识点，equals方法和hashCode方法。</p>
+<h2 id="VS-equals"><a href="#VS-equals" class="headerlink" title="== VS equals()"></a>== VS equals()</h2><p>我们在C中常使用==操作来判断相等。而在Java中，不仅提供了==来判断相等</p>
+<p>，还提供了equals()方法，其主要用于比较ADT的相等。</p>
+<h3 id><a href="#" class="headerlink" title="=="></a>==</h3><p>==这个相等判断比较的是两个比较对象的索引的相等，或者说是引用相等。如果两个索引指向同一块存储区域，那它们就是==的，也就是相等的。在snophot图中，<code>==</code>就意味着两个比较对象的箭头指向同一个对象或值。</p>
+<h3 id="equals-方法"><a href="#equals-方法" class="headerlink" title="equals()方法"></a>equals()方法</h3><p>equals方法操作比较的是两个对象（object）的内容，或者说，比较的是对象值相等。每当我们定义一个ADT时，我们需要判断，对于这个ADT来说对象值相等是如何定义的，或者说如何实现equals方法。</p>
+<p>假设存在一个Person的ADT，其成员属性有两个，一个为name，一个为number。</p>
+<p>那我如和判断Person这个ADT实例的两个对象是否相等呢？是判断其name和number相等就算相等，还是只要判断name就算相等，可能一个人有多个手机号。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所以这时候我们要想清楚如何实现equals方法。</p>
+<p>我们先看java给出的equal方法的定义，其是在Object类中就定义的，我们又知道Object类是所有类的父类或基类，如果不在子类中重写equals()方法，那么默认继承使用的就是Object类的equals方法。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Object</span> </span>&#123;   </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object that)</span> </span>&#123;        </span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">this</span> == that;   </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>equals() 在Object类中的实现方法就是测试指向/索引相等。对于<strong>不可变类型的对象</strong>来说，这很容易在调用equals方法时出现bug。所以你需要**重写(override) **equals() 方法，重写为你所定义的两个对象的相等的实现。</p>
+<p>举上课的例子，这是一个不可变类型的ADT：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Duration</span> </span>&#123;   </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Duration that)</span> </span>&#123;        </span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.getLength() == that.getLength();         </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可能想当然认为我们比较的是对于这一个ADT，两个对象值的相等，那么参数类型也就为这个类，这里要特别<strong>注意</strong>:这里并不是<strong>重写</strong>了Object类的方法，而是<strong>重载</strong>了equals方法，因为参数类型的不同，其构成的是重载，意思是说，这时Duration中有两个 equals()方法：一个是从 Object隐式继承下来的equals(Object)，还有一个就是我们写的 equals(Duration)。然后编译器，会在编译时而不是运行时，根据传入的参数类型，选择调用哪一个equals方法。</p>
+<p>那到底该如何重写equals方法呢？</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object that)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> that <span class="keyword">instanceof</span> Duration &amp;&amp; 			<span class="keyword">this</span>.sameValue((Duration)that);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">sameValue</span><span class="params">(Duration that)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.getLength() == that.getLength();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其首先测试了传入的that对象是 Duration，然后调用sameValue()去判断它们的值是否相等。表达式 (Duration)that 是进行了一个类型转换操作，它告诉编译器that指向的是一个 Duration对象。</p>
+<p>此外，这里的instance操作符进行了一个动态检查，测试一个实例是否属于特定的类型。但老师又提到，在面向对象编程中使用 instanceof是一个不好的选择。在本门课程中——在很多Java编程中也是这样——<strong>除了实现相等操作，instanceof不能被使用。</strong>这也包括其他在运行时确定对象类型的操作，还有getClass方法。</p>
+<p>然后我们再说说hashCode方法：</p>
+<h2 id="hashCode-方法："><a href="#hashCode-方法：" class="headerlink" title="hashCode()方法："></a>hashCode()方法：</h2><p>java规定了一个对象相等的契约：</p>
+<p>如果两个对象使用 equals操作后结果为真，那么它们各自的hashCode操作的结果也应该相同。</p>
+<p>那hashCode又是什么呢？这就需要对哈希表的工作原理有一定的了解。听到hash或哈希，我们会联系到学习数据结构时的散列，在Java中，两个常见的聚合类型 HashSet和 HashMap 就用到了哈希表的数据结构，并且依赖hashCode保存集合中的对象以及产生合适的键（key）。</p>
+<p>一个哈希表表示的是一种映射：从键值映射到值的抽象数据类型。哈希表提供了常数级别的查找，查找速度比其他唱常规的链表都要快。键不一定是有序的，也不一定有什么特别的属性，除了类型必须提供 equals 和 hashCode两个方法。</p>
+<blockquote>
+<p>哈希表是怎么工作的呢？它包含了一个初始化的数组，其大小是我们设计好的。当一个键值对准备插入时，我们通过hashcode计算这个键，产生一个索引，它在我们数组大小的范围内（例如取模运算）。最后我们将值插入到数组索引对应的位置。 哈希表的一个基本不变量就是键必须在hashcode规定的范围内。</p>
+<p>Hashcode最好被设计为键计算后的索引应该平滑、均匀的分布在所有范围内。但是偶尔冲突也会发生，例如两个键计算出了同样的索引。因此哈希表通常存储的是一个键值对的列表而非一个单个的值，这通常被称为哈希桶（hash  bucket）。而在Java中，键值对就是一个有着两个域的对象。当插入时，你只要像计算出的索引位置插入一个键值对。当查找时，你先根据键哈希出对应的索引，然后在索引对应的位置找到键值对列表，最后在这个列表中查找你的键。</p>
+</blockquote>
+<p>Object默认的 hashCode()`实现和默认的 equals()保持一致：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Object</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object that)</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">this</span> == that; &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="comment">/* the memory address of this */</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于索引a和b，如果 a == b，那么a和b的存储地址也就相同，hashCode()的结果也就相同，那么就满足了相等的契约。</p>
+<p>但对于前面提到的 Duration这个不可变的ADT，因为我们还没有覆盖默认的 hashCode() ，其实际上打破了对象契约。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Duration d1 = <span class="keyword">new</span> Duration(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">Duration d2 = <span class="keyword">new</span> Duration(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">d1.equals(d2) → <span class="keyword">true</span></span><br><span class="line">d1.hashCode() → <span class="number">2392</span></span><br><span class="line">d2.hashCode() → <span class="number">4823</span></span><br></pre></td></tr></table></figure>
+
+<p>那么该怎么解决这个问题呢？</p>
+<ol>
+<li>简单粗暴的将所有对象的hashCode值都改为一样的。但会严重性能严重下降，这样将每一个值对都保存到相同的位置，每次查找会遍历所有对象。</li>
+<li>另一个方法是计算对象每一个内容的hashcode然后对它们进行一系列算术运算，最终返回一个综合hashcode。</li>
+</ol>
+<p>还是我们上面例子：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">int</span>) getLength();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p> equals方法和hashCode方法都是Java比较特殊的存在，在构造ADT时，要主要二者方法的重写，来判断等价性。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>【1】软件构造PPT</p>
+<p>【2】 <a href="https://www.cnblogs.com/liqiuhao/p/8810465.html">https://www.cnblogs.com/liqiuhao/p/8810465.html</a></p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2021/05/04/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -551,6 +415,142 @@
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>可变数据类型和不可变数据类型以及Snaphot图</title>
+    <url>/2021/05/20/Snaphot/</url>
+    <content><![CDATA[<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>在上软件构造这门课时，在讲数据类型时引入了可变数据类型和不可变数据类型，这是以前未接触过的概念，以前自学Java时，仅有基本数据类型，和引用数据类型这两种概念；此外，老师还引入了Snaphot digrams，其用于描述程序运行时的内部状态，较为实用，今天“趁热打铁”，写博客记录一下。</p>
+<p>先回顾一下Java的基本数据类型和引用数据类型。</p>
+<h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><p>基本数据类型主要是我们最熟悉的几个变量类型：</p>
+<p>byte、short、int、long,float,double,bool,char；</p>
+<p>基本数据类型运算的规则：（不包含布尔类型）</p>
+<ol>
+<li><p>自动类型提升：当容量小的数据类型的变量与大的数据类型做运算时，结果自动提升为容量大的数据类型。 </p>
+<p>byte、char、short（这三者做运算均转为int）-&gt;int-&gt;long-&gt;-&gt;float-&gt;double。</p>
+<p>容量大小指的是表示属的范围的大和小，比如float的容量大于long</p>
+</li>
+<li><p>强制类型转换：需要使用强转符，可能导致精度损失 </p>
+</li>
+<li><p>整数型定义时，常量存储的类型为int型，若定义变量类型为long，或容量大于int型，且常量超过int型可表示的最大范围数，编译不通过，需要加l</p>
+</li>
+<li><p>浮点型定义时，常量存储的类型为double类型，若定义变量类型为float，double类型向float转换，报错，常量后面需加f</p>
+</li>
+</ol>
+<p>整型常量：默认类型为int型； 浮点型常量：默认类型为double型。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		<span class="keyword">long</span> a = <span class="number">2147483647</span>;        <span class="comment">//编译可通过</span></span><br><span class="line">   		<span class="keyword">long</span> a = <span class="number">2147483648</span>;        <span class="comment">//编译不通过，显示数过大</span></span><br><span class="line">   	 	<span class="keyword">long</span> a = <span class="number">2147483648l</span>;      <span class="comment">//编译可通过</span></span><br><span class="line">    	<span class="keyword">float</span> f1 = <span class="number">12.3</span>;   <span class="comment">//编译不通过，因为12.3默认为double型，需要12.3加f</span></span><br><span class="line">   		<span class="keyword">byte</span> b = <span class="number">12</span>;   <span class="comment">//编译可通过</span></span><br><span class="line">   	    <span class="keyword">byte</span> b = b + <span class="number">1</span>;   <span class="comment">//编译不通过，因为1被认为是int型</span></span><br><span class="line">   	    <span class="keyword">float</span> f1 = b + <span class="number">12.3</span>;  <span class="comment">//编译不通过，因为12.3被认为是doble型</span></span><br><span class="line">	System.out.println(a);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="引用数据类型"><a href="#引用数据类型" class="headerlink" title="引用数据类型"></a>引用数据类型</h2><p>引用数据类型主要有：类（字符串）、接口、数组、枚举类等。其被称为引用数据类型的原因是：创建变量并赋值后，且不是直接存储的值，而是存储的是堆中创建值的地址，通过地址寻值，有点类似于C语言的指针。</p>
+<p>举例String：</p>
+<p>String不是基本数据类型，而是为引用数据类型,字符串。</p>
+<p>String类型变量的使用: </p>
+<p>String可以和8种基本数据类型做运算，只能做连接，用string类接收，运算结果仍然是String 。</p>
+<p>二者区别对比：</p>
+<table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">基本数据类型</th>
+<th align="center">引用数据类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">成员</td>
+<td align="center">byte、short、int、long,float,double,bool,char</td>
+<td align="center">类、接口、数组、枚举类</td>
+</tr>
+<tr>
+<td align="center">分配内存区域</td>
+<td align="center">在栈中分配内存</td>
+<td align="center">在堆中分配内存</td>
+</tr>
+<tr>
+<td align="center">是否与其他值可区分</td>
+<td align="center">只有值，没有ID，与其他值无法区分</td>
+<td align="center">既有ID，也有值</td>
+</tr>
+<tr>
+<td align="center">可变/不可变数据类型</td>
+<td align="center">全都为不可变数据类型</td>
+<td align="center">有些是可变的，有些是不可变的</td>
+</tr>
+<tr>
+<td align="center">赋值</td>
+<td align="center">传递的是值</td>
+<td align="center">传递的是地址</td>
+</tr>
+</tbody></table>
+<p>下面再谈谈上课所讲的可变和不可变数据类型。</p>
+<h2 id="不可变数据类型-Immutable-types"><a href="#不可变数据类型-Immutable-types" class="headerlink" title="不可变数据类型(Immutable types)"></a>不可变数据类型(Immutable types)</h2><p>定义：一旦一个变量被创建且被赋初值，其值不能再改变。此外，如果如果是引用类型，也可以是不变的，即一旦确定其指向的对象，不能再被改变指向其他对象。</p>
+<p>我们一般用final标识符，来说明这个变量的值不能再被改变。一旦一个变量被final修饰后并进行首次赋值后，编译器进行静态类型检查时，如判断 final 变量首次赋值后发生了改变，会提示错误。如图idea报错。</p>
+<p><img src="/2021/05/20/Snaphot/1.png"></p>
+<p>下面举一个不可变数据类型String的例子：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String str = <span class="string">&quot;Hello&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>此时创建了一个String类型的变量str，值为”Hello”，这里是一个局部变量，下图给出其在内存中的表示。</p>
+<p><img src="/2021/05/20/Snaphot/2.png"></p>
+<p>再执行了下面一条语句后，其变化：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">str = str + <span class="string">&quot;World&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/05/20/Snaphot/3.png" alt="image-20210706184856276"></p>
+<p>可以看到，其并没有改变堆里地址为0x2233存储的原来的字符串值，而是在堆里新建一个对象，其值为“HelloWorld”，然后改变栈里str的存储值。</p>
+<p>用Snaphot图表示变化：</p>
+<p><img src="/2021/05/20/Snaphot/4.png" alt="image-20210706190855510"></p>
+<p>不可变数据类型的<strong>优点</strong>：因为其值不能改变，不可变类型更“安全”，在其他质量指标上表现更好。其安全性会在下面与可变数据类型对比时体现出来。</p>
+<p><strong>缺点</strong>：使用不可变类型，对其频繁修改会产生大量的临时拷贝，需要垃圾回收。就正如上面所举的例子：改变了str的值，但“Hello”的值仍然在堆中，就需要垃圾回收。</p>
+<h2 id="可变数据类型"><a href="#可变数据类型" class="headerlink" title="可变数据类型"></a>可变数据类型</h2><p>定义:可以<strong>改变</strong>值，且拥有方法可以修改自己的值。</p>
+<p>这里举一个可变数据类型StringBuilder的例子：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">StringBuilder str1 = <span class="keyword">new</span> StringBuilder(<span class="string">&quot;Hello&quot;</span>);</span><br><span class="line">str1.append(<span class="string">&quot;World&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这里选择直接用Snaphot图表示变化：</p>
+<p><img src="/2021/05/20/Snaphot/5.png" alt="image-20210706190817364"></p>
+<p>看到这里，可能就会产生疑惑：这里的StringBuilder和前面的String的结果不都一样吗？没有什么区别啊。但这个还需要我们深思一下。</p>
+<p>如果是当只有<strong>一个</strong>引用指向该对象，二者没有区别。</p>
+<p>但是<strong>注意：</strong>有多个引用的时候，差异就出现了！！！</p>
+<p>给出上课老师举的例子：</p>
+<p><img src="/2021/05/20/Snaphot/6.png" alt="image-20210706191223709"></p>
+<p>可以看到，变量t和s都最开始都指向同一个值“ab”，但当t修改值变为“abc”时，仅仅改变了t的指向，指向“abc”，而并未更改原来的值，s的值不变仍为“ab”；</p>
+<p>再看变量sb和tb二者最开始都指向同一个值“ab”，但当tb改变值为“abc”时，是在原有的值上直接修改，不同于之前String类型变量t，这样一来sb也并未改变值，但其由于指向的值的改变，导致sb的值变为“abc”；这就相当危险了，看上去是对一个变量值的修改，却也同时改变了另一个变量的值，很难让人察觉出这一变化，从而产生一些副影响。这里就体现了不可变数据类型的<strong>安全性</strong>所在！</p>
+<p>但可变数据类型还是有<strong>优点</strong>的：首先就是，我们的程序需要值的变化，其必不可少。</p>
+<p>可变类型最少化拷贝以提高效率，减少垃圾；其次，也适合于在多个模块之间共享数据，例如全局变量。</p>
+<p>但是我们上面提到了可变数据类型的一些<strong>“危险”</strong>，那就讲一讲如何<strong>安全</strong>的使用可变类型：</p>
+<p>局部变量，只有一个引用，不会涉及共享，不会有危险。</p>
+<p>但如果有多个引用（别名），使用可变类型就非常不安全。</p>
+<p>主要办法就是：防御性拷贝，给客户端返回一个全新的对象，是要返回值的拷贝，但是新建的，地址不同，避免直接返回，传递地址，致使产生多个引用。</p>
+<h2 id="Snophot-Diagram"><a href="#Snophot-Diagram" class="headerlink" title="Snophot Diagram"></a>Snophot Diagram</h2><p>Snophot图十分常用，其主要用于描述程序运行时的内部变化，如在栈中和堆中的对象、变量等等。</p>
+<p>其优点是：直观、简洁，便于程序员之间交流，便于刻画各类变量随时间发生的变化，便于解释思路。</p>
+<p>下面讲一讲其表示规范。</p>
+<h3 id="基本类型的值"><a href="#基本类型的值" class="headerlink" title="基本类型的值"></a>基本类型的值</h3><p>其用箭头指向一个常量表示变量对这个值的引用。如图所示：</p>
+<p><img src="/2021/05/20/Snaphot/7.png" alt="image-20210706195413812"></p>
+<h3 id="对象类型的值"><a href="#对象类型的值" class="headerlink" title="对象类型的值"></a>对象类型的值</h3><p>对象类型的值用一个按其类型标记的圆表示。</p>
+<p>定义一个圆。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Circle</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> x;  <span class="comment">//圆心横坐标</span></span><br><span class="line">    <span class="keyword">int</span> y;  <span class="comment">//圆心纵坐标</span></span><br><span class="line">    <span class="keyword">int</span> r;  <span class="comment">//圆的半径</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果要显示更多的细节时，可在这个圆里面写明成员变量名，用箭头指向它们的值。若想要更详细，可以标明其成员变量的类型。</p>
+<p><img src="/2021/05/20/Snaphot/8.png" alt="image-20210706200318325"></p>
+<h3 id="不可变对象"><a href="#不可变对象" class="headerlink" title="不可变对象"></a>不可变对象</h3><p> 其在对象类型的基础上改为双线椭圆。</p>
+<p>如之前前面所举的例子。</p>
+<p><img src="/2021/05/20/Snaphot/4.png" alt="image-20210706190855510"></p>
+<h3 id="可变对象"><a href="#可变对象" class="headerlink" title="可变对象"></a>可变对象</h3><p>这个也较为简单，就是之前举的例子。</p>
+<p><img src="/2021/05/20/Snaphot/5.png" alt="image-20210706190817364"></p>
+<h3 id="不可变的引用"><a href="#不可变的引用" class="headerlink" title="不可变的引用"></a>不可变的引用</h3><p>这里不可变的引用是指，变量指不可变。其用双线箭头表示。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="keyword">int</span> y =<span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<p>如图所示：</p>
+<p><img src="/2021/05/20/Snaphot/9.png" alt="image-20210706200914860"></p>
+<p>同时我们还要注意：引用是不可变的，但指向的值却可以是可变的。比如说，定义了一个final StringBuilder sb，我们不能改变其指向，但其指向的值却是可改变的。</p>
+<p>可变的引用，也可指向不可变的值，比如说，定义了一个String s，其指向一个存储在堆中不可变的值“Hello”，但我们可以改变s的指向，指向“Hello world”。</p>
+<p>这就是关于Snophot的内容。</p>
+<p>这些只是自己的一些浅薄的理解，若有问题，恳请批评指正。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>【1】软件构造课程PPT</p>
+<p>【2】自学JAVA的笔记</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Snaphot</tag>
+      </tags>
   </entry>
   <entry>
     <title>post</title>
