@@ -1,6 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hello的自白.</title>
+    <url>/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/</url>
+    <content><![CDATA[<h1 id="Hello的自白"><a href="#Hello的自白" class="headerlink" title="Hello的自白"></a>Hello的自白</h1><img src="/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/Hello1.jpg" class title="This is a Hello1s image">
+
+
+
+<blockquote>
+<p>俺是Hello，额是每一个程序猿🐵的初恋(😊羞羞……)，</p>
+<p>却在短短几分钟后惨遭每个菜鸟的无情抛弃(😭呜呜….)，他们很快喜欢上sum、sort、matrix、PR、AI、IOT、BD、MIS……，从不回头😞。</p>
+</blockquote>
+<p><strong>只有我自己知道，我的出身有多么高贵，我的一生多么坎坷! ╰（‵□′）╯</strong></p>
+<p><strong>多年以后，那些真正懂我的大佬(也是曾经的<del>菜鸟一枚</del>)，才恍然感悟我的伟大 !</strong></p>
+<hr>
+<blockquote>
+<p>······<em>想当年</em>：</p>
+<p><strong>俺</strong>才是第一个玩P2P的:<em><strong><font color="#FF0000">From Program to Process</font></strong></em></p>
+<p>懵懵懂懂的你笨笨磕磕地将我一字一键敲进电脑存成<font color="#FF0000">hello.c(Program)</font>，无意识中将我<strong>预处理、编译、汇编、链接</strong>，历经<strong>艰辛-神秘-高贵-欣喜</strong>，我—<font color="#FF0000"><em><strong>Hello</strong></em></font>一个完美的生命诞生了 <strong>o((&gt;ω&lt; ))o</strong>。</p>
+<blockquote>
+<h6 id="你造吗？"><a href="#你造吗？" class="headerlink" title="你造吗？"></a>你造吗？</h6><ul>
+<li><p>在<strong>壳(Bash)<strong>里，</strong><font color="#000080">伟大的OS(进程管理)</font><strong>为我</strong><font color="#000080">fork(Process) </font><strong>，为我</strong><font color="#000080">execve</font></strong>, 为我<font color="#000080"><strong>mmap</strong></font>，</p>
+<p>分我时间片，让我得以在<font color="#000080"><strong>Hardware(CPU/RAM/IO)</strong></font>上驰骋<font color="#000080"><strong>（取指译码执行、流水线等）</strong></font>  </p>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<h6 id="你造吗？-1"><a href="#你造吗？-1" class="headerlink" title="你造吗？"></a>你造吗？</h6><ul>
+<li><strong>OS(存储管理)与MMU</strong>为VA到PA操碎了心:<strong>TLB、4级页表、3级Cache，Pagefile</strong>等等各显神通为我加速；<strong>IO管理与信号处理</strong>使尽了浑身解数，软硬结合，才使我能在键盘、主板、显卡、屏幕间游刃有余，虽说我在台上的表演只是一瞬间😶、演技看起来很Low、效果很苍白 （︶^︶）。</li>
+</ul>
+</blockquote>
+<p><strong>感谢OS!感谢Bash!在我完美谢幕后为我收尸</strong>。我赤条条来去无牵挂!😌</p>
+</blockquote>
+<hr>
+<p><strong>我朝CS(计算机系统-</strong><u><strong>Editor+Cpp+Compiler+AS+LD+OS+CPU/RAM/IO等</strong></u>)<strong>挥一挥手，不带走一片云彩!</strong> 😛    </p>
+<p><strong>想想俺也是<font color="#FF0000"> <em><strong>020:From Zero-0 to Zero-0</strong></em></font>.</strong>  <strong>(^人^)</strong>   </p>
+<p><strong>历史长河中一个个<del>菜鸟</del>与我擦肩而过，只有CS知道我的生、我的死，我的坎坷，“只有CS知道……我曾经……来…………过……”</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello world!\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<img src="/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/Hello2.jpg" class title="This is a Hello2 image">
+
+
+
+<hr>
+<p><strong>《Hello的自白》为哈工大CSAPP老师史老师原创的大作业——“程序人生”的导读，本人只是觉其有趣，哪一个程序猿与代码的初见不是“Hello world”呢，从而尝试用markdown写成博客发表，进行二次加工搬运，如有侵权，立即删除！</strong></p>
+]]></content>
+      <categories>
+        <category>CS</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java中equals方法和hashCode方法</title>
     <url>/2021/06/15/Java%E4%B8%ADequals%E6%96%B9%E6%B3%95%E5%92%8ChashCode%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>软件构造课上，之前介绍了ADT，讲了RI、AF，AF，及抽象函数解释了该类型是如何将内部表示映射为使用者理解的抽象数据的。那如何判断这些ADT的相等性，这就涉及到了java中很重要的一个知识点，equals方法和hashCode方法。</p>
@@ -62,57 +116,82 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello的自白.</title>
-    <url>/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/</url>
-    <content><![CDATA[<h1 id="Hello的自白"><a href="#Hello的自白" class="headerlink" title="Hello的自白"></a>Hello的自白</h1><img src="/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/Hello1.jpg" class title="This is a Hello1s image">
+    <title>Java代理模式（Proxy）理解</title>
+    <url>/2021/06/27/Java%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%EF%BC%88Proxy%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>老师上课讲到了一些设计模式，但是由于课程较赶，时间较紧，吃不太透，于是自己课下再学习一些，加深理解，同时在编程中多多用到。</p>
+<h2 id="代理模式简述"><a href="#代理模式简述" class="headerlink" title="代理模式简述"></a>代理模式简述</h2><p>首先，代理模式是一种<strong>设计模式</strong>。</p>
+<p>先给出代理模式的<strong>概念</strong>：代理模式是指通过<strong>代理对象</strong>访问目标对象，而不是直接访问<strong>目标对象</strong>，通过字面理解即可，要通过一个代理人或者说中间人来访问我们想要访问的对象。举例就像房屋中介，买房人不想自己去一个找房主询问其是否卖房，而卖房人也不想麻烦去一个个找买房人，中介就承担起这个功能，买房人（用户）通过中介（代理对象）获知在售的其意向房产的信息（如房价、面积、位置等的）。</p>
+<p><strong>意图</strong>：为其他对象提供一种代理以控制对这个对象的访问。</p>
+<p><strong>何时使用</strong>：为其他对象提供一种代理以控制对这个对象的访问。</p>
+<p><strong>关键代码：</strong>实现与被代理类组合。</p>
+<p>那么为什么要有代理模式呢？其好处是可以在目标对象实现的基础上，增强额外的功能操作，即拓展目标对象的功能，如添加权限进行访问控制和审计等功能，其中举添加权限这个功能说明，通过代理对象判断访问目标对象的用户是否拥有访问的权限，没有则禁止访问，实现对信息的一个保护。</p>
+<p>同时，代理模式也是遵循了设计思想中类的单一性原则，就是每个类功能应该单一，即专一，就是说什么人干什么事，一个人尽可能负责一个工作，同时也是去尽量实现低耦合。</p>
+<img src="/2021/06/27/Java%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%EF%BC%88Proxy%EF%BC%89/Proxy.png" class title="This is a Proxys image">
+
+<p>代理模式要着重理解代理对象和目标对象的概念，代理对象是对目标对象的扩展,并会调用目标对象。就像房屋中介调用目标对象（卖房人）获取其房产信息，但不仅限于房产信息，房屋中介还会审计其掌握的房产资源，而后挑选合适的房产给买房人。</p>
+<p><strong>使用场景：</strong>按职责来划分，通常有以下使用场景： 1、远程代理。 2、虚拟代理。 3、Copy-on-Write 代理。 4、保护（Protect or Access）代理。 5、Cache代理。 6、防火墙（Firewall）代理。 7、同步化（Synchronization）代理。 8、智能引用（Smart Reference）代理</p>
+<h2 id="代理模式的分类"><a href="#代理模式的分类" class="headerlink" title="代理模式的分类"></a>代理模式的分类</h2><p>代理模式主要分为三类：</p>
+<p> 1.静态代理；</p>
+<p> 2.动态代理；</p>
+<p> 3.Cglib代理。</p>
+<p>下面分别论述。</p>
+<h3 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h3><p>静态代理在使用时,需要定义接口或者父类,被代理对象与代理对象一起实现相同的接口或者是继承相同父类。需要注意的是，代理对象与目标对象要实现相同的接口，然后通过调用相同的方法来调用目标对象的方法。</p>
+<p>我们举个买房这个例子来说明：</p>
+<p>首先要先创建一个服务类的接口：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HouseService</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">buyHouse</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后要实现这个服务接口：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HouseServiceImpl</span> <span class="keyword">implements</span> <span class="title">HouseService</span> </span>&#123;</span><br><span class="line">     <span class="meta">@Override</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buyHouse</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         System.out.println(<span class="string">&quot;我要买房&quot;</span>);</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>有了服务后，我们就需要一个中间类也就是代理类。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HouseServiceProxy</span> <span class="keyword">implements</span> <span class="title">HouseService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> HouseService houseService;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HouseServiceProxy</span><span class="params">(<span class="keyword">final</span> HouseService houseService)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.houseService = houseService;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buyHosue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;攒钱买房&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;挑房看房&quot;</span>);</span><br><span class="line">        houseService.buyHosue();</span><br><span class="line">        System.out.println(<span class="string">&quot;买房装修&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;入住&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-<blockquote>
-<p>俺是Hello，额是每一个程序猿🐵的初恋(😊羞羞……)，</p>
-<p>却在短短几分钟后惨遭每个菜鸟的无情抛弃(😭呜呜….)，他们很快喜欢上sum、sort、matrix、PR、AI、IOT、BD、MIS……，从不回头😞。</p>
-</blockquote>
-<p><strong>只有我自己知道，我的出身有多么高贵，我的一生多么坎坷! ╰（‵□′）╯</strong></p>
-<p><strong>多年以后，那些真正懂我的大佬(也是曾经的<del>菜鸟一枚</del>)，才恍然感悟我的伟大 !</strong></p>
-<hr>
-<blockquote>
-<p>······<em>想当年</em>：</p>
-<p><strong>俺</strong>才是第一个玩P2P的:<em><strong><font color="#FF0000">From Program to Process</font></strong></em></p>
-<p>懵懵懂懂的你笨笨磕磕地将我一字一键敲进电脑存成<font color="#FF0000">hello.c(Program)</font>，无意识中将我<strong>预处理、编译、汇编、链接</strong>，历经<strong>艰辛-神秘-高贵-欣喜</strong>，我—<font color="#FF0000"><em><strong>Hello</strong></em></font>一个完美的生命诞生了 <strong>o((&gt;ω&lt; ))o</strong>。</p>
-<blockquote>
-<h6 id="你造吗？"><a href="#你造吗？" class="headerlink" title="你造吗？"></a>你造吗？</h6><ul>
-<li><p>在<strong>壳(Bash)<strong>里，</strong><font color="#000080">伟大的OS(进程管理)</font><strong>为我</strong><font color="#000080">fork(Process) </font><strong>，为我</strong><font color="#000080">execve</font></strong>, 为我<font color="#000080"><strong>mmap</strong></font>，</p>
-<p>分我时间片，让我得以在<font color="#000080"><strong>Hardware(CPU/RAM/IO)</strong></font>上驰骋<font color="#000080"><strong>（取指译码执行、流水线等）</strong></font>  </p>
+<p>优点：在不修改目标对象的功能前提下,可以实现对目标对象功能的扩展。</p>
+<p>缺点：</p>
+<ol>
+<li><p>代理对象必须提前写出（在编译期就已经知道了代理对象），如果接口层发生了变化，代理对象的代码也要进行维护。</p>
 </li>
-</ul>
-</blockquote>
-<blockquote>
-<h6 id="你造吗？-1"><a href="#你造吗？-1" class="headerlink" title="你造吗？"></a>你造吗？</h6><ul>
-<li><strong>OS(存储管理)与MMU</strong>为VA到PA操碎了心:<strong>TLB、4级页表、3级Cache，Pagefile</strong>等等各显神通为我加速；<strong>IO管理与信号处理</strong>使尽了浑身解数，软硬结合，才使我能在键盘、主板、显卡、屏幕间游刃有余，虽说我在台上的表演只是一瞬间😶、演技看起来很Low、效果很苍白 （︶^︶）。</li>
-</ul>
-</blockquote>
-<p><strong>感谢OS!感谢Bash!在我完美谢幕后为我收尸</strong>。我赤条条来去无牵挂!😌</p>
-</blockquote>
-<hr>
-<p><strong>我朝CS(计算机系统-</strong><u><strong>Editor+Cpp+Compiler+AS+LD+OS+CPU/RAM/IO等</strong></u>)<strong>挥一挥手，不带走一片云彩!</strong> 😛    </p>
-<p><strong>想想俺也是<font color="#FF0000"> <em><strong>020:From Zero-0 to Zero-0</strong></em></font>.</strong>  <strong>(^人^)</strong>   </p>
-<p><strong>历史长河中一个个<del>菜鸟</del>与我擦肩而过，只有CS知道我的生、我的死，我的坎坷，“只有CS知道……我曾经……来…………过……”</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello world!\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li><p>因为代理对象需要与目标对象实现一样的接口，所以会有很多代理类，类太多，导致一旦接口增加方法,目标对象与代理对象都要维护。</p>
+</li>
+</ol>
+<p>如何解决静态代理中的缺点呢?答案是可以使用动态代理方式。</p>
+<h3 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h3><p>　在动态代理中我们不再需要再手动的创建代理类，我们只需要编写一个动态处理器就可以了。真正的代理对象由JDK再运行时为我们动态的来创建。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicProxyHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Object object;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DynamicProxyHandler</span><span class="params">(<span class="keyword">final</span> Object object)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.object = object;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable 		</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;攒钱买房&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;挑房看房&quot;</span>);</span><br><span class="line">        Object result = method.invoke(object, args);</span><br><span class="line">        System.out.println(<span class="string">&quot;买房装修&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;入住&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-<img src="/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/Hello2.jpg" class title="This is a Hello2 image">
+<p><strong>动态代理的特点:</strong></p>
+<p>1.代理对象,不需要实现接口；<br>2.代理对象的生成,是利用JDK的API,动态的在内存中构建代理对象(需要我们指定创建代理对象/目标对象实现的接口的类型)；<br>3.动态代理也叫做: JDK代理,接口代理。</p>
+<p><strong>JDK中生成代理对象的API</strong><br>代理类所在包:java.lang.reflect.Proxy</p>
+<p><strong>总结</strong>：代理对象不需要实现接口,但是目标对象一定要实现接口,否则不能用动态代理。</p>
+<p>优点：JDK动态代理解决了静态代理中需要创建多个代理类的问题。</p>
+<p>缺点：可以看出静态代理和JDK代理有一个共同的缺点，就是目标对象必须实现一个或多个接口，假如没有，则可以使用Cglib代理<strong>。</strong></p>
+<h3 id="Cglib代理"><a href="#Cglib代理" class="headerlink" title="Cglib代理"></a>Cglib代理</h3><p>上面的静态代理和动态代理模式都是要求目标对象是实现一个接口的目标对象,但是有时候目标对象只是一个单独的对象,并没有实现任何的接口,这个时候就可以使用以目标对象子类的方式类实现代理,这种方法就叫做:Cglib代理</p>
+<p>Cglib代理,也叫作子类代理,它是在内存中构建一个子类对象从而实现对目标对象功能的扩展。</p>
+<p>JDK的动态代理有一个限制,就是使用动态代理的对象必须实现一个或多个接口,如果想代理没有实现接口的类,就可以使用Cglib实现。</p>
+<p>Cglib是一个强大的高性能的代码生成包,它可以在运行期扩展java类与实现java接口.它广泛的被许多AOP的框架使用,例如Spring AOP和synaop,为他们提供方法的interception(拦截)。</p>
+<p>Cglib包的底层是通过使用一个小而块的字节码处理框架ASM来转换字节码并生成新的类.不鼓励直接使用ASM,因为它要求你必须对JVM内部结构包括class文件的格式和指令集都很熟悉。</p>
+<p>步骤：创建Cglib代理类。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> net.sf.cglib.proxy.Enhancer;</span><br><span class="line"><span class="keyword">import</span> net.sf.cglib.proxy.MethodInterceptor;</span><br><span class="line"><span class="keyword">import</span> net.sf.cglib.proxy.MethodProxy;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CglibProxy</span> <span class="keyword">implements</span> <span class="title">MethodInterceptor</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Object target;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getInstance</span><span class="params">(<span class="keyword">final</span> Object target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.target = target;</span><br><span class="line">        Enhancer enhancer = <span class="keyword">new</span> Enhancer();</span><br><span class="line">        enhancer.setSuperclass(<span class="keyword">this</span>.target.getClass());</span><br><span class="line">        enhancer.setCallback(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">return</span> enhancer.create();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Object object, Method method, Object[] args, MethodProxy methodProxy)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;攒钱买房&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;挑房看房&quot;</span>);</span><br><span class="line">        Object result = methodProxy.invoke(object, args);</span><br><span class="line">        System.out.println(<span class="string">&quot;买房装修&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;入住&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-<hr>
-<p><strong>《Hello的自白》为哈工大CSAPP老师史老师原创的大作业——“程序人生”的导读，本人只是觉其有趣，哪一个程序猿与代码的初见不是“Hello world”呢，从而尝试用markdown写成博客发表，进行二次加工搬运，如有侵权，立即删除！</strong></p>
+<p>Cglib子类代理实现方法:</p>
+<ol>
+<li>需要引入cglib的jar文件,但是因为pring的核心包中已经包括了Cglib功能,所以可以直接引入<code>pring-core-3.2.5.jar</code>。</li>
+<li>引入功能包后,就可以在内存中动态构建子类</li>
+</ol>
+<p>以上就是代理模式的内容，仅个人拙见，若有错误，恳请批评指正。</p>
+<h2 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h2><p>【1】<a href="https://www.runoob.com/design-pattern/proxy-pattern.html">https://www.runoob.com/design-pattern/proxy-pattern.html</a></p>
 ]]></content>
       <categories>
-        <category>CS</category>
+        <category>设计模式</category>
       </categories>
       <tags>
-        <tag>C</tag>
+        <tag>Java</tag>
+        <tag>设计模式</tag>
       </tags>
   </entry>
   <entry>
@@ -250,108 +329,6 @@
         <tag>Java</tag>
         <tag>Snaphot</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Java代理模式（Proxy）理解</title>
-    <url>/2021/06/27/Java%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%EF%BC%88Proxy%EF%BC%89/</url>
-    <content><![CDATA[<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>老师上课讲到了一些设计模式，但是由于课程较赶，时间较紧，吃不太透，于是自己课下再学习一些，加深理解，同时在编程中多多用到。</p>
-<h2 id="代理模式简述"><a href="#代理模式简述" class="headerlink" title="代理模式简述"></a>代理模式简述</h2><p>首先，代理模式是一种<strong>设计模式</strong>。</p>
-<p>先给出代理模式的<strong>概念</strong>：代理模式是指通过<strong>代理对象</strong>访问目标对象，而不是直接访问<strong>目标对象</strong>，通过字面理解即可，要通过一个代理人或者说中间人来访问我们想要访问的对象。举例就像房屋中介，买房人不想自己去一个找房主询问其是否卖房，而卖房人也不想麻烦去一个个找买房人，中介就承担起这个功能，买房人（用户）通过中介（代理对象）获知在售的其意向房产的信息（如房价、面积、位置等的）。</p>
-<p><strong>意图</strong>：为其他对象提供一种代理以控制对这个对象的访问。</p>
-<p><strong>何时使用</strong>：为其他对象提供一种代理以控制对这个对象的访问。</p>
-<p><strong>关键代码：</strong>实现与被代理类组合。</p>
-<p>那么为什么要有代理模式呢？其好处是可以在目标对象实现的基础上，增强额外的功能操作，即拓展目标对象的功能，如添加权限进行访问控制和审计等功能，其中举添加权限这个功能说明，通过代理对象判断访问目标对象的用户是否拥有访问的权限，没有则禁止访问，实现对信息的一个保护。</p>
-<p>同时，代理模式也是遵循了设计思想中类的单一性原则，就是每个类功能应该单一，即专一，就是说什么人干什么事，一个人尽可能负责一个工作，同时也是去尽量实现低耦合。</p>
-<img src="/2021/06/27/Java%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%EF%BC%88Proxy%EF%BC%89/Proxy.png" class title="This is a Proxys image">
-
-<p>代理模式要着重理解代理对象和目标对象的概念，代理对象是对目标对象的扩展,并会调用目标对象。就像房屋中介调用目标对象（卖房人）获取其房产信息，但不仅限于房产信息，房屋中介还会审计其掌握的房产资源，而后挑选合适的房产给买房人。</p>
-<p><strong>使用场景：</strong>按职责来划分，通常有以下使用场景： 1、远程代理。 2、虚拟代理。 3、Copy-on-Write 代理。 4、保护（Protect or Access）代理。 5、Cache代理。 6、防火墙（Firewall）代理。 7、同步化（Synchronization）代理。 8、智能引用（Smart Reference）代理</p>
-<h2 id="代理模式的分类"><a href="#代理模式的分类" class="headerlink" title="代理模式的分类"></a>代理模式的分类</h2><p>代理模式主要分为三类：</p>
-<p> 1.静态代理；</p>
-<p> 2.动态代理；</p>
-<p> 3.Cglib代理。</p>
-<p>下面分别论述。</p>
-<h3 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h3><p>静态代理在使用时,需要定义接口或者父类,被代理对象与代理对象一起实现相同的接口或者是继承相同父类。需要注意的是，代理对象与目标对象要实现相同的接口，然后通过调用相同的方法来调用目标对象的方法。</p>
-<p>我们举个买房这个例子来说明：</p>
-<p>首先要先创建一个服务类的接口：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HouseService</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">buyHouse</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后要实现这个服务接口：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HouseServiceImpl</span> <span class="keyword">implements</span> <span class="title">HouseService</span> </span>&#123;</span><br><span class="line">     <span class="meta">@Override</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buyHouse</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         System.out.println(<span class="string">&quot;我要买房&quot;</span>);</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<p>有了服务后，我们就需要一个中间类也就是代理类。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HouseServiceProxy</span> <span class="keyword">implements</span> <span class="title">HouseService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> HouseService houseService;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HouseServiceProxy</span><span class="params">(<span class="keyword">final</span> HouseService houseService)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.houseService = houseService;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buyHosue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;攒钱买房&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;挑房看房&quot;</span>);</span><br><span class="line">        houseService.buyHosue();</span><br><span class="line">        System.out.println(<span class="string">&quot;买房装修&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;入住&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>优点：在不修改目标对象的功能前提下,可以实现对目标对象功能的扩展。</p>
-<p>缺点：</p>
-<ol>
-<li><p>代理对象必须提前写出（在编译期就已经知道了代理对象），如果接口层发生了变化，代理对象的代码也要进行维护。</p>
-</li>
-<li><p>因为代理对象需要与目标对象实现一样的接口，所以会有很多代理类，类太多，导致一旦接口增加方法,目标对象与代理对象都要维护。</p>
-</li>
-</ol>
-<p>如何解决静态代理中的缺点呢?答案是可以使用动态代理方式。</p>
-<h3 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h3><p>　在动态代理中我们不再需要再手动的创建代理类，我们只需要编写一个动态处理器就可以了。真正的代理对象由JDK再运行时为我们动态的来创建。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicProxyHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Object object;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DynamicProxyHandler</span><span class="params">(<span class="keyword">final</span> Object object)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.object = object;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable 		</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;攒钱买房&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;挑房看房&quot;</span>);</span><br><span class="line">        Object result = method.invoke(object, args);</span><br><span class="line">        System.out.println(<span class="string">&quot;买房装修&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;入住&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>动态代理的特点:</strong></p>
-<p>1.代理对象,不需要实现接口；<br>2.代理对象的生成,是利用JDK的API,动态的在内存中构建代理对象(需要我们指定创建代理对象/目标对象实现的接口的类型)；<br>3.动态代理也叫做: JDK代理,接口代理。</p>
-<p><strong>JDK中生成代理对象的API</strong><br>代理类所在包:java.lang.reflect.Proxy</p>
-<p><strong>总结</strong>：代理对象不需要实现接口,但是目标对象一定要实现接口,否则不能用动态代理。</p>
-<p>优点：JDK动态代理解决了静态代理中需要创建多个代理类的问题。</p>
-<p>缺点：可以看出静态代理和JDK代理有一个共同的缺点，就是目标对象必须实现一个或多个接口，假如没有，则可以使用Cglib代理<strong>。</strong></p>
-<h3 id="Cglib代理"><a href="#Cglib代理" class="headerlink" title="Cglib代理"></a>Cglib代理</h3><p>上面的静态代理和动态代理模式都是要求目标对象是实现一个接口的目标对象,但是有时候目标对象只是一个单独的对象,并没有实现任何的接口,这个时候就可以使用以目标对象子类的方式类实现代理,这种方法就叫做:Cglib代理</p>
-<p>Cglib代理,也叫作子类代理,它是在内存中构建一个子类对象从而实现对目标对象功能的扩展。</p>
-<p>JDK的动态代理有一个限制,就是使用动态代理的对象必须实现一个或多个接口,如果想代理没有实现接口的类,就可以使用Cglib实现。</p>
-<p>Cglib是一个强大的高性能的代码生成包,它可以在运行期扩展java类与实现java接口.它广泛的被许多AOP的框架使用,例如Spring AOP和synaop,为他们提供方法的interception(拦截)。</p>
-<p>Cglib包的底层是通过使用一个小而块的字节码处理框架ASM来转换字节码并生成新的类.不鼓励直接使用ASM,因为它要求你必须对JVM内部结构包括class文件的格式和指令集都很熟悉。</p>
-<p>步骤：创建Cglib代理类。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> net.sf.cglib.proxy.Enhancer;</span><br><span class="line"><span class="keyword">import</span> net.sf.cglib.proxy.MethodInterceptor;</span><br><span class="line"><span class="keyword">import</span> net.sf.cglib.proxy.MethodProxy;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CglibProxy</span> <span class="keyword">implements</span> <span class="title">MethodInterceptor</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Object target;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getInstance</span><span class="params">(<span class="keyword">final</span> Object target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.target = target;</span><br><span class="line">        Enhancer enhancer = <span class="keyword">new</span> Enhancer();</span><br><span class="line">        enhancer.setSuperclass(<span class="keyword">this</span>.target.getClass());</span><br><span class="line">        enhancer.setCallback(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">return</span> enhancer.create();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Object object, Method method, Object[] args, MethodProxy methodProxy)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;攒钱买房&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;挑房看房&quot;</span>);</span><br><span class="line">        Object result = methodProxy.invoke(object, args);</span><br><span class="line">        System.out.println(<span class="string">&quot;买房装修&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;入住&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>Cglib子类代理实现方法:</p>
-<ol>
-<li>需要引入cglib的jar文件,但是因为pring的核心包中已经包括了Cglib功能,所以可以直接引入<code>pring-core-3.2.5.jar</code>。</li>
-<li>引入功能包后,就可以在内存中动态构建子类</li>
-</ol>
-<p>以上就是代理模式的内容，仅个人拙见，若有错误，恳请批评指正。</p>
-<h2 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h2><p>【1】<a href="https://www.runoob.com/design-pattern/proxy-pattern.html">https://www.runoob.com/design-pattern/proxy-pattern.html</a></p>
-]]></content>
-      <categories>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2021/05/04/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>post</title>
-    <url>/2021/09/19/post/</url>
-    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>UML类图简述及IDEA中UML插件的安装和使用</title>
@@ -556,6 +533,29 @@
         <tag>UML类图</tag>
         <tag>依赖</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2021/05/04/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>post</title>
+    <url>/2021/09/19/post/</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>适配器模式</title>
