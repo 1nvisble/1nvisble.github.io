@@ -6,7 +6,7 @@
   <link href="https://1nvisble.github.io/atom.xml" rel="self"/>
   
   <link href="https://1nvisble.github.io/"/>
-  <updated>2021-07-09T10:36:10.914Z</updated>
+  <updated>2021-09-19T00:50:12.829Z</updated>
   <id>https://1nvisble.github.io/</id>
   
   <author>
@@ -15,6 +15,19 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>post</title>
+    <link href="https://1nvisble.github.io/2021/09/19/post/"/>
+    <id>https://1nvisble.github.io/2021/09/19/post/</id>
+    <published>2021-09-19T00:50:12.000Z</published>
+    <updated>2021-09-19T00:50:12.829Z</updated>
+    
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Java代理模式（Proxy）理解</title>
