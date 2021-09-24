@@ -74,7 +74,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">2.2k</span>
+            <span class="post-count">6.1k</span>
         </span>
     </span>
 
@@ -83,7 +83,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">9 min</span>
+            <span class="post-count">24 min</span>
         </span>
     </span>
 </div>
@@ -98,28 +98,44 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p><strong>前言：</strong>恰逢机器学习要做实验，肯定选择用python写代码来完成实验，那就快速恶补一下Python基本知识，一些语法之类的，就简单做些笔记，一份面向已有编程基础的速成笔记，主要记录一些Python基础语法不同之处所在，简单的、相似的就略去了。</p>
-<h2 id="行和缩进"><a href="#行和缩进" class="headerlink" title="行和缩进"></a>行和缩进</h2><p>首先，我们需要注意的是缩进在Python中非常重要，因为Python不使用我们习惯的<code>&#123;&#125;</code>来划分逻辑块，<del>有些痛苦，刚开始看起来比较费劲</del>，但其目的是为了简明，就举个例子。</p>
+  <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>恰逢机器学习要做实验，肯定选择用python写代码来完成实验，那就快速恶补一下Python基本知识，一些语法之类的，就简单做些笔记，一份面向已有编程基础的速成笔记，主要记录一些Python3基础语法不同之处所在，简单的、相似的就略去了。</p>
+<h2 id="Python3-基础语法"><a href="#Python3-基础语法" class="headerlink" title="Python3 基础语法"></a>Python3 基础语法</h2><h3 id="行和缩进"><a href="#行和缩进" class="headerlink" title="行和缩进"></a>行和缩进</h3><p>首先，我们需要注意的是缩进在Python中非常重要，因为Python不使用我们习惯的<code>&#123;&#125;</code>来划分逻辑块，<del>有些痛苦，刚开始看起来比较费劲</del>，但其目的是为了简明，就举个例子。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">a, b = <span class="number">10</span>, <span class="number">3</span></span><br><span class="line"><span class="keyword">if</span> a &gt; <span class="number">1</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;a&gt;1&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> b &gt; <span class="number">1</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;b&gt;1&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;b&lt;=1&quot;</span>)</span><br><span class="line"><span class="keyword">elif</span> a == <span class="number">1</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;a=1&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;a&lt;1&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(a)</span><br></pre></td></tr></table></figure>
 
 <p>等价的C语言代码：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">if</span>(a&gt;<span class="number">1</span>)&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;a&gt;1&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(b&gt;<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;b&gt;1&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;b&lt;=1&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(a==<span class="number">1</span>)&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;a=1&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;a&lt;1&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,a);</span><br></pre></td></tr></table></figure>
 
-<p>一般建议在每个缩进层次使用 <strong>单个制表符</strong> 或 <strong>两个空格</strong> 或 <strong>四个空格</strong> , 此外还要注意不能混用。</p>
+<p>缩进的空格数是可变的，但是<strong>同一个代码块</strong>的语句必须包含<strong>相同的缩进空格数</strong>，一般建议在每个缩进层次使用 <strong>单个制表符</strong> 或 <strong>两个空格</strong> 或 <strong>四个空格</strong> , 此外还要注意<strong>不能混用</strong>。</p>
 <p>我们还可以注意到其不用以  <code>;</code> 结束，可谓’;’遗忘患者的福音了，其一般用新行作为语句的结束符。</p>
 <p>既然Python不用<code>;</code>结束，且行和缩进这么重要，那么多行语句该怎么办呢？可以用多行连接符<code>\</code>进行连接，但存在 [], {} 或 () 括号就不需要使用多行连接符。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">c = <span class="number">1</span> + \</span><br><span class="line">    <span class="number">2</span> + \</span><br><span class="line">    <span class="number">3</span></span><br><span class="line">members = [<span class="string">&quot;Hans&quot;</span>, <span class="string">&quot;Tom&quot;</span>, <span class="string">&quot;Jerry&quot;</span>,</span><br><span class="line">          <span class="string">&quot;Stephen&quot;</span>]</span><br></pre></td></tr></table></figure>
 
-<h2 id="输入和输出"><a href="#输入和输出" class="headerlink" title="输入和输出"></a>输入和输出</h2><p>举例说明</p>
+<p>或者是同一行显示多条语句，语句之间可以用<code>;</code>来分割，如下例。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x &#x3D; &#39;runnoob&#39;; y &#x3D; &quot;john&quot;; print(x,y)</span><br></pre></td></tr></table></figure>
+
+<p>此外，空行也较为重要。</p>
+<ul>
+<li>空行分隔函数或类的方法，表示一段新的代码的开始。</li>
+<li>空行分隔类和函数入口，以突出函数入口的开始。</li>
+<li>不是Python语法的一部分，书写时不插入空行，也不会出错。</li>
+<li>空行分隔两段不同功能或含义的代码，便于日后代码的维护或重构。</li>
+</ul>
+<h3 id="输入和输出"><a href="#输入和输出" class="headerlink" title="输入和输出"></a>输入和输出</h3><p>举例说明</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="built_in">input</span>(<span class="string">&quot;请输入a的值:&quot;</span>)  <span class="comment"># 暂且不考虑变量a的类型，默认为int,后面再细讲。</span></span><br></pre></td></tr></table></figure>
 
 <p>等价C语言代码</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;请输入a的值&quot;</span>);</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;a);</span><br></pre></td></tr></table></figure>
 
-<p><code>print</code>表示输出，但其默认换行，若要实现不换行需要在变量末尾加上逗号 <code>,</code>。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"><span class="built_in">print</span>(b)  <span class="comment"># 换行输出</span></span><br><span class="line"><span class="built_in">print</span>(a,b) <span class="comment"># 不换行输出</span></span><br></pre></td></tr></table></figure>
+<p><code>print</code>表示输出，但其默认换行，若要实现不换行需要在变量末尾加上逗号 <code>,</code>来实现，或是在变量末尾加上 <code>end=&quot;&quot;</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"><span class="built_in">print</span>(b)  <span class="comment"># 换行输出</span></span><br><span class="line"><span class="built_in">print</span>(a,b) <span class="comment"># 不换行输出</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 不换行输出</span></span><br><span class="line"><span class="built_in">print</span>( a, end=<span class="string">&quot; &quot;</span> )</span><br><span class="line"><span class="built_in">print</span>( b, end=<span class="string">&quot; &quot;</span> )</span><br></pre></td></tr></table></figure>
 
-<h2 id="Python保留字"><a href="#Python保留字" class="headerlink" title="Python保留字"></a>Python保留字</h2><p>保留字就表示其有特殊用途，不能用作标识符，像是变量名，类名之类的，就比如说java语言中的<code>if</code>和<code>class</code>一样。Python的保留字只由小写字母组成。</p>
+<h3 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h3><ul>
+<li>第一个字符必须是字母表中字母或下划线 <code>_</code>。</li>
+<li>标识符的其他的部分由字母、数字和下划线组成。</li>
+<li>标识符对大小写敏感</li>
+<li>Python3中可以用中文作为变量名，非 ASCII 标识符也是允许的了</li>
+</ul>
+<h3 id="Python保留字"><a href="#Python保留字" class="headerlink" title="Python保留字"></a>Python保留字</h3><p>保留字就表示其有特殊用途，不能用作标识符，像是变量名，类名之类的，就比如说java语言中的<code>if</code>和<code>class</code>一样。</p>
 <table>
 <thead>
 <tr>
@@ -174,31 +190,82 @@
 <td align="center">yield</td>
 </tr>
 </tbody></table>
-<h2 id="变量类型"><a href="#变量类型" class="headerlink" title="变量类型"></a>变量类型</h2><h3 id="变量赋值"><a href="#变量赋值" class="headerlink" title="变量赋值"></a>变量赋值</h3><p>允许为多个变量同时赋值</p>
+<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><p>Python注释并不是用我们熟悉的 <code>//</code>  而是用<code>#  </code>注释，且<code>#</code>后面需要空一格进行注释；或者是用<code>&#39;&#39;&#39;</code>（三个单引号）或<code> &quot;&quot;&quot;</code>(三个双引号)进行多行注释。</p>
+<h3 id="import-和from…impor"><a href="#import-和from…impor" class="headerlink" title="import 和from…impor"></a>import 和from…impor</h3><p>Python方便的一点就是有大量的标准库可供调用。就要用相应语句进行导入库。</p>
+<ul>
+<li><p><code>import</code>表示将整个模块导入，格式：<code>import somemodule</code>。</p>
+</li>
+<li><p> <code>import...as...</code>可将导入的模块换个别名，格式：<code>import time as abc</code>,在引用时可用别名。</p>
+</li>
+<li><p><code>from...import</code>表示从某个模块中导入某个函数，格式：<code>from somemodule import somefunction</code>，还可以同时从一个模块导入多个函数，格式：<code>from somemodule import firstfunc, secondfunc, thirdfunc</code>。</p>
+</li>
+<li><p>将某个模块中的全部函数导入，格式：<code> from somemodule import *</code></p>
+</li>
+<li><p><code>import</code>和<code>from...import</code>在函数引用时还有区别，如下例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 使用import，</span><br><span class="line">import time</span><br><span class="line">time.sleep(1)</span><br><span class="line"></span><br><span class="line"># 使用from...import</span><br><span class="line">from time import sleep</span><br><span class="line">sleep(1)</span><br><span class="line"></span><br><span class="line">#使用import...as</span><br><span class="line">import time as TIME</span><br><span class="line">TIME.sleep(1)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="变量类型"><a href="#变量类型" class="headerlink" title="变量类型"></a>变量类型</h2><h3 id="变量赋值"><a href="#变量赋值" class="headerlink" title="变量赋值"></a>变量赋值</h3><p>依然用<code>=</code>进行变量赋值</p>
+<p>允许为多个变量同时赋值</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a = b = c = <span class="number">1</span>   <span class="comment"># 为a,b,c三个整型变量赋值为1</span></span><br><span class="line">a, b, c = <span class="number">1</span>, <span class="number">2.1</span>, <span class="string">&quot;john&quot;</span> </span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">为a整型变量赋值为1</span></span><br><span class="line"><span class="string">b浮点类型赋值为2.1</span></span><br><span class="line"><span class="string">c字符串类型赋值为“john</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
 
-<p>注：Python注释并不是用我们熟悉的<code>//</code>而是<code>#  </code>注释，且<code>#</code>后面需要空一格进行注释；或者是用<code>&#39;&#39;&#39;</code>（三个单引号）或<code> &quot;&quot;&quot;</code>(三个双引号)进行多行注释。</p>
-<h3 id="标准数据类型"><a href="#标准数据类型" class="headerlink" title="标准数据类型"></a>标准数据类型</h3><p>Python有五个标准的数据类型：</p>
+<h3 id="标准数据类型"><a href="#标准数据类型" class="headerlink" title="标准数据类型"></a>标准数据类型</h3><p>Python3有六个标准的数据类型：</p>
 <ul>
 <li>Numbers（数字）</li>
 <li>String（字符串）</li>
 <li>List（列表）</li>
 <li>Tuple （元组）</li>
+<li>Set（集合）</li>
 <li>Dictionary（字典）</li>
 </ul>
-<h4 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h4><p>Python支持四种不同的数字类型，用于存储数值，是不可改变的数据类型，其意思是如果数字数据类型会分配一个新的对象（关于不可见数据类型，详情请见前面博客不可见数据类型文章）。</p>
+<p>其中要区分可变数据类型与不可变数据类型：</p>
+<p><strong>不可变数据（3 个）：</strong>Number（数字）、String（字符串）、Tuple（元组）；</p>
+<p><strong>可变数据（3 个）：</strong>List（列表）、Dictionary（字典）、Set（集合）</p>
+<p>关于不可变数据类型和可变数据类型，详情可见前面博客有关不可见数据类型的文章。</p>
+<p>Python 与 C 和 Java有不同，即python变量不需要声明变量类型，这是因为像 C 语言和 Java 语言来说，它们是静态的，而 python 是动态的（前者静态编译，后者动态编译），变量的类型由赋予它的值来决定。</p>
+<h4 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h4><p>Python支持四种不同的数字类型，用于存储数值，是不可改变的数据类型。</p>
+<p>不可变数据类型，若改变数字数据类型的值，将重新分配内存空间。</p>
 <ul>
-<li>int（整型）    </li>
+<li>int（整型），表示长整型，没有long，可充当long使用。</li>
+<li>bool（布尔）</li>
 <li>float（浮点型）    </li>
-<li>complex（复数）    </li>
+<li>complex（复数），可以用a + bj,或者complex(a,b)表示，复数的实部a和虚部b都是浮点型。</li>
 </ul>
-<p>不需要定义数字类型，其会自动识别</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span> <span class="comment"># int型</span></span><br><span class="line">b = <span class="number">1.1</span> <span class="comment"># 浮点型</span></span><br><span class="line">c = <span class="number">1</span> + <span class="number">2j</span> <span class="comment"># 复数</span></span><br><span class="line">d = <span class="built_in">complex</span>(<span class="number">1</span>, <span class="number">2</span>) <span class="comment"># 复数：1为实部，2为虚部</span></span><br></pre></td></tr></table></figure>
+<p>不需要声明变量类型，其会自动识别，或者可以使用内置的 type() 函数可以用来查询变量所指的对象类型。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span> <span class="comment"># int型</span></span><br><span class="line">b = <span class="number">1.1</span> <span class="comment"># 浮点型</span></span><br><span class="line">c = <span class="number">1</span> + <span class="number">2j</span> <span class="comment"># 复数</span></span><br><span class="line">d = <span class="built_in">complex</span>(<span class="number">1</span>, <span class="number">2</span>) <span class="comment"># 复数：1为实部，2为虚部</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(a), <span class="built_in">type</span>(b), <span class="built_in">type</span>(c), <span class="built_in">type</span>(d)) </span><br><span class="line"><span class="comment"># &lt;class &#x27;int&#x27;&gt; &lt;class &#x27;float&#x27;&gt; &lt;class &#x27;bool&#x27;&gt; &lt;class &#x27;complex&#x27;&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>也可以使用del语句删除一些对象的引用。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">del</span> a, b</span><br></pre></td></tr></table></figure>
+<p>此外还可以用 isinstance 来判断：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">11</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">isinstance</span>(a, <span class="built_in">int</span>)) <span class="comment"># True</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><p>其大致与C语言差不多，不过其字符列表有两种取值顺序。</p>
+<p>isinstance 和 type 的区别在于：</p>
+<ul>
+<li>type 是用于求一个未知数据类型对象。</li>
+<li> isinstance 是用于判断一个对象是否是已知类型。</li>
+</ul>
+<ul>
+<li><p>type()不会认为子类是一种父类类型。</p>
+</li>
+<li><p>isinstance()会认为子类是一种父类类型，例如，在Python3中，bool是int的子类，此外，True 和 False 可以和数字相加， True==1、False==0 会返回 <strong>True</strong>，但可以通过 is 来判断类型。</p>
+</li>
+<li><p>可以用 isinstance 判断子类对象是否继承于父类，type 不行。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">issubclass</span>(<span class="built_in">bool</span>, <span class="built_in">int</span>)  <span class="comment"># True</span></span><br><span class="line"><span class="literal">True</span> == <span class="number">1</span>  <span class="comment"># True</span></span><br><span class="line"><span class="literal">False</span> == <span class="number">0</span>  <span class="comment"># True</span></span><br><span class="line"><span class="literal">True</span> + <span class="number">1</span>  <span class="comment"># 2</span></span><br><span class="line"><span class="literal">False</span> + <span class="number">1</span>  <span class="comment"># 1</span></span><br><span class="line"><span class="number">1</span> <span class="keyword">is</span> <span class="literal">True</span> <span class="comment"># False</span></span><br><span class="line"><span class="number">0</span> <span class="keyword">is</span> <span class="literal">False</span> <span class="comment"># False</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>当你指定一个值时，Number 对象就会被创建，也可以使用del语句删除一些对象的引用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span></span><br><span class="line">b = <span class="number">2</span>  <span class="comment"># Number对象被创建</span></span><br><span class="line"><span class="keyword">del</span> a, b  <span class="comment"># 删除对象引用</span></span><br></pre></td></tr></table></figure>
+
+<p>此外：</p>
+<ul>
+<li>一个变量可以通过赋值指向不同类型的对象。</li>
+<li>在混合计算时，Python会把整型转换成为浮点数。</li>
+</ul>
+<h5 id="数字类型转换"><a href="#数字类型转换" class="headerlink" title="数字类型转换"></a>数字类型转换</h5><p>有时候，我们需要对数据内置的类型进行转换，数据类型的转换，你只需要将数据类型作为函数名即可。</p>
+<ul>
+<li><strong>int(x)</strong> 将x转换为一个整数。</li>
+<li><strong>float(x)</strong> 将x转换到一个浮点数。</li>
+<li> <strong>complex(x)</strong> 将x转换到一个复数，实数部分为 x，虚数部分为 0。</li>
+<li><strong>complex(x, y)</strong> 将 x 和 y 转换到一个复数，实数部分为 x，虚数部分为 y。x 和 y 是数字表达式。</li>
+</ul>
+<h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><p>字符串表示格式：可以用<code>&#39;</code>或<code>&quot;</code>括起来，但前后要一致，前面用单引号，后面也用单引号。使用反斜杠 <code>\</code>转义特殊字符。</p>
+<p>其字符列表有两种取值顺序。</p>
 <ul>
 <li>从左到右索引默认0开始的，最大范围是字符串长度少1</li>
 <li>从右到左索引默认-1开始的，最大范围是字符串开头</li>
@@ -228,37 +295,266 @@
 <td align="center">-1</td>
 </tr>
 </tbody></table>
-<p>一些其他操作</p>
+<p>一些其他操作：</p>
 <ul>
-<li><p>从字符在截取一段字符，采用<code>[头下标:尾下标]</code>来截取相应的字符串，其中下标是从 0 开始算起，可以是正数或负数，下标可以为空表示取到头或尾，此外它是“左闭右开”的形式，截取的子串包含<strong>头下标</strong>的字符，但不包含<strong>尾下标</strong>的字符；</p>
+<li><p>从字符在截取一段字符，采用<code>[头下标:尾下标]</code>来截取相应的字符串，其中下标是从 0 开始算起，可以是正数或负数，下标可以为空表示取到头或尾，此外它是<strong>“左闭右开”</strong>的形式，截取的子串包含<strong>头下标</strong>的字符，但不包含<strong>尾下标</strong>的字符；</p>
 </li>
 <li><p><code>*</code>表示重复，<code>+</code>表示连接；</p>
 </li>
 <li><p>P字符串截取还可以有第三个参数，其表示的截取的步长，在索引 1 到索引 4 的区间内并设置为步长为 2（间隔1位）来截取字符串</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">str</span> = <span class="string">&quot;Hello World!&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>)            <span class="comment"># 输出完整的字符串</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>[<span class="number">4</span>])         <span class="comment"># 输出字符串中第5个字符</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>[:<span class="number">5</span>])        <span class="comment"># 输出字符串中第1个至第5个之间的子串</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>[<span class="number">2</span>:<span class="number">5</span>])       <span class="comment"># 输出字符串中第3个至第5个之间的子串</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>[<span class="number">3</span>:])        <span class="comment"># 输出字符串中第4个开始的子串</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span> * <span class="number">2</span>)        <span class="comment"># 输出字符串两次</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span> + <span class="string">&quot; test&quot;</span>)  <span class="comment"># 输出连接的字符串</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>[<span class="number">0</span>:<span class="number">5</span>:<span class="number">2</span>])     <span class="comment"># 从第1个字符开始至第5个字符间隔1位截取子串</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>[<span class="number">0</span>:<span class="number">5</span>:<span class="number">3</span>])     <span class="comment"># 从第1个字符开始至第5个字符间隔2位截取子串 </span></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">输出结果：</span></span><br><span class="line"><span class="string">Hello World!</span></span><br><span class="line"><span class="string">o</span></span><br><span class="line"><span class="string">Hello</span></span><br><span class="line"><span class="string">llo</span></span><br><span class="line"><span class="string">lo World!</span></span><br><span class="line"><span class="string">Hello World!Hello World!</span></span><br><span class="line"><span class="string">Hello World! test</span></span><br><span class="line"><span class="string">Hlo</span></span><br><span class="line"><span class="string">Hl</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure></li>
+</li>
+<li><p>Python 使用反斜杠 \ 转义特殊字符，如果你不想让反斜杠发生转义，可以在字符串前面添加一个 r，表示原始字符串：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">str</span> = <span class="string">&quot;Hello World!&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>)            <span class="comment"># 输出完整的字符串</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>[<span class="number">4</span>])         <span class="comment"># 输出字符串中第5个字符</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>[:<span class="number">5</span>])        <span class="comment"># 输出字符串中第1个至第5个之间的子串</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>[<span class="number">2</span>:<span class="number">5</span>])       <span class="comment"># 输出字符串中第3个至第5个之间的子串</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>[<span class="number">3</span>:])        <span class="comment"># 输出字符串中第4个开始的子串</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span> * <span class="number">2</span>)        <span class="comment"># 输出字符串两次</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span> + <span class="string">&quot; test&quot;</span>)  <span class="comment"># 输出连接的字符串</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>[<span class="number">0</span>:<span class="number">5</span>:<span class="number">2</span>])     <span class="comment"># 从第1个字符开始至第5个字符间隔1位截取子串</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>[<span class="number">0</span>:<span class="number">5</span>:<span class="number">3</span>])     <span class="comment"># 从第1个字符开始至第5个字符间隔2位截取子串 </span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello\nWorld&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">r&quot;Hello\nWorld&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">输出结果：</span></span><br><span class="line"><span class="string">Hello World!</span></span><br><span class="line"><span class="string">o</span></span><br><span class="line"><span class="string">Hello</span></span><br><span class="line"><span class="string">llo</span></span><br><span class="line"><span class="string">lo World!</span></span><br><span class="line"><span class="string">Hello World!Hello World!</span></span><br><span class="line"><span class="string">Hello World! test</span></span><br><span class="line"><span class="string">Hlo</span></span><br><span class="line"><span class="string">Hl</span></span><br><span class="line"><span class="string">Hello</span></span><br><span class="line"><span class="string">World</span></span><br><span class="line"><span class="string">Hello\nWorld</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure></li>
 </ul>
-<h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><p>列表主要作用是：其可以完成大多数集合类的数据结构实现，它支持字符，数字，字符串甚至可以包含列表（即嵌套），即列表是个有序的大集合，里面可以存放字符串，数字，字符，甚至嵌套个列表。下面举例说明。</p>
+<p>此外：与 C 字符串不同的是，Python 字符串不能被改变。向一个索引位置赋值，比如word[0] = ‘m’会导致错误。</p>
+<h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><p>列表主要作用是：其可以完成大多数集合类的数据结构实现，它支持字符，数字，字符串甚至可以包含列表（即嵌套），即列表是个有序的大集合，里面可以存放字符串，数字，字符，甚至嵌套个列表，用<code>[]</code>标识。下面举例说明。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lisT = [<span class="string">&quot;list&quot;</span>, <span class="string">&#x27;l&#x27;</span>, <span class="number">1</span>, <span class="number">1.1</span>, <span class="number">1</span> + <span class="number">2j</span>, [<span class="number">1</span>, <span class="number">1.1</span>, <span class="number">1.2</span>]]</span><br></pre></td></tr></table></figure>
 
-<p>同字符串类型一样，其也可以用切割操作，此外，其索引取值方式也同字符串类似。</p>
+<p>同字符串类型一样，其也可以用切割操作，此外，其索引取值方式也同字符串类似，列表被截取后返回一个包含所需元素的新列表。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">list1 = [<span class="string">&#x27;list&#x27;</span>, <span class="string">&#x27;t&#x27;</span>, <span class="number">2.23</span>, <span class="string">&#x27;john&#x27;</span>, <span class="number">1111</span>, <span class="number">1</span> + <span class="number">2j</span>]</span><br><span class="line">tinylist = [<span class="number">123</span>, <span class="string">&#x27;john&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(list1)  <span class="comment"># 输出完整列表</span></span><br><span class="line"><span class="built_in">print</span>(list1[<span class="number">0</span>])  <span class="comment"># 输出列表的第一个元素</span></span><br><span class="line"><span class="built_in">print</span>(list1[<span class="number">1</span>:<span class="number">3</span>])  <span class="comment"># 输出第二个至第三个元素</span></span><br><span class="line"><span class="built_in">print</span>(list1[<span class="number">2</span>:])  <span class="comment"># 输出从第三个开始至列表末尾的所有元素</span></span><br><span class="line"><span class="built_in">print</span>(tinylist * <span class="number">2</span>)  <span class="comment"># 输出列表两次</span></span><br><span class="line"><span class="built_in">print</span>(list1 + tinylist)  <span class="comment"># 打印组合的列表</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">[&#x27;list&#x27;, &#x27;t&#x27;, 2.23, &#x27;john&#x27;, 1111, (1+2j)]</span></span><br><span class="line"><span class="string">list</span></span><br><span class="line"><span class="string">[&#x27;t&#x27;, 2.23]</span></span><br><span class="line"><span class="string">[2.23, &#x27;john&#x27;, 1111, (1+2j)]</span></span><br><span class="line"><span class="string">[123, &#x27;john&#x27;, 123, &#x27;john&#x27;]</span></span><br><span class="line"><span class="string">[&#x27;list&#x27;, &#x27;t&#x27;, 2.23, &#x27;john&#x27;, 1111, (1+2j), 123, &#x27;john&#x27;]</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
 
+<p>与Python字符串不一样的是，列表中的元素是可以改变的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]</span><br><span class="line">a[<span class="number">0</span>] = <span class="number">9</span></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">[9, 2, 3, 4, 5, 6]</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>List 内置了有很多方法，例如 append()、pop()。用时再进行查询。</p>
+<p>同字符串一样，列表截取可以接收第三个参数，参数作用是截取的步长，如果第三个参数为负数，则表示逆向读取。</p>
 <h4 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h4><p>元组是另一个数据类型，类似于 List（列表）。</p>
-<p>元组用 ()  标识。内部元素用逗号隔开。但是元组不能二次赋值，赋完初值后，其就相当于只读列表。</p>
+<p>元组用 <code>()</code>标识。内部元素用逗号隔开。但是元组不能二次赋值，修改元组元素的值，赋完初值后，其就相当于只读列表。</p>
+<p>元组与字符串类似，可以被索引且下标索引从0开始，-1 为从末尾开始的位置。也可以进行截取。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">tuple1 = [<span class="string">&#x27;list&#x27;</span>, <span class="string">&#x27;t&#x27;</span>, <span class="number">2.23</span>, <span class="string">&#x27;john&#x27;</span>, <span class="number">1111</span>, <span class="number">1</span> + <span class="number">2j</span>]</span><br><span class="line">tinytuple = [<span class="number">123</span>, <span class="string">&#x27;john&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(tuple1)  <span class="comment"># 输出完整元组</span></span><br><span class="line"><span class="built_in">print</span>(tuple1[<span class="number">0</span>])  <span class="comment"># 输出元组的第一个元素</span></span><br><span class="line"><span class="built_in">print</span>(tuple1[<span class="number">1</span>:<span class="number">3</span>])  <span class="comment"># 输出第二个至第三个元素</span></span><br><span class="line"><span class="built_in">print</span>(tuple1[<span class="number">2</span>:])  <span class="comment"># 输出从第三个开始至元组末尾的所有元素</span></span><br><span class="line"><span class="built_in">print</span>(tinytuple * <span class="number">2</span>)  <span class="comment"># 输出元组两次</span></span><br><span class="line"><span class="built_in">print</span>(tuple1 + tinytuple)  <span class="comment"># 打印组合的元组</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">[&#x27;list&#x27;, &#x27;t&#x27;, 2.23, &#x27;john&#x27;, 1111, (1+2j)]</span></span><br><span class="line"><span class="string">list</span></span><br><span class="line"><span class="string">[&#x27;t&#x27;, 2.23]</span></span><br><span class="line"><span class="string">[2.23, &#x27;john&#x27;, 1111, (1+2j)]</span></span><br><span class="line"><span class="string">[123, &#x27;john&#x27;, 123, &#x27;john&#x27;]</span></span><br><span class="line"><span class="string">[&#x27;list&#x27;, &#x27;t&#x27;, 2.23, &#x27;john&#x27;, 1111, (1+2j), 123, &#x27;john&#x27;]</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">tuple1[<span class="number">2</span>] = <span class="number">0.13</span>    <span class="comment"># 元组中是非法应用</span></span><br><span class="line">list1[<span class="number">2</span>] = <span class="number">1.13</span>     <span class="comment"># 列表中是合法操作</span></span><br></pre></td></tr></table></figure>
+
+<p>虽然tuple的元素不可改变，但它可以包含可变的对象，比如list列表。</p>
+<p>构造包含 0 个或 1 个元素的元组比较特殊，所以有一些额外的语法规则：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tup1 = ()    <span class="comment"># 空元组</span></span><br><span class="line">tup2 = (<span class="number">20</span>,) <span class="comment"># 一个元素，需要在元素后添加逗号</span></span><br></pre></td></tr></table></figure>
+
+<p>此外，string、list 和 tuple 都属于 <strong>sequence（序列）</strong>。</p>
+<h4 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h4><p>集合（set）是由一个或数个形态各异的大小整体组成的，构成集合的事物或对象称作元素或是成员。</p>
+<ul>
+<li><p>基本功能：成员关系测试、删除重复元素。</p>
+</li>
+<li><p>创建集合：大括号<code>&#123;&#125;</code>、或是<code>Set()</code>函数</p>
+</li>
+<li><p>创建一个空集合必须用 set() 而不是 { }，因为 { } 是用来创建一个空字典。</p>
+</li>
+<li><p>特点：无序的，不支持索引，且元素具有唯一性，一个集合中没有重复元素</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">sites = &#123;<span class="string">&#x27;Google&#x27;</span>, <span class="string">&#x27;Taobao&#x27;</span>, <span class="string">&#x27;Douban&#x27;</span>, <span class="string">&#x27;Facebook&#x27;</span>, <span class="string">&#x27;Zhihu&#x27;</span>, <span class="string">&#x27;Baidu&#x27;</span>, <span class="string">&#x27;Taobao&#x27;</span>&#125;</span><br><span class="line"><span class="built_in">print</span>(sites)   <span class="comment"># 乱序输出集合，重复的元素被自动去掉</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">&#123;&#x27;Runoob&#x27;, &#x27;Baidu&#x27;, &#x27;Taobao&#x27;, &#x27;Google&#x27;, &#x27;Zhihu&#x27;, &#x27;Facebook&#x27;&#125;</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 成员测试</span></span><br><span class="line"><span class="keyword">if</span> <span class="string">&#x27;Douban&#x27;</span> <span class="keyword">in</span> sites :</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Douban 在集合中&#x27;</span>)</span><br><span class="line"><span class="keyword">else</span> :</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Douban 不在集合中&#x27;</span>)   </span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">Douban 在集合中</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># set可以进行集合运算</span></span><br><span class="line">a = <span class="built_in">set</span>(<span class="string">&#x27;abracadabra&#x27;</span>)</span><br><span class="line">b = <span class="built_in">set</span>(<span class="string">&#x27;alacazam&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"><span class="built_in">print</span>(a - b)     <span class="comment"># a 和 b 的差集</span></span><br><span class="line"><span class="built_in">print</span>(a | b)     <span class="comment"># a 和 b 的并集</span></span><br><span class="line"><span class="built_in">print</span>(a &amp; b)     <span class="comment"># a 和 b 的交集</span></span><br><span class="line"><span class="built_in">print</span>(a ^ b)     <span class="comment"># a 和 b 中不同时存在的元素</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">&#123;&#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;, &#x27;r&#x27;, &#x27;a&#x27;&#125;</span></span><br><span class="line"><span class="string">&#123;&#x27;d&#x27;, &#x27;b&#x27;, &#x27;r&#x27;&#125;</span></span><br><span class="line"><span class="string">&#123;&#x27;b&#x27;, &#x27;m&#x27;, &#x27;z&#x27;, &#x27;c&#x27;, &#x27;d&#x27;, &#x27;r&#x27;, &#x27;a&#x27;, &#x27;l&#x27;&#125;</span></span><br><span class="line"><span class="string">&#123;&#x27;c&#x27;, &#x27;a&#x27;&#125;</span></span><br><span class="line"><span class="string">&#123;&#x27;d&#x27;, &#x27;b&#x27;, &#x27;m&#x27;, &#x27;r&#x27;, &#x27;z&#x27;, &#x27;l&#x27;&#125;</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h4><p>字典(dictionary)是除列表以外python之中最灵活的内置数据结构类型。列表是有序的对象集合，字典是无序的对象集合。</p>
 <p>两者之间的区别在于：字典当中的元素是通过键来访问存取的，而不是通过下标访问存取，有点类似于java中的Map。</p>
 <p>字典用”{ }”标识。字典由索引(key)和它对应的值value组成，用<code>:</code>来区分键和值，<code>1 : 123</code>中，1表示键，123为整型值。</p>
+<ul>
+<li>键(key)必须使用不可变类型。</li>
+<li>在同一个字典中，键(key)必须是唯一的，若插入重复的键，但对应的值改变，则会覆盖原来的键值对。</li>
+</ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dict</span> = &#123;&#125;</span><br><span class="line"><span class="built_in">dict</span>[<span class="string">&#x27;one&#x27;</span>] = <span class="string">&quot;This is one&quot;</span></span><br><span class="line"><span class="built_in">dict</span>[<span class="number">2</span>] = <span class="string">&quot;This is two&quot;</span></span><br><span class="line"> </span><br><span class="line">tinydict = &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;runoob&#x27;</span>,<span class="string">&#x27;code&#x27;</span>:<span class="number">6734</span>, <span class="string">&#x27;dept&#x27;</span>: <span class="string">&#x27;sales&#x27;</span>&#125;</span><br><span class="line"> </span><br><span class="line"><span class="built_in">print</span> <span class="built_in">dict</span>[<span class="string">&#x27;one&#x27;</span>]          <span class="comment"># 输出键为&#x27;one&#x27; 的值</span></span><br><span class="line"><span class="built_in">print</span> <span class="built_in">dict</span>[<span class="number">2</span>]              <span class="comment"># 输出键为 2 的值</span></span><br><span class="line"><span class="built_in">print</span> tinydict             <span class="comment"># 输出完整的字典</span></span><br><span class="line"><span class="built_in">print</span> tinydict.keys()      <span class="comment"># 输出所有键</span></span><br><span class="line"><span class="built_in">print</span> tinydict.values()    <span class="comment"># 输出所有值</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">This is one</span></span><br><span class="line"><span class="string">This is two</span></span><br><span class="line"><span class="string">&#123;&#x27;dept&#x27;: &#x27;sales&#x27;, &#x27;code&#x27;: 6734, &#x27;name&#x27;: &#x27;runoob&#x27;&#125;</span></span><br><span class="line"><span class="string">[&#x27;dept&#x27;, &#x27;code&#x27;, &#x27;name&#x27;]</span></span><br><span class="line"><span class="string">[&#x27;sales&#x27;, 6734, &#x27;runoob&#x27;]</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
 
+<p>另外，字典类型也有一些内置的函数，例如clear()、keys()、values()等。用时再进行查询。</p>
+<p>在 python 中，类型属于对象，变量是没有类型的，如<code>a = 10</code>,<code>10</code>是整型的对象，<code>a</code>是一个变量，若要给<code>a</code>重新赋值，则<code>a=1.1</code>，则其值<code>1.1</code>为浮点型的对象，<code>a</code>依旧是一个变量，没有类型，只是这些对象的引用（一个指针）。</p>
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><h3 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h3><table>
+<thead>
+<tr>
+<th align="center">运算符</th>
+<th align="center">功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">+</td>
+<td align="center">加法</td>
+</tr>
+<tr>
+<td align="center">-</td>
+<td align="center">减法或负数</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="center">两个数相乘或是返回一个被重复若干次的字符串</td>
+</tr>
+<tr>
+<td align="center">/</td>
+<td align="center">除法</td>
+</tr>
+<tr>
+<td align="center">%</td>
+<td align="center">取余</td>
+</tr>
+<tr>
+<td align="center">x**y</td>
+<td align="center">x的y次幂</td>
+</tr>
+<tr>
+<td align="center">//</td>
+<td align="center">整除（向下取整），例9//2=4</td>
+</tr>
+</tbody></table>
+<p>注：Python中没有<code>++</code>和<code>--</code>。</p>
+<h4 id="位、比较、逻辑运算符"><a href="#位、比较、逻辑运算符" class="headerlink" title="位、比较、逻辑运算符"></a>位、比较、逻辑运算符</h4><p>位、比较、逻辑运算符无不同，与C相同。</p>
+<p>比较：<code>==, &lt;=,&gt;=,&lt;,&gt;,!=</code>。</p>
+<p>位：<code>&amp;, |, ^(异或), ~(取反), &lt;&lt;, &gt;&gt;</code>。</p>
+<p>逻辑：<code>and, or, not</code>。</p>
+<h3 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符"></a>赋值运算符</h3><table>
+<thead>
+<tr>
+<th align="center">运算符</th>
+<th align="center">功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">+=</td>
+<td align="center">c += a 等效于 c = c + a</td>
+</tr>
+<tr>
+<td align="center">-=</td>
+<td align="center">c -= a 等效于 c = c - a</td>
+</tr>
+<tr>
+<td align="center">*=</td>
+<td align="center">c *= a 等效于 c = c * a</td>
+</tr>
+<tr>
+<td align="center">/=</td>
+<td align="center">c /= a 等效于 c = c / a</td>
+</tr>
+<tr>
+<td align="center">%=</td>
+<td align="center">c %= a 等效于 c = c % a</td>
+</tr>
+<tr>
+<td align="center">**=</td>
+<td align="center">c **= a 等效于 c = c ** a</td>
+</tr>
+<tr>
+<td align="center">//=</td>
+<td align="center">c //= a 等效于 c = c // a</td>
+</tr>
+<tr>
+<td align="center">:=</td>
+<td align="center">海象运算符，可在表达式内部为变量赋值，if (n := len(a)) &gt; 10:</td>
+</tr>
+</tbody></table>
+<h3 id="成员运算符"><a href="#成员运算符" class="headerlink" title="成员运算符"></a>成员运算符</h3><p>成员运算符，顾名思义，就是判断一个元素是不是一个数据结构的成员。</p>
+<table>
+<thead>
+<tr>
+<th align="center">运算符</th>
+<th align="center">功能</th>
+<th align="center">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">in</td>
+<td align="center">如果在指定的序列中找到值返回 True，否则返回 False。</td>
+<td align="center">x 在 y 序列中 , 如果 x 在 y 序列中返回 True。</td>
+</tr>
+<tr>
+<td align="center">not in</td>
+<td align="center">如果在指定的序列中没有找到值返回 True，否则返回 False。</td>
+<td align="center">x 不在 y 序列中 , 如果 x 不在 y 序列中返回 True。</td>
+</tr>
+</tbody></table>
+<h3 id="身份运算符"><a href="#身份运算符" class="headerlink" title="身份运算符"></a>身份运算符</h3><p>身份运算符用于比较两个对象的存储地址。</p>
+<table>
+<thead>
+<tr>
+<th align="center">运算符</th>
+<th align="center">功能</th>
+<th align="center">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">is</td>
+<td align="center">is 是判断两个标识符是不是引用自一个对象</td>
+<td align="center"><strong>x is y</strong>, 类似 <strong>id(x) == id(y)</strong> , 如果引用的是同一个对象则返回 True，否则返回 False</td>
+</tr>
+<tr>
+<td align="center">is not</td>
+<td align="center">is not 是判断两个标识符是不是引用自不同对象</td>
+<td align="center"><strong>x is not y</strong> ， 类似 **id(a) != id(b)**。如果引用的不是同一个对象则返回结果 True，否则返回 False。</td>
+</tr>
+</tbody></table>
+<h3 id="运算符优先级"><a href="#运算符优先级" class="headerlink" title="运算符优先级"></a>运算符优先级</h3><p><img src="/2021/09/23/python%E5%AD%A6%E4%B9%A0/cal.jpg"></p>
+<h2 id="条件控制"><a href="#条件控制" class="headerlink" title="条件控制"></a>条件控制</h2><p>与C语言无太大差别。格式如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> condition1:</span><br><span class="line">    statement1</span><br><span class="line"><span class="keyword">elif</span> condition2:</span><br><span class="line">    statement2</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    statement3</span><br></pre></td></tr></table></figure>
 
+<p>注：</p>
+<ul>
+<li>每个条件后面要使用冒号 <code>:</code>，表示接下来是满足条件后要执行的语句块。</li>
+<li>使用缩进来划分语句块，相同缩进数的语句在一起组成一个语句块。</li>
+<li>在Python中没有<code>switch – case</code>语句。</li>
+</ul>
+<h2 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h2><h3 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h3><p>格式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> condition：</span><br><span class="line">    statements</span><br></pre></td></tr></table></figure>
 
+<p>while循环使用else语句：</p>
+<p>如果 while 后面的条件语句为 false 时，则执行 else 的语句块。</p>
+<p>条件语句为 true 则执行 statement语句块，如果为 false，则执行 additional_statement。</p>
+<p>语法格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while condition:</span><br><span class="line">    statement</span><br><span class="line">else:</span><br><span class="line">    additional_statement</span><br></pre></td></tr></table></figure>
 
+<h3 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h3><p>格式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> &lt;variable&gt; <span class="keyword">in</span> &lt;sequence&gt;:</span><br><span class="line">    &lt;statements&gt;</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    &lt;statements&gt;</span><br></pre></td></tr></table></figure>
 
+<p>注：循环语句可以有 else 子句，它在穷尽列表(以for循环)或条件变为 false (以while循环)导致循环终止时被执行，但循环被 break 终止时不执行。</p>
+<h3 id="break、continue和pass"><a href="#break、continue和pass" class="headerlink" title="break、continue和pass"></a>break、continue和pass</h3><p><strong>break</strong> 跳出 for 和 while 的循环体，从当前位置跳出循环，不再进入循环。</p>
+<p><strong>continue</strong> 跳过当前循环块中的剩余语句，即不执行循环的剩余部分，然后继续进行下一轮循环。</p>
+<p><strong>pass</strong>是空语句，是为了保持程序结构的完整性，不做任何事情，一般用做占位语句。</p>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
+<li>以 <strong>def</strong> 关键词开头，后接函数标识符名称和圆括号 **()**。</li>
+<li>任何传入参数和自变量必须放在圆括号中间，圆括号之间可以用于定义参数</li>
+<li>函数的第一行语句可以选择性地使用文档字符串—用于存放函数说明</li>
+<li>函数内容以冒号 <code>:</code> 起始，并且缩进。</li>
+<li><strong>return [表达式]</strong> 结束函数，选择性地返回一个值给调用方，不带表达式的 return 相当于返回 None。</li>
+</ul>
+<p>格式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> 函数名（参数列表）:</span></span><br><span class="line">    函数体</span><br></pre></td></tr></table></figure>
 
+<p>函数调用可直接调用。</p>
+<h3 id="传参"><a href="#传参" class="headerlink" title="传参"></a>传参</h3><p>当传入参数为不可变对象实例时，在函数内修改形参的值，但不会改变实参的值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">change</span>(<span class="params">a</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">id</span>(a))</span><br><span class="line">    a = <span class="number">10</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">id</span>(a))</span><br><span class="line"></span><br><span class="line">a = <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">id</span>(a))</span><br><span class="line">change(a)</span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">140733572060848</span></span><br><span class="line"><span class="string">140733572060848</span></span><br><span class="line"><span class="string">140733572061136</span></span><br><span class="line"><span class="string">1</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
 
+<p>当传入参数为可变对象实例时，在函数内修改了形参的值，则实参的值会随着改变。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">change</span>(<span class="params">myList</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">id</span>(myList))</span><br><span class="line">    myList[<span class="number">0</span>] = <span class="number">2</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">id</span>(myList))</span><br><span class="line"></span><br><span class="line">myList = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">id</span>(myList))</span><br><span class="line">change(myList)</span><br><span class="line"><span class="built_in">print</span>(myList)</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">2023267500096</span></span><br><span class="line"><span class="string">2023267500096</span></span><br><span class="line"><span class="string">2023267500096</span></span><br><span class="line"><span class="string">[2, 2, 3, 4, 5]</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
 
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>可使用的正式参数类型：</p>
+<ul>
+<li>必需参数</li>
+<li>关键字参数</li>
+<li>默认参数</li>
+<li>不定长参数</li>
+</ul>
+<h4 id="必需参数"><a href="#必需参数" class="headerlink" title="必需参数"></a>必需参数</h4><p>必需参数须以正确的顺序传入函数。调用时的数量必须和声明时的一样。就是我们在C语言中传参时须遵守的那些规则。</p>
+<h4 id="关键字参数"><a href="#关键字参数" class="headerlink" title="关键字参数"></a>关键字参数</h4><p>​    关键字参数和函数调用关系紧密，函数调用使用关键字参数来确定传入的参数值。</p>
+<p>​    使用关键字参数允许函数调用时参数的顺序与声明时不一致，因为 Python 解释器能够用参数名匹配参数值。</p>
+<h4 id="默认参数"><a href="#默认参数" class="headerlink" title="默认参数"></a>默认参数</h4><p>调用函数时，如果没有传递参数，则会使用默认参数。以下实例中如果没有传入 age 参数，则使用默认值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printinfo</span>(<span class="params">name, age=<span class="number">35</span></span>):</span></span><br><span class="line">    <span class="string">&quot;打印任何传入的字符串&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;名字: &quot;</span>, name)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;年龄: &quot;</span>, age)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用printinfo函数</span></span><br><span class="line">printinfo(age=<span class="number">50</span>, name=<span class="string">&quot;Tom&quot;</span>)  <span class="comment"># 自动用参数名匹配参数值</span></span><br><span class="line">printinfo(name=<span class="string">&quot;Tom&quot;</span>)  <span class="comment"># 使用默认参数值</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">名字:  Tom</span></span><br><span class="line"><span class="string">年龄:  50</span></span><br><span class="line"><span class="string">名字:  Tom</span></span><br><span class="line"><span class="string">年龄:  35</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="不定长参数"><a href="#不定长参数" class="headerlink" title="不定长参数"></a>不定长参数</h4><ul>
+<li><p>加了星号<code>*</code>的参数会以元组(tuple)的形式导入，存放所有未命名的变量参数。</p>
+</li>
+<li><p>如果在函数调用时没有指定参数，它就是一个空元组。我们也可以不向函数传递未命名的变量。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printinfo</span>(<span class="params"> arg1, *vartuple </span>):</span></span><br><span class="line">   <span class="string">&quot;打印任何传入的参数&quot;</span></span><br><span class="line">   <span class="built_in">print</span> (<span class="string">&quot;输出: &quot;</span>)</span><br><span class="line">   <span class="built_in">print</span> (arg1)</span><br><span class="line">   <span class="keyword">for</span> var <span class="keyword">in</span> vartuple:</span><br><span class="line">      <span class="built_in">print</span> (var)</span><br><span class="line">   <span class="keyword">return</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 调用printinfo 函数</span></span><br><span class="line">printinfo( <span class="number">10</span> )</span><br><span class="line">printinfo( <span class="number">70</span>, <span class="number">60</span>, <span class="number">50</span> )</span><br></pre></td></tr></table></figure></li>
+<li><p>加了两个星号 <code>**</code> 的参数会以字典的形式导入。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printinfo</span>(<span class="params"> arg1, **vardict </span>):</span></span><br><span class="line">   <span class="string">&quot;打印任何传入的参数&quot;</span></span><br><span class="line">   <span class="built_in">print</span> (<span class="string">&quot;输出: &quot;</span>)</span><br><span class="line">   <span class="built_in">print</span> (arg1)</span><br><span class="line">   <span class="built_in">print</span> (vardict)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 调用printinfo 函数</span></span><br><span class="line">printinfo(<span class="number">1</span>, a=<span class="number">2</span>,b=<span class="number">3</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>声明函数时，参数中星号 <code>*</code> 可以单独出现，星号 <code>*</code>后的参数必须用关键字传入</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span>(<span class="params">a, b, *, c</span>):</span></span><br><span class="line">    <span class="keyword">return</span> a + b + c</span><br><span class="line"></span><br><span class="line">f(<span class="number">10</span>, <span class="number">20</span>, c=<span class="number">20</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="强制位置参数"><a href="#强制位置参数" class="headerlink" title="强制位置参数"></a>强制位置参数</h4><p>Python3.8 新增了一个函数形参语法 / 用来指明函数形参必须使用指定位置参数，不能使用关键字参数的形式。</p>
+<p>在以下的例子中，形参 a 和 b 必须使用指定位置参数，c 或 d 可以是位置形参或关键字形参，而 e 和 f 要求为关键字形参:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span>(<span class="params">a, b, /, c, d, *, e, f</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(a, b, c, d, e, f)</span><br><span class="line">    </span><br><span class="line">f(<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, d=<span class="number">40</span>, e=<span class="number">50</span>, f=<span class="number">60</span>)  <span class="comment"># 正确的传参方式</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 错误的传参方式</span></span><br><span class="line">f(<span class="number">10</span>, b=<span class="number">20</span>, c=<span class="number">30</span>, d=<span class="number">40</span>, e=<span class="number">50</span>, f=<span class="number">60</span>)   <span class="comment"># b 不能使用关键字参数的形式</span></span><br><span class="line">f(<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>, f=<span class="number">60</span>)           <span class="comment"># e 必须使用关键字参数的形式</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="函数返回值"><a href="#函数返回值" class="headerlink" title="函数返回值"></a>函数返回值</h3><p>函数返回值的注意事项: 不同于 C 语言，Python 函数可以返回多个值，多个值以元组的方式返回</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span>(<span class="params">a,b</span>):</span>    </span><br><span class="line">    <span class="string">&quot;返回多个值，结果以元组形式表示&quot;</span></span><br><span class="line">    <span class="keyword">return</span> a,b,a+b</span><br><span class="line"><span class="built_in">print</span>(fun(<span class="number">1</span>,<span class="number">2</span>))</span><br><span class="line"><span class="comment"># 输出结果为(1, 2, 3)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h3><ul>
+<li>使用lambda 来创建匿名函数。</li>
+<li>匿名表示：不使用 def 语句这样标准的形式定义一个函数。</li>
+<li>lambda 只是一个表达式，函数体比 def 简单很多，只能封装有限的逻辑进去</li>
+<li>lambda 函数拥有自己的命名空间，且不能访问自己参数列表之外或全局命名空间里的参数</li>
+<li>不等同于C或C++的内联函数</li>
+</ul>
+<p>格式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">lambda</span> [arg1 [,arg2,.....argn]]:expression</span><br></pre></td></tr></table></figure>
 
  
       <!-- reward -->
