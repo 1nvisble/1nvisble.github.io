@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>论文翻译 |  知无涯也</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/panda.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <!-- mermaid -->
+      
+    <link rel="alternate" href="/atom.xml" title="知无涯也" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-论文翻译"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  论文翻译
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/09/19/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91/" class="article-date">
+  <time datetime="2021-09-19T00:50:12.000Z" itemprop="datePublished">2021-09-19</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%E4%B8%8E%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">计算机组成原理与体系结构</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">9.6k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">33 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="需求，瓶颈，好运：微处理器演变的动力"><a href="#需求，瓶颈，好运：微处理器演变的动力" class="headerlink" title="需求，瓶颈，好运：微处理器演变的动力"></a>需求，瓶颈，好运：微处理器演变的动力</h1><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>​    第一台微处理器——Intel 4004于1971年问世，其集成了2300个晶体管，时钟频率为108KHz。在三十年后的今天，一个微处理器中集成了近2亿个晶体管，其时钟频率超过了1GHz。在未来的5年里，集成在单个芯片上的晶体管的数量预计将超过10亿，以从6GHz到10GHz的时钟频率运行。</p>
+<p>​    微处理器的演变，始于1971年，发展到今日的状况，再到未来5年后可能到达的位置，是因为几个贡献性的力量。我们的立场是：这种演变不是恰好发生的，而是演变的每一步都是三件事其一影响的结果，而且其背景总是计算机架构师于三者中做权衡、折衷。这三件事是：1)新需求；2)瓶颈；3)好运气。我将它们统称为演变的动力。</p>
+<p>​    这篇文章尝试从三个方面展开：描述微处理器领域的一个基本框架，展示自第一台微处理器问世后的三十年里的重大发展，最后，提出一些新事物，有望于在未来的5年内看到发生在高性能微处理器上的新事物。</p>
+<p>​    <strong>关键词</strong>——计算机体系结构，微体系结构，微处理器， 微处理器设计，微处理器进化。</p>
+<h2 id="Ⅰ-基本框架"><a href="#Ⅰ-基本框架" class="headerlink" title="Ⅰ. 基本框架"></a>Ⅰ. 基本框架</h2><h3 id="A-计算机体系结构：折衷（权衡）的科学"><a href="#A-计算机体系结构：折衷（权衡）的科学" class="headerlink" title="A. 计算机体系结构：折衷（权衡）的科学"></a><em>A. 计算机体系结构：折衷（权衡）的科学</em></h3><p>​    计算机体系结构，与其说是“科学”，不如说是“艺术”。随着阅历的增长，我们的能力和洞察力都有所提升。计算机架构师会借鉴以往的设计经验来对当前项目做出决策。如果说计算机体系结构是一门科学，那么它是一门关于权衡的科学。在过去的半个世纪里，计算机架构师一直在学习钻研基础知识，以帮助他们能够实践他们的工艺。 计算机架构师的工作几乎总是需要使用这些基础知识来进行权衡，尤其在微处理器的整个发展过程中，亦是如此。 </p>
+<p><img src="/2021/09/19/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91/fig1.jpg" alt="image"></p>
+<p>​                                                 图1  现代微处理器</p>
+<h3 id="B-抽象变换的层次结构"><a href="#B-抽象变换的层次结构" class="headerlink" title="B. 抽象变换的层次结构"></a><em>B. 抽象变换的层次结构</em></h3><p>​    晶体管的数量以及其开关时间是工艺技术所提供的资源。（以上为直译，个人理解为：集成在单个芯片上的晶体管的数量和晶体管的开关时间由加工技术决定。）我们将这些资源用于什么则取决于市场的需求。 我们如何使用这些资源就是微处理器的全部意义所在（个人理解为：根据市场需求，而后使用这些资源来制造微处理器，也就是需求和资源的一种折衷）。 图1展示了抽象变换的层次结构，一个用自然语言描述的问题如英语，必须通过这几层的抽象变换（根据问题，求解算法，选择适当算法编写程序，然后高级语言程序翻译成机器语言程序，再到微程序解释机器语言程序，最后硬件执行微指令，再到底层的电路，最后是最底层的电子，也就高低电平变换01变换，也就是电子）最终才能得以解决。在现实中，是电子运动做动解决了问题。然而，我们并不会在实际中说“电子”，同时“电子”也不会说任何自然语言，我们能做的最好的事情就是通过图1所示的层次结构系统地来转换问题，直到到达电子（或着说设备）层，这一层也就是集成了2亿个集体管，时钟频率为1GHz的芯片。</p>
+<p>​    在这个过程中，问题的解决方案首先被用算法的形式来明确阐述以致消除自然语言的一些不可接受的特性，如歧义性。然后用机器语言对其编码并编译为特定微处理器的指令集架构（ISA）。ISA是一致商定的接口:1)编译后的程序用来告诉微处理器该程序需要做什么；2）微处理器用来知道它必须代表程序执行什么。ISA由一组硬件结构实现，其被统称为微处理器的微体系架构。每个硬件结构以及之间的相互连接均由电子数字电路组成，而电子数字电路又由电子设备组成。</p>
+<p>​    当我们今天讨论微处理器时，我们通常是指图1的阴影部分。每个微处理器由电路组成，电路实现了硬件结构（统称为微体系架构），其提供了一个面向软件的接口（被称为ISA）。在个人计算机中，ISA一般是IA-32，个人电脑的ISA是IA-32，微架构是Intel的Pentium IV，或者是早期的Pentium III、Pentium II、Pentium Pro、486等等，或者AMD的K-8， 或者为更早的K-7、K-6 等。 </p>
+<p>​    还有一些其他的ISA：例如SPARC(来自Sun Microsystems)，Alpha（来自Compaq），以及Power-PC(来自Motorola and IBM)。每种ISA都有其自己的特性来为编译器提供更好或更坏的接口，或者说微体系架构跟好或更坏地执行工作。对于每个ISA，都有多个不同的微体系架构。 我们已经提到了IA-32 的几个微架构。 于Alpha而言， 有 21064、21164 和 21264。</p>
+<p>​    在层次结构的每一步中，从算法的选择到语言，到ISA 到微体系结构，到电路，都有选择，因此就有权衡。 </p>
+<p>​    人们通常在更高的性能和更低的价格之间做选择，但并非总是如此。举一个汽车的类比可能更有启发性。可以制造一台高性能跑车，其可以在几乎0秒内从0英里/小时加速到 100 英里/小时。但是其造价会非常高。或者，可以制造一辆非常便宜的汽车，它的时速永远无法达到 100 英里/小时，但每加仑汽油可以行驶 100 英里。性能和经济性不可兼得。这就是权衡。</p>
+<h3 id="C-设计要点"><a href="#C-设计要点" class="headerlink" title="C. 设计要点"></a><em>C. 设计要点</em></h3><p>​    微处理器的设计就是做相关的权衡（折衷）。我们将微处理器设计中的这组考虑因素以及每个考虑因素相关重要性成为微处理器的“设计要点”–也就是说，于微处理器用途而言最重要的特性，以至于较少关注于其他特性。性能、成本、散热和功耗是强烈影响设计点的特性的示例。另一个示例是“高可用性”——设计一个微处理器时其中考虑最多的就是这个微处理器永远不会出故障。如果可以确保微处理器永远不会出现故障，一些客户愿意接受更低的性能或更高的价格。我们将这种处理器称为“容错”或高可用性的。</p>
+<p>​    其他客户则愿意为节能、续航牺牲一部分性能，随着最高性能芯片的功率和能耗越来越大，大得令人无法接受，这个设计要点愈发重要。这就存在一个最高性能与功耗意识的权衡。</p>
+<p>​    值得一提的是，“功耗意识”与另一个重要的设计要点“低功耗”不同，在许多应用中，首先考虑的是微处理器消耗非常少量的能源但能长时间运行。</p>
+<h3 id="D-应用空间"><a href="#D-应用空间" class="headerlink" title="D. 应用空间"></a><em>D. 应用空间</em></h3><p>图1中“问题”一词是应用空间的统称，或者说我们希望使用微处理器的一组应用程序。应用程序的数量正在以惊人的速度增加，而且预计未来仍会保持增长的趋势。实际上，只要人们期望计算机的用途更加广泛（或者说计算机能实现更多功能），则对于微处理器的需求和权衡将会持续扩大。也就是说，应用空间（或更准确说，具有核心重要性的应用）驱动着这个设计要点。我们前面那已经提到了高可用性处理器，其中应用程序要求微处理器永远不出故障，以及在低功耗处理器中，应用程序必须能够消耗少量能量而能长时间运行。</p>
+<p>​    持续驱动独特设计要点需求的应用空间的其他示例如下：</p>
+<pre><code>1. 科学应用，例如，计算控制核电站，决定开采石油的位置，预测天气；
+2. 基于事务的应用程序，例如办理ATM转账和电子商务业务;
+3. 业务数据处理应用程序，例如处理库存控制、工资、IRS活动和各种个人记录的应用程序，无论这些个人是雇员、学生还是选民;
+4. 网络应用，例如高速路由的互联网数据包，使你的家庭系统连接利用互联网;
+5. 有保证的交付(即实时)应用程序，要求在某个关键期限之前得到计算结果;
+6. 嵌入式应用程序，其中处理器是更大系统的一个组件，用于解决(通常)专用应用程序;
+7. 解码视频和音频文件等媒体应用程序;
+8. 桌面用户希望在自己的电脑上运行的随机软件包。
+</code></pre>
+<p>每个应用领域都有其特点，与其他领域大不同。每个应用领域都要求做不同的权衡、折衷来设计微处理器来满足其完成工作。</p>
+<h3 id="E-基本处理"><a href="#E-基本处理" class="headerlink" title="E. 基本处理"></a><em>E. 基本处理</em></h3><p>​        微处理器处理执行指令，简单地说，有三个步骤：1)向处理器核心提供指令，让每条指令都能完成它的工作;2)提供每条指令所需的数据;3)执行每条指令。</p>
+<h3 id="F-指令供给"><a href="#F-指令供给" class="headerlink" title="F. 指令供给"></a><em>F. 指令供给</em></h3><p>在提供指令的早期阶段，一次取一条指令，解码并发送到内核进行处理。 随着时间的流逝，一次能取到指令的数量已经从一个增加到了四个，而且很可能不久就增长到六或八。 有三个因素会妨碍为内核充分提供待处理的指令：指令缓存未命中、获取中断和条件分支错误预测。 当对指令缓存不命中时，指令的供应量下降到零，直到高速缓存未命中得到解决。 当被提取的指令是一个已采取的分支时，则会发生提取中断，这使得在同一周期中提取的所有后续指令都变得无用，与问题宽度无关。 条件分支错误预测意味着自错误预测分支以来取出的所有指令都是无用且浪费了资源，并且必须在执行正确的指令路径继续之前将其丢弃。 </p>
+<h3 id="G-数据供给"><a href="#G-数据供给" class="headerlink" title="G. 数据供给"></a><em>G. 数据供给</em></h3><p>为了提供一条指令所需的数据，人们需要能够在接近0的时间内（尽可能的快）以合理的成本（成本和速度的折衷）无限地提供所需数据。实际数据存储器无法满足这三个要求。 我们能做的最好的是一个存储层次结构，其中可以在一到三个周期内访问少量数据（在芯片上），在十到十六个周期内可以访问更多数据（也在芯片上）， 并且可以在数百个周期内访问更多数据（片外）。 <del>结果是实际数据存储器受到取出特定数据元素的时延和将该数据元素从其在存储层次结构中的位置移动到需要它的处理器核心所必需的带宽的二者的制约。</del> </p>
+<p>尽管这种片外延迟在今天依旧很糟糕，而这种情况一直在变得更差。 处理器的指令周期时间（这里联系上文中的处理器，这里的周期应该为指令周期——CPU每取出并执行一条指令所需要的时间，是从取指令、分析指令到执行完指令所需的全部时间。）的改进一直在增长，，且比内存周期时间快得多的速度增长。 几年后，我们希望看到对内存的片外数据访问需要数千个处理器周期。</p>
+<h3 id="H-指令处理"><a href="#H-指令处理" class="headerlink" title="H. 指令处理"></a><em>H. 指令处理</em></h3><p>为了执行这些指令所需的操作，需要足够数量的功能单元来在数据可用时立即处理数据，并且需要足够的互连以将一个功能单元产生的结果立即提供给需要它的功能单元 来源。 然而，足够的互连是不够的。 随着片上周期时间的减少，将芯片某一部分的功能单元所产生的结果转发到芯片其他部分的功能单元，在这个功能单元中结果是源操作数的一部分，其所需的延迟会变得更糟。  </p>
+<h2 id="Ⅱ-演变的动力"><a href="#Ⅱ-演变的动力" class="headerlink" title="Ⅱ. 演变的动力"></a>Ⅱ. 演变的动力</h2><p>许多因素促进了微处理器的发展：消费者愿意购买供应商生产的产品——如果没有市场，我们早就回家了。 工程师解决问题的创造性——没有解决方案，就没有更新演化。 </p>
+<p>我认为这些事情是次要的，强制性的功能（我称之为演变的动力）是新的需求、瓶颈和幸运。 </p>
+<h3 id="A-动力-Ⅰ：新的需求"><a href="#A-动力-Ⅰ：新的需求" class="headerlink" title="A. 动力 Ⅰ：新的需求"></a>A. <em>动力 Ⅰ：新的需求</em></h3><p>早期的微处理器将处理限制为在每个周期内取指、译码，并将其及其数据转发到内核中的功能单元进行处理。但对于更高性能的需求来说，每个周期获取一条指令是远远不够的。 结果是宽发射微处理器（wide-issue microprocessor），其中取指机制允许在每个时钟周期内取指、译码和转发多条指令到执行核心。 </p>
+<p>另一个例子，也是由于对高性能的要求，需要同时处理多条指令。 如果只有一个 ALU，则一次只能做一个 ADD。 其结果是目前在一个执行核心中集成了多个功能单元。 </p>
+<p>今天，普遍的新需求涉及功耗，或称为功耗感知计算。 要求是提供与先前设计相同水平的计算机性能，同时功率小于先前设计所需功率。 请注意，这与嵌入式处理器的低功耗要求不同，后者在一段时间内一直是一个重要的设计要点。 </p>
+<p>有很多人认为未来的新需求将涉及人机交互界面，随着计算机/人机交互变得越来越普遍，人机界面需要越来越多的关注。 </p>
+<h3 id="B-动力-Ⅱ：瓶颈"><a href="#B-动力-Ⅱ：瓶颈" class="headerlink" title="B. 动力 Ⅱ：瓶颈"></a>B. <em>动力 Ⅱ：瓶颈</em></h3><p>我们已经在上面确定了指令处理的三个组成部分（取指、取数和执行指令的操作），以及每个组成部分的含义。 到目前为止，微处理器的大部分改进都是为了消除阻碍这三个组件完成工作的瓶颈。 </p>
+<p>例如，取指需要在每个周期取一定数量的指令——今天是四个——指令。 如果这些指令存储在内存中，那么获取的时间会太长。 瓶颈是缓慢的访存。 因此，发明了指令缓存。 </p>
+<p>如果硬件有能力获取四条指令，但第二条指令是条件分支，则只能获取两条指令，而不是四条指令。 由条件分支引起的瓶颈是指令按照编译器生成的顺序排列，而不是指令执行的（动态）顺序。 最近添加到 Pentium IV 的新功能是跟踪缓存，它按照最近执行的顺序而不是编译器编译的（静态的）顺序来存储指令。 </p>
+<p>最后，如果每个周期都提供指令（取指），则在遇到分支时会出现问题，因为尚不确定是否满足条件而采取分支转移，有可能转移，也有可能不转移。可以等待得出指令的执行结果，先暂时停止指令的获取，直到确定是否满足条件，（即确定该指令的下一条指令）。 通过引入分支预测器突破了这个瓶颈，它猜测是否应该采用分支，并根据这个猜测立即取指。 </p>
+<h3 id="C-动力-Ⅲ：好运气"><a href="#C-动力-Ⅲ：好运气" class="headerlink" title="C. 动力 Ⅲ：好运气"></a>C. <em>动力 Ⅲ：好运气</em></h3><p>当某些事情导致意外收获时，这就是幸运，然后其意外收获可被用于为微处理器提供额外的功能。 这方面的一个很好的例子是技术收缩，它允许微处理器的下一代实现比以前的实现占用更少的芯片空间。 由于旧设计所需的空间更少，因此可以有更多空间用于做其他事情。 以这种方式引入微处理器的其他两个例子是 1980 年代中期的片上浮点加速器和 1990 年代后期在片上添加的多媒体指令扩展功能。</p>
+<h2 id="Ⅲ-演变历程：从1971到今天"><a href="#Ⅲ-演变历程：从1971到今天" class="headerlink" title="Ⅲ. 演变历程：从1971到今天"></a>Ⅲ. 演变历程：从1971到今天</h2><p>微处理器已经从 Intel 4004 的简单 2300 个晶体管发展到今天的样子。这种演变是源于几个原因，正如上面所述。 其结果是今天的 Pentium IV 与 1971 年的 Intel 4004 几乎没有相似之处。</p>
+<p>这种演变的一些例子如下。 </p>
+<h3 id="A-流水线"><a href="#A-流水线" class="headerlink" title="A. 流水线"></a><em>A. 流水线</em></h3><p>早期的微处理器在开始处理下一条指令之前，处理一条指令要经历取指到指令休止。流水线，最晚自 1960 年代以来就在大型计算机中出现，是解决该性能瓶颈的重要方案。 具有商业利益(商用)的微处理器（例如 Intel 8086）在 1970 年代后期通过在执行当前指令时预取出下一条指令，向流水线迈出了第一步。 </p>
+<p>片内缓存稍微些才出现在微处理器中。 从片外存储器取指令和数据到片内处理元件的时延太大。解决方案是：片内缓存。 1984 年，第一个具有片上缓存的商业可行（商业）微处理器是摩托罗拉 MC68020。 在具有流水线技术的处理器中，能够在同一周期内取指令和取数据，而不是争用一个端口到缓存读取，突破了瓶颈，这是很有用的。1986 年，摩托罗拉的 MC68030 是第一批包含独立的片内的指令和数据缓存的微处理器。 </p>
+<p>缓存要么速度快要么容量大，不能两者兼得。因为缓存必须很快，那么它的容量不得不很小，从而导致缓存未命中率过大。 高速缓存未命中的问题是片外为解决未命中的延迟太大。解决方案是：芯片上有两级缓存，因此较快、容量小的一级缓存中的未命中可以通过容量较大、速度较慢的二级缓存来解决，这仍然比片外快得多。 直到 1994 年左右Alpha 21164 问世，这个技术才出现在微处理器上。今天，几乎所有的高性能微处理器都有两级缓存。 </p>
+<h3 id="C-分支预测"><a href="#C-分支预测" class="headerlink" title="C. 分支预测"></a><em>C. 分支预测</em></h3><p>如果条件分支产生流水线停顿，等待处理分支条件且执行完分支指令，则失去了流水线的优势。 硬件（运行时）分支预测器直到 1990 年代初才在微处理器芯片上实现。早期，一些引入运行时分支预测器的微处理器是摩托罗拉的 MC88110、Digital 的 Alpha 21064 和英特尔的 Pentium。 </p>
+<h3 id="D-片内浮点单元"><a href="#D-片内浮点单元" class="headerlink" title="D. 片内浮点单元"></a><em>D. 片内浮点单元</em></h3><p>早期的微处理器有一个单独的芯片来处理浮点运算。 随着晶体管越来越小，芯片越来越大，通过利用“新”的空闲容量并节省不必要的片外通信，芯片上集成的晶体管数目达到了可以将浮点单元与主处理单元放在同一芯片上的程度。 摩托罗拉 MC88100 和英特尔 486 是 80 年代后期在主处理器芯片上集成浮点单元的两款早期芯片。 </p>
+<h3 id="E-其余专业功能单元"><a href="#E-其余专业功能单元" class="headerlink" title="E. 其余专业功能单元"></a><em>E. 其余专业功能单元</em></h3><p>早期的微处理器只有一个或很少的功能单元。 随着芯片上晶体管数量的增多，人们也认识到可以通过利用多个功能单元来并发执行。 首先添加了诸如单独处理 ALUs之类的功能单元。 然后，更复杂的加载/存储功能单元其包含写缓冲区、未命中未决队列和处理内存消歧机制等，成为 1990 年代通用微处理器芯片的一部分。1986 年，英特尔的 I860 是首批拥有多个专用功能单元之一，除了浮点加法和乘法单元之外，还有一个单元用于辅助图形处理。 </p>
+<h3 id="F-乱序执行"><a href="#F-乱序执行" class="headerlink" title="F. 乱序执行"></a><em>F. 乱序执行</em></h3><p>程序员/编译器和微体系结构之间的契约要求指令必须按照翻译程序指定的顺序执行。而这就导致了一个瓶颈：如果当前指令因需要其后续指令为他提供其开始执行所需的全部内容，而不能执行，则会阻止其他指令执行。（简而言之，就是当前指令需要后续指令为其提供数据才能开始执行，那么当前数据不能执行，因为只有执行了当前指令，才能执行后续指令，就陷入了一个死锁）</p>
+<p>自 1960 年代中期以来， 就已经提出这一瓶颈的机制，即乱序处理，例如，IBM 360/91。然而，该机制仅限于高性能科学计算，同时在高性能计算中，能够处理精确异常并不是重要需求。然而目前几乎所有制造商都认可IEEE 浮点标准，这表明处理精确异常并非不是重要需求。 尽管如此，虽然乱序执行已在大型机上使用了 35 年，但直到在1990 年代中期，它与精确异常处理的结合使用才在微处理器上首次出现。</p>
+<p>为了适应乱序执行，微处理器调整了早期大型机上使用的寄存器别名和执行部件中的驻留站 。为了做到这一点，微处理器必须能区分指令执行和指令退出。指令在它们的执行所需资源（数据和功能单元）可用时才被允许执行，独立于它们在程序中的顺序，但被迫以它们在执行程序中出现的相同顺序退出。也就是说，内部微架构可以乱序执行指令，但必须按照指令在执行程序中出现的顺序报告执行结果（即改变计算的永久状态）。如果要实现这样功能，则需要一个能在异常情况下恢复状态的机制。这种状态恢复机制在当今大多数微处理器上通常表现为重新排序缓冲区，在少数微处理器上表现为检查点退休结构。尽管其他微处理器更早地出现了无序执行的情况，但第一个充分实现这一机制的是 1995 年的 Pentium Pro。</p>
+<h3 id="G-集群"><a href="#G-集群" class="headerlink" title="G. 集群"></a><em>G. 集群</em></h3><p>单芯片尺寸继续增大，特征尺寸继续减小，片内频率继续增大。 结果是芯片一角上的功能单元得到的值不能在片间传输，从而不能在下一个周期内中于芯片对角上的功能单元为源操作数使用。 解决方案——将执行核心划分为集群，以便在大多数情况下，一个集群中的功能单元产生的结果将被同一集群中的另一个功能单元使用。 但仍然存在不知道将特定指令引导到哪个集群取执行的问题，但是如果成功，原来因一个执行结果必须经芯片的主要部分传输而需要多个周期的不正常延迟消失。 此功能在 1990 年代后期首次出现在 Alpha 21264 上。 </p>
+<h3 id="H-芯片多处理器"><a href="#H-芯片多处理器" class="headerlink" title="H. 芯片多处理器"></a><em>H. 芯片多处理器</em></h3><p>芯片日益丰富的另一种用途（更多的晶体管，与更快的工作频率相结合）是将芯片划分为多个区域，每个区域使用相同的处理器。 该范例被称为 CMP，用于芯片多处理器。 对于易于划分为独立指令流的任务，其中需要指令流之间的大量通信，CMP 是一种有用的范例。 它提供了发生在片内的处理器间通信的额外好处，其中这种通信比片外通信快得多。 IBM 于 2000 年实现了此功能，其 G4 芯片上有两个处理器。 </p>
+<h3 id="I-同步多线程"><a href="#I-同步多线程" class="headerlink" title="I. 同步多线程"></a><em>I. 同步多线程</em></h3><p>当指令高速缓存访问出现未命中时，指令供应会受到影响。 在等待缓存命中时浪费了大量容量。 Burton Smith 在 1978 年 [3] 建议使用该空闲容量从其他指令流中获取指令。 这个概念首先在他的 Donelcor HEP 上实现。 这个概念直到 1990 年代才在微处理器世界中亮相，在微处理器中，它被扩展为允许在交替周期中从交替的单个指令流中取指，但基于所需数据的可用性，在同一周期中同时从所有指令流中执行 取指。第一个实现此功能的微处理器是 2000 年的 Pentium IV。 </p>
+<h3 id="J-更快的内核"><a href="#J-更快的内核" class="headerlink" title="J.更快的内核"></a><em>J.更快的内核</em></h3><p>在密集型计算任务中，等待较早执行指令产生的结果为源操作数的数据依赖可能是一个重要的瓶颈。 一个解决方案是——以比微处理器其他部分快得多的频率运行执行核心。 2000 年推出的 Pentium IV 芯片的工作频率为 1.7 GHz，但 ALU 的工作频率为 3.4 GHz。 </p>
+<h2 id="Ⅳ-十亿晶体管芯片的未来"><a href="#Ⅳ-十亿晶体管芯片的未来" class="headerlink" title="Ⅳ. 十亿晶体管芯片的未来"></a>Ⅳ. 十亿晶体管芯片的未来</h2><p>正如我们所说，在当前的十年内，工艺技术有望在单个芯片上集成 10 亿个晶体管，并以 6 至 10 GHz 的频率运行。 那么我们将如何利用所有这些能力？ </p>
+<p>今天的计算机架构师并不认同。 有些人主张扩展我们上面描述的 CMP 理念。 论据是，如果有 10 亿个晶体管，我们可以在单个芯片上集成 100 个微处理器，每个处理器由 1000 万个晶体管组成。 该论点进一步指出，一个 1000 万晶体管处理器仍然非常庞大，建造任何比这更大的东西只会适得其反，导致更大的收益递减。 </p>
+<p>其他人则是建议扩大使用同步多线程。 他们认为 CMP 所需的许多资源可以在单个处理器 SMT 芯片上共享，从而将节省的资源释放给其他功能，例如更大的缓存、更好的分支预测器、更多功能单元等 </p>
+<p>而包括本文作者在内的一些人指出，虽然 SMT 在共享资源方面肯定比 CMP 有所改进，但在加快大多数重要的非科学基准测试方面，它们都存在不足。 原因：这些基准测试中的大多数都有令人失望的特性，re: SMT，由单个指令流组成。 一个非常昂贵的芯片应该解决多计算机网络无法解决的问题，这个计算机网络由许多更小更便宜的芯片组成的。这一观点主张使用所有的10亿个晶体管来生产一个非常高性能的单处理器。</p>
+<p>还有一些人抱怨说，由于 CAD 工具已经无法准确验证我们当前的芯片，所以设计更复杂的芯片是不负责任的。 他们提倡一个非常简单的核心处理器，其有较大容量的片上缓存。</p>
+<p>那些以成本为中心(这是一个非常不同的设计要点)的厂商认识到，更高水平的集成可以生产出更便宜的产品，并建议使用10亿个晶体管，将整个非激进的系统放在一个芯片上。</p>
+<p>这些都是可供选择的建议，我推测它们中的每一个都会在未来十年内出现在某些产品中。我个人的偏好是使用十亿个晶体管来发展最高性能的单处理器，以处理单指令流应用。推动这一发展的因素和以前一样:新的需求、瓶颈和好运。以下是我们可能会看到的一些想法。 </p>
+<h3 id="A-新微处理器"><a href="#A-新微处理器" class="headerlink" title="A. 新微处理器"></a>A. 新微处理器</h3><p>到目前为止，微处理器的设计方式如图1所示。但是为什么这样做呢？如果我们把我们的抽象变换层次并把算法和语言包含在微处理器中，那么微处理器就变成了使用 器件工艺来解决问题的东西。参见图2。为什么不能为解决应用空间中的某一点，而设计一个微处理器，在这个微处理其中，将解决该问题所需的专用算法嵌入到微处理器中，为什么这样实现是不合理的呢？我们今天在低成本的嵌入式应用程序中这样实现。但为什么不能在可接受的高成本的有高性能要求的机器中实现呢呢？</p>
+<p>这种定做可以采用以下讨论的可重构逻辑的形式，ISA中的特殊专用指令，或者芯片上提供的集成功能单元(如DSP引擎。</p>
+<p><img src="/2021/09/19/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91/fig2.jpg" alt="image"></p>
+<p>​                                                图2   未来的微处理器</p>
+<h3 id="B-新的数据路径"><a href="#B-新的数据路径" class="headerlink" title="B. 新的数据路径"></a><em>B. 新的数据路径</em></h3><p>片内的时钟频率有望于到达很高以至于必须认真考虑芯片上任何信号线的长度。有些信号需要多个周期才能在芯片完成传输。必须仔细检查哪些信号可以这样做。大多数信号可能都不行。 这就产生了挑战：根据线长的新限制重新设计数据路径。</p>
+<h3 id="C-内部容错"><a href="#C-内部容错" class="headerlink" title="C. 内部容错"></a><em>C. 内部容错</em></h3><p>片内的时钟频率提升的另一个后果是对软错误的敏感性——由于材料的物理特性，在有望实现的如此高的时钟频率下运行，这些错误将间歇性地和不频繁地出现。未来的微处理器将必须提供在这些软错误发生时进行检查和纠正的功能。 </p>
+<h3 id="D-异步和同步单元共存"><a href="#D-异步和同步单元共存" class="headerlink" title="D. 异步和同步单元共存"></a><em>D. 异步和同步单元共存</em></h3><p>时钟脉冲相位差（查阅资料：<strong>时钟脉冲相位差</strong>是指同时产生的两个时钟信号，到达接收端的时间不同步。）已经成为一个严重的问题。在时钟频率为 6 GHz 时，情况会更糟糕。 诚然，异步结构更难设计，但它们确实解决了所有部件都要同步的全局时钟的问题。这一点非常重要，值得我们应对设计困难这一挑战。我的期望是，我们将看到一些部件在一段固定的时间内异步运行(以时钟周期衡量)，之后它们与全局时钟同步。 不同的部件需要不同的时间来进行异步操作，以解决其独特的时钟脉冲相位差问题。</p>
+<h3 id="E-不同功能的不等周期时间"><a href="#E-不同功能的不等周期时间" class="headerlink" title="E. 不同功能的不等周期时间"></a><em>E. 不同功能的不等周期时间</em></h3><p>对于那些同步运行的部件，没有必要它们都以芯片的额定频率运行。例如，不需要以高速运行的部件可以设计成以慢速运行，从而节省电力。未来的晶体管预算可以提供巨大的灵活性，以适当地满足片上需求的可变性。</p>
+<p>ALU以处理核上其余部分运行频率的两倍运行，这只是冰山一角。 未来的微处理器可以智能地使用时钟，在需要的地方提高速度，在不需要的地方降低速度，在速度根本不重要的地方可以非常慢。</p>
+<h3 id="F-新材料"><a href="#F-新材料" class="headerlink" title="F. 新材料"></a><em>F. 新材料</em></h3><p>我不知道这些材料从何而来，但摩尔定律仍然适用，尽管每五年左右就会出现一些末日论者来宣告它的消亡。 关键的重要材料要与芯片上的导电性相比，更重要的是，与功率要求和散热相比（关键材料要关注导电性、功率、散热）。 因此，本着纯粹的一厢情愿的精神，我希望工程的独创性再次占上风。 （即，有新材料的出现实现更好的性能）。</p>
+<h3 id="G-微程序的扩展使用"><a href="#G-微程序的扩展使用" class="headerlink" title="G. 微程序的扩展使用"></a><em>G. 微程序的扩展使用</em></h3><p>片外带宽十分昂贵，片上带宽十分充足。 我的期望是：我们将更有效地利用片上带宽。 微程序的扩展使用是实现这一点的一种方法。 例如，微程序可以利用处于主指令流从属地位的未充分利用的功能单元的空闲容量。 我们创造了术语：从属同步微线程 (SSMT) 来反映其在 SMT 机器中的作用 [4]。 这些微程序可以执行动态重新编译、计算一些复合指令、调整缓存替换策略，或者以其他方式执行计算，使主指令流执行得更快。 </p>
+<h3 id="H-可重构逻辑"><a href="#H-可重构逻辑" class="headerlink" title="H. 可重构逻辑"></a><em>H. 可重构逻辑</em></h3><p>与图2一致，我希望未来的许多微处理器能够满足特定应用的要求。一个应用程序可以很好地利用一些对其他应用程序无用的逻辑功能，而另一个应用程序可以很好地利用另一个对第一个应用程序无用的逻辑功能。也许这两个应用程序都可以在具有运行时动态调整能力的微处理器有效运行。也就是说，我认为片上结构(可能是低粒度FPGA，但更可能是高粒度可重构逻辑结构)将是未来微处理器的通用结构。</p>
+<h3 id="I-集锦"><a href="#I-集锦" class="headerlink" title="I. 集锦"></a><em>I. 集锦</em></h3><p>最后，我列出了我希望在 2008 年或 2009 年的高性能微处理器中实现的功能的清单，或者是无论何时工艺技术最终使得我们可在单个心片上集成了 10 亿个晶体管。 </p>
+<ol>
+<li>跟踪缓存的扩展使用，其中动态指令流段每个条目将包含远远超过8条指令，可能在编译器的帮助下预先安排(类似于块结构ISA或重放机制)，但在运行时进行优化。</li>
+<li>片内微程序，其用于使用执行核心的空闲容量来调整片上硬件结构。</li>
+<li>执行程序的动态重新编译，可能由填充单元执行，或者片上微程序实现，这将会十分常见。</li>
+<li> 多个（至少三个）级别的缓存以及相应的ISA的 添加（多个预取和后存储指令）以响应内核对数据的需求 ，将数据移近内核并远离内核。</li>
+<li>激进的价值预测硬件，可能是程序级别的预测，以及有相应的编译器优化以帮助其有效性。</li>
+<li>性能监控硬件，其允许在运行时调整硬件以更有效地与执行程序的需求相匹配。 </li>
+<li>一种用于监控和影响芯片能源使用的片上部件</li>
+</ol>
+<h2 id="Ⅴ-总结"><a href="#Ⅴ-总结" class="headerlink" title="Ⅴ. 总结"></a>Ⅴ. 总结</h2><p>自 1971 年问世以来，微处理器经历了一段激动人心的历程。很少有技术可以夸耀它取得的巨大进步。 不幸的是，有些人会争辩说这个黄金时代即将结束。 但这样的反对者以前也有过。 1986年，他们说MIPS R2000是所有人需要的微处理器，十年后，他们说Intel Pentium Pro 是任何人都需要的微处理器。 该行业将会继续发展得很好，享用该技术的用户能继续“更好地”享用这种技术。 </p>
+<p>这并不是说这样的情况会一成不变，不再需要新的独创性。在下层，我们可能需要底层结构发生彻底的根本的变化，比如量子计算，来拯救我们，但我们现在几乎没有受到限制。</p>
+<p>当然，我们需要开发更好的 CAD 工具。 当前的 CAD 工具无法验证当今的微处理器，更不用说本文中的建议了。 而且，我们确实需要更广泛地思考微处理器的概念（例如，图 2）。但底线是，摩尔定律仍然存在，并且仍然提供了大量的机会。</p>
+<h2 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h2><p>这篇导论脱胎于多年来与以前和现在的学生以及同事的许多互动交流。 也感谢S. J. Patel、R. Belgard 和 R. R. Ronen 对本文的评论和批评。 值得一提的是，Ronen 和他在英特尔的同事 [5] 的一篇论文中提供了对这里涉及的许多问题的出色以及更详细的回答，本文作者向读者推荐该论文。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li>[1] H. Mazor, “The history of the microcomputer-invention and evolution,”<br>Proc. IEEE, vol. 83, pp. 1601–1608, Dec. 1995.</li>
+<li>[2] Intel web site [Online]. Available: <a target="_blank" rel="noopener" href="http://www.intel.com/pressroom/kits/quickrefyr.htm#1971">http://www.intel.com/pressroom/kits/quickrefyr.htm#1971</a>.</li>
+<li>[3] B. Smith, “A pipelined, shared resource MIMD computer,” in Proc.<br>1978 Int. Conf. Parallel Processing, Aug. 1978, pp. 6–8.</li>
+<li>[4] R. S. Chappell, J. Stark, S. P. Kim, S. K. Reinhardt, and Y. N. Patt,<br>“Simultaneous subordinate microthreading (SSMT),” in Proc. 26th<br>Annu. Int. Symp. Computer Architecture, May 1999, pp. 186–195.</li>
+<li>[5] R. Ronen, A. Mendelson, K. Lai, S.-L. Lu, F. Pollack, and J. P. Shen,<br>“Coming challenges in microarchitecture and architecture,” Proc.<br>IEEE, vol. 89, pp. 325–340, Mar. 2001.</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://1nvisble.github.io/2021/09/19/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/" rel="tag">计算机体系结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" rel="tag">计算机组成原理</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2021/09/23/python%E5%AD%A6%E4%B9%A0/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            python学习
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2021/06/27/Java%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%EF%BC%88Proxy%EF%BC%89/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Java代理模式（Proxy）理解</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "tMzmCoClzWlTqD4Bt6fwEvl7-gzGzoHsz",
+    app_key: "yenrgDCsVOtSCvx3IWHen53i",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2019-2021
+        <i class="ri-heart-fill heart_icon"></i> 1nvisble
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="知无涯也"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+ 
+<script src="/js/clickBoom2.js"></script>
+ 
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+ 
+<script src="/js/dz.js"></script>
+ 
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=442867218&auto=1&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+</body>
+
+</html>
