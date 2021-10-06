@@ -55,146 +55,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Java中equals方法和hashCode方法</title>
-    <url>/2021/06/15/Java%E4%B8%ADequals%E6%96%B9%E6%B3%95%E5%92%8ChashCode%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>软件构造课上，之前介绍了ADT，讲了RI、AF，AF，及抽象函数解释了该类型是如何将内部表示映射为使用者理解的抽象数据的。那如何判断这些ADT的相等性，这就涉及到了java中很重要的一个知识点，equals方法和hashCode方法。</p>
-<h2 id="VS-equals"><a href="#VS-equals" class="headerlink" title="== VS equals()"></a>== VS equals()</h2><p>我们在C中常使用==操作来判断相等。而在Java中，不仅提供了==来判断相等</p>
-<p>，还提供了equals()方法，其主要用于比较ADT的相等。</p>
-<h3 id><a href="#" class="headerlink" title="=="></a>==</h3><p>==这个相等判断比较的是两个比较对象的索引的相等，或者说是引用相等。如果两个索引指向同一块存储区域，那它们就是==的，也就是相等的。在snophot图中，<code>==</code>就意味着两个比较对象的箭头指向同一个对象或值。</p>
-<h3 id="equals-方法"><a href="#equals-方法" class="headerlink" title="equals()方法"></a>equals()方法</h3><p>equals方法操作比较的是两个对象（object）的内容，或者说，比较的是对象值相等。每当我们定义一个ADT时，我们需要判断，对于这个ADT来说对象值相等是如何定义的，或者说如何实现equals方法。</p>
-<p>假设存在一个Person的ADT，其成员属性有两个，一个为name，一个为number。</p>
-<p>那我如和判断Person这个ADT实例的两个对象是否相等呢？是判断其name和number相等就算相等，还是只要判断name就算相等，可能一个人有多个手机号。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>所以这时候我们要想清楚如何实现equals方法。</p>
-<p>我们先看java给出的equal方法的定义，其是在Object类中就定义的，我们又知道Object类是所有类的父类或基类，如果不在子类中重写equals()方法，那么默认继承使用的就是Object类的equals方法。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Object</span> </span>&#123;   </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object that)</span> </span>&#123;        </span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">this</span> == that;   </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>equals() 在Object类中的实现方法就是测试指向/索引相等。对于<strong>不可变类型的对象</strong>来说，这很容易在调用equals方法时出现bug。所以你需要**重写(override) **equals() 方法，重写为你所定义的两个对象的相等的实现。</p>
-<p>举上课的例子，这是一个不可变类型的ADT：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Duration</span> </span>&#123;   </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Duration that)</span> </span>&#123;        </span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.getLength() == that.getLength();         </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我们可能想当然认为我们比较的是对于这一个ADT，两个对象值的相等，那么参数类型也就为这个类，这里要特别<strong>注意</strong>:这里并不是<strong>重写</strong>了Object类的方法，而是<strong>重载</strong>了equals方法，因为参数类型的不同，其构成的是重载，意思是说，这时Duration中有两个 equals()方法：一个是从 Object隐式继承下来的equals(Object)，还有一个就是我们写的 equals(Duration)。然后编译器，会在编译时而不是运行时，根据传入的参数类型，选择调用哪一个equals方法。</p>
-<p>那到底该如何重写equals方法呢？</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object that)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> that <span class="keyword">instanceof</span> Duration &amp;&amp; 			<span class="keyword">this</span>.sameValue((Duration)that);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">sameValue</span><span class="params">(Duration that)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.getLength() == that.getLength();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其首先测试了传入的that对象是 Duration，然后调用sameValue()去判断它们的值是否相等。表达式 (Duration)that 是进行了一个类型转换操作，它告诉编译器that指向的是一个 Duration对象。</p>
-<p>此外，这里的instance操作符进行了一个动态检查，测试一个实例是否属于特定的类型。但老师又提到，在面向对象编程中使用 instanceof是一个不好的选择。在本门课程中——在很多Java编程中也是这样——<strong>除了实现相等操作，instanceof不能被使用。</strong>这也包括其他在运行时确定对象类型的操作，还有getClass方法。</p>
-<p>然后我们再说说hashCode方法：</p>
-<h2 id="hashCode-方法："><a href="#hashCode-方法：" class="headerlink" title="hashCode()方法："></a>hashCode()方法：</h2><p>java规定了一个对象相等的契约：</p>
-<p>如果两个对象使用 equals操作后结果为真，那么它们各自的hashCode操作的结果也应该相同。</p>
-<p>那hashCode又是什么呢？这就需要对哈希表的工作原理有一定的了解。听到hash或哈希，我们会联系到学习数据结构时的散列，在Java中，两个常见的聚合类型 HashSet和 HashMap 就用到了哈希表的数据结构，并且依赖hashCode保存集合中的对象以及产生合适的键（key）。</p>
-<p>一个哈希表表示的是一种映射：从键值映射到值的抽象数据类型。哈希表提供了常数级别的查找，查找速度比其他唱常规的链表都要快。键不一定是有序的，也不一定有什么特别的属性，除了类型必须提供 equals 和 hashCode两个方法。</p>
-<blockquote>
-<p>哈希表是怎么工作的呢？它包含了一个初始化的数组，其大小是我们设计好的。当一个键值对准备插入时，我们通过hashcode计算这个键，产生一个索引，它在我们数组大小的范围内（例如取模运算）。最后我们将值插入到数组索引对应的位置。 哈希表的一个基本不变量就是键必须在hashcode规定的范围内。</p>
-<p>Hashcode最好被设计为键计算后的索引应该平滑、均匀的分布在所有范围内。但是偶尔冲突也会发生，例如两个键计算出了同样的索引。因此哈希表通常存储的是一个键值对的列表而非一个单个的值，这通常被称为哈希桶（hash  bucket）。而在Java中，键值对就是一个有着两个域的对象。当插入时，你只要像计算出的索引位置插入一个键值对。当查找时，你先根据键哈希出对应的索引，然后在索引对应的位置找到键值对列表，最后在这个列表中查找你的键。</p>
-</blockquote>
-<p>Object默认的 hashCode()`实现和默认的 equals()保持一致：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Object</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object that)</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">this</span> == that; &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="comment">/* the memory address of this */</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对于索引a和b，如果 a == b，那么a和b的存储地址也就相同，hashCode()的结果也就相同，那么就满足了相等的契约。</p>
-<p>但对于前面提到的 Duration这个不可变的ADT，因为我们还没有覆盖默认的 hashCode() ，其实际上打破了对象契约。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Duration d1 = <span class="keyword">new</span> Duration(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">Duration d2 = <span class="keyword">new</span> Duration(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">d1.equals(d2) → <span class="keyword">true</span></span><br><span class="line">d1.hashCode() → <span class="number">2392</span></span><br><span class="line">d2.hashCode() → <span class="number">4823</span></span><br></pre></td></tr></table></figure>
-
-<p>那么该怎么解决这个问题呢？</p>
-<ol>
-<li>简单粗暴的将所有对象的hashCode值都改为一样的。但会严重性能严重下降，这样将每一个值对都保存到相同的位置，每次查找会遍历所有对象。</li>
-<li>另一个方法是计算对象每一个内容的hashcode然后对它们进行一系列算术运算，最终返回一个综合hashcode。</li>
-</ol>
-<p>还是我们上面例子：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">int</span>) getLength();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p> equals方法和hashCode方法都是Java比较特殊的存在，在构造ADT时，要主要二者方法的重写，来判断等价性。</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>【1】软件构造PPT</p>
-<p>【2】 <a href="https://www.cnblogs.com/liqiuhao/p/8810465.html">https://www.cnblogs.com/liqiuhao/p/8810465.html</a></p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java代理模式（Proxy）理解</title>
-    <url>/2021/06/27/Java%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%EF%BC%88Proxy%EF%BC%89/</url>
-    <content><![CDATA[<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>老师上课讲到了一些设计模式，但是由于课程较赶，时间较紧，吃不太透，于是自己课下再学习一些，加深理解，同时在编程中多多用到。</p>
-<h2 id="代理模式简述"><a href="#代理模式简述" class="headerlink" title="代理模式简述"></a>代理模式简述</h2><p>首先，代理模式是一种<strong>设计模式</strong>。</p>
-<p>先给出代理模式的<strong>概念</strong>：代理模式是指通过<strong>代理对象</strong>访问目标对象，而不是直接访问<strong>目标对象</strong>，通过字面理解即可，要通过一个代理人或者说中间人来访问我们想要访问的对象。举例就像房屋中介，买房人不想自己去一个找房主询问其是否卖房，而卖房人也不想麻烦去一个个找买房人，中介就承担起这个功能，买房人（用户）通过中介（代理对象）获知在售的其意向房产的信息（如房价、面积、位置等的）。</p>
-<p><strong>意图</strong>：为其他对象提供一种代理以控制对这个对象的访问。</p>
-<p><strong>何时使用</strong>：为其他对象提供一种代理以控制对这个对象的访问。</p>
-<p><strong>关键代码：</strong>实现与被代理类组合。</p>
-<p>那么为什么要有代理模式呢？其好处是可以在目标对象实现的基础上，增强额外的功能操作，即拓展目标对象的功能，如添加权限进行访问控制和审计等功能，其中举添加权限这个功能说明，通过代理对象判断访问目标对象的用户是否拥有访问的权限，没有则禁止访问，实现对信息的一个保护。</p>
-<p>同时，代理模式也是遵循了设计思想中类的单一性原则，就是每个类功能应该单一，即专一，就是说什么人干什么事，一个人尽可能负责一个工作，同时也是去尽量实现低耦合。</p>
-<img src="/2021/06/27/Java%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%EF%BC%88Proxy%EF%BC%89/Proxy.png" class title="This is a Proxys image">
-
-<p>代理模式要着重理解代理对象和目标对象的概念，代理对象是对目标对象的扩展,并会调用目标对象。就像房屋中介调用目标对象（卖房人）获取其房产信息，但不仅限于房产信息，房屋中介还会审计其掌握的房产资源，而后挑选合适的房产给买房人。</p>
-<p><strong>使用场景：</strong>按职责来划分，通常有以下使用场景： 1、远程代理。 2、虚拟代理。 3、Copy-on-Write 代理。 4、保护（Protect or Access）代理。 5、Cache代理。 6、防火墙（Firewall）代理。 7、同步化（Synchronization）代理。 8、智能引用（Smart Reference）代理</p>
-<h2 id="代理模式的分类"><a href="#代理模式的分类" class="headerlink" title="代理模式的分类"></a>代理模式的分类</h2><p>代理模式主要分为三类：</p>
-<p> 1.静态代理；</p>
-<p> 2.动态代理；</p>
-<p> 3.Cglib代理。</p>
-<p>下面分别论述。</p>
-<h3 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h3><p>静态代理在使用时,需要定义接口或者父类,被代理对象与代理对象一起实现相同的接口或者是继承相同父类。需要注意的是，代理对象与目标对象要实现相同的接口，然后通过调用相同的方法来调用目标对象的方法。</p>
-<p>我们举个买房这个例子来说明：</p>
-<p>首先要先创建一个服务类的接口：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HouseService</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">buyHouse</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后要实现这个服务接口：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HouseServiceImpl</span> <span class="keyword">implements</span> <span class="title">HouseService</span> </span>&#123;</span><br><span class="line">     <span class="meta">@Override</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buyHouse</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         System.out.println(<span class="string">&quot;我要买房&quot;</span>);</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<p>有了服务后，我们就需要一个中间类也就是代理类。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HouseServiceProxy</span> <span class="keyword">implements</span> <span class="title">HouseService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> HouseService houseService;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HouseServiceProxy</span><span class="params">(<span class="keyword">final</span> HouseService houseService)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.houseService = houseService;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buyHosue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;攒钱买房&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;挑房看房&quot;</span>);</span><br><span class="line">        houseService.buyHosue();</span><br><span class="line">        System.out.println(<span class="string">&quot;买房装修&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;入住&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>优点：在不修改目标对象的功能前提下,可以实现对目标对象功能的扩展。</p>
-<p>缺点：</p>
-<ol>
-<li><p>代理对象必须提前写出（在编译期就已经知道了代理对象），如果接口层发生了变化，代理对象的代码也要进行维护。</p>
-</li>
-<li><p>因为代理对象需要与目标对象实现一样的接口，所以会有很多代理类，类太多，导致一旦接口增加方法,目标对象与代理对象都要维护。</p>
-</li>
-</ol>
-<p>如何解决静态代理中的缺点呢?答案是可以使用动态代理方式。</p>
-<h3 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h3><p>　在动态代理中我们不再需要再手动的创建代理类，我们只需要编写一个动态处理器就可以了。真正的代理对象由JDK再运行时为我们动态的来创建。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicProxyHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Object object;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DynamicProxyHandler</span><span class="params">(<span class="keyword">final</span> Object object)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.object = object;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable 		</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;攒钱买房&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;挑房看房&quot;</span>);</span><br><span class="line">        Object result = method.invoke(object, args);</span><br><span class="line">        System.out.println(<span class="string">&quot;买房装修&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;入住&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>动态代理的特点:</strong></p>
-<p>1.代理对象,不需要实现接口；<br>2.代理对象的生成,是利用JDK的API,动态的在内存中构建代理对象(需要我们指定创建代理对象/目标对象实现的接口的类型)；<br>3.动态代理也叫做: JDK代理,接口代理。</p>
-<p><strong>JDK中生成代理对象的API</strong><br>代理类所在包:java.lang.reflect.Proxy</p>
-<p><strong>总结</strong>：代理对象不需要实现接口,但是目标对象一定要实现接口,否则不能用动态代理。</p>
-<p>优点：JDK动态代理解决了静态代理中需要创建多个代理类的问题。</p>
-<p>缺点：可以看出静态代理和JDK代理有一个共同的缺点，就是目标对象必须实现一个或多个接口，假如没有，则可以使用Cglib代理<strong>。</strong></p>
-<h3 id="Cglib代理"><a href="#Cglib代理" class="headerlink" title="Cglib代理"></a>Cglib代理</h3><p>上面的静态代理和动态代理模式都是要求目标对象是实现一个接口的目标对象,但是有时候目标对象只是一个单独的对象,并没有实现任何的接口,这个时候就可以使用以目标对象子类的方式类实现代理,这种方法就叫做:Cglib代理</p>
-<p>Cglib代理,也叫作子类代理,它是在内存中构建一个子类对象从而实现对目标对象功能的扩展。</p>
-<p>JDK的动态代理有一个限制,就是使用动态代理的对象必须实现一个或多个接口,如果想代理没有实现接口的类,就可以使用Cglib实现。</p>
-<p>Cglib是一个强大的高性能的代码生成包,它可以在运行期扩展java类与实现java接口.它广泛的被许多AOP的框架使用,例如Spring AOP和synaop,为他们提供方法的interception(拦截)。</p>
-<p>Cglib包的底层是通过使用一个小而块的字节码处理框架ASM来转换字节码并生成新的类.不鼓励直接使用ASM,因为它要求你必须对JVM内部结构包括class文件的格式和指令集都很熟悉。</p>
-<p>步骤：创建Cglib代理类。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> net.sf.cglib.proxy.Enhancer;</span><br><span class="line"><span class="keyword">import</span> net.sf.cglib.proxy.MethodInterceptor;</span><br><span class="line"><span class="keyword">import</span> net.sf.cglib.proxy.MethodProxy;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CglibProxy</span> <span class="keyword">implements</span> <span class="title">MethodInterceptor</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Object target;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getInstance</span><span class="params">(<span class="keyword">final</span> Object target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.target = target;</span><br><span class="line">        Enhancer enhancer = <span class="keyword">new</span> Enhancer();</span><br><span class="line">        enhancer.setSuperclass(<span class="keyword">this</span>.target.getClass());</span><br><span class="line">        enhancer.setCallback(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">return</span> enhancer.create();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Object object, Method method, Object[] args, MethodProxy methodProxy)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;攒钱买房&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;挑房看房&quot;</span>);</span><br><span class="line">        Object result = methodProxy.invoke(object, args);</span><br><span class="line">        System.out.println(<span class="string">&quot;买房装修&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;入住&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>Cglib子类代理实现方法:</p>
-<ol>
-<li>需要引入cglib的jar文件,但是因为pring的核心包中已经包括了Cglib功能,所以可以直接引入<code>pring-core-3.2.5.jar</code>。</li>
-<li>引入功能包后,就可以在内存中动态构建子类</li>
-</ol>
-<p>以上就是代理模式的内容，仅个人拙见，若有错误，恳请批评指正。</p>
-<h2 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h2><p>【1】<a href="https://www.runoob.com/design-pattern/proxy-pattern.html">https://www.runoob.com/design-pattern/proxy-pattern.html</a></p>
-]]></content>
-      <categories>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>可变数据类型和不可变数据类型以及Snaphot图</title>
     <url>/2021/05/20/Snaphot/</url>
     <content><![CDATA[<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>在上软件构造这门课时，在讲数据类型时引入了可变数据类型和不可变数据类型，这是以前未接触过的概念，以前自学Java时，仅有基本数据类型，和引用数据类型这两种概念；此外，老师还引入了Snaphot digrams，其用于描述程序运行时的内部状态，较为实用，今天“趁热打铁”，写博客记录一下。</p>
@@ -326,8 +186,69 @@
         <category>Java</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>Snaphot</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java中equals方法和hashCode方法</title>
+    <url>/2021/06/15/Java%E4%B8%ADequals%E6%96%B9%E6%B3%95%E5%92%8ChashCode%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>软件构造课上，之前介绍了ADT，讲了RI、AF，AF，及抽象函数解释了该类型是如何将内部表示映射为使用者理解的抽象数据的。那如何判断这些ADT的相等性，这就涉及到了java中很重要的一个知识点，equals方法和hashCode方法。</p>
+<h2 id="VS-equals"><a href="#VS-equals" class="headerlink" title="== VS equals()"></a>== VS equals()</h2><p>我们在C中常使用==操作来判断相等。而在Java中，不仅提供了==来判断相等</p>
+<p>，还提供了equals()方法，其主要用于比较ADT的相等。</p>
+<h3 id><a href="#" class="headerlink" title="=="></a>==</h3><p>==这个相等判断比较的是两个比较对象的索引的相等，或者说是引用相等。如果两个索引指向同一块存储区域，那它们就是==的，也就是相等的。在snophot图中，<code>==</code>就意味着两个比较对象的箭头指向同一个对象或值。</p>
+<h3 id="equals-方法"><a href="#equals-方法" class="headerlink" title="equals()方法"></a>equals()方法</h3><p>equals方法操作比较的是两个对象（object）的内容，或者说，比较的是对象值相等。每当我们定义一个ADT时，我们需要判断，对于这个ADT来说对象值相等是如何定义的，或者说如何实现equals方法。</p>
+<p>假设存在一个Person的ADT，其成员属性有两个，一个为name，一个为number。</p>
+<p>那我如和判断Person这个ADT实例的两个对象是否相等呢？是判断其name和number相等就算相等，还是只要判断name就算相等，可能一个人有多个手机号。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所以这时候我们要想清楚如何实现equals方法。</p>
+<p>我们先看java给出的equal方法的定义，其是在Object类中就定义的，我们又知道Object类是所有类的父类或基类，如果不在子类中重写equals()方法，那么默认继承使用的就是Object类的equals方法。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Object</span> </span>&#123;   </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object that)</span> </span>&#123;        </span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">this</span> == that;   </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>equals() 在Object类中的实现方法就是测试指向/索引相等。对于<strong>不可变类型的对象</strong>来说，这很容易在调用equals方法时出现bug。所以你需要**重写(override) **equals() 方法，重写为你所定义的两个对象的相等的实现。</p>
+<p>举上课的例子，这是一个不可变类型的ADT：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Duration</span> </span>&#123;   </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Duration that)</span> </span>&#123;        </span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.getLength() == that.getLength();         </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可能想当然认为我们比较的是对于这一个ADT，两个对象值的相等，那么参数类型也就为这个类，这里要特别<strong>注意</strong>:这里并不是<strong>重写</strong>了Object类的方法，而是<strong>重载</strong>了equals方法，因为参数类型的不同，其构成的是重载，意思是说，这时Duration中有两个 equals()方法：一个是从 Object隐式继承下来的equals(Object)，还有一个就是我们写的 equals(Duration)。然后编译器，会在编译时而不是运行时，根据传入的参数类型，选择调用哪一个equals方法。</p>
+<p>那到底该如何重写equals方法呢？</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object that)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> that <span class="keyword">instanceof</span> Duration &amp;&amp; 			<span class="keyword">this</span>.sameValue((Duration)that);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">sameValue</span><span class="params">(Duration that)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.getLength() == that.getLength();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其首先测试了传入的that对象是 Duration，然后调用sameValue()去判断它们的值是否相等。表达式 (Duration)that 是进行了一个类型转换操作，它告诉编译器that指向的是一个 Duration对象。</p>
+<p>此外，这里的instance操作符进行了一个动态检查，测试一个实例是否属于特定的类型。但老师又提到，在面向对象编程中使用 instanceof是一个不好的选择。在本门课程中——在很多Java编程中也是这样——<strong>除了实现相等操作，instanceof不能被使用。</strong>这也包括其他在运行时确定对象类型的操作，还有getClass方法。</p>
+<p>然后我们再说说hashCode方法：</p>
+<h2 id="hashCode-方法："><a href="#hashCode-方法：" class="headerlink" title="hashCode()方法："></a>hashCode()方法：</h2><p>java规定了一个对象相等的契约：</p>
+<p>如果两个对象使用 equals操作后结果为真，那么它们各自的hashCode操作的结果也应该相同。</p>
+<p>那hashCode又是什么呢？这就需要对哈希表的工作原理有一定的了解。听到hash或哈希，我们会联系到学习数据结构时的散列，在Java中，两个常见的聚合类型 HashSet和 HashMap 就用到了哈希表的数据结构，并且依赖hashCode保存集合中的对象以及产生合适的键（key）。</p>
+<p>一个哈希表表示的是一种映射：从键值映射到值的抽象数据类型。哈希表提供了常数级别的查找，查找速度比其他唱常规的链表都要快。键不一定是有序的，也不一定有什么特别的属性，除了类型必须提供 equals 和 hashCode两个方法。</p>
+<blockquote>
+<p>哈希表是怎么工作的呢？它包含了一个初始化的数组，其大小是我们设计好的。当一个键值对准备插入时，我们通过hashcode计算这个键，产生一个索引，它在我们数组大小的范围内（例如取模运算）。最后我们将值插入到数组索引对应的位置。 哈希表的一个基本不变量就是键必须在hashcode规定的范围内。</p>
+<p>Hashcode最好被设计为键计算后的索引应该平滑、均匀的分布在所有范围内。但是偶尔冲突也会发生，例如两个键计算出了同样的索引。因此哈希表通常存储的是一个键值对的列表而非一个单个的值，这通常被称为哈希桶（hash  bucket）。而在Java中，键值对就是一个有着两个域的对象。当插入时，你只要像计算出的索引位置插入一个键值对。当查找时，你先根据键哈希出对应的索引，然后在索引对应的位置找到键值对列表，最后在这个列表中查找你的键。</p>
+</blockquote>
+<p>Object默认的 hashCode()`实现和默认的 equals()保持一致：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Object</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object that)</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">this</span> == that; &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="comment">/* the memory address of this */</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于索引a和b，如果 a == b，那么a和b的存储地址也就相同，hashCode()的结果也就相同，那么就满足了相等的契约。</p>
+<p>但对于前面提到的 Duration这个不可变的ADT，因为我们还没有覆盖默认的 hashCode() ，其实际上打破了对象契约。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Duration d1 = <span class="keyword">new</span> Duration(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">Duration d2 = <span class="keyword">new</span> Duration(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">d1.equals(d2) → <span class="keyword">true</span></span><br><span class="line">d1.hashCode() → <span class="number">2392</span></span><br><span class="line">d2.hashCode() → <span class="number">4823</span></span><br></pre></td></tr></table></figure>
+
+<p>那么该怎么解决这个问题呢？</p>
+<ol>
+<li>简单粗暴的将所有对象的hashCode值都改为一样的。但会严重性能严重下降，这样将每一个值对都保存到相同的位置，每次查找会遍历所有对象。</li>
+<li>另一个方法是计算对象每一个内容的hashcode然后对它们进行一系列算术运算，最终返回一个综合hashcode。</li>
+</ol>
+<p>还是我们上面例子：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">int</span>) getLength();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p> equals方法和hashCode方法都是Java比较特殊的存在，在构造ADT时，要主要二者方法的重写，来判断等价性。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>【1】软件构造PPT</p>
+<p>【2】 <a href="https://www.cnblogs.com/liqiuhao/p/8810465.html">https://www.cnblogs.com/liqiuhao/p/8810465.html</a></p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -535,6 +456,85 @@
       </tags>
   </entry>
   <entry>
+    <title>Java代理模式（Proxy）理解</title>
+    <url>/2021/06/27/Java%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%EF%BC%88Proxy%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>老师上课讲到了一些设计模式，但是由于课程较赶，时间较紧，吃不太透，于是自己课下再学习一些，加深理解，同时在编程中多多用到。</p>
+<h2 id="代理模式简述"><a href="#代理模式简述" class="headerlink" title="代理模式简述"></a>代理模式简述</h2><p>首先，代理模式是一种<strong>设计模式</strong>。</p>
+<p>先给出代理模式的<strong>概念</strong>：代理模式是指通过<strong>代理对象</strong>访问目标对象，而不是直接访问<strong>目标对象</strong>，通过字面理解即可，要通过一个代理人或者说中间人来访问我们想要访问的对象。举例就像房屋中介，买房人不想自己去一个找房主询问其是否卖房，而卖房人也不想麻烦去一个个找买房人，中介就承担起这个功能，买房人（用户）通过中介（代理对象）获知在售的其意向房产的信息（如房价、面积、位置等的）。</p>
+<p><strong>意图</strong>：为其他对象提供一种代理以控制对这个对象的访问。</p>
+<p><strong>何时使用</strong>：为其他对象提供一种代理以控制对这个对象的访问。</p>
+<p><strong>关键代码：</strong>实现与被代理类组合。</p>
+<p>那么为什么要有代理模式呢？其好处是可以在目标对象实现的基础上，增强额外的功能操作，即拓展目标对象的功能，如添加权限进行访问控制和审计等功能，其中举添加权限这个功能说明，通过代理对象判断访问目标对象的用户是否拥有访问的权限，没有则禁止访问，实现对信息的一个保护。</p>
+<p>同时，代理模式也是遵循了设计思想中类的单一性原则，就是每个类功能应该单一，即专一，就是说什么人干什么事，一个人尽可能负责一个工作，同时也是去尽量实现低耦合。</p>
+<img src="/2021/06/27/Java%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%EF%BC%88Proxy%EF%BC%89/Proxy.png" class title="This is a Proxys image">
+
+<p>代理模式要着重理解代理对象和目标对象的概念，代理对象是对目标对象的扩展,并会调用目标对象。就像房屋中介调用目标对象（卖房人）获取其房产信息，但不仅限于房产信息，房屋中介还会审计其掌握的房产资源，而后挑选合适的房产给买房人。</p>
+<p><strong>使用场景：</strong>按职责来划分，通常有以下使用场景： 1、远程代理。 2、虚拟代理。 3、Copy-on-Write 代理。 4、保护（Protect or Access）代理。 5、Cache代理。 6、防火墙（Firewall）代理。 7、同步化（Synchronization）代理。 8、智能引用（Smart Reference）代理</p>
+<h2 id="代理模式的分类"><a href="#代理模式的分类" class="headerlink" title="代理模式的分类"></a>代理模式的分类</h2><p>代理模式主要分为三类：</p>
+<p> 1.静态代理；</p>
+<p> 2.动态代理；</p>
+<p> 3.Cglib代理。</p>
+<p>下面分别论述。</p>
+<h3 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h3><p>静态代理在使用时,需要定义接口或者父类,被代理对象与代理对象一起实现相同的接口或者是继承相同父类。需要注意的是，代理对象与目标对象要实现相同的接口，然后通过调用相同的方法来调用目标对象的方法。</p>
+<p>我们举个买房这个例子来说明：</p>
+<p>首先要先创建一个服务类的接口：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HouseService</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">buyHouse</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后要实现这个服务接口：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HouseServiceImpl</span> <span class="keyword">implements</span> <span class="title">HouseService</span> </span>&#123;</span><br><span class="line">     <span class="meta">@Override</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buyHouse</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         System.out.println(<span class="string">&quot;我要买房&quot;</span>);</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>有了服务后，我们就需要一个中间类也就是代理类。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HouseServiceProxy</span> <span class="keyword">implements</span> <span class="title">HouseService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> HouseService houseService;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HouseServiceProxy</span><span class="params">(<span class="keyword">final</span> HouseService houseService)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.houseService = houseService;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buyHosue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;攒钱买房&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;挑房看房&quot;</span>);</span><br><span class="line">        houseService.buyHosue();</span><br><span class="line">        System.out.println(<span class="string">&quot;买房装修&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;入住&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>优点：在不修改目标对象的功能前提下,可以实现对目标对象功能的扩展。</p>
+<p>缺点：</p>
+<ol>
+<li><p>代理对象必须提前写出（在编译期就已经知道了代理对象），如果接口层发生了变化，代理对象的代码也要进行维护。</p>
+</li>
+<li><p>因为代理对象需要与目标对象实现一样的接口，所以会有很多代理类，类太多，导致一旦接口增加方法,目标对象与代理对象都要维护。</p>
+</li>
+</ol>
+<p>如何解决静态代理中的缺点呢?答案是可以使用动态代理方式。</p>
+<h3 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h3><p>　在动态代理中我们不再需要再手动的创建代理类，我们只需要编写一个动态处理器就可以了。真正的代理对象由JDK再运行时为我们动态的来创建。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicProxyHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Object object;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DynamicProxyHandler</span><span class="params">(<span class="keyword">final</span> Object object)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.object = object;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable 		</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;攒钱买房&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;挑房看房&quot;</span>);</span><br><span class="line">        Object result = method.invoke(object, args);</span><br><span class="line">        System.out.println(<span class="string">&quot;买房装修&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;入住&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>动态代理的特点:</strong></p>
+<p>1.代理对象,不需要实现接口；<br>2.代理对象的生成,是利用JDK的API,动态的在内存中构建代理对象(需要我们指定创建代理对象/目标对象实现的接口的类型)；<br>3.动态代理也叫做: JDK代理,接口代理。</p>
+<p><strong>JDK中生成代理对象的API</strong><br>代理类所在包:java.lang.reflect.Proxy</p>
+<p><strong>总结</strong>：代理对象不需要实现接口,但是目标对象一定要实现接口,否则不能用动态代理。</p>
+<p>优点：JDK动态代理解决了静态代理中需要创建多个代理类的问题。</p>
+<p>缺点：可以看出静态代理和JDK代理有一个共同的缺点，就是目标对象必须实现一个或多个接口，假如没有，则可以使用Cglib代理<strong>。</strong></p>
+<h3 id="Cglib代理"><a href="#Cglib代理" class="headerlink" title="Cglib代理"></a>Cglib代理</h3><p>上面的静态代理和动态代理模式都是要求目标对象是实现一个接口的目标对象,但是有时候目标对象只是一个单独的对象,并没有实现任何的接口,这个时候就可以使用以目标对象子类的方式类实现代理,这种方法就叫做:Cglib代理</p>
+<p>Cglib代理,也叫作子类代理,它是在内存中构建一个子类对象从而实现对目标对象功能的扩展。</p>
+<p>JDK的动态代理有一个限制,就是使用动态代理的对象必须实现一个或多个接口,如果想代理没有实现接口的类,就可以使用Cglib实现。</p>
+<p>Cglib是一个强大的高性能的代码生成包,它可以在运行期扩展java类与实现java接口.它广泛的被许多AOP的框架使用,例如Spring AOP和synaop,为他们提供方法的interception(拦截)。</p>
+<p>Cglib包的底层是通过使用一个小而块的字节码处理框架ASM来转换字节码并生成新的类.不鼓励直接使用ASM,因为它要求你必须对JVM内部结构包括class文件的格式和指令集都很熟悉。</p>
+<p>步骤：创建Cglib代理类。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> net.sf.cglib.proxy.Enhancer;</span><br><span class="line"><span class="keyword">import</span> net.sf.cglib.proxy.MethodInterceptor;</span><br><span class="line"><span class="keyword">import</span> net.sf.cglib.proxy.MethodProxy;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CglibProxy</span> <span class="keyword">implements</span> <span class="title">MethodInterceptor</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Object target;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getInstance</span><span class="params">(<span class="keyword">final</span> Object target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.target = target;</span><br><span class="line">        Enhancer enhancer = <span class="keyword">new</span> Enhancer();</span><br><span class="line">        enhancer.setSuperclass(<span class="keyword">this</span>.target.getClass());</span><br><span class="line">        enhancer.setCallback(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">return</span> enhancer.create();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Object object, Method method, Object[] args, MethodProxy methodProxy)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;攒钱买房&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;挑房看房&quot;</span>);</span><br><span class="line">        Object result = methodProxy.invoke(object, args);</span><br><span class="line">        System.out.println(<span class="string">&quot;买房装修&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;入住&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Cglib子类代理实现方法:</p>
+<ol>
+<li>需要引入cglib的jar文件,但是因为pring的核心包中已经包括了Cglib功能,所以可以直接引入<code>pring-core-3.2.5.jar</code>。</li>
+<li>引入功能包后,就可以在内存中动态构建子类</li>
+</ol>
+<p>以上就是代理模式的内容，仅个人拙见，若有错误，恳请批评指正。</p>
+<h2 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h2><p>【1】<a href="https://www.runoob.com/design-pattern/proxy-pattern.html">https://www.runoob.com/design-pattern/proxy-pattern.html</a></p>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2021/05/04/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -551,46 +551,6 @@
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>【论文翻译】--Requirements, Bottlenecks, and Good Fortune:Agents for Microprocessor Evolution</title>
-    <url>/2021/09/19/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91/</url>
-    <content><![CDATA[<h1 id="需求，瓶颈，好运：微处理器演变的代理"><a href="#需求，瓶颈，好运：微处理器演变的代理" class="headerlink" title="需求，瓶颈，好运：微处理器演变的代理"></a>需求，瓶颈，好运：微处理器演变的代理</h1><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>​    第一台微处理器——Intel 4004于1971年问世，其集成了2300个晶体管，时钟频率为108KHz。在三十年后的今天，一个微处理器中集成了近2亿个晶体管，其时钟频率超过了1GHz。在未来的5年里，集成在单个芯片上的晶体管的数量预计将超过10亿，以从6GHz到10GHz的时钟频率运行。</p>
-<p>​    微处理器的演变，始于1971年，发展到今日的状况，再到未来5年后可能到达的位置，是因为几个贡献性的力量。我们的立场是：这种演变不是恰好发生的，而是演变的每一步都是三件事其一影响的结果，而且其背景总是计算机架构师于三者中做权衡、折衷。这三件事是：1)新需求；2)瓶颈；3)好运气。我将它们统称为演变的代理。</p>
-<p>​    这篇文章尝试从三个方面展开：描述微处理器领域的一个基本框架，展示自第一台微处理器问世后的三十年里的重大发展，最后，提出一些新事物，有望于在未来的5年内看到发生在高性能微处理器上的新事物。</p>
-<p>​    <strong>关键词</strong>——计算机体系结构，微体系结构，微处理器， 微处理器设计，微处理器进化。</p>
-<h2 id="Ⅰ基本框架"><a href="#Ⅰ基本框架" class="headerlink" title="Ⅰ基本框架"></a>Ⅰ基本框架</h2><h3 id="A-计算机体系结构：折衷（权衡）的科学"><a href="#A-计算机体系结构：折衷（权衡）的科学" class="headerlink" title="A.计算机体系结构：折衷（权衡）的科学"></a><em>A.计算机体系结构：折衷（权衡）的科学</em></h3><p>​    计算机体系结构，与其说是“科学”，不如说是“艺术”。随着阅历的增长，我们的能力和洞察力都有所提升。计算机架构师会借鉴以往的设计经验来对当前项目做出决策。如果说计算机体系结构是一门科学，那么它是一门关于权衡的科学。在过去的半个世纪里，计算机架构师一直在学习钻研基础知识，以帮助他们能够实践他们的工艺。 计算机架构师的工作几乎总是需要使用这些基础知识来进行权衡，尤其在微处理器的整个发展过程中，亦是如此。 </p>
-<p><img src="/2021/09/19/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91/fig1.jpg" alt="image"></p>
-<p>​                                            图1  现代微处理器</p>
-<h3 id="B-抽象变换的层次结构"><a href="#B-抽象变换的层次结构" class="headerlink" title="B.抽象变换的层次结构"></a><em>B.抽象变换的层次结构</em></h3><p>​    晶体管的数量以及其开关时间是工艺技术所提供的资源。（以上为直译，个人理解为：集成在单个芯片上的晶体管的数量和晶体管的开关时间由加工技术决定。）我们将这些资源用于什么则取决于市场的需求。 我们如何使用这些资源就是微处理器的全部意义所在（个人理解为：根据市场需求，而后使用这些资源来制造微处理器，也就是需求和资源的一种折衷）。 图1展示了抽象变换的层次结构，一个用自然语言描述的问题如英语，必须通过这几层的抽象变换（根据问题，求解算法，选择适当算法编写程序，然后高级语言程序翻译成机器语言程序，再到微程序解释机器语言程序，最后硬件执行微指令，再到底层的电路，最后是最底层的电子，也就高低电平变换01变换，也就是电子）最终才能得以解决。在现实中，是电子运动做动解决了问题。然而，我们并不会在实际中说“电子”，同时“电子”也不会说任何自然语言，我们能做的最好的事情就是通过图1所示的层次结构系统地来转换问题，直到到达电子（或着说设备）层，这一层也就是集成了2亿个集体管，时钟频率为1GHz的芯片。</p>
-<p>​    在这个过程中，问题的解决方案首先被用算法的形式来明确阐述以致消除自然语言的一些不可接受的特性，如歧义性。然后用机器语言对其编码并编译为特定微处理器的指令集架构（ISA）。ISA是一致商定的接口:1)编译后的程序用来告诉微处理器该程序需要做什么；2）微处理器用来知道它必须代表程序执行什么。ISA由一组硬件结构实现，其被统称为微处理器的微体系架构。每个硬件结构以及之间的相互连接均由电子数字电路组成，而电子数字电路又由电子设备组成。</p>
-<p>​    当我们今天讨论微处理器时，我们通常是指图1的阴影部分。每个微处理器由电路组成，电路实现了硬件结构（统称为微体系架构），其提供了一个面向软件的接口（被称为ISA）。在个人计算机中，ISA一般是IA-32，个人电脑的ISA是IA-32，微架构是Intel的Pentium IV，或者是早期的Pentium III、Pentium II、Pentium Pro、486等等，或者AMD的K-8， 或者为更早的K-7、K-6 等。 </p>
-<p>​    还有一些其他的ISA：例如SPARC(来自Sun Microsystems)，Alpha（来自Compaq），以及Power-PC(来自Motorola and IBM)。每种ISA都有其自己的特性来为编译器提供更好或更坏的接口，或者说微体系架构跟好或更坏地执行工作。对于每个ISA，都有多个不同的微体系架构。 我们已经提到了IA-32 的几个微架构。 于Alpha而言， 有 21064、21164 和 21264。</p>
-<p>​    在层次结构的每一步中，从算法的选择到语言，到ISA 到微体系结构，到电路，都有选择，因此就有权衡。 </p>
-<p>​    人们通常在更高的性能和更低的价格之间做选择，但并非总是如此。举一个汽车的类比可能更有启发性。可以制造一台高性能跑车，其可以在几乎0秒内从0英里/小时加速到 100 英里/小时。但是其造价会非常高。或者，可以制造一辆非常便宜的汽车，它的时速永远无法达到 100 英里/小时，但每加仑汽油可以行驶 100 英里。性能和经济性不可兼得。这就是权衡。</p>
-<h3 id="C-设计要点"><a href="#C-设计要点" class="headerlink" title="C.设计要点"></a><em>C.设计要点</em></h3><p>​    微处理器的设计就是做相关的权衡（折衷）。我们将微处理器设计中的这组考虑因素以及每个考虑因素相关重要性成为微处理器的“设计要点”–也就是说，于微处理器用途而言最重要的特性，以至于较少关注于其他特性。性能、成本、散热和功耗是强烈影响设计点的特性的示例。另一个示例是“高可用性”——设计一个微处理器时其中考虑最多的就是这个微处理器永远不会出故障。如果可以确保微处理器永远不会出现故障，一些客户愿意接受更低的性能或更高的价格。我们将这种处理器称为“容错”或高可用性的。</p>
-<p>​    其他客户则愿意为节能、续航牺牲一部分性能，随着最高性能芯片的功率和能耗越来越大，大得令人无法接受，这个设计要点愈发重要。这就存在一个最高性能与功耗意识的权衡。</p>
-<p>​    值得一提的是，“功耗意识”与另一个重要的设计要点“低功耗”不同，在许多应用中，首先考虑的是微处理器消耗非常少量的能源但能长时间运行。</p>
-<h3 id="D-应用空间"><a href="#D-应用空间" class="headerlink" title="D.应用空间"></a><em>D.应用空间</em></h3><p>图1中“问题”一词是应用空间的统称，或者说我们希望使用微处理器的一组应用程序。应用程序的数量正在以惊人的速度增加，而且预计未来仍会保持增长的趋势。实际上，只要人们期望计算机的用途更加广泛（或者说计算机能实现更多功能），则对于微处理器的需求和权衡将会持续扩大。也就是说，应用空间（或更准确说，具有核心重要性的应用）驱动着这个设计要点。我们前面那已经提到了高可用性处理器，其中应用程序要求微处理器永远不出故障，以及在低功耗处理器中，应用程序必须能够消耗少量能量而能长时间运行。</p>
-<p>​    持续驱动独特设计要点需求的应用空间的其他示例如下：</p>
-<p>​    1)科学应用，例如，计算控制核电站，决定开采石油的位置，预测天气；</p>
-<p>​    2)基于事务的应用程序，例如办理ATM转账和电子商务业务;</p>
-<p>​    3)业务数据处理应用程序，例如处理库存控制、工资、IRS活动和各种个人记录的应用程序，无论这些个人是雇员、学生还是选民;</p>
-<p>​    4)网络应用，例如高速路由的互联网数据包，使你的家庭系统连接利用互联网;    </p>
-<p>​    5)有保证的交付(即实时)应用程序，要求在某个关键期限之前得到计算结果;</p>
-<p>​    6)嵌入式应用程序，其中处理器是更大系统的一个组件，用于解决(通常)专用应用程序;</p>
-<p>​    7)解码视频和音频文件等媒体应用程序;</p>
-<p>​    8)桌面用户希望在自己的电脑上运行的随机软件包。</p>
-<p>每个应用领域都有其特点，与其他领域大不同。每个应用领域都要求做不同的权衡、折衷来设计微处理器来满足其完成工作。</p>
-<h3 id="E-基本处理"><a href="#E-基本处理" class="headerlink" title="E. 基本处理"></a>E. 基本处理</h3><p>​        微处理器处理执行指令，简单地说，有三个步骤：1)向处理器核心提供指令，让每条指令都能完成它的工作;2)提供每条指令所需的数据;3)执行每条指令。</p>
-]]></content>
-      <categories>
-        <category>计算机组成原理与体系结构</category>
-      </categories>
-      <tags>
-        <tag>计算机组成原理</tag>
-        <tag>计算机体系结构</tag>
-      </tags>
   </entry>
   <entry>
     <title>适配器模式</title>
