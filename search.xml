@@ -1280,7 +1280,7 @@
       </tags>
   </entry>
   <entry>
-    <title>适配器模式</title>
+    <title>x86系统架构概览</title>
     <url>/2022/04/01/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/</url>
     <content><![CDATA[<h1 id="1-x86系统架构概览"><a href="#1-x86系统架构概览" class="headerlink" title="1. x86系统架构概览"></a>1. x86系统架构概览</h1><h2 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h2><p>先对几个概念进行说明：</p>
 <p>​    IA-32：Intel Architecture 32-bit简称，即英特尔32位体系架构，在英特尔公司1985年推出的80386微处理器中首先采用。IA-32属于X86体系结构的32位版本（X86-32），即具有32位内存地址和32位数据操作数的处理器体系结构，从1985年面世的80386直到Pentium，都是使用IA-32体系结构的处理器。而现在Intel把32位x86架构的名称x86-32改称为IA-32。而x86则是Intel开发的一类处理器体系结构的泛称，包括 Intel 8086、80286、i386和i486等，因此其架构称为“x86”。</p>
@@ -1579,8 +1579,8 @@
         <category>操作系统</category>
       </categories>
       <tags>
-        <tag>X86</tag>
         <tag>体系结构</tag>
+        <tag>x86</tag>
       </tags>
   </entry>
   <entry>
