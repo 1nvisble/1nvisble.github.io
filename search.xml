@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title></title>
+    <url>/2021/11/09/AOP%EF%BC%88%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="AOP（面向切面编程）"><a href="#AOP（面向切面编程）" class="headerlink" title="AOP（面向切面编程）"></a>AOP（面向切面编程）</h1><h2 id="AOP-含义"><a href="#AOP-含义" class="headerlink" title="AOP 含义"></a>AOP 含义</h2><p>面向切面编程：也叫做面向方法编程，通过预编译方式和运行期动态代理的方式实现不修改源代码的情况下给程序动态统一添加功能的技术。</p>
+<p>将一些各接口都调用的相同方法抽象为接口，这个接口类似于切面；将方法注入到接口调用的某个地方，这个地方就为切点。</p>
+<p>实现AOP的技术主要分为两类：一类是采用动态代理技术利用截取消息的方式，对消息进行装饰以取代原有对象行为的执行。另一类是采用静态织入的方式，引入特定语法创建切面，从而使编译器可以在编译期间织入相关的切面代码。（<a href="https://www.jianshu.com/p/f1770b9dce27%EF%BC%89">https://www.jianshu.com/p/f1770b9dce27）</a></p>
+<h2 id="AOP核心概念"><a href="#AOP核心概念" class="headerlink" title="AOP核心概念"></a>AOP核心概念</h2><h3 id="横切关注点"><a href="#横切关注点" class="headerlink" title="横切关注点"></a>横切关注点</h3><p>横切关注点主要关注于：对哪些方法进行拦截，拦截后怎样处理，是替换还是包装，此外，还有执行的顺序，</p>
+<h3 id="切面"><a href="#切面" class="headerlink" title="切面"></a>切面</h3><p><code>ASPECT</code>  切面是散落在系统各处<strong>通用</strong>的业务逻辑代码，如安全模块、日志模块、认证模块等。</p>
+<p>切面可以说是一个较大的概念，较为笼统；更具体的就是切点<code>PointCut</code>和通知<code>Advice</code>，由名字就可知，切点存在于切面上，切面上存在切点，切点又有相应的通知<code>Advice</code>；</p>
+<p>切面通常是一个类，可以定义切点<code>PointCut</code>和通知<code>Advice</code>。类是对物体特征的抽象，切面是对横切关注点的抽象。</p>
+<p>切面是业务流程运行的某个特定步骤，是应用运行过程中的关注点，关注点通常会横切多个对象，因此也被称为横切关注点。</p>
+<h3 id="程序执行点"><a href="#程序执行点" class="headerlink" title="程序执行点"></a>程序执行点</h3><p><code>JointPoint</code>连接点是程序执行过程中明确的点，感觉这个说法比较抽象，我个人理解为一些入口点（如方法调用，异常处理），典型的为方法的调用，对类成员的访问以及异常处理程序块的执行。连接点是程序在运行过程中能够插入切面的点，比如方法调用、异常抛出、字段修改等。</p>
+<p>注意：一个<code>JointPoint</code>自身可以<strong>嵌套</strong>其他<code>JointPoint</code>，就比如说，一个方法中又调用了另一个方法。</p>
+<h3 id="切入点"><a href="#切入点" class="headerlink" title="切入点"></a>切入点</h3><p><code>PointCut</code>切入点是带有通知的连接点，在程序中主要体现为编写切入点表达式。切入点是对连接点进行拦截的定义。切入点用于定义通知应该切入到哪些连接点上，不同的通知需要切入到不同的连接点上，这种精准的匹配是由切入点的正则表达式来定义的。</p>
+<p>切入点是可以插入增强处理的连接点，当某个连接点满足执行要求时，该连接点将被连接增强处理，该连接点也就变成了切入点。</p>
+<p>切入点是拦截的方法，连接点<code>JointPoint</code>拦截后将变成切入点。</p>
+<h3 id="通知"><a href="#通知" class="headerlink" title="通知"></a>通知</h3><p><code>Advice</code>通知是AOP在特定切入点上执行的增强处理，是拦截到连接点之后要执行的代码，通知可以分为前置通知<code>Before</code>、后置通知<code>AfterReturning</code>、异常通知<code>AfterThrowing</code>、最终通知<code>After</code>、环绕通知<code>Around</code>五类。</p>
+<ol>
+<li><p> <code>before advice</code>, 在<code>join point</code>前被执行的<code> advice</code>. 虽然<code>before advice</code>是在<code>join point</code>前被执行, 但是它并不能够阻止<code> join point</code> 的执行, 除非发生了异常(即我们在 <code>before advice </code>代码中, 不能人为地决定是否继续执行<code> join point</code> 中的代码)</p>
+</li>
+<li><p>after return advice<code>, 在一个</code> join point <code>正常返回后执行的</code> advice`</p>
+</li>
+<li><p><code>after throwing advice</code>, 当一个<code> join point</code> 抛出异常后执行的 <code>advice</code></p>
+</li>
+<li><p><code>after(final) advice</code>, 无论一个<code>join point</code>是正常退出还是发生了异常, 都会被执行的 advice.</p>
+</li>
+<li><p><code>around advice</code>, 在<code> join poin</code>t 前和<code> joint point</code> 退出后都执行的 <code>advice</code>. 这个是最常用的<code> advice</code>.</p>
+</li>
+<li><p><code>introduction</code>，<code>introduction</code>可以为原有的对象增加新的属性和方法。</p>
+</li>
+</ol>
+<h3 id="织入"><a href="#织入" class="headerlink" title="织入"></a>织入</h3><p><code>Weaving</code> 织入通过切入点切入，将切面应用到目标对象并导致代理对象创建的过程。将切面应用到目标对象从而创建一个新的代理对象的过程，这个过程可以发生在编译器、类转载期、运行期，不同的发生点有着不同的前提条件。如果发生在编译器就需要有一个支持这种AOP实现的特殊编译器，发生在类转载期就需要有一个支持AOP实现的特殊类转载其，发生在运行期则可以直接通过反射机制与动态代理机制来动态实现。</p>
+<h3 id="代理对象"><a href="#代理对象" class="headerlink" title="代理对象"></a>代理对象</h3><p><code>Proxy</code>代理对象是AOP创建的对象，包含通知，代理是目标对象的加强。 代理是将通知应用到目标对象之后被动态创建的对象，可以简单理解代理对象的功能等同于目标对象的核心业务逻辑功能加上共有功能。代理对象对于使用者而言是透明的，是程序运行过程中的产物。</p>
+<h3 id="目标对象"><a href="#目标对象" class="headerlink" title="目标对象"></a>目标对象</h3><p><code>Target</code>目标对象是指代理的目标对象，是指要织入的对象模块。目标对象是那些即将切入切面的对象，也就是被通知的对象。这些对象中已经只剩下干干净净的核心业务逻辑代码，所有的共有功能等待AOP容器的切入。</p>
+<p>目标对象是AOP进行增强处理的对象，也被称为增强的对象。如果AOP是通过运行时代理来实现的，那么这个对象将是一个被代理的对象。</p>
+<p>AOP是典型的代理模式的体现，代理模式的特征是代理类与委托类有同样的接口，代理类主要负责为委托类预处理消息、过滤消息、将消息转发给委托类、事后处理消息等。代理类与委托类之间通常会存在关联关系，一个代理类的对象与一个委托类的对象相关联，代理类的对象本身并不真正实现服务，而是通过调用委托类的对象方法来提供特定的服务。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在AOP中切面就是与业务逻辑独立，但又垂直存在于业务逻辑的代码结构中的通用功能组合；切面与业务逻辑相交的点就是切点；连接点就是把业务逻辑离散化后的关键节点；切点属于连接点，是连接点的子集；Advice（增强）就是切面在切点上要执行的功能增加的具体操作；在切点上可以把要完成增强操作的目标对象（Target）连接到切面里，这个连接的方式就叫织入</p>
+<p><a href="https://www.jianshu.com/p/281dcde6974d">从代理机制到Spring AOP，这篇给你安排得明明白白的 - 简书 (jianshu.com)</a></p>
+<p><a href="https://blog.csdn.net/qq_41701956/article/details/84427891">AOP如何实现及实现原理_Java笔记-CSDN博客_aop原理</a></p>
+<p><a href="https://blog.csdn.net/q982151756/article/details/80513340">细说Spring——AOP详解（AOP概览）_啦啦啦的博客-CSDN博客_aop</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>Hello的自白.</title>
     <url>/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/</url>
     <content><![CDATA[<h1 id="Hello的自白"><a href="#Hello的自白" class="headerlink" title="Hello的自白"></a>Hello的自白</h1><img src="/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/Hello1.jpg" class title="This is a Hello1s image">
@@ -192,6 +234,44 @@
       <tags>
         <tag>Java</tag>
         <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Leetcode704</title>
+    <url>/2022/04/05/Leetcode704/</url>
+    <content><![CDATA[<h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><p>​    <a href="https://leetcode-cn.com/problems/binary-search/submissions/">力扣二分查找题目</a></p>
+<p>​    二分查找这个算法简单，但却会屡屡出错，问题就出在边界上。针对边界的问题，有两种写法，一种是闭区间，一种是开区间。<br>​    此外，需注意的是，使用二分查找的条件：<strong>已排序的数组</strong>，无重复元素。</p>
+<h3 id="第一种写法"><a href="#第一种写法" class="headerlink" title="第一种写法"></a>第一种写法</h3><ul>
+<li>搜索区间：[left , right];</li>
+<li>left、right初始化：left = 0; right = array.size -1;（也就说最右边数组元素的下标，例长度为7的数组，最右边数组下标为6）;</li>
+<li>终止条件：left &lt;= right;</li>
+<li>left改变：left = middle + 1;</li>
+<li>right；right = middle-1；</li>
+<li>middle = left + ((right - left) / 2);（防止溢出 等同于(left + right)/2）;</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">search</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = nums.<span class="built_in">size</span>() - <span class="number">1</span>; <span class="comment">// 定义target在左闭右闭的区间里，[left, right]</span></span><br><span class="line">        <span class="keyword">while</span> (left &lt;= right) &#123; <span class="comment">// 当left==right，区间[left, right]依然有效，所以用 &lt;=</span></span><br><span class="line">            <span class="keyword">int</span> middle = left + ((right - left) / <span class="number">2</span>);<span class="comment">// 防止溢出 等同于(left + right)/2</span></span><br><span class="line">            <span class="keyword">if</span> (nums[middle] &gt; target) &#123;</span><br><span class="line">                right = middle - <span class="number">1</span>; <span class="comment">// target 在左区间，所以[left, middle - 1]</span></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[middle] &lt; target) &#123;</span><br><span class="line">                left = middle + <span class="number">1</span>; <span class="comment">// target 在右区间，所以[middle + 1, right]</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">// nums[middle] == target</span></span><br><span class="line">                <span class="keyword">return</span> middle; <span class="comment">// 数组中找到目标值，直接返回下标</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 未找到目标值</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="第二种写法；"><a href="#第二种写法；" class="headerlink" title="第二种写法；"></a>第二种写法；</h3><ul>
+<li>搜索区间；[left, right);</li>
+<li>left、right初始化：left = 0; right = array.size ;（数组的长度，例长度为7的数组，以该索引访问数组则会越界，故上面的搜素区间为左开右闭）。</li>
+<li>终止条件：left &lt; right;</li>
+<li>left改变：left = middle + 1;</li>
+<li>right；right = middle；</li>
+<li>middle = left + ((right - left) / 2);（防止溢出 等同于(left + right)/2）;</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">search</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = nums.<span class="built_in">size</span>(); <span class="comment">// 定义target在左闭右开的区间里，即：[left, right)</span></span><br><span class="line">        <span class="keyword">while</span> (left &lt; right) &#123; <span class="comment">// 因为left == right的时候，在[left, right)是无效的空间，所以使用 &lt;</span></span><br><span class="line">            <span class="keyword">int</span> middle = left + ((right - left) &gt;&gt; <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span> (nums[middle] &gt; target) &#123;</span><br><span class="line">                right = middle; <span class="comment">// target 在左区间，在[left, middle)中</span></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[middle] &lt; target) &#123;</span><br><span class="line">                left = middle + <span class="number">1</span>; <span class="comment">// target 在右区间，在[middle + 1, right)中</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">// nums[middle] == target</span></span><br><span class="line">                <span class="keyword">return</span> middle; <span class="comment">// 数组中找到目标值，直接返回下标</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 未找到目标值</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="类似题目"><a href="#类似题目" class="headerlink" title="类似题目"></a>类似题目</h2><p><a href="https://programmercarl.com/0035.%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE.html">搜索插入位置</a><br><a href="https://programmercarl.com/0034.%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE.html">在排序数组中查找元素的第一个和最后一个位置</a></p>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="https://programmercarl.com/0704.%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE.html">代码随想录</a></p>
+]]></content>
+      <categories>
+        <category>乐扣刷题</category>
+        <category>数组</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>数组</tag>
+        <tag>二分查找</tag>
       </tags>
   </entry>
   <entry>
@@ -1074,6 +1154,410 @@
       <tags>
         <tag>Python</tag>
       </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2022/04/05/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h1 id="2-保护模式内存管理"><a href="#2-保护模式内存管理" class="headerlink" title="2. 保护模式内存管理"></a>2. 保护模式内存管理</h1><h2 id="2-1-内存管理概览"><a href="#2-1-内存管理概览" class="headerlink" title="2.1 内存管理概览"></a>2.1 内存管理概览</h2><p>​    IA-32架构的内存管理机制主要分为两部分：<strong>段式</strong>和<strong>页式</strong>。 <strong>分段</strong>提供了一种隔绝各个代码、数据和堆栈区域的机制，以致多个程序（或任务）可以运行在同一个处理器上，但不会相互干扰。 <strong>分页</strong>则为传统需求页的虚拟内存系统提供了一种实现机制，在虚拟内存系统中，程序运行所需的环境的各个部分按需映射到物理内存中。 分页同样可以为多个任务之间提供隔离措施。 当在保护模式下运行时，必须采用某种形式的分段机制。 这里没有<strong>模式位</strong>以设置禁用分段机制，也就说在保护模式的内存管理中<strong>分段机制</strong>是<strong>必需</strong>的。 但是，<strong>分页机制</strong>是<strong>可选</strong>的。<br>​    这两种机制（分段和分页）是可以被配置以致支持使用共享内存的简单的单程序（或单任务）系统、多任务系统或多处理器系统。<br>​    如图1所示，段式管理提供了一种机制：其将处理器的<strong>可寻址内存空间</strong>（也被称为<strong>线性地址空间</strong>）划分为较小的受保护的地址空间区域，称为<strong>段</strong>。 段可以用来保存<strong>程序的代码、数据和堆栈</strong>，也可用于保存<strong>系统数据结构</strong>（例如TSS或LDT）。 如果一个处理器中有多个程序（或任务）正在运行，那么每个程序都会被分配自己的一组段空间。 然后处理器可以加强这些段之间的界限，并且确保一个程序不会通过访问写入另一个程序的段而干扰另一个程序的运行。分段机制还允许对段进行分类，这样一来便可限制对特定类型段所要执行的操作。<br> ![](保护模式内存管理/segment and page.jpg)</p>
+<center style="color:#1a1a1a;">图1 分段与分页</center>    
+
+<p>​    一个系统中的所有段都包含在处理器的线性地址空间中。 为了定位到指定段中的一个字节，程序必须提供一个逻辑地址（也称为远指针）。 <strong>逻辑地址</strong>由一个<strong>段选择子</strong>和一个<strong>偏移量</strong>组成。 <strong>段选择子</strong>是一个段的<strong>唯一标识</strong>。 此外，段选择子还提供了段描述符表（如全局描述符表，GDT）中到一个被称为段描述符的数据结构的偏移量。 每个段都有一个段描述符，它指定了段的大小、段的访问权限和特权级别、段的类型以及段的第一个字节在线性地址空间中的位置（即段基址)。 将逻辑地址的偏移量部分与段的基址相加，就可以定位段内的某个字节。 因此<strong>基址加上偏移量</strong>就形成了在处理器的线性地址空间中的一个<strong>线性地址</strong>。<br>​    如果不启用分页，那么处理器的线性地址空间会被直接映射到处理器的物理地址空间。 物理地址空间定义为处理器可以在其地址总线上生成的地址范围。<br>​    因为多任务计算系统定义的线性地址空间通常都要比其含有的物理内存容量大得多，所以需要采取一些“虚拟化”线性地址空间的方法。而这种线性地址空间的虚拟化是通过处理器的分页机制来处理的。<br>​    分页机制支持建立一个<strong>虚拟内存</strong>环境，在这个环境中，可以用小量的物理内存（RAM和ROM）和一些磁盘存储空间就可以模拟大容量的线性地址空间。启用分页机制时，每个段被划为分为页（通常每个页大小为4KB），这些页存储在物理内存或硬盘中。 操作系统或程序通过维护一个页目录和一组页表来跟踪这些页。当程序（或任务）视图访问线性地址空间中的一个地址位置时，处理器便会使用页目录和页表将线性地址转换为一个物理地址，然后在该内存位置上执行所要求的操作（读或写）。<br>​    如果当前被访问的页面不在物理内存中，处理器便会中断当前程序的执行（通过产生一个页错误异常）。 然后，操作系统执行程序将从磁盘读取该页面进入物理内存，然后继续执行刚才被中断的程序。<br>​      当分页机制在操作系统或执行程序正常运作时，对于正确执行的程序来说，物理内存和磁盘之间的页面交换是透明的。 即使在IA-32处理器中，16位的程序也可在虚拟8086模式下运行时进行分页（透明地）。</p>
+<p>​    总结：</p>
+<ul>
+<li><strong>逻辑地址（Logical Address）</strong>：一个逻辑地址由两部份组成，<strong>段标识符</strong>: <strong>段内偏移量</strong>。段标识符是由一个16位长的字段组成，称为<strong>段选择子</strong>（段选择子就是段标识符）。</li>
+<li><strong>线性地址（Linear Address）</strong>：一个<strong>段的基址</strong>加上<strong>段内偏移量</strong>，形成线性地址空间中的一个线性地址。线性地址是逻辑地址到物理地址变换之间的中间层。这里段内偏移量就是逻辑地址中的段内偏移量。而段的基址跟逻辑地址中段标识符有关，通过段标识符（段选择子）可获得段描述符表中与该段选择子相关联的段描述符，段描述符提供了该段的基址。</li>
+<li><strong>物理地址（Physical Address）</strong>：物理内存中的地址。</li>
+</ul>
+<h2 id="2-2-分段机制"><a href="#2-2-分段机制" class="headerlink" title="2.2 分段机制"></a>2.2 分段机制</h2><p>​    IA-32架构支持的分段机制可用于实现多种系统设计。这些设计范围从最小使用分段来保护程序的平坦模型，到使用分段来创建良好健壮性的操作环境的多段模型，在这种环境中，多个程序和任务可同时可靠运行的<br>​    下面几节给出了几个例子，说明如何在系统中使用分段来提高内存管理的性能和可靠性。 </p>
+<h3 id="2-2-1-基本平坦模型（Basic-Flat-Model）"><a href="#2-2-1-基本平坦模型（Basic-Flat-Model）" class="headerlink" title="2.2.1 基本平坦模型（Basic Flat Model）"></a>2.2.1 基本平坦模型（Basic Flat Model）</h3><p>​    最简单的系统内存模型就是就是基本<strong>“平坦模型”</strong>，在这种模型中，操作系统或应用程序可访问一个连续的、未分段的地址空间。这样一来最大程度地向系统设计人员和程序员隐藏了体系机构的分段机制。<br>​    若要在IA-32架构下实现内存的一个基本平坦模型，则需要至少创建两个段描述符，一个用于引用代码段，一个用于引用数据段（如图2所示）。 然而，这两个段都会被映射到整个线性地址空间：即，这两个段描述符具有相同的基址：0和相同的段限长（段的最大长度）：4 GB。 通过将段限长设置为4 GB，可以避免分段机制对超过段空间大小的内存的引用产生异常，即使指定的地址不存在物理内存中。 ROM （EPROM）通常位于物理地址空间的顶部，因为处理器从FFFF_FFF0H开始执行。 RAM （DRAM）则位于在地址空间的底部，因为复位初始化后DS数据段的初始基址为0。<br>![](保护模式内存管理/flat model.jpg)</p>
+<center style="color:#1a1a1a;">图2 平坦模型</center>    
+
+<h3 id="2-2-2-保护平坦模型（Protected-Flat-Model）"><a href="#2-2-2-保护平坦模型（Protected-Flat-Model）" class="headerlink" title="2.2.2 保护平坦模型（Protected Flat Model）"></a>2.2.2 保护平坦模型（Protected Flat Model）</h3><p>​    保护平坦模型类似于基本平坦模型，指示保护平坦模型将段限制在包含<strong>物理内存实际存在的地址范围内</strong>（如图3所示）。当尝试访问不存在的内存时，会产生一个<strong>通用保护异常（#GP）</strong>。该模型针对某些程序bug提供了最低水平的硬件保护。<br>![](保护模式内存管理/protected flat model.jpg)</p>
+<center style="color:#1a1a1a;">图3 保护平坦模型</center>    
+
+<p>​    这个保护平坦模型可以被拓展变得更加复杂，以提供更多保护功能。例如，为了确保分页机制能提供用户程序和监控程序之间代码和数据的隔离，这里需要定义<strong>四个段</strong>：<strong>权限级别为3</strong>的<strong>用户程序</strong>代码段和数据段、<strong>权限级别为0</strong>的<strong>监管程序</strong>代码段和数据段。通常这些段都相互<strong>覆盖</strong>，并且在线性地址空间的<strong>起始地址都为0</strong>。这种平坦分段模型搭配简单的分页结构可以保护操作系统不受应用程序影响，此外通过为每个任务或进程增加单独的分页结构，其还可以确保一个应用程序不受其他应用程序影响。一些流行的多任务操作系统也使用此种类似的设计。</p>
+<h3 id="2-2-3-多段模型（Multi-Segment-Model）"><a href="#2-2-3-多段模型（Multi-Segment-Model）" class="headerlink" title="2.2.3 多段模型（Multi-Segment Model）"></a>2.2.3 多段模型（Multi-Segment Model）</h3><p>​    多段模型（如图4所示）利用了分段机制所提供的全部功能，为<strong>代码、数据结构、程序和任务</strong>都提供了<strong>硬件级强制保护</strong>。在这个模型中，每个程序（或任务）都被分配了自己的段描述符和段空间。段可以是其分配段的程序所<strong>私有</strong>的，也可多个程序<strong>共享</strong>。此外，操作系统硬件来控制对运行在系统中的各个程序的所有段和执行环境的访问。<br>​    <img src="/2022/04/05/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/multi-sgement.jpg"></p>
+<center style="color:#1a1a1a;">图4 多段模型</center>        
+
+<p>​    对内存访问的检查不仅可以防止引用超过段大小的地址，还可以防止程序对某些段执行不被允许的操作。例如，一个代码为只读段，因此可使用硬件来防止对该代码段的写操作。每个段的访问权限信息也可用于设置保护区和保护级别。保护级别则可用于保护操作系统程序不被未经授权的应用程序访问。<br>​    分页机制可以与图2、图3和图4中所描述的任一分段模型搭配使用。 处理器的分页机制将线性地址空间（在线性地址空间中，段也被映射）划分为页面（如图1所示）。 然后在线性地址空间中的页面会映射到物理地址空间中的页面。 分页机制提供了几种页级保护功能，它们可以与段保护功能一起使用，也可以代替段保护功能。 例如，它允许逐页执行读写保护。 分页机制还提供了两级用户-监管保护，也可以逐页指定这种保护。</p>
+<h2 id="2-3-逻辑地址和线性地址的转换"><a href="#2-3-逻辑地址和线性地址的转换" class="headerlink" title="2.3 逻辑地址和线性地址的转换"></a>2.3 逻辑地址和线性地址的转换</h2><p>​    在系统保护模式中，处理器需要经过两部分的地址转换以完成到物理地址空间的转换：逻辑地址转换和线性地址空间分页。<br>​    即使最小程度地使用分段，处理器地址空间中的每一个字节都需要使用逻辑地址访问。一个<strong>逻辑地址</strong>由<strong>16位段选择符</strong>和<strong>32位偏移量</strong>组成，如图5所示。<strong>段选择符</strong>标识该字节所位于的段，偏移量确定字节相对于段基址的<strong>段内位置</strong>。<br>     处理器会将每个逻辑地址转换成线性地址。 线性地址是处理器线性地址空间中的一个32位地址。 与物理地址空间类似，线性地址空间是一个平坦的（未分段的）、大小为$2^{32}$字节的地址空间，地址范围从0开始到0xFFFFFFFF结束。<strong>线性地址空间</strong>包含<strong>所有的段</strong>和<strong>系统定义的系统表</strong>。<br>![](保护模式内存管理/logic address.jpg)</p>
+<center style="color:#1a1a1a;">图5 逻辑地址到线性地址的转换</center>    
+
+<p>​    从逻辑地址转换到线性地址，处理器需要做如下操作：</p>
+<ol>
+<li>使用<strong>段选择子中的偏移量</strong>来定位在GDT或LDT中对应的段描述符，然后读取到处理器中。（这步仅当一个新的段选择子被加载到段寄存器时才需要）。</li>
+<li>检查段描述符以检查<strong>段的访问权限和范围</strong>，以确保该段是可访问的，并且保证<strong>段偏移在段的大小范围</strong>内。</li>
+<li>将<strong>段描述符中的段的基址</strong>与<strong>段偏移量</strong>相加，形成一个<strong>线性地址</strong>。  </li>
+</ol>
+<p>​    如果不使用分页机制，处理器将会将线性地址直接映射为物理地址（也就是说，也就是说，线性地址可以直接送到处理器的地址总线，也就是说，线性地址等同于物理地址）。 如果线性地址空间被分页，启用分页机制，则会使用第二级地址转换来将线性地址转换为物理地址。</p>
+<h3 id="2-3-1-段选择子（Segment-Selectors）"><a href="#2-3-1-段选择子（Segment-Selectors）" class="headerlink" title="2.3.1 段选择子（Segment Selectors）"></a>2.3.1 段选择子（Segment Selectors）</h3><p>​    一个段选择子是一个<strong>段的16位标识符</strong>（如图6所示）。段选择子不直接指向一个段，反而指向定义了一个段的段描述符。一个段选择子包含了如下几项信息：</p>
+<ul>
+<li>Index：索引（第3到15位），共13位，可从GDT或LDT中8192（$2^{13}$）个段描述符中选择一个。处理器将索引值乘以8（一个段描述符的大小为8字节），并将其与GDT或LDT的基址（分别来自GDTR或LDTR寄存器）相加可定位一个段描述符。  </li>
+<li>TI (table indicator) flag  ：表指示标志位（第2位），指示所使用段描述符表，当复位时，表示选择GDT；设置该表示位时，表示选择LDT。</li>
+<li>Requested Privilege Level (RPL)  ：请求特权级别（第0和第1位），共两位，指示该段选择子的权限级别。权限级别的范围为0到3，<strong>权限级别0为最高权限级别</strong>。</li>
+</ul>
+<p><img src="/2022/04/05/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/selector.jpg"></p>
+<center style="color:#1a1a1a;">图6 段选择子</center>    
+
+<p>​    处理器不使用GDT的<strong>第一个表项</strong>。 指向这个GDT表项的段选择子（即索引值为0且TI标志设置为01的段选择子）称为<strong>“空段选择器”</strong>。 当空选择器加载入段寄存器（除CS或SS寄存器（代码段寄存器、堆栈段寄存器）外）时，处理器不会产生异常。 然而，当使用存储空选择器的段寄存器访问内存时，它会产生一个异常。 空选择器可以用于<strong>初始化未使用的段寄存器</strong>。 用空段选择器加载CS或SS寄存器会导致生成一个通用保护异常（#GP）。<br>​    段选择子作为指针变量的一部分对应用程序可见，段选择子的值通常由链接编辑器或链接加载器分配或修改，而不是应用程序。    </p>
+<h3 id="2-3-2-段寄存器（Segment-Registers）"><a href="#2-3-2-段寄存器（Segment-Registers）" class="headerlink" title="2.3.2 段寄存器（Segment Registers）"></a>2.3.2 段寄存器（Segment Registers）</h3><p>​    为了减少地址转换时间和降低编程复杂度，处理器提拱了至多可存储<strong>6个段选择子的寄存器</strong>（如图7所示）。每个段寄存器支持一种特定类型的内存引用（代码、堆栈或数据）。对于执行任何类型的程序，至少要将<strong>有效的段选择符</strong>加载到<strong>代码段（CS）、数据段（DS）和堆栈段（SS）</strong>。处理器还提供另外的数据段寄存器（ES、FS、GS），可贝用于让当前正在执行的程序（或任务）能够访问其他几个数据段。<br>​    对于访问一个段的一个程序，段选择器必须已经加载到一个段寄存器中。 因此，尽管一个系统可以定义上千个段，但只有6个段可立即访问使用。 在程序执行期间，通过将其他段的段选择子加载到这些寄存器中，就可以访问其他段。<br>![](保护模式内存管理/Segment Register.jpg)</p>
+  <center style="color:#1a1a1a;">图7 段寄存器</center>        
+
+<p>​    每个段寄存器都有一个<strong>“可见”</strong>部分和一个<strong>“隐藏”</strong>部分 （隐藏部分有时被称为<strong>“描述符缓存”</strong>或<strong>“影子寄存器”</strong>）。当一个段选择符被加载到段寄存器的可见部分时，处理器会同时将<strong>段选择符所指向的段描述符的段基址、段限长、 以及访问控制信息</strong>加载到段寄存器的隐藏部分。 段选择符缓存在段寄存器中的信息（可见和隐藏部分）使得处理器可以直接进行地址转换，而不需要再花费额外的总线周期从段描述符读取段的基址和段限长信息。 在一个多处理器系统中，处理器都访问同一个描述符表，如果描述表被修改，则软件应负责重新加载段寄存器。 如果不重新加载，则可能出现段描述符已经被修改，却仍在使用缓存在段寄存器中的旧段描述符的清空。<br>​    提供了以下两种方法来加载段寄存器：</p>
+<ul>
+<li>使用MOV，POP，LDS，LES，LSS，LGS和LFS 等指令加载。这些指令<strong>显式</strong>地引用段寄存器。</li>
+<li>隐式加载指令，例如使用长指针方法的CALL，JMP和RET指令，还有SYSENTER和SYSEXIT指令，IRET，INT <em>n</em>，INTO和INT3指令。这些指令执行时会附带修改CS寄存器的内容（有时也会修改其它寄存器的内容）。</li>
+<li>MOV指令也可被用于把段寄存器的可见部分的内容加载到一个通用目的寄存器。</li>
+</ul>
+<h3 id="2-3-3-段描述符（Segment-Descriptors）"><a href="#2-3-3-段描述符（Segment-Descriptors）" class="headerlink" title="2.3.3 段描述符（Segment Descriptors）"></a>2.3.3 段描述符（Segment Descriptors）</h3><p>​    一个段描述符是GDT或LDT中的一个数据结构，其提供处理器中一个段的大小、位置、访问控制和状态信息。段描述符通常由编译器、链接器、加载器或操作系统或执行程序创建，而不是应用程序创建。图8展示了所有类型的段描述符的通用描述符格式。<br>​    ![](保护模式内存管理/segment descripotor.jpg)</p>
+  <center style="color:#1a1a1a;">图8 段描述符</center>        
+
+<p>​    一个段描述符的标志位和字段信息如下：</p>
+<ul>
+<li>Segment limit field ：段限长字段，指明一个段的大小。处理器会把<strong>两个段限长字段</strong>拼接形成一个<strong>20位长的值</strong>。并根据颗粒度标志位G的两种不同的值来解释段限长字段的含义。<br>若G=0，段大小的范围为1字节到1MB字节，单位为1字节。若G=1，段大小的范围为4KB到4GB字节，单位为4KB字节。<br>处理器通过两种不同方式使用段限长，其依据是段是<strong>向上扩展段</strong>还是<strong>向下扩展段</strong>。  对于向上拓展的段，逻辑地址的段偏移量的范围为<strong>0字节到段限长值</strong>。大于段限长的偏移量将会产生一个一般保护异常（#GP，所有段都会产生除了堆栈段外）或一个堆栈错误异常（#SS表示SS段）  。对于一个向下拓展段，则相反，段偏移量的范围为<strong>段限长1字节增长到0xFFFFFFFFH或0xFFFFH</strong>（这个取决于B标志位的设置）。小于或等于段限制的偏移量会产生一般保护异常或堆栈故障异常。对于向下拓展段，减少段限长的值允许在段地址空间底部分配新的内存，而不是再顶部。因为IA-32架构所使用的栈总是向下增长的，所以这种机制便于栈的扩展。</li>
+<li>Base address fields  ：基址字段，该字段定义了段的0字节在4GB大小的线性地址空间中的位置。 处理器将<strong>三个基址字段</strong>拼接在一起形成一个<strong>32位长</strong>的值。 段基址应按16字节边界进行对齐。 虽然16字节对齐不是必需的，但是通过把程序的代码和数据按16字节边界上对齐，可使得程序性能最佳。（即，边界对齐便于数据的访问）</li>
+<li>Type field  ：类型字段，指示<strong>该段或门的类型</strong>，并指明段的访问类型和段的扩展方向。根据描述符类型标志位，这个字段会有两种含义：<strong>应用程序（数据、代码）段描述符</strong>或<strong>系统段描述符</strong>。对于代码段、数据段、系统段，这个字段的编码并不相同。</li>
+<li>S (descriptor type) flag：描述符类型标志位，其指明了一个段描述符是一个系统段描述符（该标志位复位）还是一个代码或数据段描述符（该标志位被设置）。</li>
+<li>DPL（descriptor privilege level  ）field：指明该段的特权级别。特权级别的取值范围为<strong>0 -3</strong>，<strong>0是权限级别最高</strong>。DPL用于控制对段的访问。</li>
+<li>P(segment-present) flag：段存在标志位，指明段是否于内存中存在（P=1，在内存中；P＝0，不存在内存中）。若P＝0，当一个段描述符的段选择符加载进段寄存器时处理器会产生一个<strong>段不存在异常</strong>。内存管理软件可以使用此标志位来控制在某一给定时间将指定的段加载进物理内存中，这为管理虚拟内存提供了除分页以外的控制。图9展示了P＝0时一个段描述符的格式。当复位该标志位时，操作系统或执行程序可以<strong>自由使用格式中标为“可用”（Available）的位置</strong>来存储自己的数据，例如有关不存在段实际在什么地方的信息。</li>
+<li>D/B(default operation size/default stack pointer size and/or upper bound) flag  ：D/B（默认操作大小/默认栈指针大小和/或上界限）标志，其根据段描述符描述的是一个可执行代码段、还是下扩数据段、或堆栈段来执行不同的功能。（对于32位代码和数据段，该标志位应该总被设置为1；对于16位数据和代码段，该标志段被设置为0）。<ul>
+<li><strong>可执行代码段：</strong>此时这个标志被称为<strong>D标志位</strong>，其指明段中的指令引用有效地址和操作数的默认长度。当D＝1，则默认值为32位地址和32位或8位操作数；当D＝0，则默认值为16位地址和16位或8 位操作数。指令前缀0x66H可用来选择非默认值的操作数大小；指令0x67H可用来选择非默认值的操作地址大小。</li>
+<li><strong>堆栈段（由SS寄存器指向的数据段）：</strong>此时这个标志被称为<strong>B标志位</strong>，它用于指明隐含栈操作（如pushes、pops、calls）时的栈指针的大小。当B＝1，则使用一个32位的栈指针，它存储在32位的ESP寄存器中；假如B=0，则使用一个16位的栈指针，它存储在16位的SP寄存器中。假如堆栈段被设置成一个下扩数据段，那么B标志也同时指定了堆栈段的上界限。</li>
+<li><strong>下扩段（Expand-downdata segment）</strong>此时标志叫作<strong>B标志</strong>，它指明堆栈段的上界。当B=1,上界为0xFFFFFFFFH（4Gbytes）；当B＝0，上界为0xFFFFH（64KBytes）。</li>
+</ul>
+</li>
+<li>G (granularity) flag  ：颗粒度标志位G，其决定了段限长域字段的单位。当G＝0时，段限长的单位为字节；当G＝1时，段限长的单位为4KB（这个标志位不会影响基地址的颗粒度，基地址的颗粒度总是字节单位。）。若设置了该标志位，则在使用段限长检查偏移量时，不会检查偏移量的12位最低有效位。 例如，当G=1时，段限长为0表明有效偏移量为0到4095。</li>
+<li>L（64-bit code segment) flag  ：L标志位，在IA-32e模式下，段描述符第二个双字的第21位表示该代码段是否存储了本地64位代码。 当L=1时，表示在64位模式下执行该代码段中存储的指令。 当L=0时。表示在兼容模式下执行此代码段中存储的指令。 如果设置了L位，则必须复位D标志位。 当在非IA-32e模式或该段非代码段时，第21位是保留的，并且应该总是设置为0。  </li>
+<li>Available and reserved bits  ：可用和保留位，段描述符的第二个双字的第20位是保留给操作系统软件使用的；</li>
+</ul>
+<p><img src="/2022/04/05/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/descriptor(P=0).jpg"></p>
+  <center style="color:#1a1a1a;">图9    P=0时的段描述符</center>        
+
+<h2 id="2-4描述符的分类"><a href="#2-4描述符的分类" class="headerlink" title="2.4描述符的分类"></a>2.4描述符的分类</h2><h3 id="数据段和代码段描述符（Data-and-Code-segment-Descriptor）"><a href="#数据段和代码段描述符（Data-and-Code-segment-Descriptor）" class="headerlink" title="数据段和代码段描述符（Data and Code segment Descriptor）"></a>数据段和代码段描述符（Data and Code segment Descriptor）</h3><p>​    当段描述符中的<strong>S标志位被设置</strong>时，该描述符描述的是一个代码或数据段。类型字段（type）的<strong>最高有效位</strong>（第二个双字的第11位）用于决定是一个数据段（复位）还是一个代码段描（置位）。<br>​    即：</p>
+<ul>
+<li>当S=1，type的最高有效位为0时，该段描述符指向一个数据段；</li>
+<li>当S=1，type的最高有效位为1时，该段描述符指向一个代码段。</li>
+</ul>
+<p>​    对于数据段描述符，类型字段的低3位（第8、9、10位）的含义分别为被访问accessed (A)、可写write-enable (W)和拓展方向expand -direction (E)。表1展示了代码段和数据段的类型字段比特位编码的说明。根据可写比特位W的设置, 数据段可以是只读的，也可以是可读/写的。<br>![](保护模式内存管理/date and code.jpg) </p>
+  <center style="color:#1a1a1a;">表1   代码段和数据段描述符类型</center>        
+
+<p>​    <strong>堆栈段</strong>必须是一个<strong>可读/写的数据段</strong>。若将不可写数据段的段选择符加载到 SS 寄存器中，则会导致产生一个一般保护异常。如果堆栈段的长度会动态变化，那么堆栈段可以是一个<strong>向下扩展的数据段</strong>（扩展方向标志被设置）。因而，动态改变段限长的值将导致栈空间被添加到栈底部。  如果希望堆栈段的大小保持不变，则堆栈段可以是向上拓展或向下拓展类型。<br>​    被访问位A指明该段自上次操作系统或执行程序复位<strong>该位后是否被访问过</strong>。 如果包含段描述符的内存类型支持<strong>处理器写操作</strong>，那么处理器每次将<strong>段选择符加载到段寄存器</strong>时都会设置这个位。 该位会一直保持被设置状态，直到其<strong>显式复位</strong>。 该标志位既可以用于虚拟内存管理，也可以用于调试。<br>​    对于代码段，类型字段的低三位的含义（第8、9、10位）分别为<strong>被访问accessed (A)、可读read enable (R)、 一致conforming (C)<strong>。代码段可以是</strong>只能执行或可执行/可读</strong>，这取决于<strong>可读位的设置</strong>。 当<strong>常数或其他静态数据以及指令码</strong>存储在了一个ROM 中时，就可以使用一个可执行/可读代码段。  通过使用<strong>带CS前缀的指令</strong>或者把<strong>代码段选择符</strong>加载进一个<strong>数据段寄存器</strong>（DS、ES、FS或GS寄存器），就可读取代码段中的数据。 在<strong>保护模式</strong>下，<strong>代码段是不可写</strong>的。<br>​    代码段可以是<strong>一致性和非一致性的</strong>。操作系统允许执行在当前特权级的程序向一个<strong>更高权级的一致性代码段</strong>进行转移。当向一个<strong>不同特权级别</strong>的<strong>非一致性代码段</strong>进行执行转移时，会产生一个通用保护异常（#GP），除非使用<strong>调用门（call gate）或任务门（task  gate）</strong>（这个我们已经在读书笔记1中，有所了解，通过门，可以进行<strong>跨权限级别的访问</strong>）。一些系统工具（不访问保护设施）和一些处理某些异常类型（如除出错，溢出）的处理程序可以放在一致性代码段内。<strong>需要保护其不能被更低特权级程序</strong>访问的程序应该放在非一致性代码段内。<br>​     所有的<strong>数据段</strong>都是<strong>非一致性</strong>的，这意味着它们不能<strong>被更低特权级（权限数字值较大）的程序或过程访问</strong>。与代码段不同的是，<strong>数据段</strong>总是能被<strong>更高特权级（权限数字值较小，数字越小，权限越高）的程序或过程访问</strong>，而不需要使用特别的访问门。<br>​    当GDT或LDT中的<strong>段描述符存储在在ROM</strong>中时，若软件或处理器试图<strong>更新（写入）位于ROM的段描述符</strong>，则处理器就会进入一个<strong>无限循环</strong>。 为了避免该问题发生，将ROM中所有段描述符的<strong>访问位都置位</strong>。同时，会将那些试图修改ROM中段描述符的操作系统代码或执行代码删除掉。<br>​    <strong>注意：</strong>不能通过call或jump转入更低权限级别（权限数字值较大）的代码段执行，不管目标段是一个一致性还是非一致代码段。这种转移执行的尝试操作，将会引起一个一般保护异常。</p>
+<h3 id="系统描述符类型（SYSTEM-DESCRIPTOR-TYPES-）"><a href="#系统描述符类型（SYSTEM-DESCRIPTOR-TYPES-）" class="headerlink" title="系统描述符类型（SYSTEM DESCRIPTOR TYPES  ）"></a>系统描述符类型（SYSTEM DESCRIPTOR TYPES  ）</h3><p>​    当段描述符中的<strong>S标志位（描述符类型）被复位</strong>时，表明该段描述符为一个系统描述符。处理器能识别以下一些类型的系统段描述符：</p>
+<ul>
+<li><p>本地描述符表(LDT)的段描述符</p>
+</li>
+<li><p>任务状态段(TSS)描述符</p>
+</li>
+<li><p>调用门描述符</p>
+</li>
+<li><p>中断门描述符</p>
+</li>
+<li><p>陷阱门描述符</p>
+</li>
+<li><p>任务门描述符</p>
+<p>这些描述符可分为两大类：<strong>系统段描述符和门描述符</strong>。系统段描述符指向一个系统段（LDT或TSS段）。门描述符就是他们自己——“门”，这些门描述符存储了代码段中指向程序入口点的指针（调用、中断和陷阱门），或者存储了TSS的段选择符（任务门）。  图2占了系统段描述符和门描述符类型字段的编码及说明。</p>
+</li>
+</ul>
+<p>![](保护模式内存管理/system descriptor.jpg)</p>
+  <center style="color:#1a1a1a;">表2   系统段描述符类型</center>            
+
+]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[<h1 id="1-x86系统架构概览"><a href="#1-x86系统架构概览" class="headerlink" title="1. x86系统架构概览"></a>1. x86系统架构概览</h1><h2 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h2><p>先对几个概念进行说明：</p>
+<p>​    IA-32：Intel Architecture 32-bit简称，即英特尔32位体系架构，在英特尔公司1985年推出的80386微处理器中首先采用。IA-32属于X86体系结构的32位版本（X86-32），即具有32位内存地址和32位数据操作数的处理器体系结构，从1985年面世的80386直到Pentium，都是使用IA-32体系结构的处理器。而现在Intel把32位x86架构的名称x86-32改称为IA-32。而x86则是Intel开发的一类处理器体系结构的泛称，包括 Intel 8086、80286、i386和i486等，因此其架构称为“x86”。</p>
+<p>​    Intel 64：Intel 64-bit的简称，64位这个概念最早是由AMD首先提出，提出了一个兼容IA-32指令集的64位版本，其 扩充了指令及寄存器长度和个数等，更新了参数传送方式，AMD称其为AMD 64，Intel称其为Intl 64（不同于IA-64），其被命名为“x86-64” ，有时也简称为x64。。</p>
+<h2 id="1-1系统级体系结构概览"><a href="#1-1系统级体系结构概览" class="headerlink" title="1.1系统级体系结构概览"></a>1.1系统级体系结构概览</h2><h3 id="系统级体系结构的组成"><a href="#系统级体系结构的组成" class="headerlink" title="系统级体系结构的组成"></a>系统级体系结构的组成</h3><p>​    系统级体系结构是由一组寄存器、数据结构、指令组成。这里的指令是指被设计用于支持系统级操作的指令，例如：内存管理、中断、异常处理、任务管理、多线程控制等系统级操作。<br>​    下图概述了适用于32位模式下的系统寄存器和数据结构。  </p>
+<p><img src="/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/overview.jpg"></p>
+<center style="color:#1a1a1a;">图1 IA-32系统级寄存器和数据结构</center>
+
+<p><img src="/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/overview2.jpg"></p>
+<center style="color:#1a1a1a;">图2 IA-32e模式下系统级寄存器和数据结构</center>
+
+<h3 id="全局和局部描述符表-Global-and-Local-Descriptor-Tables"><a href="#全局和局部描述符表-Global-and-Local-Descriptor-Tables" class="headerlink" title="全局和局部描述符表(Global and Local Descriptor Tables)"></a>全局和局部描述符表(Global and Local Descriptor Tables)</h3><p>​    当在<strong>保护模式</strong>下运行时，所有的<strong>内存访问</strong>操作必须都通过<strong>全局描述表(GDT)<strong>，或者一个</strong>可选的本地描述符表(LDT)<strong>来完成。如图1所示。这些表包含</strong>一些条目的描述符，如段(segment)<strong>。</strong>段描述符</strong>负责提供<strong>段的基址</strong>，访问权限、类型和该段的用途等信息。那不禁让人疑惑为什么要这样做？</p>
+<p>​    传统的实地址模式下的汇编中，利用<code>CS:IP</code>来访问内存，<code>CS</code>左移四位加<code>IP</code>获得物理地址，但是通常不需要关心基地址，只需要偏移地址即可访问内存，因为实地址模式的基地址通常是固定的。但是在保护模式下，为了达到保护内存的目的，就需要让不同程序有不同的基地址（基地址如果固定，那么很容易就被他人直到程序的运行位置，很不安全）。所以，在保护模式下，内存是一段一段分配的，分配的那一段内存头地址就是基地址，也称段地址。同时，操作系统也需要记录分配出去的每一段内存，实际上，每段内存都使用一个8字节的段描述符记录着，所有的这些段描述符被放在一块连续内存空间中存储着，称为描述符表。<br>（参考：<a href="https://blog.csdn.net/sinat_35261315/article/details/78479523%EF%BC%89">https://blog.csdn.net/sinat_35261315/article/details/78479523）</a></p>
+<p>​    每个段描述符都有一个与之关联的<strong>段选择子</strong>。一个<strong>段选择子</strong>为使用它的软件提供了一个GDT或LDT的<strong>索引</strong>（它所关联段的段描述符的<code>偏移量</code>）, 同时为指明段选择子指向的GDT还是LDT，其提供了一个<code>全局/局部标志</code>（global/local flag），此外还提供了程序对该段的访问权限信息。<br>​    若要访问一个段中的一个字节，则必须要有该段选择子和一个偏移信息。该段选择子提供访问该段的段描述符（在GDT或LDT）中。处理器可从段描述符中获得线性地址空间中该段的基址。然后偏移量则提供了这一字节相对于基址的位置。这一机制可用于访问任一有效代码、数据或堆栈段，但其前提是在处理器运行的当前特权级别（CPL，Current Privilege Level）下，这些段是可访问。<code>CPL</code>定义是指当前执行的代码段的保护级别。<br>​    看图1，图中的是实线箭头指示了线性地址，虚线指示了一个段选择子，而虚线箭头则指示了一个物理地址。为了简单起见，许多段选择子表示为指向段的直接指针。 然而，实际上段选择子并不是直接指向所关联的段，而是通过<code>GDT或LDT</code>。<br>​    GDT的线性地址的基址存储在<code>GDT寄存器（GDTR）</code>中; LDT的线性地址的基址存储在<code>LDT寄存器（LDTR）</code>中。</p>
+<p>​    针对这里的<strong>线性地址</strong>说明：我们已在操作系统中学习了<code>逻辑地址</code>（logical address），<code>逻辑地址</code>就是段基址加上段内偏移，将逻辑地址合成以后的地址称为<code>线性地址</code>（linear  address）。如果没有分页，<code>线性地址</code>就是最终的<code>物理地址</code>，而如果有分页的存在，则还需要经过分页机制的翻译才能得到最终的物理地址。</p>
+<p>​    总结：每个段都在GDT或LDT中存放了一个段描述符，同时对于每个段描述符，还有一个相关联的段选择子。如果访问内存的某一字节，要先获得这一字节所处段所关联的段选择子，通过这个段选择子到GDT或LDT找到该段的段描述符（具体过程：GDTR或LDTR提供GDT或LDT<code>基址</code>，段选择子提供该段在GDT或LDT中的<code>偏移</code>，相加得到该段描述符在GDT或LDT中的地址，然后就可获得段描述符），通过段描述符获得该段的基址，然后还需要获得该字节在相对于该基址的偏移量或者说相对地址，二者相加，就获得了该字节的实际地址，可访问该字节。</p>
+<p>​    补充：全局描述符表（GDT）是 Intel x86 系列处理器（从 80286 开始）所使用的一种数据结构，目的是为了在程序运行期间划分具有不同属性的内存区域，比如：可以运行、可写入等区域的起始地址与访问权限。这些区域被称作段。<br>​    全局描述符表除了可以保存<code>段信息</code>外还可以保存其它信息。全局描述符表中的每个表项（描述子）长度为  8-byte，全局描述符表的选择子可以为：任务状态描述子（TSS）、本地描述符表描述子或者调用门描述子。调用门在 x86  不同特权级中转移控制权非常重要，但是现在的操作系统很少使用这种机制。<br>​    同时存在的还有局部描述符表（LDT）。局部描述符表用来存储程序内部的段信息，而全局描述符表用来描述全局的段信息。x86 系列的处理器具有一种机制，可以在发生某些事件时自动切换局部描述符表，但是针对全局描述符表却没有这样的机制。<br>​    程序如果想访问某个段，需要在全局描述符表或者局部描述符表中找到该段对应的索引。这个索引被称为段选择子。为了使用相应的段，段选择子必须被首先加载到段寄存器。除了可以通过机器指令读取或者设置全局描述符表（还有中断描述符表）的内存地址外，指令所引用的内存地址存在于一个隐式的段，有时有两个。大部分情况下，默认的段寄存器可以通过在地址前面加一个段地址来替换。加载段选择子到段寄存器的过程中，程序会自动读取全局描述符表或者局部描述符表，并将相关信息保存到处理器中。在全局描述符表或者局部描述符表被加载后，对二者的修改并不会起作用，除非重新将相应的表加载到寄存器。<br>（来源:<a href="https://www.cnblogs.com/Proteas/archive/2010/11/28/2335682.html%EF%BC%89">https://www.cnblogs.com/Proteas/archive/2010/11/28/2335682.html）</a></p>
+<h4 id="IA—32e下的全局和局部描述符表-Global-and-Local-Descriptor-Tables-in-IA-32e-Mode"><a href="#IA—32e下的全局和局部描述符表-Global-and-Local-Descriptor-Tables-in-IA-32e-Mode" class="headerlink" title="IA—32e下的全局和局部描述符表(Global and Local Descriptor Tables in IA-32e Mode)"></a>IA—32e下的全局和局部描述符表(Global and Local Descriptor Tables in IA-32e Mode)</h4><p>​    在IA-32e的子模式(64位模式和兼容模式)下，GDTR和LDTR寄存器都扩展到了64位。 若要了解更多信息。<br>​    全局和局部描述符表被拓展至64位以支持64位基址（大小为16字节的LDT描述符保存了64位的基址和各种属性）。 需注意的是在兼容模式下，描述符将不会被拓展。  </p>
+<h3 id="系统段，段描述符，门-System-Segments-Segment-Descriptors-and-Gates"><a href="#系统段，段描述符，门-System-Segments-Segment-Descriptors-and-Gates" class="headerlink" title="系统段，段描述符，门(System Segments, Segment Descriptors, and Gates)"></a>系统段，段描述符，门(System Segments, Segment Descriptors, and Gates)</h3><p>​    除了代码、数据、堆栈段，其组成了一个程序的运行环境外，该体系结构还定义了两个系统段：<code>任务状态段</code>（the task-state segment–TSS）和<code>LDT</code>。GDT因其不能通过段选择子和段描述符的方式访问，从而不被看作是一个段。TSSs和LDTs都有为其定义的段描述符。<br>​    该体系结构也定义了一组特殊的<code>描述符</code>，可以称为<code>门（调用门、中断门、陷阱门、任务门）</code>。这些门为系统程序提供了保护，以致其可以在与大多数应用程序不同的权限级别上运行。简而言之，门提供了一种机制——跨权限级别的访问。例如，通过调用门的一次调用，能以比当前的代码段所需的更低权限数值（意味着更大的权限）访问代码段中的一个程序。要通过<code>调用门</code>调用一个程序，调用者需要提供当前<code>调用门</code>的<code>段选择子</code>，然后，处理器获得该调用门<code>权限级别</code>、以及该调用门指向的目的代码段的权限级别，然后与CPL比较，对该调用门执行其访问权限的检查。（总共有4个权限级别，分别为0，1，2，3，数字越小权限越大），从而可以理解上面更低权限数值。<br>​    如果允许访问目的代码段，处理器获得目的代码段的<code>段选择子</code>，以及从调用门到该代码段的<code>偏移量</code>。如果此次调用需要更改权限级别，处理器则会切换到<code>堆栈</code>以获取<code>目标特权级别</code>。 然后从当前运行的任务的TSS中获得新堆栈的段选择子。 门还促进了16位和32位代码段之间的转换，反之亦然。  </p>
+<p>​    补充：门描述符并不描述某种内存段，而是描述控制转移的入口点，也就是目标代码的门。通过这种门可以实现<code>特权级的转变和任务的切换</code>。门描述符主要由两部分组成：<code>选择子</code>、<code>偏移地址</code>以及<code>DPL</code>。<br>（来源于<a href="http://blog.chinaunix.net/uid-12276369-id-2952355.html%EF%BC%89">http://blog.chinaunix.net/uid-12276369-id-2952355.html）</a></p>
+<ul>
+<li><p> 调用门一般用于<code>特权级别的切换</code>，存在于GDT中或者LDT中。调用门的选择子指向<code>代码段描述符</code>，偏移地址对应代码段中的<code>偏移量</code>。当jump和call指令的操作对象是调用门的时候，就会跳转到对应的代码处，并更改特权级别，也就会发生堆栈的切换。</p>
+</li>
+<li><p>任务门一般用在<code>任务的切换</code>，可以存放在GDT、LDT或IDT中。任务门的选择子指向GDT中的TSS选择符，而其偏移地址没有意义。当Jmp和Call指令的操作数是任务门的时候，就会发生任务的切换。</p>
+</li>
+<li><p> 中断门和陷阱门描述符是<code>中断处理程序的入口</code>，存在于IDT中。中断门和陷阱门的选择子指向代码段选择符，偏移地址是代码段中中断处理程序的入口地址。</p>
+</li>
+</ul>
+<h4 id="IA-32e模式下的门-Gates-in-IA-32e-Mode"><a href="#IA-32e模式下的门-Gates-in-IA-32e-Mode" class="headerlink" title="IA-32e模式下的门(Gates in IA-32e Mode)"></a>IA-32e模式下的门(Gates in IA-32e Mode)</h4><p>​    在IA-32e模式下，以下描述符是16字节的描述符(扩展以支持64位基地址):</p>
+<ul>
+<li>LDT描述符</li>
+<li>64位TSSs</li>
+<li>调用门</li>
+<li>中断门</li>
+<li>陷阱门</li>
+<li>调用门  </li>
+</ul>
+<p>​    调用门促进了64位模式和兼容模式之间的转换。 IA-32e模式下不支持任务门。 在特权级别改变时，其不会从TSS读取堆栈段选择子。 相反，它们被设置为NULL。</p>
+<h3 id="任务状态段和任务门-Task-State-Segments-and-Task-Gates"><a href="#任务状态段和任务门-Task-State-Segments-and-Task-Gates" class="headerlink" title="任务状态段和任务门(Task-State Segments and Task Gates)"></a>任务状态段和任务门(Task-State Segments and Task Gates)</h3><p>​    <code>TSS（任务状态段）</code>定义了任务的执行环境的状态。其包括以下几个部分：<code>通用寄存器，段寄存器，EFLAGS寄存器，EIP寄存器，3个堆栈段对应的段选择子</code>（每个权限级别都对应有一个堆栈，如果有三个权限级别：1，2，3，则会有3个栈分别对应每个权限级别）。TSS也包含了该任务的LDT的段选择子和页目录表的基地址的信息。<br>​    在保护模式下，系统中的每个程序都运行在一个任务（称为当前任务）的<code>上下文</code>中。而当前任务的TSS的段选择子存储在任务寄存器中。切换到一个任务的最简单方法就是调用或跳转到新任务。这个新任务的TSS段选择子由此次CALL或JMP指令给出。当切换任务的时候，处理器完成的几个步骤：</p>
+<ol>
+<li>将当前任务的状态信息存储到当前TSS中;</li>
+<li>将新任务的段选择子加载到任务寄存器中;</li>
+<li>通过GDT中的段描述子访问新TSS;</li>
+<li>从新TSS中加载新任务的状态信息至通用寄存器、段寄存器、LDTR、控制寄存器CR3(页目录表的基地址)、EFLAGS寄存器和EIP寄存器；</li>
+<li>开始执行新任务</li>
+</ol>
+<p>​     一个任务可通过任务门访问。任务门类似于调用门，唯一不同的是其访问的是TSS而不一个代码段。</p>
+<p>​    关于上下文的补充：上下文是由程序正确运行所需的状态组成的。这个状态包括存放在内存中的程序的代码和数据，他的栈、通用目的寄存器的内容、程序计数器、环境变量以及打开文件描述符的集合。（来源于CSAPP-P508）</p>
+<h4 id="IA-32e模式下的任务状态段TSS-Task-State-Segments-in-IA-32e-Mode"><a href="#IA-32e模式下的任务状态段TSS-Task-State-Segments-in-IA-32e-Mode" class="headerlink" title="IA-32e模式下的任务状态段TSS(Task-State Segments in IA-32e Mode)"></a>IA-32e模式下的任务状态段TSS(Task-State Segments in IA-32e Mode)</h4><p>​    IA-32e模式并不支持硬件实现任务交换。然而，TSS依然存在。一个TSS的基址由其段描述符指明。<br>​    一个64位的RSS保存以下对64位操作很重要的信息：</p>
+<ul>
+<li>每个权限级别对应的堆栈指针地址</li>
+<li>中断堆栈表的指针地址  </li>
+<li>IO权限位图的偏移地址（以TSS为基地址）</li>
+</ul>
+<p>​    IA-32e模式任务寄存器也被拓展64位以致能保存64位基地址。可参见7.7节“64位模式下的任务管理”。  </p>
+<h3 id="中断和异常处理-Interrupt-and-Exception-Handling"><a href="#中断和异常处理-Interrupt-and-Exception-Handling" class="headerlink" title="中断和异常处理(Interrupt and Exception Handling)"></a>中断和异常处理(Interrupt and Exception Handling)</h3><p>​    外部中断、软件中断以及异常通过<code>中断描述表(interrupt descriptor table--IDT)</code>处理。IDT存储了存储一组门描述符，其提供了对中断和异常处理程序的访问。同GDT一般，IDT也不是一个段。IDT线性地址的基地址存储在<code>IDT寄存器中（IDTR）</code>。<br>​    IDT的门描述符可以是中断、陷阱、任务门描述符。为访问一个<code>中断或异常处理程序</code>，处理器首先会从内部硬件、外部中断控制器或通过软件发出INT、INTO、INT 3或BOUND等指令接收中断向量（中断号）。中断向量提供了访问IDT的索引。如果被选中的门描述符是一个中断门或陷阱们，则其访问对应处理程序的过程就类似于通过一个调用门（call gate）来调用一个程序。如果描述符是一个任务门，则通过切换任务来访问处理程序。</p>
+<h4 id="IA-32e模式下中断和异常处理-Interrupt-and-Exception-Handling-IA-32e-Mode"><a href="#IA-32e模式下中断和异常处理-Interrupt-and-Exception-Handling-IA-32e-Mode" class="headerlink" title="IA-32e模式下中断和异常处理(Interrupt and Exception Handling IA-32e Mode  )"></a>IA-32e模式下中断和异常处理(Interrupt and Exception Handling IA-32e Mode  )</h4><p>​    在IA-32e模式下，中断描述符被拓展到16字节以至于支持64位及地址。对于64位模式和兼容模式非常重要。<br>​    IDTR寄存器被扩展以致保存64位的基址。但不支持任务门。  </p>
+<h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h3><p>​    系统体系结构支持内存的直接物理寻址或虚拟内存(通过分页机制)。当使用物理寻址时，线性地址就被是为实际物理地址。当通过<code>分页机制</code>寻址时，所有的代码、数据、系统段（包括GDT、IDT）所有代码、数据、堆栈和系统段（包括GDT和IDT）都可以进行分页寻址，只有最近访问的页面被保存在物理内存中。<br>​    <code>页（也被称为页帧）</code>在物理内存中的位置储存在在页目录表中。这些结构驻留在物理内存中。<br>​    控制寄存器CR3存储了页目录表物理地址的基址。页目录表中的条目指明了各页框物理地址的基址、访问权限和内存管理信息。<br>​    为使用分页机制，将连续的线性地址分为多个零碎的部分。每一部分为页目录表和页框提供其不同的偏移量。 一个系统可以有一个或多个页目录表。 例如，每个任务可以有自己的页目录表。<br>内存管理分为2种情况，<code>分段</code>或<code>分段+分页</code>。内存管理一定会进行分段，而分页则偏向于一种程序，可选的虚拟映射，由OS来指定是否需要开启的。</p>
+<h4 id="IA-32e模式下的内存管理"><a href="#IA-32e模式下的内存管理" class="headerlink" title="IA-32e模式下的内存管理"></a>IA-32e模式下的内存管理</h4><p>​    在IA-32e模式下，使用一组系统数据结构堆物理内存页进行管理。在兼容模式下和64位模式下，系统数据结构分为四级，其包含：</p>
+<ul>
+<li> 四级页面映射表(The page map level 4 ——PML4)：四级页面映射表中的一个表项存储了一个页目录指针表物理地址的基址、访问权限和内存管理信息。 PML4物理地址的基址则存储在CR3中。</li>
+<li>一组页目录指针表（A set of page directory pointer tables  ）：  页目录指针表中的一个表项存储了一个页目录表物理地址的基址、访问权限以及内存管理信息。</li>
+<li>一组页目录表（Sets of page directories ）：页目录表中的一个表项存储了一个页表物理地址的基址、访问权限以及内存管理信息。</li>
+<li>一组页表（Sets of page tables）：页表一个表项存储了一个页框物理地址的基址、访问权限以及内存管理信息。</li>
+</ul>
+<h3 id="系统寄存器"><a href="#系统寄存器" class="headerlink" title="系统寄存器"></a>系统寄存器</h3><p>​    为了帮助初始化处理器和控制系统操作，系统架构在EFLAGS寄存器和几个系统寄存器中提供了<code>系统标志位</code>：  </p>
+<ul>
+<li>EFLAGS寄存器的系统标志和IOPL字段控制任务和模式切换、中断处理、指令跟踪、访问权限中。 </li>
+<li>控制寄存器(CR0、CR2、CR3和CR4)包含用于控制系统级操作的各种标志和数据字段。 这些寄存器中的其他标志用于指示某些特殊处理器功能对操作系统或执行程序的支持与否。   </li>
+<li>调试寄存器(在图1中没有显示)则允许设置调试程序和系统软件所用的断点。 </li>
+<li>GDTR、LDTR和IDTR寄存器包含各自表的线性地址和大小（限长）。 </li>
+<li>任务寄存器包含当前任务的TSS的线性地址和大小。</li>
+<li>任务寄存器包含当前任务的TSS的线性地址和大小。  </li>
+<li>特殊模块寄存器(图1中没有显示)  。</li>
+</ul>
+<p>​    <code>特殊模块寄存器(MSRs)</code>是一组主要供操作系统或执行过程使用的寄存器（即在特权级别0上运行的代码，我们前面也提到数字越小，权限级别越高）。这些寄存器控制诸如调试扩展、性能监视计数器、机器检查体系和内存类型范围(MTRRs)等几项工作。在Intel 64和IA-32架构的处理器，这些寄存器的数量和功能中并不相同。 大多数系统都限制应用程序访问除EFLAGS寄存器外的系统寄存器。 然而，当程序运行在最高特权级别（特权级别0）时，应用程序将被允许修改系统寄存器。</p>
+<h4 id="IA-32e模式下的系统寄存器"><a href="#IA-32e模式下的系统寄存器" class="headerlink" title="IA-32e模式下的系统寄存器"></a>IA-32e模式下的系统寄存器</h4><p>​    在IA-32e模式下，四个系统描述表寄存器（GDTR、IDTR、LDTR和TR）硬件上扩展至能储存64位基址。EFLAGS寄存器拓展至64位RFLAGS寄存器。 CR0-CR4扩展为64位。 CR8也变为可用。 CR8提供对任务优先级寄存器（TPR）的读写访问，如此一来，操作系统就可以控制外部中断类别的优先级。<br>​    在64位模式下，调试寄存器DR0-DR7变为64位。在兼容模式下，DR0-DR3中执行64位地址匹配。<br>​    在支持IA-32e模式的系统上，扩展特性确保寄存器（IA32_EFER）可以使用。 这个特殊模块寄存器控制激活IA-32e模式和其他IA-32e模式操作。此外，还有几个特殊模块寄存器来管理IA-32e模式指令 ：</p>
+<ul>
+<li>IA32_KernelGSbase ：管理SWAPGS指令 </li>
+<li>IA32_LSTAR ：管理SYSCALL 指令  </li>
+<li>IA32_SYSCALL_FLAG_MASK  ：管理SYSCALL 指令</li>
+<li>IA32_STAR_CS  ：管理SYSCALL 和 SYSRET   指令</li>
+</ul>
+<h3 id="其他系统资源-Other-System-Resources"><a href="#其他系统资源-Other-System-Resources" class="headerlink" title="其他系统资源(Other System Resources)"></a>其他系统资源(Other System Resources)</h3><p>​    除了前面章节中描述的系统寄存器和数据结构之外，系统架构还提供了以下额外的资源:  </p>
+<ul>
+<li>操作系统说明</li>
+<li>性能监控计数器（图1中未显示）</li>
+<li>内部缓存和缓冲区（图1中未显示）</li>
+</ul>
+<p>​    性能监视计数器是事件计数器，可以通过编程来计数处理器处理事件，比如解码的指令数、接收到的中断数或缓存负载数。<br>​    处理器提供几个内部缓存和缓冲区。高速缓存用于存储数据和指令。 缓冲区用于存储，其存储，譬如：解码后的地址到系统和应用程序段，以及等待执行的写操作。 </p>
+<h2 id="1-2-实模式和保护模式转换"><a href="#1-2-实模式和保护模式转换" class="headerlink" title="1.2  实模式和保护模式转换"></a>1.2  实模式和保护模式转换</h2><h3 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h3><p> IA-32支持三种<code>工作模式和</code>一种<code>准工作模式</code>：（这些模式都是CPU的工作模式，而CPU的工作模式是指CPU的寻址方式、寄存器大小等用来反应CPU在该环境下如何工作的概念。）</p>
+<ul>
+<li><p>保护模式（Protected mode）：处理器原生支持的模式。在这个模式下运行，能体现处理器丰富的体系结构特性与功能，且处理器能以高灵活性、高性能运行，还提供对现有软件的向后兼容性。电脑运行的99.99%时间，处理器都是工作在保护模式下。在保护模式中，内存的管理模式分为两种——段模式和页模式。其中页模式也是基于段模式的。也就是说，保护模式的内存管理模式是：仅段模式或段页式。进一步说，段模式是必不可少的，而页模式则是可选的——如果使用页模式，则是段页式，否则这是仅段模式。</p>
+</li>
+<li><p>实地址模式（Real-address mode）：在这种操作模式下，处理器处于Intel 8086处理器的编译运行环境，但此外提供了一些扩展（例如切换到保护或系统管理模式的拓展）。 （这种模式只能跑Intel8086处理器对应的程序）。机器刚刚通电启动或CPU复位时，运行在实模式下。实模式只能访问地址在1M以下的内存称为常规内存，我们把地址在1M 以上的内存称为扩展内存。实模式的“实”体现在程序中用到的地址都是真实的物理地址，“段基址:段内偏移地址”产生的逻辑地址就是物理地址，即程序员可见的地址完全是真实的内存地址。由16位段寄存器的内容乘以16（左移4位）作为段基址，加上16位段偏移地址形成20位的物理地址，最大寻址空间1MB，最大分段64KB。</p>
+</li>
+<li><p>系统管理模式（System management mode (SMM)）：自Intel386 SL处理器开始，SMM是所有IA-32处理器的标准架构特性。 这种模式为操作系统或程序的执行提供了一个透明的机制来实现电源管理和OEM差异化特性。SMM是通过激活外部系统中断引脚(SMI#)进入中断，该引脚产生一个系统管理中断(SMI)。 在SMM中，处理器切换到一个单独的地址空间，同时保存当前运行的程序或任务的上下文。为SMM的设计代码可以透明地执行。 从SMM返回时，处理器被放置回SMI之前的状态</p>
+</li>
+<li><p>虚拟8086模式： 虚拟8086模式是运行在保护模式中的实模式，也称为准操作模式，为了在32位保护模式下执行纯16位程序。它不是一个真正的CPU模式，还属于保护模式。</p>
+</li>
+</ul>
+<p>保护模式同实模式的<code>根本区别</code>是<code>进程内存受保护与否</code>。可寻址空间的区别是前因的结果。</p>
+<p>Intel 64架构支持IA-32架构和IA-32e架构的所有工作模式:  </p>
+<p>​    IA-32e模式：64位操作系统运行在该模式。该模式有两种子模式: </p>
+<ul>
+<li>兼容模式：该模式下，64位操作系统运行在32位兼容环境，能正常运行16，32位应用程序就像在基本的保护模式下运行一样。可以访问32位地址空间，但不能运行纯16位实模式程序（即不能运行虚拟86模式程序）。 </li>
+<li>64位模式：在该模式下，处理器完全执行64位指令，使用64位地址空间和64操作数，运行16，32位程序必须切换到兼容模式。64位模式提供64位线性寻址，支持大于64GBytes的物理地址空间。  </li>
+</ul>
+<p>​    IA-32e子模式的切换完全基于代码段寄存器。这样一来，运行在IA-32e模式中（64位）的OS 通过设置32位后的CS，完全可以无缝的运行所有16，32，64为应用程序。</p>
+<h3 id="模式切换："><a href="#模式切换：" class="headerlink" title="模式切换："></a>模式切换：</h3><p>![](系统级体系结构概述/mode transition.jpg)</p>
+<center style="color:#1a1a1a;">图3 模式切换</center>
+
+<p>​    EFLAGS寄存器中的VM标志位决定处理器是在保护模式还是在虚拟8086模式下运行。保护模式和虚拟8086模式之间的转换通常作为任务切换或从中断或异常处理程序返回的一部分进行。<br>​    <code>LMA位(IA32_EFER.LMA[bit 10])</code>决定处理器是否在IA-32e模式下运行。 在IA-32e模式下运行时，又由代码段的CSA.L位决定是64位还是兼容模式 。处理器通过启用分页机制和设置<code>LME位    (IA32_EFER.LME[bit 8])</code>，然后从保护模式进入IA-32e模式。<br>​    当处理器处于实模式、保护模式、虚拟8086模式或IA-32e模式时，只要它接收到SMI中断，处理器就会切换到SMM模式。 在执行RSM指令之后，处理器总是返回到SMI中断发生前的模式。<br>​    机器上电，CPU进入实模式，从物理地址0xFFFFFFFF0处开始执行初始化代码，设置基本系统功能操作必要的数据结构信息，例如处理中断和异常的IDT表。接下来，如果继续在保护模式工作，需要加载操作系统模块；如果要进入实模式，那么需要进行模式切换。</p>
+<h3 id="保护模式与实模式的切换"><a href="#保护模式与实模式的切换" class="headerlink" title="保护模式与实模式的切换"></a>保护模式与实模式的切换</h3><p>​    为了在硬件或软件复位后，处理器以保护模式运行，那么必须要从实地址模式切换到保护模式。 一旦切换到保护模式，软件通常不需要切换回实地址模式。 若要运行以实地址模式（8086模式）编写的软件，通常以虚拟8086模式运行软件比切换回实地址模式更方便。 </p>
+<h4 id="切换到保护模式："><a href="#切换到保护模式：" class="headerlink" title="切换到保护模式："></a>切换到保护模式：</h4><p>​    处理器进入到保护模式之前，需要操作系统加载和初始化软件必须在内存中设置好保护模式下使用的数据结构的基本信息。这些数据结构包括<br> 1）保护模式中断描述符表IDT<br> 2）GDT<br> 3）任务状态段TSS<br> 4）LDT<br> 5）如果使用分页机制，最少要设置一个页目录和一个页表<br> 6）处理器切换到保护模式下运行的代码段</p>
+<p>还需要设置设置以下系统寄存器<br> 1）GDTR<br> 2）中断描述符表基地址寄存器<br> 3）控制寄存器CR1～CR3</p>
+<pre><code> 初始化这些数据结构、代码模块和系统寄存器之后，通过设置CR0寄存器的保护模式标志位PE即可进入保护模式。
+ 切换到保护模式的步骤如下：
+</code></pre>
+<ol>
+<li>禁用中断。 CLI指令禁用可屏蔽硬件中断。 NMI中断可以用外部电路禁用。 （软件必须保证模式切换过程中不产生异常或中断。）</li>
+<li>执行LGDT指令，将GDT的基址加载入GDTR寄存器  </li>
+<li>执行一条MOV CR0指令，在控制寄存器CR0中设置PE标志位（也可以设置PG标志位，启用分页机制）</li>
+<li>执行完MOV CR0指令之后，执行FAR JMP或 FAR CALL指令。（这个操作通常是远跳转或调用指令流中的下一条指令。）</li>
+<li>紧跟在MOVCR0指令的JMP或CALL指令改变了处理器执行流程并串行化处理器。  </li>
+<li>如果启用了分页机制，那么MOV CR0指令和JMP或CALL指令的代码必须来自已经经过映射的页面（即，跳转前的线性地址与启用了分页和保护模式后的物理地址相同）。 JMP或CALL指令的目标指令不需要进行内存映射。  </li>
+<li>如果要使用一个本地描述符表，则执行LLDT指令，在LDTR寄存器中加载LDT的段选择器。</li>
+<li>执行LTR指令，用初始保护模式任务的段选择符或者可写内存区域的段描述符加载任务寄存器TR</li>
+<li>进入保护模式后，段寄存器仍存储着实地址模式时候的内容。第4步中的JMP和CALL指令会重置CS寄存器。然后执行以下操作之一来更新剩余段寄存器的内容 ：（1）重新加载段寄存器DS, SS, ES, FS和GS。 若是不使用ES, FS和/或GS寄存器，则加载空选择子。  （2）对一个新任务执行JMP或CALL指令，这将自动重置段寄存器的值，并将其存储到一个新的代码段。</li>
+<li>执行LIDT指令，用受保护模式IDT的地址和限长加载IDTR寄存器。</li>
+<li>  开启中断。执行STI指令启用可屏蔽硬件中断，并执行必要的硬件操作启用NMI中断。</li>
+</ol>
+<h4 id="切换回实模式"><a href="#切换回实模式" class="headerlink" title="切换回实模式"></a>切换回实模式</h4><p>​    若MOV CR0指令复位CR0中的PE位，处理器从保护模式切换回实地址模式。重新进入实地址模式步骤如下：</p>
+<ol>
+<li>关中断；CLI指令禁用可屏蔽硬件中断。 NMI中断可以用外部电路禁用；</li>
+<li>如果开启分页机制，那么需要执行：<br> 把程序的控制转移到对等映射的线性地址处，这些地址的标识映射到物理地址（线性地址等同于物理地址）<br> 确保GDT和LDT在对等映射的页面上<br>复位CR0中的PG标志位<br> 设置CR3寄存器内容为0x00，用于刷新TLB缓冲</li>
+<li>把程序的控制转移到长度为64KB（0xFFFF）的可读段中。此操作使用实模式要求的段长度加载CS寄存器</li>
+<li>使用包含以下设定值的描述符选择子来加载SS、DS、ES、FS、GS段寄存器<br> 段限长=64kb（0xFFFF）<br> 字节粒度 （G = 0）<br> 向上扩展 E=0<br> 可写 W=1<br> 存在 P=1<br> 基址= 任何值<br>段寄存器存储的是非空的段选择子，否则段寄存器在实地址模式下将不可用。 注意，如果段寄存器没有重新加载，那么在保护模式中继续使用加载的描述符属性执行。</li>
+<li>执行LIDT指令来指向在1MB实模式地址范围内的实地址模式中断表</li>
+<li>复位CR0中的PE位已进入实模式</li>
+<li>执行一个FAR JMP指令跳转到一个实模式程序中。这个操作会刷新指令队列，并且为CS寄存器加载合适的基地址和访问权限值</li>
+<li>加载实地址模式程序代码会使用的SS、DS、ES、FS、GS。如果其中哪一个在实模式下不会用到，则写入0</li>
+<li>执行STI指令启用可屏蔽硬件中断，并执行必要的硬件操作启用NMI中断。   </li>
+</ol>
+<h2 id="1-3-80x86系统指令寄存器"><a href="#1-3-80x86系统指令寄存器" class="headerlink" title="1.3 80x86系统指令寄存器"></a>1.3 80x86系统指令寄存器</h2><h3 id="标志寄存器-EFLAGS"><a href="#标志寄存器-EFLAGS" class="headerlink" title="标志寄存器 EFLAGS"></a>标志寄存器 <code>EFLAGS</code></h3><p>​    EFLAGS寄存器的系统标志位和IOPL字段控制I/O、可屏蔽的硬件中断、调试、任务切换和虚拟8086模式（如图4所示）。一般情况下，只允许具有<code>特权级别</code>的代码（通常是操作系统或执行代码）才能修改这些标志位。  </p>
+<p><img src="/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/EFLAG.jpg" alt="EFLAG"></p>
+<center style="color:#1a1a1a;">图4 EFLAG寄存器中的系统标志位</center>
+
+<p>​    系统标志和IOPL如下：</p>
+<ul>
+<li><p>TF (Trap (bit 8))：跟踪标志位（第8位），设置该标志位可启用<code>单步调试模式</code>; 复位则禁用单步模式。 在单步模式下，处理器在每条指令执行后生成一个<code>调试异常</code>。如果程序使用POPF、POPFD或IRET指令设置TF标志，处理器则会在紧跟POPF、POPFD或IRET之后的指令后产生一个调试异常。</p>
+</li>
+<li><p>IF(Interrupt enable (bit 9))：中断使能位（第9位），控制处理器对<code>可屏蔽硬件中断</code>请求的响应（参见6.3.2节“可屏蔽硬件中断”）。设置该标志位表明处理器可以响应可屏蔽硬件中断; 复位则不响应可屏蔽硬件中断。  IF标志不会屏蔽异常或不可屏蔽中断（NMI中断）。通过控制寄存器CR4中的CPL、IOPL和VME标志位的值决定IF标志是否可以被CLI、STI、POPF、POPFD和IRET修改。  </p>
+</li>
+<li><p>I/O (privilege level field (bits 12 and 13))：I/O特权级别字段（第12、13位），该标志位指明当前运行的程序或任务的IOPL （I /O privilege level）。 当前运行的程序或任务的CPL必须小于等于其访问I/O地址空间的IOPL。 POPF和IRET指令只能在CPL为0时才能修改该字段。当虚拟8086模式扩展生效时（即当CR4.VME = 1时）， IOPL也是控制IF标志的修改和中断处理的机制之一  。</p>
+</li>
+<li><p>  Nested task (bit 14)  ： 嵌套任务标志位（第14位），控制被中断和调用任务之间的链接。处理器在调用由CALL指令、中断或异常发起的程序时会设置此标志。 在通过使用IRET指令从一个任务返回时会检查和修改这个标志。 该标志可以通过POPF/POPFD指令显式设置或复位; 但是，在应用程序中更改该标志位的状态可能会导致产生意外的异常。</p>
+</li>
+<li><p>  Resume (bit 16)  ：恢复标志位（第16位），控制处理器对断点指令的响应。 若设置该标志位，该标志暂时禁止为指令断点生成调试异常(#DB)（尽管其他异常条件可能导致异常产生）。 当该标志位复位时，断点指令会生成调试异常。</p>
+</li>
+</ul>
+<p>  RF标志的主要功能是允许在调试异常之后重新执行一条指令。 在使用IRETD指令返回被中断的程序之前，需要设置堆栈上的EFLAGS内容中设置RF标志位（以防指令断点引起另一个调试异常）。 当返回的指令成功执行后，处理器会自动复位这个标志位，从而再次允许指令断点异常。</p>
+<ul>
+<li><p>Virtual-8086 mode (bit 17) ：虚拟8086模式标志位（第17位），设置该标志位以切换到虚拟8086模式。复位则返回保护模式。</p>
+</li>
+<li><p>Alignment check (bit 18)：对齐检查位（第18位）  ：设置该标志位和CR0寄存器中的AM标志位可控制对内存引用进行对齐检查， 复位AC标志和/或AM标志以禁用对齐检查。当引用一个未对齐的操作数时，就会产生一个对齐检查异常，譬如：奇数字节地址上的一个字，或者不是4的整数倍地址上的一个双字。在用户模式下（特权级别3），才会产生对齐检查异常产生。默认特权级别为0的内存引用，例如引用段描述符，也不会产生此异常，即使该异常是由在用户模式下执行的指令引起的。</p>
+<p>对齐检查异常可用于检查数据的对齐。对于和进行数据对齐的处理器交换数据时，这一点非常有用。解释器也可以通过将指针指向错误的方式来使用对齐检查异常，并将指针标记为特殊指针。其免去了检查每个指针的开销，并且只在使用时处理特殊指针。 </p>
+</li>
+<li><p>   Virtual Interrupt (bit 19) ：虚拟中断（第19位），包含IF标志的虚拟映射。 此标志位与VIP标志位一同使用。 当设置了控制寄存器CR4中的VME或PVI标志位，并且IOPL小于3时，处理器才会识别VIF标志。（设置VME标志启用虚拟8086模式扩展；设置PVI标志位启用保护模式下的虚拟中断。）  </p>
+</li>
+<li><p> Virtual interrupt pending (bit 20)  ：虚拟中断等待位，软件设置该标志位表示有中断正在等待处理； 复位表示没有中断等待处理中。该标志位与VIF标志一起使用。 处理器会读取该标志位，但不会修改。当控制寄存器CR4中的VME或PVI标志被设置且IOPL小于3时，处理器才会识别VIP标志。 设置VME标志启用虚拟8086模式扩展；设置PVI标志位启用保护模式下的虚拟中断。</p>
+</li>
+<li><p>Identification (bit 21)：标识位（第21位），程序或过程可设置或复位该标志位以表示对CPUID指令的支持。 </p>
+</li>
+</ul>
+<h4 id="IA-32e模式下的系统标志位和字段"><a href="#IA-32e模式下的系统标志位和字段" class="headerlink" title="IA-32e模式下的系统标志位和字段"></a>IA-32e模式下的系统标志位和字段</h4><p>​    在64位模式下，RFLAGS寄存器扩展到64位，上面的32位保留。 RFLAGS（64位模式）和EFLAGS（兼容模式）的系统标志位如图4所示。<br>​    在IA-32e模式下，处理器不允许设置VM位，因为其不支持虚拟8086模式（尝试设置该标志位的操作会被忽略）。此外，处理器也不会设置NT位。 然而，处理器允许软件设置NT位（在IA-32e模式下，若设置了NT位，IRET会通常导致保护故障）。<br>​    在IA-32e模式下，可通过编程的方式使用SYSCALL/SYSRET指令来指定复位RFLAGS / EFLAGS中的一些标志位。 这些指令保存/恢复EFLAGS/RFLAGS。 </p>
+<h3 id="内存管理寄存器"><a href="#内存管理寄存器" class="headerlink" title="内存管理寄存器"></a>内存管理寄存器</h3><p>​    处理器提供四个内存管理寄存器(<code>GDTR、LDTR、IDTR和TR</code>)，用于指明内存分段管理所用的数据结构的基地址（见图5）。 处理器还为这些寄存器的加载和保存提供了特定的指令。<br>![](系统级体系结构概述/Memory Control.jpg)</p>
+<center style="color:#1a1a1a;">图5 内存管理寄存器</center>
+
+<ul>
+<li><p>全局描述符表寄存器GDTR（Global Descriptor Table Register (GDTR)  ）：GDTR寄存器用于存放全局描述符表的线性基地址（保护模式下32位，IA-32e模式下64位）和16位的GDT表限长值。基地址指定GDT表中字节0在线性地址空间中的地址，表限制长度指明GDT表的字节长度值。</p>
+<p>LGDT、SGDT指令分别用于加载和保存GDTR中的值。在机器刚通电或处理器复位后，基地址被默认设置为0，而长度被设置为0xFFFF。在保护模式初始化的过程中必须为GDTR加载一个新的值。</p>
+</li>
+<li><p>局部描述符表寄存器LDTR(Local Descriptor Table Register LDTR)：LDTR寄存器用于存放局部描述符表的16位的段选择子，基地址（保护模式下32位，IA-32e模式下64位），段限长和描述符属性值。基地址指明LDT段中字节0在线性地址空间中的地址，段限长度指明LDT段的字节数目。<br>LLDT、SLDT指令分别用于加载和保存LDTR寄存器中段描述符的部分。包含LDT表的段必须在GDT表中有一个段描述符项。当使用LLDT指令把含有LDT表段的选择符加载进LDTR时，LDT段描述符的段基址、段限长度以及描述符属性会被自动加载进LDTR中。当出现任务切换时，新任务的LDT段的段选择子和段描述符会自动加载到LDTR中。在写入新的LDT信息之前，LDTR的内容不会被自动保存寄存器中。</p>
+<p>当机器通电或处理器复位后，段选择符和基地址被默认设置为0，而段长度被设置成0xFFFF。</p>
+</li>
+<li><p>中断描述符表寄存器IDTR(IDTR Interrupt Descriptor Table Register )：IDTR寄存器用于存放中断描述符表的线性基地址（保护模式下32位，IA-32e模式下64位）和16位的中断描述符表限长值。基地址指定IDT表中字节0在线性地址空间中的地址，表限制长度指明IDT表的字节数目。LIDT、SIDT指令分别用于加载和保存IDTR中的值。在机器刚通电或处理器复位后，基地址被默认设置为0，而长度被设置为0xFFFF。在保护模式初始化的过程中必须为GDTR加载一个新的值。IDTR寄存器中的基址和限长可以在处理器初始化过程中进行更改。  </p>
+</li>
+<li><p>任务寄存器TR(Task Register (TR))：TR寄存器存放了当前任务TSS段的16段选择子，基地址（保护模式下32位，IA-32e模式下64位）、段长度和描述符属性值。其引用GDT表中的一个TSS类型的描述符。基地址指定TSS段中字节0在线性地址空间中的地址，段长度指明TSS的字节数目。LTR、STR指令分贝用于加载和保存TR寄存器的段选择符的部分。当LTR指令把选择符加载进任务寄存器时，TSS描述符中的段基址、段限长以及描述符属性会被自动加载到TR中。当机器通电或处理器复位后，段选择符和基地址被默认设置为0，而段长度被设置成0xFFFF。当执行任务切换时，处理器会把新任务的TSS的段选择子和段描述符自动加载入TR中。在写入新的LDT信息之前，LDTR的内容不会被自动保存寄存器中。在写入新的TSS信息之前，TR的内容不会被自动保存寄存器中。</p>
+</li>
+</ul>
+<h3 id="控制寄存器（CONTROL-REGISTERS-）"><a href="#控制寄存器（CONTROL-REGISTERS-）" class="headerlink" title="控制寄存器（CONTROL REGISTERS ）"></a>控制寄存器（CONTROL REGISTERS ）</h3><p>​    控制寄存器（CR0，CR1， CR2， CR3， CR4；如图6所示）决定了处理器的工作模式和当前正在执行的任务的特性。 这些寄存器在所有32位模式和兼容模式下都是32位的。 在64位模式下，控制寄存器扩展到64位。 MOV CRn指令用于操作控制寄存器寄存器标志位。</p>
+<p><img src="/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/contol.jpg"></p>
+<center style="color:#1a1a1a;">图6 控制寄存器</center>
+
+<p>​    控制寄存器总结如下，控制寄存器在每个体系结构定义的不同控制字段会被单独描述。 在图6中，64位模式下的寄存器宽度在括号中表示（CR0除外）。 </p>
+<ul>
+<li><p>CR0：存储系统控制标志位，这些标志位控制处理器运行模式和状态。</p>
+</li>
+<li><p>CR1：保留不用</p>
+</li>
+<li><p>CR2：存储导致页错误的线性地址（发生错误处）。</p>
+</li>
+<li><p>CR3：存储页目录表物理内存的基地址和两个标志位（PCD和PWT），因此该寄存器也被称为页目录基地址寄存器PDBR。PCD和PWT标志位控制处理器内部数据缓存中页目录表的缓存（它们不控制页目录信息的TLB缓存）</p>
+<p> 控制寄存器各标志位、字段说明如下：</p>
+</li>
+<li><p> PG(Paging (bit 31 of CR0))：分页标志位（CR0中的第31位），设置该位启用分页。复位不启动分页。不启用分页时，线性地址就等同于物理地址。如果没有设置PE位（CR0中的第0位），设置该标志位也不会启用分页。若没有设PE位，而尝试设置PG位会导致一般保护异常（#GP）。</p>
+</li>
+<li><p>CD(Cache Disable (bit 30 of CR0))：当复位CD和NW标志位时，会启用了处理器内部(和外部)缓存中整个物理内存的缓存。当设置了CD标志时，缓存则不启用。 为了防止处理器访问和更新它的缓存，必须设置CD标志并使缓存失效，这样就不会发生缓存命中。</p>
+</li>
+<li><p> NW（Not Write-through (bit 29 of CR0)）：当复位NW和CD标志位时，启用写回策略（写入缓存）（适用于Pentium 4、Intel Xeon、P6系列和Pentium处理器）或写直达策略（直接写内存）(适用于Intel486处理器)，来实现命中缓存的写操作，并启用失效周期。 </p>
+</li>
+<li><p>AM（Alignment Mask (bit 18 of CR0)）：设置该标志位时，可进行自动对齐检查；复位时禁用对齐检查。当且仅当设置AM、EFLAGS寄存器中的AC，且CPL为3，并且处理器在保护模式或虚拟8086模式下运行时，才会执行对齐检查。</p>
+</li>
+<li><p>WP（Write Protect (bit 16 of CR0) ）：写保护位（CR0的第16位），设置该标志位时，禁止管理员级程序写入只读页面; 复位时，允许管理员级程序写入只读页面（无论U/S位设置）。 这个标志有助于实现写时复制方法，还可用于创建UNIX等操作系统使用的新进程（fork）。  </p>
+</li>
+<li><p>NE(Numeric Error (bit 5 of CR0))：设置该标志位启用本机（内部）机制报告x87 FPU错误。并且输入IGNNE#，忽略x87 FPU错误。 复位时，没有输入IGNNE#，一个未被屏蔽的x87 FPU错误会导致处理器在FERR#引脚产生一个外部中断，并在执行下一个等待浮点指令或WAIT/FWAIT指令之前立即停止指令的执行。</p>
+</li>
+<li><p>ET（Extension Type (bit 4 of CR0))：扩展类型位（CR0的第4位），Pentium 4、Intel Xeon、P6系列和Pentium处理器中使用。 在Pentium 4、Intel Xeon和P6系列处理器中，该标志被硬编码为1。 在Intel386和Intel486处理器中，设置该标志表示支持intel387 DX数学协处理器指令。</p>
+</li>
+<li><p>TS (Task Switched (bit 3 of CR0)  )：任务切换标志位（CR0的第3位），允许切换任务的x87 FPU/MMX/SSE/SSE2/SSE3/SSSE3/SSE4上下文的延迟保存，直到新任务执行一个x87 FPU/MMX/SSE/SSE2/SSE3/SSSE3/SSE4指令。 处理器在每个任务开关上设置这个标志，并在执行x87 FPU/MMX/SSE/SSE2/SSE3/SSSE3/SSE4指令时测试它。如果设置了TS并且复位了EM(CR0的第2位)，在执行任何x87 FPU/MMX/SSE/ SSE2/SSE3/SSSE3/SSE4指令之前会引发设备不可用异常(#NM)；而PAUSE、PREFETCHh、SFENCE、LFENCE、MFENCE、MOVNTI、CLFLUSH、CRC32和POPCNT指令除外。如果设置TS，复位MP标志(CR0的第1位)和EM标志，在执行x87 FPU WAIT/FWAIT指令之前，不会引发#NM异常。 如果设置了EM标志，TS标志的设置对x87 FPU/MMX/SSE/SSE2/SSE3/SSSE3/SSE4指令的执行没有影响。</p>
+</li>
+<li><p>EM(Emulation (bit 2 of CR0))：仿真位（CR0的第2位），设置该标志位时表示处理器没有内部或外部x87 FPU;；复位时表示系统又协处理器。 这个标志位也影响MMX/SSE/SSE2/SSE3/SSSE3/SSE4指令的执行</p>
+</li>
+<li><p>MP(Monitor Coprocessor (bit 1 of CR0))：监控协处理器标志位（CR0的第1位），控制WAIT(或FWAIT)指令与TS标志（CR0的第3位）的交互作用。 若设置了MP标志位TS标志位，则WAIT指令会产生一个设备不可用异常(#NM)。 如果复位MP标志，则WAIT指令忽略TS标志的设置。   </p>
+</li>
+<li><p>PE(Protection Enable (bit 0 of CR0))：保护启用标志位（CR0的第0位），设置该标志位时启用保护模式; 复位时启用实地址模式。 设置该标志位不会直接启用分页。 它只启用段级保护。 若要启用分页功能，必须同时设置PE和PG标志。  </p>
+</li>
+<li><p>PCD(Page-level Cache Disable (bit 4 of CR3) )：页级缓存禁用(CR3的第4位)，控制访问页目表的第一个页表的内存类型。如果禁用分页，将不使用PAE分页；若CR4.PCIDE = 1，则使用IA-32e分页。</p>
+</li>
+<li><p>PWT(Page-level Write-Through (bit 3 of CR3))：页级透写（CR3的第3位），控制访问的当前页目表中第一个页表的内存类型。 如果禁用分页，将不使用PAE分页；若CR4.PCIDE = 1，则使用IA-32e分页。</p>
+</li>
+</ul>
+<h2 id="1-4-系统指令"><a href="#1-4-系统指令" class="headerlink" title="1.4 系统指令"></a>1.4 系统指令</h2><p>​    系统指令主要负责处理系统级函数，如加载系统寄存器、管理缓存、管理中断或设置调试寄存器。 其中许多指令只能由操作系统软件或者处于特权级别0的程序执行。其他指令可以在任何特权级别执行，因此应用程序也可使用。<br>​    给出常用系统指令的总结：</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>指令全名</th>
+<th>受保护</th>
+<th>指令描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LGDT</td>
+<td>Load GDTR Register</td>
+<td>是</td>
+<td>从内存加载GDT基址、限长到GDTR</td>
+</tr>
+<tr>
+<td>SGDT</td>
+<td>Store GDTR Register</td>
+<td>否</td>
+<td>将GDTR中的基址、限长存储到内存</td>
+</tr>
+<tr>
+<td>LIDT</td>
+<td>Load IDTR Register</td>
+<td>是</td>
+<td>从内存加载IDT基址、限长到IDTR</td>
+</tr>
+<tr>
+<td>SIDT</td>
+<td>Load IDTR Register</td>
+<td>否</td>
+<td>将IDTR中的基址、限长存储到内存</td>
+</tr>
+<tr>
+<td>LLDT</td>
+<td>Load LDT Register</td>
+<td>是</td>
+<td>从内存加载LDT段选择子、段描述符到LDTR或一个通用目的寄存器（段选择子操作数也可以位于通用目的寄存器中）</td>
+</tr>
+<tr>
+<td>SLDT</td>
+<td>Store LDT Register</td>
+<td>否</td>
+<td>将LDTR中LDT段的选择子存储到内存或一个通用目的寄存器</td>
+</tr>
+<tr>
+<td>LTR</td>
+<td>Load Task Register</td>
+<td>是</td>
+<td>从内存中将一个TSS的段选择子和段描述符加载进TR寄存器。（段选择子操作数也可以位于通用寄存器中）</td>
+</tr>
+<tr>
+<td>STR</td>
+<td>Store Task Register</td>
+<td>否</td>
+<td>将TR中的当前任务TSS的段选择子和段描述符存储到内存或一个通用目的寄存器</td>
+</tr>
+</tbody></table>
+]]></content>
   </entry>
   <entry>
     <title>论文翻译</title>
@@ -2296,489 +2780,5 @@
         <tag>CSAPP</tag>
         <tag>计算机系统</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Leetcode704</title>
-    <url>/2022/04/05/Leetcode704/</url>
-    <content><![CDATA[<h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><p>​    <a href="https://leetcode-cn.com/problems/binary-search/submissions/">力扣二分查找题目</a></p>
-<p>​    二分查找这个算法简单，但却会屡屡出错，问题就出在边界上。针对边界的问题，有两种写法，一种是闭区间，一种是开区间。<br>​    此外，需注意的是，使用二分查找的条件：<strong>已排序的数组</strong>，无重复元素。</p>
-<h3 id="第一种写法"><a href="#第一种写法" class="headerlink" title="第一种写法"></a>第一种写法</h3><ul>
-<li>搜索区间：[left , right];</li>
-<li>left、right初始化：left = 0; right = array.size -1;（也就说最右边数组元素的下标，例长度为7的数组，最右边数组下标为6）;</li>
-<li>终止条件：left &lt;= right;</li>
-<li>left改变：left = middle + 1;</li>
-<li>right；right = middle-1；</li>
-<li>middle = left + ((right - left) / 2);（防止溢出 等同于(left + right)/2）;</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">search</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = nums.<span class="built_in">size</span>() - <span class="number">1</span>; <span class="comment">// 定义target在左闭右闭的区间里，[left, right]</span></span><br><span class="line">        <span class="keyword">while</span> (left &lt;= right) &#123; <span class="comment">// 当left==right，区间[left, right]依然有效，所以用 &lt;=</span></span><br><span class="line">            <span class="keyword">int</span> middle = left + ((right - left) / <span class="number">2</span>);<span class="comment">// 防止溢出 等同于(left + right)/2</span></span><br><span class="line">            <span class="keyword">if</span> (nums[middle] &gt; target) &#123;</span><br><span class="line">                right = middle - <span class="number">1</span>; <span class="comment">// target 在左区间，所以[left, middle - 1]</span></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[middle] &lt; target) &#123;</span><br><span class="line">                left = middle + <span class="number">1</span>; <span class="comment">// target 在右区间，所以[middle + 1, right]</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">// nums[middle] == target</span></span><br><span class="line">                <span class="keyword">return</span> middle; <span class="comment">// 数组中找到目标值，直接返回下标</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 未找到目标值</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="第二种写法；"><a href="#第二种写法；" class="headerlink" title="第二种写法；"></a>第二种写法；</h3><ul>
-<li>搜索区间；[left, right);</li>
-<li>left、right初始化：left = 0; right = array.size ;（数组的长度，例长度为7的数组，以该索引访问数组则会越界，故上面的搜素区间为左开右闭）。</li>
-<li>终止条件：left &lt; right;</li>
-<li>left改变：left = middle + 1;</li>
-<li>right；right = middle；</li>
-<li>middle = left + ((right - left) / 2);（防止溢出 等同于(left + right)/2）;</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">search</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = nums.<span class="built_in">size</span>(); <span class="comment">// 定义target在左闭右开的区间里，即：[left, right)</span></span><br><span class="line">        <span class="keyword">while</span> (left &lt; right) &#123; <span class="comment">// 因为left == right的时候，在[left, right)是无效的空间，所以使用 &lt;</span></span><br><span class="line">            <span class="keyword">int</span> middle = left + ((right - left) &gt;&gt; <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span> (nums[middle] &gt; target) &#123;</span><br><span class="line">                right = middle; <span class="comment">// target 在左区间，在[left, middle)中</span></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[middle] &lt; target) &#123;</span><br><span class="line">                left = middle + <span class="number">1</span>; <span class="comment">// target 在右区间，在[middle + 1, right)中</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">// nums[middle] == target</span></span><br><span class="line">                <span class="keyword">return</span> middle; <span class="comment">// 数组中找到目标值，直接返回下标</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 未找到目标值</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="类似题目"><a href="#类似题目" class="headerlink" title="类似题目"></a>类似题目</h2><p><a href="https://programmercarl.com/0035.%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE.html">搜索插入位置</a><br><a href="https://programmercarl.com/0034.%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE.html">在排序数组中查找元素的第一个和最后一个位置</a></p>
-<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="https://programmercarl.com/0704.%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE.html">代码随想录</a></p>
-]]></content>
-      <categories>
-        <category>乐扣刷题</category>
-        <category>数组</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-        <tag>数组</tag>
-        <tag>二分查找</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2021/11/09/AOP%EF%BC%88%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="AOP（面向切面编程）"><a href="#AOP（面向切面编程）" class="headerlink" title="AOP（面向切面编程）"></a>AOP（面向切面编程）</h1><h2 id="AOP-含义"><a href="#AOP-含义" class="headerlink" title="AOP 含义"></a>AOP 含义</h2><p>面向切面编程：也叫做面向方法编程，通过预编译方式和运行期动态代理的方式实现不修改源代码的情况下给程序动态统一添加功能的技术。</p>
-<p>将一些各接口都调用的相同方法抽象为接口，这个接口类似于切面；将方法注入到接口调用的某个地方，这个地方就为切点。</p>
-<p>实现AOP的技术主要分为两类：一类是采用动态代理技术利用截取消息的方式，对消息进行装饰以取代原有对象行为的执行。另一类是采用静态织入的方式，引入特定语法创建切面，从而使编译器可以在编译期间织入相关的切面代码。（<a href="https://www.jianshu.com/p/f1770b9dce27%EF%BC%89">https://www.jianshu.com/p/f1770b9dce27）</a></p>
-<h2 id="AOP核心概念"><a href="#AOP核心概念" class="headerlink" title="AOP核心概念"></a>AOP核心概念</h2><h3 id="横切关注点"><a href="#横切关注点" class="headerlink" title="横切关注点"></a>横切关注点</h3><p>横切关注点主要关注于：对哪些方法进行拦截，拦截后怎样处理，是替换还是包装，此外，还有执行的顺序，</p>
-<h3 id="切面"><a href="#切面" class="headerlink" title="切面"></a>切面</h3><p><code>ASPECT</code>  切面是散落在系统各处<strong>通用</strong>的业务逻辑代码，如安全模块、日志模块、认证模块等。</p>
-<p>切面可以说是一个较大的概念，较为笼统；更具体的就是切点<code>PointCut</code>和通知<code>Advice</code>，由名字就可知，切点存在于切面上，切面上存在切点，切点又有相应的通知<code>Advice</code>；</p>
-<p>切面通常是一个类，可以定义切点<code>PointCut</code>和通知<code>Advice</code>。类是对物体特征的抽象，切面是对横切关注点的抽象。</p>
-<p>切面是业务流程运行的某个特定步骤，是应用运行过程中的关注点，关注点通常会横切多个对象，因此也被称为横切关注点。</p>
-<h3 id="程序执行点"><a href="#程序执行点" class="headerlink" title="程序执行点"></a>程序执行点</h3><p><code>JointPoint</code>连接点是程序执行过程中明确的点，感觉这个说法比较抽象，我个人理解为一些入口点（如方法调用，异常处理），典型的为方法的调用，对类成员的访问以及异常处理程序块的执行。连接点是程序在运行过程中能够插入切面的点，比如方法调用、异常抛出、字段修改等。</p>
-<p>注意：一个<code>JointPoint</code>自身可以<strong>嵌套</strong>其他<code>JointPoint</code>，就比如说，一个方法中又调用了另一个方法。</p>
-<h3 id="切入点"><a href="#切入点" class="headerlink" title="切入点"></a>切入点</h3><p><code>PointCut</code>切入点是带有通知的连接点，在程序中主要体现为编写切入点表达式。切入点是对连接点进行拦截的定义。切入点用于定义通知应该切入到哪些连接点上，不同的通知需要切入到不同的连接点上，这种精准的匹配是由切入点的正则表达式来定义的。</p>
-<p>切入点是可以插入增强处理的连接点，当某个连接点满足执行要求时，该连接点将被连接增强处理，该连接点也就变成了切入点。</p>
-<p>切入点是拦截的方法，连接点<code>JointPoint</code>拦截后将变成切入点。</p>
-<h3 id="通知"><a href="#通知" class="headerlink" title="通知"></a>通知</h3><p><code>Advice</code>通知是AOP在特定切入点上执行的增强处理，是拦截到连接点之后要执行的代码，通知可以分为前置通知<code>Before</code>、后置通知<code>AfterReturning</code>、异常通知<code>AfterThrowing</code>、最终通知<code>After</code>、环绕通知<code>Around</code>五类。</p>
-<ol>
-<li><p> <code>before advice</code>, 在<code>join point</code>前被执行的<code> advice</code>. 虽然<code>before advice</code>是在<code>join point</code>前被执行, 但是它并不能够阻止<code> join point</code> 的执行, 除非发生了异常(即我们在 <code>before advice </code>代码中, 不能人为地决定是否继续执行<code> join point</code> 中的代码)</p>
-</li>
-<li><p>after return advice<code>, 在一个</code> join point <code>正常返回后执行的</code> advice`</p>
-</li>
-<li><p><code>after throwing advice</code>, 当一个<code> join point</code> 抛出异常后执行的 <code>advice</code></p>
-</li>
-<li><p><code>after(final) advice</code>, 无论一个<code>join point</code>是正常退出还是发生了异常, 都会被执行的 advice.</p>
-</li>
-<li><p><code>around advice</code>, 在<code> join poin</code>t 前和<code> joint point</code> 退出后都执行的 <code>advice</code>. 这个是最常用的<code> advice</code>.</p>
-</li>
-<li><p><code>introduction</code>，<code>introduction</code>可以为原有的对象增加新的属性和方法。</p>
-</li>
-</ol>
-<h3 id="织入"><a href="#织入" class="headerlink" title="织入"></a>织入</h3><p><code>Weaving</code> 织入通过切入点切入，将切面应用到目标对象并导致代理对象创建的过程。将切面应用到目标对象从而创建一个新的代理对象的过程，这个过程可以发生在编译器、类转载期、运行期，不同的发生点有着不同的前提条件。如果发生在编译器就需要有一个支持这种AOP实现的特殊编译器，发生在类转载期就需要有一个支持AOP实现的特殊类转载其，发生在运行期则可以直接通过反射机制与动态代理机制来动态实现。</p>
-<h3 id="代理对象"><a href="#代理对象" class="headerlink" title="代理对象"></a>代理对象</h3><p><code>Proxy</code>代理对象是AOP创建的对象，包含通知，代理是目标对象的加强。 代理是将通知应用到目标对象之后被动态创建的对象，可以简单理解代理对象的功能等同于目标对象的核心业务逻辑功能加上共有功能。代理对象对于使用者而言是透明的，是程序运行过程中的产物。</p>
-<h3 id="目标对象"><a href="#目标对象" class="headerlink" title="目标对象"></a>目标对象</h3><p><code>Target</code>目标对象是指代理的目标对象，是指要织入的对象模块。目标对象是那些即将切入切面的对象，也就是被通知的对象。这些对象中已经只剩下干干净净的核心业务逻辑代码，所有的共有功能等待AOP容器的切入。</p>
-<p>目标对象是AOP进行增强处理的对象，也被称为增强的对象。如果AOP是通过运行时代理来实现的，那么这个对象将是一个被代理的对象。</p>
-<p>AOP是典型的代理模式的体现，代理模式的特征是代理类与委托类有同样的接口，代理类主要负责为委托类预处理消息、过滤消息、将消息转发给委托类、事后处理消息等。代理类与委托类之间通常会存在关联关系，一个代理类的对象与一个委托类的对象相关联，代理类的对象本身并不真正实现服务，而是通过调用委托类的对象方法来提供特定的服务。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在AOP中切面就是与业务逻辑独立，但又垂直存在于业务逻辑的代码结构中的通用功能组合；切面与业务逻辑相交的点就是切点；连接点就是把业务逻辑离散化后的关键节点；切点属于连接点，是连接点的子集；Advice（增强）就是切面在切点上要执行的功能增加的具体操作；在切点上可以把要完成增强操作的目标对象（Target）连接到切面里，这个连接的方式就叫织入</p>
-<p><a href="https://www.jianshu.com/p/281dcde6974d">从代理机制到Spring AOP，这篇给你安排得明明白白的 - 简书 (jianshu.com)</a></p>
-<p><a href="https://blog.csdn.net/qq_41701956/article/details/84427891">AOP如何实现及实现原理_Java笔记-CSDN博客_aop原理</a></p>
-<p><a href="https://blog.csdn.net/q982151756/article/details/80513340">细说Spring——AOP详解（AOP概览）_啦啦啦的博客-CSDN博客_aop</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2022/04/05/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<h1 id="2-保护模式内存管理"><a href="#2-保护模式内存管理" class="headerlink" title="2. 保护模式内存管理"></a>2. 保护模式内存管理</h1><h2 id="2-1-内存管理概览"><a href="#2-1-内存管理概览" class="headerlink" title="2.1 内存管理概览"></a>2.1 内存管理概览</h2><p>​    IA-32架构的内存管理机制主要分为两部分：<strong>段式</strong>和<strong>页式</strong>。 <strong>分段</strong>提供了一种隔绝各个代码、数据和堆栈区域的机制，以致多个程序（或任务）可以运行在同一个处理器上，但不会相互干扰。 <strong>分页</strong>则为传统需求页的虚拟内存系统提供了一种实现机制，在虚拟内存系统中，程序运行所需的环境的各个部分按需映射到物理内存中。 分页同样可以为多个任务之间提供隔离措施。 当在保护模式下运行时，必须采用某种形式的分段机制。 这里没有<strong>模式位</strong>以设置禁用分段机制，也就说在保护模式的内存管理中<strong>分段机制</strong>是<strong>必需</strong>的。 但是，<strong>分页机制</strong>是<strong>可选</strong>的。<br>​    这两种机制（分段和分页）是可以被配置以致支持使用共享内存的简单的单程序（或单任务）系统、多任务系统或多处理器系统。<br>​    如图1所示，段式管理提供了一种机制：其将处理器的<strong>可寻址内存空间</strong>（也被称为<strong>线性地址空间</strong>）划分为较小的受保护的地址空间区域，称为<strong>段</strong>。 段可以用来保存<strong>程序的代码、数据和堆栈</strong>，也可用于保存<strong>系统数据结构</strong>（例如TSS或LDT）。 如果一个处理器中有多个程序（或任务）正在运行，那么每个程序都会被分配自己的一组段空间。 然后处理器可以加强这些段之间的界限，并且确保一个程序不会通过访问写入另一个程序的段而干扰另一个程序的运行。分段机制还允许对段进行分类，这样一来便可限制对特定类型段所要执行的操作。<br> ![](保护模式内存管理/segment and page.jpg)</p>
-<center style="color:#1a1a1a;">图1 分段与分页</center>    
-
-<p>​    一个系统中的所有段都包含在处理器的线性地址空间中。 为了定位到指定段中的一个字节，程序必须提供一个逻辑地址（也称为远指针）。 <strong>逻辑地址</strong>由一个<strong>段选择子</strong>和一个<strong>偏移量</strong>组成。 <strong>段选择子</strong>是一个段的<strong>唯一标识</strong>。 此外，段选择子还提供了段描述符表（如全局描述符表，GDT）中到一个被称为段描述符的数据结构的偏移量。 每个段都有一个段描述符，它指定了段的大小、段的访问权限和特权级别、段的类型以及段的第一个字节在线性地址空间中的位置（即段基址)。 将逻辑地址的偏移量部分与段的基址相加，就可以定位段内的某个字节。 因此<strong>基址加上偏移量</strong>就形成了在处理器的线性地址空间中的一个<strong>线性地址</strong>。<br>​    如果不启用分页，那么处理器的线性地址空间会被直接映射到处理器的物理地址空间。 物理地址空间定义为处理器可以在其地址总线上生成的地址范围。<br>​    因为多任务计算系统定义的线性地址空间通常都要比其含有的物理内存容量大得多，所以需要采取一些“虚拟化”线性地址空间的方法。而这种线性地址空间的虚拟化是通过处理器的分页机制来处理的。<br>​    分页机制支持建立一个<strong>虚拟内存</strong>环境，在这个环境中，可以用小量的物理内存（RAM和ROM）和一些磁盘存储空间就可以模拟大容量的线性地址空间。启用分页机制时，每个段被划为分为页（通常每个页大小为4KB），这些页存储在物理内存或硬盘中。 操作系统或程序通过维护一个页目录和一组页表来跟踪这些页。当程序（或任务）视图访问线性地址空间中的一个地址位置时，处理器便会使用页目录和页表将线性地址转换为一个物理地址，然后在该内存位置上执行所要求的操作（读或写）。<br>​    如果当前被访问的页面不在物理内存中，处理器便会中断当前程序的执行（通过产生一个页错误异常）。 然后，操作系统执行程序将从磁盘读取该页面进入物理内存，然后继续执行刚才被中断的程序。<br>​      当分页机制在操作系统或执行程序正常运作时，对于正确执行的程序来说，物理内存和磁盘之间的页面交换是透明的。 即使在IA-32处理器中，16位的程序也可在虚拟8086模式下运行时进行分页（透明地）。</p>
-<p>​    总结：</p>
-<ul>
-<li><strong>逻辑地址（Logical Address）</strong>：一个逻辑地址由两部份组成，<strong>段标识符</strong>: <strong>段内偏移量</strong>。段标识符是由一个16位长的字段组成，称为<strong>段选择子</strong>（段选择子就是段标识符）。</li>
-<li><strong>线性地址（Linear Address）</strong>：一个<strong>段的基址</strong>加上<strong>段内偏移量</strong>，形成线性地址空间中的一个线性地址。线性地址是逻辑地址到物理地址变换之间的中间层。这里段内偏移量就是逻辑地址中的段内偏移量。而段的基址跟逻辑地址中段标识符有关，通过段标识符（段选择子）可获得段描述符表中与该段选择子相关联的段描述符，段描述符提供了该段的基址。</li>
-<li><strong>物理地址（Physical Address）</strong>：物理内存中的地址。</li>
-</ul>
-<h2 id="2-2-分段机制"><a href="#2-2-分段机制" class="headerlink" title="2.2 分段机制"></a>2.2 分段机制</h2><p>​    IA-32架构支持的分段机制可用于实现多种系统设计。这些设计范围从最小使用分段来保护程序的平坦模型，到使用分段来创建良好健壮性的操作环境的多段模型，在这种环境中，多个程序和任务可同时可靠运行的<br>​    下面几节给出了几个例子，说明如何在系统中使用分段来提高内存管理的性能和可靠性。 </p>
-<h3 id="2-2-1-基本平坦模型（Basic-Flat-Model）"><a href="#2-2-1-基本平坦模型（Basic-Flat-Model）" class="headerlink" title="2.2.1 基本平坦模型（Basic Flat Model）"></a>2.2.1 基本平坦模型（Basic Flat Model）</h3><p>​    最简单的系统内存模型就是就是基本<strong>“平坦模型”</strong>，在这种模型中，操作系统或应用程序可访问一个连续的、未分段的地址空间。这样一来最大程度地向系统设计人员和程序员隐藏了体系机构的分段机制。<br>​    若要在IA-32架构下实现内存的一个基本平坦模型，则需要至少创建两个段描述符，一个用于引用代码段，一个用于引用数据段（如图2所示）。 然而，这两个段都会被映射到整个线性地址空间：即，这两个段描述符具有相同的基址：0和相同的段限长（段的最大长度）：4 GB。 通过将段限长设置为4 GB，可以避免分段机制对超过段空间大小的内存的引用产生异常，即使指定的地址不存在物理内存中。 ROM （EPROM）通常位于物理地址空间的顶部，因为处理器从FFFF_FFF0H开始执行。 RAM （DRAM）则位于在地址空间的底部，因为复位初始化后DS数据段的初始基址为0。<br>![](保护模式内存管理/flat model.jpg)</p>
-<center style="color:#1a1a1a;">图2 平坦模型</center>    
-
-<h3 id="2-2-2-保护平坦模型（Protected-Flat-Model）"><a href="#2-2-2-保护平坦模型（Protected-Flat-Model）" class="headerlink" title="2.2.2 保护平坦模型（Protected Flat Model）"></a>2.2.2 保护平坦模型（Protected Flat Model）</h3><p>​    保护平坦模型类似于基本平坦模型，指示保护平坦模型将段限制在包含<strong>物理内存实际存在的地址范围内</strong>（如图3所示）。当尝试访问不存在的内存时，会产生一个<strong>通用保护异常（#GP）</strong>。该模型针对某些程序bug提供了最低水平的硬件保护。<br>![](保护模式内存管理/protected flat model.jpg)</p>
-<center style="color:#1a1a1a;">图3 保护平坦模型</center>    
-
-<p>​    这个保护平坦模型可以被拓展变得更加复杂，以提供更多保护功能。例如，为了确保分页机制能提供用户程序和监控程序之间代码和数据的隔离，这里需要定义<strong>四个段</strong>：<strong>权限级别为3</strong>的<strong>用户程序</strong>代码段和数据段、<strong>权限级别为0</strong>的<strong>监管程序</strong>代码段和数据段。通常这些段都相互<strong>覆盖</strong>，并且在线性地址空间的<strong>起始地址都为0</strong>。这种平坦分段模型搭配简单的分页结构可以保护操作系统不受应用程序影响，此外通过为每个任务或进程增加单独的分页结构，其还可以确保一个应用程序不受其他应用程序影响。一些流行的多任务操作系统也使用此种类似的设计。</p>
-<h3 id="2-2-3-多段模型（Multi-Segment-Model）"><a href="#2-2-3-多段模型（Multi-Segment-Model）" class="headerlink" title="2.2.3 多段模型（Multi-Segment Model）"></a>2.2.3 多段模型（Multi-Segment Model）</h3><p>​    多段模型（如图4所示）利用了分段机制所提供的全部功能，为<strong>代码、数据结构、程序和任务</strong>都提供了<strong>硬件级强制保护</strong>。在这个模型中，每个程序（或任务）都被分配了自己的段描述符和段空间。段可以是其分配段的程序所<strong>私有</strong>的，也可多个程序<strong>共享</strong>。此外，操作系统硬件来控制对运行在系统中的各个程序的所有段和执行环境的访问。<br>​    <img src="/2022/04/05/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/multi-sgement.jpg"></p>
-<center style="color:#1a1a1a;">图4 多段模型</center>        
-
-<p>​    对内存访问的检查不仅可以防止引用超过段大小的地址，还可以防止程序对某些段执行不被允许的操作。例如，一个代码为只读段，因此可使用硬件来防止对该代码段的写操作。每个段的访问权限信息也可用于设置保护区和保护级别。保护级别则可用于保护操作系统程序不被未经授权的应用程序访问。<br>​    分页机制可以与图2、图3和图4中所描述的任一分段模型搭配使用。 处理器的分页机制将线性地址空间（在线性地址空间中，段也被映射）划分为页面（如图1所示）。 然后在线性地址空间中的页面会映射到物理地址空间中的页面。 分页机制提供了几种页级保护功能，它们可以与段保护功能一起使用，也可以代替段保护功能。 例如，它允许逐页执行读写保护。 分页机制还提供了两级用户-监管保护，也可以逐页指定这种保护。</p>
-<h2 id="2-3-逻辑地址和线性地址的转换"><a href="#2-3-逻辑地址和线性地址的转换" class="headerlink" title="2.3 逻辑地址和线性地址的转换"></a>2.3 逻辑地址和线性地址的转换</h2><p>​    在系统保护模式中，处理器需要经过两部分的地址转换以完成到物理地址空间的转换：逻辑地址转换和线性地址空间分页。<br>​    即使最小程度地使用分段，处理器地址空间中的每一个字节都需要使用逻辑地址访问。一个<strong>逻辑地址</strong>由<strong>16位段选择符</strong>和<strong>32位偏移量</strong>组成，如图5所示。<strong>段选择符</strong>标识该字节所位于的段，偏移量确定字节相对于段基址的<strong>段内位置</strong>。<br>     处理器会将每个逻辑地址转换成线性地址。 线性地址是处理器线性地址空间中的一个32位地址。 与物理地址空间类似，线性地址空间是一个平坦的（未分段的）、大小为$2^{32}$字节的地址空间，地址范围从0开始到0xFFFFFFFF结束。<strong>线性地址空间</strong>包含<strong>所有的段</strong>和<strong>系统定义的系统表</strong>。<br>![](保护模式内存管理/logic address.jpg)</p>
-<center style="color:#1a1a1a;">图5 逻辑地址到线性地址的转换</center>    
-
-<p>​    从逻辑地址转换到线性地址，处理器需要做如下操作：</p>
-<ol>
-<li>使用<strong>段选择子中的偏移量</strong>来定位在GDT或LDT中对应的段描述符，然后读取到处理器中。（这步仅当一个新的段选择子被加载到段寄存器时才需要）。</li>
-<li>检查段描述符以检查<strong>段的访问权限和范围</strong>，以确保该段是可访问的，并且保证<strong>段偏移在段的大小范围</strong>内。</li>
-<li>将<strong>段描述符中的段的基址</strong>与<strong>段偏移量</strong>相加，形成一个<strong>线性地址</strong>。  </li>
-</ol>
-<p>​    如果不使用分页机制，处理器将会将线性地址直接映射为物理地址（也就是说，也就是说，线性地址可以直接送到处理器的地址总线，也就是说，线性地址等同于物理地址）。 如果线性地址空间被分页，启用分页机制，则会使用第二级地址转换来将线性地址转换为物理地址。</p>
-<h3 id="2-3-1-段选择子（Segment-Selectors）"><a href="#2-3-1-段选择子（Segment-Selectors）" class="headerlink" title="2.3.1 段选择子（Segment Selectors）"></a>2.3.1 段选择子（Segment Selectors）</h3><p>​    一个段选择子是一个<strong>段的16位标识符</strong>（如图6所示）。段选择子不直接指向一个段，反而指向定义了一个段的段描述符。一个段选择子包含了如下几项信息：</p>
-<ul>
-<li>Index：索引（第3到15位），共13位，可从GDT或LDT中8192（$2^{13}$）个段描述符中选择一个。处理器将索引值乘以8（一个段描述符的大小为8字节），并将其与GDT或LDT的基址（分别来自GDTR或LDTR寄存器）相加可定位一个段描述符。  </li>
-<li>TI (table indicator) flag  ：表指示标志位（第2位），指示所使用段描述符表，当复位时，表示选择GDT；设置该表示位时，表示选择LDT。</li>
-<li>Requested Privilege Level (RPL)  ：请求特权级别（第0和第1位），共两位，指示该段选择子的权限级别。权限级别的范围为0到3，<strong>权限级别0为最高权限级别</strong>。</li>
-</ul>
-<p><img src="/2022/04/05/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/selector.jpg"></p>
-<center style="color:#1a1a1a;">图6 段选择子</center>    
-
-<p>​    处理器不使用GDT的<strong>第一个表项</strong>。 指向这个GDT表项的段选择子（即索引值为0且TI标志设置为01的段选择子）称为<strong>“空段选择器”</strong>。 当空选择器加载入段寄存器（除CS或SS寄存器（代码段寄存器、堆栈段寄存器）外）时，处理器不会产生异常。 然而，当使用存储空选择器的段寄存器访问内存时，它会产生一个异常。 空选择器可以用于<strong>初始化未使用的段寄存器</strong>。 用空段选择器加载CS或SS寄存器会导致生成一个通用保护异常（#GP）。<br>​    段选择子作为指针变量的一部分对应用程序可见，段选择子的值通常由链接编辑器或链接加载器分配或修改，而不是应用程序。    </p>
-<h3 id="2-3-2-段寄存器（Segment-Registers）"><a href="#2-3-2-段寄存器（Segment-Registers）" class="headerlink" title="2.3.2 段寄存器（Segment Registers）"></a>2.3.2 段寄存器（Segment Registers）</h3><p>​    为了减少地址转换时间和降低编程复杂度，处理器提拱了至多可存储<strong>6个段选择子的寄存器</strong>（如图7所示）。每个段寄存器支持一种特定类型的内存引用（代码、堆栈或数据）。对于执行任何类型的程序，至少要将<strong>有效的段选择符</strong>加载到<strong>代码段（CS）、数据段（DS）和堆栈段（SS）</strong>。处理器还提供另外的数据段寄存器（ES、FS、GS），可贝用于让当前正在执行的程序（或任务）能够访问其他几个数据段。<br>​    对于访问一个段的一个程序，段选择器必须已经加载到一个段寄存器中。 因此，尽管一个系统可以定义上千个段，但只有6个段可立即访问使用。 在程序执行期间，通过将其他段的段选择子加载到这些寄存器中，就可以访问其他段。<br>![](保护模式内存管理/Segment Register.jpg)</p>
-  <center style="color:#1a1a1a;">图7 段寄存器</center>        
-
-<p>​    每个段寄存器都有一个<strong>“可见”</strong>部分和一个<strong>“隐藏”</strong>部分 （隐藏部分有时被称为<strong>“描述符缓存”</strong>或<strong>“影子寄存器”</strong>）。当一个段选择符被加载到段寄存器的可见部分时，处理器会同时将<strong>段选择符所指向的段描述符的段基址、段限长、 以及访问控制信息</strong>加载到段寄存器的隐藏部分。 段选择符缓存在段寄存器中的信息（可见和隐藏部分）使得处理器可以直接进行地址转换，而不需要再花费额外的总线周期从段描述符读取段的基址和段限长信息。 在一个多处理器系统中，处理器都访问同一个描述符表，如果描述表被修改，则软件应负责重新加载段寄存器。 如果不重新加载，则可能出现段描述符已经被修改，却仍在使用缓存在段寄存器中的旧段描述符的清空。<br>​    提供了以下两种方法来加载段寄存器：</p>
-<ul>
-<li>使用MOV，POP，LDS，LES，LSS，LGS和LFS 等指令加载。这些指令<strong>显式</strong>地引用段寄存器。</li>
-<li>隐式加载指令，例如使用长指针方法的CALL，JMP和RET指令，还有SYSENTER和SYSEXIT指令，IRET，INT <em>n</em>，INTO和INT3指令。这些指令执行时会附带修改CS寄存器的内容（有时也会修改其它寄存器的内容）。</li>
-<li>MOV指令也可被用于把段寄存器的可见部分的内容加载到一个通用目的寄存器。</li>
-</ul>
-<h3 id="2-3-3-段描述符（Segment-Descriptors）"><a href="#2-3-3-段描述符（Segment-Descriptors）" class="headerlink" title="2.3.3 段描述符（Segment Descriptors）"></a>2.3.3 段描述符（Segment Descriptors）</h3><p>​    一个段描述符是GDT或LDT中的一个数据结构，其提供处理器中一个段的大小、位置、访问控制和状态信息。段描述符通常由编译器、链接器、加载器或操作系统或执行程序创建，而不是应用程序创建。图8展示了所有类型的段描述符的通用描述符格式。<br>​    ![](保护模式内存管理/segment descripotor.jpg)</p>
-  <center style="color:#1a1a1a;">图8 段描述符</center>        
-
-<p>​    一个段描述符的标志位和字段信息如下：</p>
-<ul>
-<li>Segment limit field ：段限长字段，指明一个段的大小。处理器会把<strong>两个段限长字段</strong>拼接形成一个<strong>20位长的值</strong>。并根据颗粒度标志位G的两种不同的值来解释段限长字段的含义。<br>若G=0，段大小的范围为1字节到1MB字节，单位为1字节。若G=1，段大小的范围为4KB到4GB字节，单位为4KB字节。<br>处理器通过两种不同方式使用段限长，其依据是段是<strong>向上扩展段</strong>还是<strong>向下扩展段</strong>。  对于向上拓展的段，逻辑地址的段偏移量的范围为<strong>0字节到段限长值</strong>。大于段限长的偏移量将会产生一个一般保护异常（#GP，所有段都会产生除了堆栈段外）或一个堆栈错误异常（#SS表示SS段）  。对于一个向下拓展段，则相反，段偏移量的范围为<strong>段限长1字节增长到0xFFFFFFFFH或0xFFFFH</strong>（这个取决于B标志位的设置）。小于或等于段限制的偏移量会产生一般保护异常或堆栈故障异常。对于向下拓展段，减少段限长的值允许在段地址空间底部分配新的内存，而不是再顶部。因为IA-32架构所使用的栈总是向下增长的，所以这种机制便于栈的扩展。</li>
-<li>Base address fields  ：基址字段，该字段定义了段的0字节在4GB大小的线性地址空间中的位置。 处理器将<strong>三个基址字段</strong>拼接在一起形成一个<strong>32位长</strong>的值。 段基址应按16字节边界进行对齐。 虽然16字节对齐不是必需的，但是通过把程序的代码和数据按16字节边界上对齐，可使得程序性能最佳。（即，边界对齐便于数据的访问）</li>
-<li>Type field  ：类型字段，指示<strong>该段或门的类型</strong>，并指明段的访问类型和段的扩展方向。根据描述符类型标志位，这个字段会有两种含义：<strong>应用程序（数据、代码）段描述符</strong>或<strong>系统段描述符</strong>。对于代码段、数据段、系统段，这个字段的编码并不相同。</li>
-<li>S (descriptor type) flag：描述符类型标志位，其指明了一个段描述符是一个系统段描述符（该标志位复位）还是一个代码或数据段描述符（该标志位被设置）。</li>
-<li>DPL（descriptor privilege level  ）field：指明该段的特权级别。特权级别的取值范围为<strong>0 -3</strong>，<strong>0是权限级别最高</strong>。DPL用于控制对段的访问。</li>
-<li>P(segment-present) flag：段存在标志位，指明段是否于内存中存在（P=1，在内存中；P＝0，不存在内存中）。若P＝0，当一个段描述符的段选择符加载进段寄存器时处理器会产生一个<strong>段不存在异常</strong>。内存管理软件可以使用此标志位来控制在某一给定时间将指定的段加载进物理内存中，这为管理虚拟内存提供了除分页以外的控制。图9展示了P＝0时一个段描述符的格式。当复位该标志位时，操作系统或执行程序可以<strong>自由使用格式中标为“可用”（Available）的位置</strong>来存储自己的数据，例如有关不存在段实际在什么地方的信息。</li>
-<li>D/B(default operation size/default stack pointer size and/or upper bound) flag  ：D/B（默认操作大小/默认栈指针大小和/或上界限）标志，其根据段描述符描述的是一个可执行代码段、还是下扩数据段、或堆栈段来执行不同的功能。（对于32位代码和数据段，该标志位应该总被设置为1；对于16位数据和代码段，该标志段被设置为0）。<ul>
-<li><strong>可执行代码段：</strong>此时这个标志被称为<strong>D标志位</strong>，其指明段中的指令引用有效地址和操作数的默认长度。当D＝1，则默认值为32位地址和32位或8位操作数；当D＝0，则默认值为16位地址和16位或8 位操作数。指令前缀0x66H可用来选择非默认值的操作数大小；指令0x67H可用来选择非默认值的操作地址大小。</li>
-<li><strong>堆栈段（由SS寄存器指向的数据段）：</strong>此时这个标志被称为<strong>B标志位</strong>，它用于指明隐含栈操作（如pushes、pops、calls）时的栈指针的大小。当B＝1，则使用一个32位的栈指针，它存储在32位的ESP寄存器中；假如B=0，则使用一个16位的栈指针，它存储在16位的SP寄存器中。假如堆栈段被设置成一个下扩数据段，那么B标志也同时指定了堆栈段的上界限。</li>
-<li><strong>下扩段（Expand-downdata segment）</strong>此时标志叫作<strong>B标志</strong>，它指明堆栈段的上界。当B=1,上界为0xFFFFFFFFH（4Gbytes）；当B＝0，上界为0xFFFFH（64KBytes）。</li>
-</ul>
-</li>
-<li>G (granularity) flag  ：颗粒度标志位G，其决定了段限长域字段的单位。当G＝0时，段限长的单位为字节；当G＝1时，段限长的单位为4KB（这个标志位不会影响基地址的颗粒度，基地址的颗粒度总是字节单位。）。若设置了该标志位，则在使用段限长检查偏移量时，不会检查偏移量的12位最低有效位。 例如，当G=1时，段限长为0表明有效偏移量为0到4095。</li>
-<li>L（64-bit code segment) flag  ：L标志位，在IA-32e模式下，段描述符第二个双字的第21位表示该代码段是否存储了本地64位代码。 当L=1时，表示在64位模式下执行该代码段中存储的指令。 当L=0时。表示在兼容模式下执行此代码段中存储的指令。 如果设置了L位，则必须复位D标志位。 当在非IA-32e模式或该段非代码段时，第21位是保留的，并且应该总是设置为0。  </li>
-<li>Available and reserved bits  ：可用和保留位，段描述符的第二个双字的第20位是保留给操作系统软件使用的；</li>
-</ul>
-<p><img src="/2022/04/05/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/descriptor(P=0).jpg"></p>
-  <center style="color:#1a1a1a;">图9    P=0时的段描述符</center>        
-
-<h2 id="2-4描述符的分类"><a href="#2-4描述符的分类" class="headerlink" title="2.4描述符的分类"></a>2.4描述符的分类</h2><h3 id="数据段和代码段描述符（Data-and-Code-segment-Descriptor）"><a href="#数据段和代码段描述符（Data-and-Code-segment-Descriptor）" class="headerlink" title="数据段和代码段描述符（Data and Code segment Descriptor）"></a>数据段和代码段描述符（Data and Code segment Descriptor）</h3><p>​    当段描述符中的<strong>S标志位被设置</strong>时，该描述符描述的是一个代码或数据段。类型字段（type）的<strong>最高有效位</strong>（第二个双字的第11位）用于决定是一个数据段（复位）还是一个代码段描（置位）。<br>​    即：</p>
-<ul>
-<li>当S=1，type的最高有效位为0时，该段描述符指向一个数据段；</li>
-<li>当S=1，type的最高有效位为1时，该段描述符指向一个代码段。</li>
-</ul>
-<p>​    对于数据段描述符，类型字段的低3位（第8、9、10位）的含义分别为被访问accessed (A)、可写write-enable (W)和拓展方向expand -direction (E)。表1展示了代码段和数据段的类型字段比特位编码的说明。根据可写比特位W的设置, 数据段可以是只读的，也可以是可读/写的。<br>![](保护模式内存管理/date and code.jpg) </p>
-  <center style="color:#1a1a1a;">表1   代码段和数据段描述符类型</center>        
-
-<p>​    <strong>堆栈段</strong>必须是一个<strong>可读/写的数据段</strong>。若将不可写数据段的段选择符加载到 SS 寄存器中，则会导致产生一个一般保护异常。如果堆栈段的长度会动态变化，那么堆栈段可以是一个<strong>向下扩展的数据段</strong>（扩展方向标志被设置）。因而，动态改变段限长的值将导致栈空间被添加到栈底部。  如果希望堆栈段的大小保持不变，则堆栈段可以是向上拓展或向下拓展类型。<br>​    被访问位A指明该段自上次操作系统或执行程序复位<strong>该位后是否被访问过</strong>。 如果包含段描述符的内存类型支持<strong>处理器写操作</strong>，那么处理器每次将<strong>段选择符加载到段寄存器</strong>时都会设置这个位。 该位会一直保持被设置状态，直到其<strong>显式复位</strong>。 该标志位既可以用于虚拟内存管理，也可以用于调试。<br>​    对于代码段，类型字段的低三位的含义（第8、9、10位）分别为<strong>被访问accessed (A)、可读read enable (R)、 一致conforming (C)<strong>。代码段可以是</strong>只能执行或可执行/可读</strong>，这取决于<strong>可读位的设置</strong>。 当<strong>常数或其他静态数据以及指令码</strong>存储在了一个ROM 中时，就可以使用一个可执行/可读代码段。  通过使用<strong>带CS前缀的指令</strong>或者把<strong>代码段选择符</strong>加载进一个<strong>数据段寄存器</strong>（DS、ES、FS或GS寄存器），就可读取代码段中的数据。 在<strong>保护模式</strong>下，<strong>代码段是不可写</strong>的。<br>​    代码段可以是<strong>一致性和非一致性的</strong>。操作系统允许执行在当前特权级的程序向一个<strong>更高权级的一致性代码段</strong>进行转移。当向一个<strong>不同特权级别</strong>的<strong>非一致性代码段</strong>进行执行转移时，会产生一个通用保护异常（#GP），除非使用<strong>调用门（call gate）或任务门（task  gate）</strong>（这个我们已经在读书笔记1中，有所了解，通过门，可以进行<strong>跨权限级别的访问</strong>）。一些系统工具（不访问保护设施）和一些处理某些异常类型（如除出错，溢出）的处理程序可以放在一致性代码段内。<strong>需要保护其不能被更低特权级程序</strong>访问的程序应该放在非一致性代码段内。<br>​     所有的<strong>数据段</strong>都是<strong>非一致性</strong>的，这意味着它们不能<strong>被更低特权级（权限数字值较大）的程序或过程访问</strong>。与代码段不同的是，<strong>数据段</strong>总是能被<strong>更高特权级（权限数字值较小，数字越小，权限越高）的程序或过程访问</strong>，而不需要使用特别的访问门。<br>​    当GDT或LDT中的<strong>段描述符存储在在ROM</strong>中时，若软件或处理器试图<strong>更新（写入）位于ROM的段描述符</strong>，则处理器就会进入一个<strong>无限循环</strong>。 为了避免该问题发生，将ROM中所有段描述符的<strong>访问位都置位</strong>。同时，会将那些试图修改ROM中段描述符的操作系统代码或执行代码删除掉。<br>​    <strong>注意：</strong>不能通过call或jump转入更低权限级别（权限数字值较大）的代码段执行，不管目标段是一个一致性还是非一致代码段。这种转移执行的尝试操作，将会引起一个一般保护异常。</p>
-<h3 id="系统描述符类型（SYSTEM-DESCRIPTOR-TYPES-）"><a href="#系统描述符类型（SYSTEM-DESCRIPTOR-TYPES-）" class="headerlink" title="系统描述符类型（SYSTEM DESCRIPTOR TYPES  ）"></a>系统描述符类型（SYSTEM DESCRIPTOR TYPES  ）</h3><p>​    当段描述符中的<strong>S标志位（描述符类型）被复位</strong>时，表明该段描述符为一个系统描述符。处理器能识别以下一些类型的系统段描述符：</p>
-<ul>
-<li><p>本地描述符表(LDT)的段描述符</p>
-</li>
-<li><p>任务状态段(TSS)描述符</p>
-</li>
-<li><p>调用门描述符</p>
-</li>
-<li><p>中断门描述符</p>
-</li>
-<li><p>陷阱门描述符</p>
-</li>
-<li><p>任务门描述符</p>
-<p>这些描述符可分为两大类：<strong>系统段描述符和门描述符</strong>。系统段描述符指向一个系统段（LDT或TSS段）。门描述符就是他们自己——“门”，这些门描述符存储了代码段中指向程序入口点的指针（调用、中断和陷阱门），或者存储了TSS的段选择符（任务门）。  图2占了系统段描述符和门描述符类型字段的编码及说明。</p>
-</li>
-</ul>
-<p>![](保护模式内存管理/system descriptor.jpg)</p>
-  <center style="color:#1a1a1a;">表2   系统段描述符类型</center>            
-
-]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/</url>
-    <content><![CDATA[<h1 id="1-x86系统架构概览"><a href="#1-x86系统架构概览" class="headerlink" title="1. x86系统架构概览"></a>1. x86系统架构概览</h1><h2 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h2><p>先对几个概念进行说明：</p>
-<p>​    IA-32：Intel Architecture 32-bit简称，即英特尔32位体系架构，在英特尔公司1985年推出的80386微处理器中首先采用。IA-32属于X86体系结构的32位版本（X86-32），即具有32位内存地址和32位数据操作数的处理器体系结构，从1985年面世的80386直到Pentium，都是使用IA-32体系结构的处理器。而现在Intel把32位x86架构的名称x86-32改称为IA-32。而x86则是Intel开发的一类处理器体系结构的泛称，包括 Intel 8086、80286、i386和i486等，因此其架构称为“x86”。</p>
-<p>​    Intel 64：Intel 64-bit的简称，64位这个概念最早是由AMD首先提出，提出了一个兼容IA-32指令集的64位版本，其 扩充了指令及寄存器长度和个数等，更新了参数传送方式，AMD称其为AMD 64，Intel称其为Intl 64（不同于IA-64），其被命名为“x86-64” ，有时也简称为x64。。</p>
-<h2 id="1-1系统级体系结构概览"><a href="#1-1系统级体系结构概览" class="headerlink" title="1.1系统级体系结构概览"></a>1.1系统级体系结构概览</h2><h3 id="系统级体系结构的组成"><a href="#系统级体系结构的组成" class="headerlink" title="系统级体系结构的组成"></a>系统级体系结构的组成</h3><p>​    系统级体系结构是由一组寄存器、数据结构、指令组成。这里的指令是指被设计用于支持系统级操作的指令，例如：内存管理、中断、异常处理、任务管理、多线程控制等系统级操作。<br>​    下图概述了适用于32位模式下的系统寄存器和数据结构。  </p>
-<p><img src="/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/overview.jpg"></p>
-<center style="color:#1a1a1a;">图1 IA-32系统级寄存器和数据结构</center>
-
-<p><img src="/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/overview2.jpg"></p>
-<center style="color:#1a1a1a;">图2 IA-32e模式下系统级寄存器和数据结构</center>
-
-<h3 id="全局和局部描述符表-Global-and-Local-Descriptor-Tables"><a href="#全局和局部描述符表-Global-and-Local-Descriptor-Tables" class="headerlink" title="全局和局部描述符表(Global and Local Descriptor Tables)"></a>全局和局部描述符表(Global and Local Descriptor Tables)</h3><p>​    当在<strong>保护模式</strong>下运行时，所有的<strong>内存访问</strong>操作必须都通过<strong>全局描述表(GDT)<strong>，或者一个</strong>可选的本地描述符表(LDT)<strong>来完成。如图1所示。这些表包含</strong>一些条目的描述符，如段(segment)<strong>。</strong>段描述符</strong>负责提供<strong>段的基址</strong>，访问权限、类型和该段的用途等信息。那不禁让人疑惑为什么要这样做？</p>
-<p>​    传统的实地址模式下的汇编中，利用<code>CS:IP</code>来访问内存，<code>CS</code>左移四位加<code>IP</code>获得物理地址，但是通常不需要关心基地址，只需要偏移地址即可访问内存，因为实地址模式的基地址通常是固定的。但是在保护模式下，为了达到保护内存的目的，就需要让不同程序有不同的基地址（基地址如果固定，那么很容易就被他人直到程序的运行位置，很不安全）。所以，在保护模式下，内存是一段一段分配的，分配的那一段内存头地址就是基地址，也称段地址。同时，操作系统也需要记录分配出去的每一段内存，实际上，每段内存都使用一个8字节的段描述符记录着，所有的这些段描述符被放在一块连续内存空间中存储着，称为描述符表。<br>（参考：<a href="https://blog.csdn.net/sinat_35261315/article/details/78479523%EF%BC%89">https://blog.csdn.net/sinat_35261315/article/details/78479523）</a></p>
-<p>​    每个段描述符都有一个与之关联的<strong>段选择子</strong>。一个<strong>段选择子</strong>为使用它的软件提供了一个GDT或LDT的<strong>索引</strong>（它所关联段的段描述符的<code>偏移量</code>）, 同时为指明段选择子指向的GDT还是LDT，其提供了一个<code>全局/局部标志</code>（global/local flag），此外还提供了程序对该段的访问权限信息。<br>​    若要访问一个段中的一个字节，则必须要有该段选择子和一个偏移信息。该段选择子提供访问该段的段描述符（在GDT或LDT）中。处理器可从段描述符中获得线性地址空间中该段的基址。然后偏移量则提供了这一字节相对于基址的位置。这一机制可用于访问任一有效代码、数据或堆栈段，但其前提是在处理器运行的当前特权级别（CPL，Current Privilege Level）下，这些段是可访问。<code>CPL</code>定义是指当前执行的代码段的保护级别。<br>​    看图1，图中的是实线箭头指示了线性地址，虚线指示了一个段选择子，而虚线箭头则指示了一个物理地址。为了简单起见，许多段选择子表示为指向段的直接指针。 然而，实际上段选择子并不是直接指向所关联的段，而是通过<code>GDT或LDT</code>。<br>​    GDT的线性地址的基址存储在<code>GDT寄存器（GDTR）</code>中; LDT的线性地址的基址存储在<code>LDT寄存器（LDTR）</code>中。</p>
-<p>​    针对这里的<strong>线性地址</strong>说明：我们已在操作系统中学习了<code>逻辑地址</code>（logical address），<code>逻辑地址</code>就是段基址加上段内偏移，将逻辑地址合成以后的地址称为<code>线性地址</code>（linear  address）。如果没有分页，<code>线性地址</code>就是最终的<code>物理地址</code>，而如果有分页的存在，则还需要经过分页机制的翻译才能得到最终的物理地址。</p>
-<p>​    总结：每个段都在GDT或LDT中存放了一个段描述符，同时对于每个段描述符，还有一个相关联的段选择子。如果访问内存的某一字节，要先获得这一字节所处段所关联的段选择子，通过这个段选择子到GDT或LDT找到该段的段描述符（具体过程：GDTR或LDTR提供GDT或LDT<code>基址</code>，段选择子提供该段在GDT或LDT中的<code>偏移</code>，相加得到该段描述符在GDT或LDT中的地址，然后就可获得段描述符），通过段描述符获得该段的基址，然后还需要获得该字节在相对于该基址的偏移量或者说相对地址，二者相加，就获得了该字节的实际地址，可访问该字节。</p>
-<p>​    补充：全局描述符表（GDT）是 Intel x86 系列处理器（从 80286 开始）所使用的一种数据结构，目的是为了在程序运行期间划分具有不同属性的内存区域，比如：可以运行、可写入等区域的起始地址与访问权限。这些区域被称作段。<br>​    全局描述符表除了可以保存<code>段信息</code>外还可以保存其它信息。全局描述符表中的每个表项（描述子）长度为  8-byte，全局描述符表的选择子可以为：任务状态描述子（TSS）、本地描述符表描述子或者调用门描述子。调用门在 x86  不同特权级中转移控制权非常重要，但是现在的操作系统很少使用这种机制。<br>​    同时存在的还有局部描述符表（LDT）。局部描述符表用来存储程序内部的段信息，而全局描述符表用来描述全局的段信息。x86 系列的处理器具有一种机制，可以在发生某些事件时自动切换局部描述符表，但是针对全局描述符表却没有这样的机制。<br>​    程序如果想访问某个段，需要在全局描述符表或者局部描述符表中找到该段对应的索引。这个索引被称为段选择子。为了使用相应的段，段选择子必须被首先加载到段寄存器。除了可以通过机器指令读取或者设置全局描述符表（还有中断描述符表）的内存地址外，指令所引用的内存地址存在于一个隐式的段，有时有两个。大部分情况下，默认的段寄存器可以通过在地址前面加一个段地址来替换。加载段选择子到段寄存器的过程中，程序会自动读取全局描述符表或者局部描述符表，并将相关信息保存到处理器中。在全局描述符表或者局部描述符表被加载后，对二者的修改并不会起作用，除非重新将相应的表加载到寄存器。<br>（来源:<a href="https://www.cnblogs.com/Proteas/archive/2010/11/28/2335682.html%EF%BC%89">https://www.cnblogs.com/Proteas/archive/2010/11/28/2335682.html）</a></p>
-<h4 id="IA—32e下的全局和局部描述符表-Global-and-Local-Descriptor-Tables-in-IA-32e-Mode"><a href="#IA—32e下的全局和局部描述符表-Global-and-Local-Descriptor-Tables-in-IA-32e-Mode" class="headerlink" title="IA—32e下的全局和局部描述符表(Global and Local Descriptor Tables in IA-32e Mode)"></a>IA—32e下的全局和局部描述符表(Global and Local Descriptor Tables in IA-32e Mode)</h4><p>​    在IA-32e的子模式(64位模式和兼容模式)下，GDTR和LDTR寄存器都扩展到了64位。 若要了解更多信息。<br>​    全局和局部描述符表被拓展至64位以支持64位基址（大小为16字节的LDT描述符保存了64位的基址和各种属性）。 需注意的是在兼容模式下，描述符将不会被拓展。  </p>
-<h3 id="系统段，段描述符，门-System-Segments-Segment-Descriptors-and-Gates"><a href="#系统段，段描述符，门-System-Segments-Segment-Descriptors-and-Gates" class="headerlink" title="系统段，段描述符，门(System Segments, Segment Descriptors, and Gates)"></a>系统段，段描述符，门(System Segments, Segment Descriptors, and Gates)</h3><p>​    除了代码、数据、堆栈段，其组成了一个程序的运行环境外，该体系结构还定义了两个系统段：<code>任务状态段</code>（the task-state segment–TSS）和<code>LDT</code>。GDT因其不能通过段选择子和段描述符的方式访问，从而不被看作是一个段。TSSs和LDTs都有为其定义的段描述符。<br>​    该体系结构也定义了一组特殊的<code>描述符</code>，可以称为<code>门（调用门、中断门、陷阱门、任务门）</code>。这些门为系统程序提供了保护，以致其可以在与大多数应用程序不同的权限级别上运行。简而言之，门提供了一种机制——跨权限级别的访问。例如，通过调用门的一次调用，能以比当前的代码段所需的更低权限数值（意味着更大的权限）访问代码段中的一个程序。要通过<code>调用门</code>调用一个程序，调用者需要提供当前<code>调用门</code>的<code>段选择子</code>，然后，处理器获得该调用门<code>权限级别</code>、以及该调用门指向的目的代码段的权限级别，然后与CPL比较，对该调用门执行其访问权限的检查。（总共有4个权限级别，分别为0，1，2，3，数字越小权限越大），从而可以理解上面更低权限数值。<br>​    如果允许访问目的代码段，处理器获得目的代码段的<code>段选择子</code>，以及从调用门到该代码段的<code>偏移量</code>。如果此次调用需要更改权限级别，处理器则会切换到<code>堆栈</code>以获取<code>目标特权级别</code>。 然后从当前运行的任务的TSS中获得新堆栈的段选择子。 门还促进了16位和32位代码段之间的转换，反之亦然。  </p>
-<p>​    补充：门描述符并不描述某种内存段，而是描述控制转移的入口点，也就是目标代码的门。通过这种门可以实现<code>特权级的转变和任务的切换</code>。门描述符主要由两部分组成：<code>选择子</code>、<code>偏移地址</code>以及<code>DPL</code>。<br>（来源于<a href="http://blog.chinaunix.net/uid-12276369-id-2952355.html%EF%BC%89">http://blog.chinaunix.net/uid-12276369-id-2952355.html）</a></p>
-<ul>
-<li><p> 调用门一般用于<code>特权级别的切换</code>，存在于GDT中或者LDT中。调用门的选择子指向<code>代码段描述符</code>，偏移地址对应代码段中的<code>偏移量</code>。当jump和call指令的操作对象是调用门的时候，就会跳转到对应的代码处，并更改特权级别，也就会发生堆栈的切换。</p>
-</li>
-<li><p>任务门一般用在<code>任务的切换</code>，可以存放在GDT、LDT或IDT中。任务门的选择子指向GDT中的TSS选择符，而其偏移地址没有意义。当Jmp和Call指令的操作数是任务门的时候，就会发生任务的切换。</p>
-</li>
-<li><p> 中断门和陷阱门描述符是<code>中断处理程序的入口</code>，存在于IDT中。中断门和陷阱门的选择子指向代码段选择符，偏移地址是代码段中中断处理程序的入口地址。</p>
-</li>
-</ul>
-<h4 id="IA-32e模式下的门-Gates-in-IA-32e-Mode"><a href="#IA-32e模式下的门-Gates-in-IA-32e-Mode" class="headerlink" title="IA-32e模式下的门(Gates in IA-32e Mode)"></a>IA-32e模式下的门(Gates in IA-32e Mode)</h4><p>​    在IA-32e模式下，以下描述符是16字节的描述符(扩展以支持64位基地址):</p>
-<ul>
-<li>LDT描述符</li>
-<li>64位TSSs</li>
-<li>调用门</li>
-<li>中断门</li>
-<li>陷阱门</li>
-<li>调用门  </li>
-</ul>
-<p>​    调用门促进了64位模式和兼容模式之间的转换。 IA-32e模式下不支持任务门。 在特权级别改变时，其不会从TSS读取堆栈段选择子。 相反，它们被设置为NULL。</p>
-<h3 id="任务状态段和任务门-Task-State-Segments-and-Task-Gates"><a href="#任务状态段和任务门-Task-State-Segments-and-Task-Gates" class="headerlink" title="任务状态段和任务门(Task-State Segments and Task Gates)"></a>任务状态段和任务门(Task-State Segments and Task Gates)</h3><p>​    <code>TSS（任务状态段）</code>定义了任务的执行环境的状态。其包括以下几个部分：<code>通用寄存器，段寄存器，EFLAGS寄存器，EIP寄存器，3个堆栈段对应的段选择子</code>（每个权限级别都对应有一个堆栈，如果有三个权限级别：1，2，3，则会有3个栈分别对应每个权限级别）。TSS也包含了该任务的LDT的段选择子和页目录表的基地址的信息。<br>​    在保护模式下，系统中的每个程序都运行在一个任务（称为当前任务）的<code>上下文</code>中。而当前任务的TSS的段选择子存储在任务寄存器中。切换到一个任务的最简单方法就是调用或跳转到新任务。这个新任务的TSS段选择子由此次CALL或JMP指令给出。当切换任务的时候，处理器完成的几个步骤：</p>
-<ol>
-<li>将当前任务的状态信息存储到当前TSS中;</li>
-<li>将新任务的段选择子加载到任务寄存器中;</li>
-<li>通过GDT中的段描述子访问新TSS;</li>
-<li>从新TSS中加载新任务的状态信息至通用寄存器、段寄存器、LDTR、控制寄存器CR3(页目录表的基地址)、EFLAGS寄存器和EIP寄存器；</li>
-<li>开始执行新任务</li>
-</ol>
-<p>​     一个任务可通过任务门访问。任务门类似于调用门，唯一不同的是其访问的是TSS而不一个代码段。</p>
-<p>​    关于上下文的补充：上下文是由程序正确运行所需的状态组成的。这个状态包括存放在内存中的程序的代码和数据，他的栈、通用目的寄存器的内容、程序计数器、环境变量以及打开文件描述符的集合。（来源于CSAPP-P508）</p>
-<h4 id="IA-32e模式下的任务状态段TSS-Task-State-Segments-in-IA-32e-Mode"><a href="#IA-32e模式下的任务状态段TSS-Task-State-Segments-in-IA-32e-Mode" class="headerlink" title="IA-32e模式下的任务状态段TSS(Task-State Segments in IA-32e Mode)"></a>IA-32e模式下的任务状态段TSS(Task-State Segments in IA-32e Mode)</h4><p>​    IA-32e模式并不支持硬件实现任务交换。然而，TSS依然存在。一个TSS的基址由其段描述符指明。<br>​    一个64位的RSS保存以下对64位操作很重要的信息：</p>
-<ul>
-<li>每个权限级别对应的堆栈指针地址</li>
-<li>中断堆栈表的指针地址  </li>
-<li>IO权限位图的偏移地址（以TSS为基地址）</li>
-</ul>
-<p>​    IA-32e模式任务寄存器也被拓展64位以致能保存64位基地址。可参见7.7节“64位模式下的任务管理”。  </p>
-<h3 id="中断和异常处理-Interrupt-and-Exception-Handling"><a href="#中断和异常处理-Interrupt-and-Exception-Handling" class="headerlink" title="中断和异常处理(Interrupt and Exception Handling)"></a>中断和异常处理(Interrupt and Exception Handling)</h3><p>​    外部中断、软件中断以及异常通过<code>中断描述表(interrupt descriptor table--IDT)</code>处理。IDT存储了存储一组门描述符，其提供了对中断和异常处理程序的访问。同GDT一般，IDT也不是一个段。IDT线性地址的基地址存储在<code>IDT寄存器中（IDTR）</code>。<br>​    IDT的门描述符可以是中断、陷阱、任务门描述符。为访问一个<code>中断或异常处理程序</code>，处理器首先会从内部硬件、外部中断控制器或通过软件发出INT、INTO、INT 3或BOUND等指令接收中断向量（中断号）。中断向量提供了访问IDT的索引。如果被选中的门描述符是一个中断门或陷阱们，则其访问对应处理程序的过程就类似于通过一个调用门（call gate）来调用一个程序。如果描述符是一个任务门，则通过切换任务来访问处理程序。</p>
-<h4 id="IA-32e模式下中断和异常处理-Interrupt-and-Exception-Handling-IA-32e-Mode"><a href="#IA-32e模式下中断和异常处理-Interrupt-and-Exception-Handling-IA-32e-Mode" class="headerlink" title="IA-32e模式下中断和异常处理(Interrupt and Exception Handling IA-32e Mode  )"></a>IA-32e模式下中断和异常处理(Interrupt and Exception Handling IA-32e Mode  )</h4><p>​    在IA-32e模式下，中断描述符被拓展到16字节以至于支持64位及地址。对于64位模式和兼容模式非常重要。<br>​    IDTR寄存器被扩展以致保存64位的基址。但不支持任务门。  </p>
-<h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h3><p>​    系统体系结构支持内存的直接物理寻址或虚拟内存(通过分页机制)。当使用物理寻址时，线性地址就被是为实际物理地址。当通过<code>分页机制</code>寻址时，所有的代码、数据、系统段（包括GDT、IDT）所有代码、数据、堆栈和系统段（包括GDT和IDT）都可以进行分页寻址，只有最近访问的页面被保存在物理内存中。<br>​    <code>页（也被称为页帧）</code>在物理内存中的位置储存在在页目录表中。这些结构驻留在物理内存中。<br>​    控制寄存器CR3存储了页目录表物理地址的基址。页目录表中的条目指明了各页框物理地址的基址、访问权限和内存管理信息。<br>​    为使用分页机制，将连续的线性地址分为多个零碎的部分。每一部分为页目录表和页框提供其不同的偏移量。 一个系统可以有一个或多个页目录表。 例如，每个任务可以有自己的页目录表。<br>内存管理分为2种情况，<code>分段</code>或<code>分段+分页</code>。内存管理一定会进行分段，而分页则偏向于一种程序，可选的虚拟映射，由OS来指定是否需要开启的。</p>
-<h4 id="IA-32e模式下的内存管理"><a href="#IA-32e模式下的内存管理" class="headerlink" title="IA-32e模式下的内存管理"></a>IA-32e模式下的内存管理</h4><p>​    在IA-32e模式下，使用一组系统数据结构堆物理内存页进行管理。在兼容模式下和64位模式下，系统数据结构分为四级，其包含：</p>
-<ul>
-<li> 四级页面映射表(The page map level 4 ——PML4)：四级页面映射表中的一个表项存储了一个页目录指针表物理地址的基址、访问权限和内存管理信息。 PML4物理地址的基址则存储在CR3中。</li>
-<li>一组页目录指针表（A set of page directory pointer tables  ）：  页目录指针表中的一个表项存储了一个页目录表物理地址的基址、访问权限以及内存管理信息。</li>
-<li>一组页目录表（Sets of page directories ）：页目录表中的一个表项存储了一个页表物理地址的基址、访问权限以及内存管理信息。</li>
-<li>一组页表（Sets of page tables）：页表一个表项存储了一个页框物理地址的基址、访问权限以及内存管理信息。</li>
-</ul>
-<h3 id="系统寄存器"><a href="#系统寄存器" class="headerlink" title="系统寄存器"></a>系统寄存器</h3><p>​    为了帮助初始化处理器和控制系统操作，系统架构在EFLAGS寄存器和几个系统寄存器中提供了<code>系统标志位</code>：  </p>
-<ul>
-<li>EFLAGS寄存器的系统标志和IOPL字段控制任务和模式切换、中断处理、指令跟踪、访问权限中。 </li>
-<li>控制寄存器(CR0、CR2、CR3和CR4)包含用于控制系统级操作的各种标志和数据字段。 这些寄存器中的其他标志用于指示某些特殊处理器功能对操作系统或执行程序的支持与否。   </li>
-<li>调试寄存器(在图1中没有显示)则允许设置调试程序和系统软件所用的断点。 </li>
-<li>GDTR、LDTR和IDTR寄存器包含各自表的线性地址和大小（限长）。 </li>
-<li>任务寄存器包含当前任务的TSS的线性地址和大小。</li>
-<li>任务寄存器包含当前任务的TSS的线性地址和大小。  </li>
-<li>特殊模块寄存器(图1中没有显示)  。</li>
-</ul>
-<p>​    <code>特殊模块寄存器(MSRs)</code>是一组主要供操作系统或执行过程使用的寄存器（即在特权级别0上运行的代码，我们前面也提到数字越小，权限级别越高）。这些寄存器控制诸如调试扩展、性能监视计数器、机器检查体系和内存类型范围(MTRRs)等几项工作。在Intel 64和IA-32架构的处理器，这些寄存器的数量和功能中并不相同。 大多数系统都限制应用程序访问除EFLAGS寄存器外的系统寄存器。 然而，当程序运行在最高特权级别（特权级别0）时，应用程序将被允许修改系统寄存器。</p>
-<h4 id="IA-32e模式下的系统寄存器"><a href="#IA-32e模式下的系统寄存器" class="headerlink" title="IA-32e模式下的系统寄存器"></a>IA-32e模式下的系统寄存器</h4><p>​    在IA-32e模式下，四个系统描述表寄存器（GDTR、IDTR、LDTR和TR）硬件上扩展至能储存64位基址。EFLAGS寄存器拓展至64位RFLAGS寄存器。 CR0-CR4扩展为64位。 CR8也变为可用。 CR8提供对任务优先级寄存器（TPR）的读写访问，如此一来，操作系统就可以控制外部中断类别的优先级。<br>​    在64位模式下，调试寄存器DR0-DR7变为64位。在兼容模式下，DR0-DR3中执行64位地址匹配。<br>​    在支持IA-32e模式的系统上，扩展特性确保寄存器（IA32_EFER）可以使用。 这个特殊模块寄存器控制激活IA-32e模式和其他IA-32e模式操作。此外，还有几个特殊模块寄存器来管理IA-32e模式指令 ：</p>
-<ul>
-<li>IA32_KernelGSbase ：管理SWAPGS指令 </li>
-<li>IA32_LSTAR ：管理SYSCALL 指令  </li>
-<li>IA32_SYSCALL_FLAG_MASK  ：管理SYSCALL 指令</li>
-<li>IA32_STAR_CS  ：管理SYSCALL 和 SYSRET   指令</li>
-</ul>
-<h3 id="其他系统资源-Other-System-Resources"><a href="#其他系统资源-Other-System-Resources" class="headerlink" title="其他系统资源(Other System Resources)"></a>其他系统资源(Other System Resources)</h3><p>​    除了前面章节中描述的系统寄存器和数据结构之外，系统架构还提供了以下额外的资源:  </p>
-<ul>
-<li>操作系统说明</li>
-<li>性能监控计数器（图1中未显示）</li>
-<li>内部缓存和缓冲区（图1中未显示）</li>
-</ul>
-<p>​    性能监视计数器是事件计数器，可以通过编程来计数处理器处理事件，比如解码的指令数、接收到的中断数或缓存负载数。<br>​    处理器提供几个内部缓存和缓冲区。高速缓存用于存储数据和指令。 缓冲区用于存储，其存储，譬如：解码后的地址到系统和应用程序段，以及等待执行的写操作。 </p>
-<h2 id="1-2-实模式和保护模式转换"><a href="#1-2-实模式和保护模式转换" class="headerlink" title="1.2  实模式和保护模式转换"></a>1.2  实模式和保护模式转换</h2><h3 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h3><p> IA-32支持三种<code>工作模式和</code>一种<code>准工作模式</code>：（这些模式都是CPU的工作模式，而CPU的工作模式是指CPU的寻址方式、寄存器大小等用来反应CPU在该环境下如何工作的概念。）</p>
-<ul>
-<li><p>保护模式（Protected mode）：处理器原生支持的模式。在这个模式下运行，能体现处理器丰富的体系结构特性与功能，且处理器能以高灵活性、高性能运行，还提供对现有软件的向后兼容性。电脑运行的99.99%时间，处理器都是工作在保护模式下。在保护模式中，内存的管理模式分为两种——段模式和页模式。其中页模式也是基于段模式的。也就是说，保护模式的内存管理模式是：仅段模式或段页式。进一步说，段模式是必不可少的，而页模式则是可选的——如果使用页模式，则是段页式，否则这是仅段模式。</p>
-</li>
-<li><p>实地址模式（Real-address mode）：在这种操作模式下，处理器处于Intel 8086处理器的编译运行环境，但此外提供了一些扩展（例如切换到保护或系统管理模式的拓展）。 （这种模式只能跑Intel8086处理器对应的程序）。机器刚刚通电启动或CPU复位时，运行在实模式下。实模式只能访问地址在1M以下的内存称为常规内存，我们把地址在1M 以上的内存称为扩展内存。实模式的“实”体现在程序中用到的地址都是真实的物理地址，“段基址:段内偏移地址”产生的逻辑地址就是物理地址，即程序员可见的地址完全是真实的内存地址。由16位段寄存器的内容乘以16（左移4位）作为段基址，加上16位段偏移地址形成20位的物理地址，最大寻址空间1MB，最大分段64KB。</p>
-</li>
-<li><p>系统管理模式（System management mode (SMM)）：自Intel386 SL处理器开始，SMM是所有IA-32处理器的标准架构特性。 这种模式为操作系统或程序的执行提供了一个透明的机制来实现电源管理和OEM差异化特性。SMM是通过激活外部系统中断引脚(SMI#)进入中断，该引脚产生一个系统管理中断(SMI)。 在SMM中，处理器切换到一个单独的地址空间，同时保存当前运行的程序或任务的上下文。为SMM的设计代码可以透明地执行。 从SMM返回时，处理器被放置回SMI之前的状态</p>
-</li>
-<li><p>虚拟8086模式： 虚拟8086模式是运行在保护模式中的实模式，也称为准操作模式，为了在32位保护模式下执行纯16位程序。它不是一个真正的CPU模式，还属于保护模式。</p>
-</li>
-</ul>
-<p>保护模式同实模式的<code>根本区别</code>是<code>进程内存受保护与否</code>。可寻址空间的区别是前因的结果。</p>
-<p>Intel 64架构支持IA-32架构和IA-32e架构的所有工作模式:  </p>
-<p>​    IA-32e模式：64位操作系统运行在该模式。该模式有两种子模式: </p>
-<ul>
-<li>兼容模式：该模式下，64位操作系统运行在32位兼容环境，能正常运行16，32位应用程序就像在基本的保护模式下运行一样。可以访问32位地址空间，但不能运行纯16位实模式程序（即不能运行虚拟86模式程序）。 </li>
-<li>64位模式：在该模式下，处理器完全执行64位指令，使用64位地址空间和64操作数，运行16，32位程序必须切换到兼容模式。64位模式提供64位线性寻址，支持大于64GBytes的物理地址空间。  </li>
-</ul>
-<p>​    IA-32e子模式的切换完全基于代码段寄存器。这样一来，运行在IA-32e模式中（64位）的OS 通过设置32位后的CS，完全可以无缝的运行所有16，32，64为应用程序。</p>
-<h3 id="模式切换："><a href="#模式切换：" class="headerlink" title="模式切换："></a>模式切换：</h3><p>![](系统级体系结构概述/mode transition.jpg)</p>
-<center style="color:#1a1a1a;">图3 模式切换</center>
-
-<p>​    EFLAGS寄存器中的VM标志位决定处理器是在保护模式还是在虚拟8086模式下运行。保护模式和虚拟8086模式之间的转换通常作为任务切换或从中断或异常处理程序返回的一部分进行。<br>​    <code>LMA位(IA32_EFER.LMA[bit 10])</code>决定处理器是否在IA-32e模式下运行。 在IA-32e模式下运行时，又由代码段的CSA.L位决定是64位还是兼容模式 。处理器通过启用分页机制和设置<code>LME位    (IA32_EFER.LME[bit 8])</code>，然后从保护模式进入IA-32e模式。<br>​    当处理器处于实模式、保护模式、虚拟8086模式或IA-32e模式时，只要它接收到SMI中断，处理器就会切换到SMM模式。 在执行RSM指令之后，处理器总是返回到SMI中断发生前的模式。<br>​    机器上电，CPU进入实模式，从物理地址0xFFFFFFFF0处开始执行初始化代码，设置基本系统功能操作必要的数据结构信息，例如处理中断和异常的IDT表。接下来，如果继续在保护模式工作，需要加载操作系统模块；如果要进入实模式，那么需要进行模式切换。</p>
-<h3 id="保护模式与实模式的切换"><a href="#保护模式与实模式的切换" class="headerlink" title="保护模式与实模式的切换"></a>保护模式与实模式的切换</h3><p>​    为了在硬件或软件复位后，处理器以保护模式运行，那么必须要从实地址模式切换到保护模式。 一旦切换到保护模式，软件通常不需要切换回实地址模式。 若要运行以实地址模式（8086模式）编写的软件，通常以虚拟8086模式运行软件比切换回实地址模式更方便。 </p>
-<h4 id="切换到保护模式："><a href="#切换到保护模式：" class="headerlink" title="切换到保护模式："></a>切换到保护模式：</h4><p>​    处理器进入到保护模式之前，需要操作系统加载和初始化软件必须在内存中设置好保护模式下使用的数据结构的基本信息。这些数据结构包括<br> 1）保护模式中断描述符表IDT<br> 2）GDT<br> 3）任务状态段TSS<br> 4）LDT<br> 5）如果使用分页机制，最少要设置一个页目录和一个页表<br> 6）处理器切换到保护模式下运行的代码段</p>
-<p>还需要设置设置以下系统寄存器<br> 1）GDTR<br> 2）中断描述符表基地址寄存器<br> 3）控制寄存器CR1～CR3</p>
-<pre><code> 初始化这些数据结构、代码模块和系统寄存器之后，通过设置CR0寄存器的保护模式标志位PE即可进入保护模式。
- 切换到保护模式的步骤如下：
-</code></pre>
-<ol>
-<li>禁用中断。 CLI指令禁用可屏蔽硬件中断。 NMI中断可以用外部电路禁用。 （软件必须保证模式切换过程中不产生异常或中断。）</li>
-<li>执行LGDT指令，将GDT的基址加载入GDTR寄存器  </li>
-<li>执行一条MOV CR0指令，在控制寄存器CR0中设置PE标志位（也可以设置PG标志位，启用分页机制）</li>
-<li>执行完MOV CR0指令之后，执行FAR JMP或 FAR CALL指令。（这个操作通常是远跳转或调用指令流中的下一条指令。）</li>
-<li>紧跟在MOVCR0指令的JMP或CALL指令改变了处理器执行流程并串行化处理器。  </li>
-<li>如果启用了分页机制，那么MOV CR0指令和JMP或CALL指令的代码必须来自已经经过映射的页面（即，跳转前的线性地址与启用了分页和保护模式后的物理地址相同）。 JMP或CALL指令的目标指令不需要进行内存映射。  </li>
-<li>如果要使用一个本地描述符表，则执行LLDT指令，在LDTR寄存器中加载LDT的段选择器。</li>
-<li>执行LTR指令，用初始保护模式任务的段选择符或者可写内存区域的段描述符加载任务寄存器TR</li>
-<li>进入保护模式后，段寄存器仍存储着实地址模式时候的内容。第4步中的JMP和CALL指令会重置CS寄存器。然后执行以下操作之一来更新剩余段寄存器的内容 ：（1）重新加载段寄存器DS, SS, ES, FS和GS。 若是不使用ES, FS和/或GS寄存器，则加载空选择子。  （2）对一个新任务执行JMP或CALL指令，这将自动重置段寄存器的值，并将其存储到一个新的代码段。</li>
-<li>执行LIDT指令，用受保护模式IDT的地址和限长加载IDTR寄存器。</li>
-<li>  开启中断。执行STI指令启用可屏蔽硬件中断，并执行必要的硬件操作启用NMI中断。</li>
-</ol>
-<h4 id="切换回实模式"><a href="#切换回实模式" class="headerlink" title="切换回实模式"></a>切换回实模式</h4><p>​    若MOV CR0指令复位CR0中的PE位，处理器从保护模式切换回实地址模式。重新进入实地址模式步骤如下：</p>
-<ol>
-<li>关中断；CLI指令禁用可屏蔽硬件中断。 NMI中断可以用外部电路禁用；</li>
-<li>如果开启分页机制，那么需要执行：<br> 把程序的控制转移到对等映射的线性地址处，这些地址的标识映射到物理地址（线性地址等同于物理地址）<br> 确保GDT和LDT在对等映射的页面上<br>复位CR0中的PG标志位<br> 设置CR3寄存器内容为0x00，用于刷新TLB缓冲</li>
-<li>把程序的控制转移到长度为64KB（0xFFFF）的可读段中。此操作使用实模式要求的段长度加载CS寄存器</li>
-<li>使用包含以下设定值的描述符选择子来加载SS、DS、ES、FS、GS段寄存器<br> 段限长=64kb（0xFFFF）<br> 字节粒度 （G = 0）<br> 向上扩展 E=0<br> 可写 W=1<br> 存在 P=1<br> 基址= 任何值<br>段寄存器存储的是非空的段选择子，否则段寄存器在实地址模式下将不可用。 注意，如果段寄存器没有重新加载，那么在保护模式中继续使用加载的描述符属性执行。</li>
-<li>执行LIDT指令来指向在1MB实模式地址范围内的实地址模式中断表</li>
-<li>复位CR0中的PE位已进入实模式</li>
-<li>执行一个FAR JMP指令跳转到一个实模式程序中。这个操作会刷新指令队列，并且为CS寄存器加载合适的基地址和访问权限值</li>
-<li>加载实地址模式程序代码会使用的SS、DS、ES、FS、GS。如果其中哪一个在实模式下不会用到，则写入0</li>
-<li>执行STI指令启用可屏蔽硬件中断，并执行必要的硬件操作启用NMI中断。   </li>
-</ol>
-<h2 id="1-3-80x86系统指令寄存器"><a href="#1-3-80x86系统指令寄存器" class="headerlink" title="1.3 80x86系统指令寄存器"></a>1.3 80x86系统指令寄存器</h2><h3 id="标志寄存器-EFLAGS"><a href="#标志寄存器-EFLAGS" class="headerlink" title="标志寄存器 EFLAGS"></a>标志寄存器 <code>EFLAGS</code></h3><p>​    EFLAGS寄存器的系统标志位和IOPL字段控制I/O、可屏蔽的硬件中断、调试、任务切换和虚拟8086模式（如图4所示）。一般情况下，只允许具有<code>特权级别</code>的代码（通常是操作系统或执行代码）才能修改这些标志位。  </p>
-<p><img src="/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/EFLAG.jpg" alt="EFLAG"></p>
-<center style="color:#1a1a1a;">图4 EFLAG寄存器中的系统标志位</center>
-
-<p>​    系统标志和IOPL如下：</p>
-<ul>
-<li><p>TF (Trap (bit 8))：跟踪标志位（第8位），设置该标志位可启用<code>单步调试模式</code>; 复位则禁用单步模式。 在单步模式下，处理器在每条指令执行后生成一个<code>调试异常</code>。如果程序使用POPF、POPFD或IRET指令设置TF标志，处理器则会在紧跟POPF、POPFD或IRET之后的指令后产生一个调试异常。</p>
-</li>
-<li><p>IF(Interrupt enable (bit 9))：中断使能位（第9位），控制处理器对<code>可屏蔽硬件中断</code>请求的响应（参见6.3.2节“可屏蔽硬件中断”）。设置该标志位表明处理器可以响应可屏蔽硬件中断; 复位则不响应可屏蔽硬件中断。  IF标志不会屏蔽异常或不可屏蔽中断（NMI中断）。通过控制寄存器CR4中的CPL、IOPL和VME标志位的值决定IF标志是否可以被CLI、STI、POPF、POPFD和IRET修改。  </p>
-</li>
-<li><p>I/O (privilege level field (bits 12 and 13))：I/O特权级别字段（第12、13位），该标志位指明当前运行的程序或任务的IOPL （I /O privilege level）。 当前运行的程序或任务的CPL必须小于等于其访问I/O地址空间的IOPL。 POPF和IRET指令只能在CPL为0时才能修改该字段。当虚拟8086模式扩展生效时（即当CR4.VME = 1时）， IOPL也是控制IF标志的修改和中断处理的机制之一  。</p>
-</li>
-<li><p>  Nested task (bit 14)  ： 嵌套任务标志位（第14位），控制被中断和调用任务之间的链接。处理器在调用由CALL指令、中断或异常发起的程序时会设置此标志。 在通过使用IRET指令从一个任务返回时会检查和修改这个标志。 该标志可以通过POPF/POPFD指令显式设置或复位; 但是，在应用程序中更改该标志位的状态可能会导致产生意外的异常。</p>
-</li>
-<li><p>  Resume (bit 16)  ：恢复标志位（第16位），控制处理器对断点指令的响应。 若设置该标志位，该标志暂时禁止为指令断点生成调试异常(#DB)（尽管其他异常条件可能导致异常产生）。 当该标志位复位时，断点指令会生成调试异常。</p>
-</li>
-</ul>
-<p>  RF标志的主要功能是允许在调试异常之后重新执行一条指令。 在使用IRETD指令返回被中断的程序之前，需要设置堆栈上的EFLAGS内容中设置RF标志位（以防指令断点引起另一个调试异常）。 当返回的指令成功执行后，处理器会自动复位这个标志位，从而再次允许指令断点异常。</p>
-<ul>
-<li><p>Virtual-8086 mode (bit 17) ：虚拟8086模式标志位（第17位），设置该标志位以切换到虚拟8086模式。复位则返回保护模式。</p>
-</li>
-<li><p>Alignment check (bit 18)：对齐检查位（第18位）  ：设置该标志位和CR0寄存器中的AM标志位可控制对内存引用进行对齐检查， 复位AC标志和/或AM标志以禁用对齐检查。当引用一个未对齐的操作数时，就会产生一个对齐检查异常，譬如：奇数字节地址上的一个字，或者不是4的整数倍地址上的一个双字。在用户模式下（特权级别3），才会产生对齐检查异常产生。默认特权级别为0的内存引用，例如引用段描述符，也不会产生此异常，即使该异常是由在用户模式下执行的指令引起的。</p>
-<p>对齐检查异常可用于检查数据的对齐。对于和进行数据对齐的处理器交换数据时，这一点非常有用。解释器也可以通过将指针指向错误的方式来使用对齐检查异常，并将指针标记为特殊指针。其免去了检查每个指针的开销，并且只在使用时处理特殊指针。 </p>
-</li>
-<li><p>   Virtual Interrupt (bit 19) ：虚拟中断（第19位），包含IF标志的虚拟映射。 此标志位与VIP标志位一同使用。 当设置了控制寄存器CR4中的VME或PVI标志位，并且IOPL小于3时，处理器才会识别VIF标志。（设置VME标志启用虚拟8086模式扩展；设置PVI标志位启用保护模式下的虚拟中断。）  </p>
-</li>
-<li><p> Virtual interrupt pending (bit 20)  ：虚拟中断等待位，软件设置该标志位表示有中断正在等待处理； 复位表示没有中断等待处理中。该标志位与VIF标志一起使用。 处理器会读取该标志位，但不会修改。当控制寄存器CR4中的VME或PVI标志被设置且IOPL小于3时，处理器才会识别VIP标志。 设置VME标志启用虚拟8086模式扩展；设置PVI标志位启用保护模式下的虚拟中断。</p>
-</li>
-<li><p>Identification (bit 21)：标识位（第21位），程序或过程可设置或复位该标志位以表示对CPUID指令的支持。 </p>
-</li>
-</ul>
-<h4 id="IA-32e模式下的系统标志位和字段"><a href="#IA-32e模式下的系统标志位和字段" class="headerlink" title="IA-32e模式下的系统标志位和字段"></a>IA-32e模式下的系统标志位和字段</h4><p>​    在64位模式下，RFLAGS寄存器扩展到64位，上面的32位保留。 RFLAGS（64位模式）和EFLAGS（兼容模式）的系统标志位如图4所示。<br>​    在IA-32e模式下，处理器不允许设置VM位，因为其不支持虚拟8086模式（尝试设置该标志位的操作会被忽略）。此外，处理器也不会设置NT位。 然而，处理器允许软件设置NT位（在IA-32e模式下，若设置了NT位，IRET会通常导致保护故障）。<br>​    在IA-32e模式下，可通过编程的方式使用SYSCALL/SYSRET指令来指定复位RFLAGS / EFLAGS中的一些标志位。 这些指令保存/恢复EFLAGS/RFLAGS。 </p>
-<h3 id="内存管理寄存器"><a href="#内存管理寄存器" class="headerlink" title="内存管理寄存器"></a>内存管理寄存器</h3><p>​    处理器提供四个内存管理寄存器(<code>GDTR、LDTR、IDTR和TR</code>)，用于指明内存分段管理所用的数据结构的基地址（见图5）。 处理器还为这些寄存器的加载和保存提供了特定的指令。<br>![](系统级体系结构概述/Memory Control.jpg)</p>
-<center style="color:#1a1a1a;">图5 内存管理寄存器</center>
-
-<ul>
-<li><p>全局描述符表寄存器GDTR（Global Descriptor Table Register (GDTR)  ）：GDTR寄存器用于存放全局描述符表的线性基地址（保护模式下32位，IA-32e模式下64位）和16位的GDT表限长值。基地址指定GDT表中字节0在线性地址空间中的地址，表限制长度指明GDT表的字节长度值。</p>
-<p>LGDT、SGDT指令分别用于加载和保存GDTR中的值。在机器刚通电或处理器复位后，基地址被默认设置为0，而长度被设置为0xFFFF。在保护模式初始化的过程中必须为GDTR加载一个新的值。</p>
-</li>
-<li><p>局部描述符表寄存器LDTR(Local Descriptor Table Register LDTR)：LDTR寄存器用于存放局部描述符表的16位的段选择子，基地址（保护模式下32位，IA-32e模式下64位），段限长和描述符属性值。基地址指明LDT段中字节0在线性地址空间中的地址，段限长度指明LDT段的字节数目。<br>LLDT、SLDT指令分别用于加载和保存LDTR寄存器中段描述符的部分。包含LDT表的段必须在GDT表中有一个段描述符项。当使用LLDT指令把含有LDT表段的选择符加载进LDTR时，LDT段描述符的段基址、段限长度以及描述符属性会被自动加载进LDTR中。当出现任务切换时，新任务的LDT段的段选择子和段描述符会自动加载到LDTR中。在写入新的LDT信息之前，LDTR的内容不会被自动保存寄存器中。</p>
-<p>当机器通电或处理器复位后，段选择符和基地址被默认设置为0，而段长度被设置成0xFFFF。</p>
-</li>
-<li><p>中断描述符表寄存器IDTR(IDTR Interrupt Descriptor Table Register )：IDTR寄存器用于存放中断描述符表的线性基地址（保护模式下32位，IA-32e模式下64位）和16位的中断描述符表限长值。基地址指定IDT表中字节0在线性地址空间中的地址，表限制长度指明IDT表的字节数目。LIDT、SIDT指令分别用于加载和保存IDTR中的值。在机器刚通电或处理器复位后，基地址被默认设置为0，而长度被设置为0xFFFF。在保护模式初始化的过程中必须为GDTR加载一个新的值。IDTR寄存器中的基址和限长可以在处理器初始化过程中进行更改。  </p>
-</li>
-<li><p>任务寄存器TR(Task Register (TR))：TR寄存器存放了当前任务TSS段的16段选择子，基地址（保护模式下32位，IA-32e模式下64位）、段长度和描述符属性值。其引用GDT表中的一个TSS类型的描述符。基地址指定TSS段中字节0在线性地址空间中的地址，段长度指明TSS的字节数目。LTR、STR指令分贝用于加载和保存TR寄存器的段选择符的部分。当LTR指令把选择符加载进任务寄存器时，TSS描述符中的段基址、段限长以及描述符属性会被自动加载到TR中。当机器通电或处理器复位后，段选择符和基地址被默认设置为0，而段长度被设置成0xFFFF。当执行任务切换时，处理器会把新任务的TSS的段选择子和段描述符自动加载入TR中。在写入新的LDT信息之前，LDTR的内容不会被自动保存寄存器中。在写入新的TSS信息之前，TR的内容不会被自动保存寄存器中。</p>
-</li>
-</ul>
-<h3 id="控制寄存器（CONTROL-REGISTERS-）"><a href="#控制寄存器（CONTROL-REGISTERS-）" class="headerlink" title="控制寄存器（CONTROL REGISTERS ）"></a>控制寄存器（CONTROL REGISTERS ）</h3><p>​    控制寄存器（CR0，CR1， CR2， CR3， CR4；如图6所示）决定了处理器的工作模式和当前正在执行的任务的特性。 这些寄存器在所有32位模式和兼容模式下都是32位的。 在64位模式下，控制寄存器扩展到64位。 MOV CRn指令用于操作控制寄存器寄存器标志位。</p>
-<p><img src="/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/contol.jpg"></p>
-<center style="color:#1a1a1a;">图6 控制寄存器</center>
-
-<p>​    控制寄存器总结如下，控制寄存器在每个体系结构定义的不同控制字段会被单独描述。 在图6中，64位模式下的寄存器宽度在括号中表示（CR0除外）。 </p>
-<ul>
-<li><p>CR0：存储系统控制标志位，这些标志位控制处理器运行模式和状态。</p>
-</li>
-<li><p>CR1：保留不用</p>
-</li>
-<li><p>CR2：存储导致页错误的线性地址（发生错误处）。</p>
-</li>
-<li><p>CR3：存储页目录表物理内存的基地址和两个标志位（PCD和PWT），因此该寄存器也被称为页目录基地址寄存器PDBR。PCD和PWT标志位控制处理器内部数据缓存中页目录表的缓存（它们不控制页目录信息的TLB缓存）</p>
-<p> 控制寄存器各标志位、字段说明如下：</p>
-</li>
-<li><p> PG(Paging (bit 31 of CR0))：分页标志位（CR0中的第31位），设置该位启用分页。复位不启动分页。不启用分页时，线性地址就等同于物理地址。如果没有设置PE位（CR0中的第0位），设置该标志位也不会启用分页。若没有设PE位，而尝试设置PG位会导致一般保护异常（#GP）。</p>
-</li>
-<li><p>CD(Cache Disable (bit 30 of CR0))：当复位CD和NW标志位时，会启用了处理器内部(和外部)缓存中整个物理内存的缓存。当设置了CD标志时，缓存则不启用。 为了防止处理器访问和更新它的缓存，必须设置CD标志并使缓存失效，这样就不会发生缓存命中。</p>
-</li>
-<li><p> NW（Not Write-through (bit 29 of CR0)）：当复位NW和CD标志位时，启用写回策略（写入缓存）（适用于Pentium 4、Intel Xeon、P6系列和Pentium处理器）或写直达策略（直接写内存）(适用于Intel486处理器)，来实现命中缓存的写操作，并启用失效周期。 </p>
-</li>
-<li><p>AM（Alignment Mask (bit 18 of CR0)）：设置该标志位时，可进行自动对齐检查；复位时禁用对齐检查。当且仅当设置AM、EFLAGS寄存器中的AC，且CPL为3，并且处理器在保护模式或虚拟8086模式下运行时，才会执行对齐检查。</p>
-</li>
-<li><p>WP（Write Protect (bit 16 of CR0) ）：写保护位（CR0的第16位），设置该标志位时，禁止管理员级程序写入只读页面; 复位时，允许管理员级程序写入只读页面（无论U/S位设置）。 这个标志有助于实现写时复制方法，还可用于创建UNIX等操作系统使用的新进程（fork）。  </p>
-</li>
-<li><p>NE(Numeric Error (bit 5 of CR0))：设置该标志位启用本机（内部）机制报告x87 FPU错误。并且输入IGNNE#，忽略x87 FPU错误。 复位时，没有输入IGNNE#，一个未被屏蔽的x87 FPU错误会导致处理器在FERR#引脚产生一个外部中断，并在执行下一个等待浮点指令或WAIT/FWAIT指令之前立即停止指令的执行。</p>
-</li>
-<li><p>ET（Extension Type (bit 4 of CR0))：扩展类型位（CR0的第4位），Pentium 4、Intel Xeon、P6系列和Pentium处理器中使用。 在Pentium 4、Intel Xeon和P6系列处理器中，该标志被硬编码为1。 在Intel386和Intel486处理器中，设置该标志表示支持intel387 DX数学协处理器指令。</p>
-</li>
-<li><p>TS (Task Switched (bit 3 of CR0)  )：任务切换标志位（CR0的第3位），允许切换任务的x87 FPU/MMX/SSE/SSE2/SSE3/SSSE3/SSE4上下文的延迟保存，直到新任务执行一个x87 FPU/MMX/SSE/SSE2/SSE3/SSSE3/SSE4指令。 处理器在每个任务开关上设置这个标志，并在执行x87 FPU/MMX/SSE/SSE2/SSE3/SSSE3/SSE4指令时测试它。如果设置了TS并且复位了EM(CR0的第2位)，在执行任何x87 FPU/MMX/SSE/ SSE2/SSE3/SSSE3/SSE4指令之前会引发设备不可用异常(#NM)；而PAUSE、PREFETCHh、SFENCE、LFENCE、MFENCE、MOVNTI、CLFLUSH、CRC32和POPCNT指令除外。如果设置TS，复位MP标志(CR0的第1位)和EM标志，在执行x87 FPU WAIT/FWAIT指令之前，不会引发#NM异常。 如果设置了EM标志，TS标志的设置对x87 FPU/MMX/SSE/SSE2/SSE3/SSSE3/SSE4指令的执行没有影响。</p>
-</li>
-<li><p>EM(Emulation (bit 2 of CR0))：仿真位（CR0的第2位），设置该标志位时表示处理器没有内部或外部x87 FPU;；复位时表示系统又协处理器。 这个标志位也影响MMX/SSE/SSE2/SSE3/SSSE3/SSE4指令的执行</p>
-</li>
-<li><p>MP(Monitor Coprocessor (bit 1 of CR0))：监控协处理器标志位（CR0的第1位），控制WAIT(或FWAIT)指令与TS标志（CR0的第3位）的交互作用。 若设置了MP标志位TS标志位，则WAIT指令会产生一个设备不可用异常(#NM)。 如果复位MP标志，则WAIT指令忽略TS标志的设置。   </p>
-</li>
-<li><p>PE(Protection Enable (bit 0 of CR0))：保护启用标志位（CR0的第0位），设置该标志位时启用保护模式; 复位时启用实地址模式。 设置该标志位不会直接启用分页。 它只启用段级保护。 若要启用分页功能，必须同时设置PE和PG标志。  </p>
-</li>
-<li><p>PCD(Page-level Cache Disable (bit 4 of CR3) )：页级缓存禁用(CR3的第4位)，控制访问页目表的第一个页表的内存类型。如果禁用分页，将不使用PAE分页；若CR4.PCIDE = 1，则使用IA-32e分页。</p>
-</li>
-<li><p>PWT(Page-level Write-Through (bit 3 of CR3))：页级透写（CR3的第3位），控制访问的当前页目表中第一个页表的内存类型。 如果禁用分页，将不使用PAE分页；若CR4.PCIDE = 1，则使用IA-32e分页。</p>
-</li>
-</ul>
-<h2 id="1-4-系统指令"><a href="#1-4-系统指令" class="headerlink" title="1.4 系统指令"></a>1.4 系统指令</h2><p>​    系统指令主要负责处理系统级函数，如加载系统寄存器、管理缓存、管理中断或设置调试寄存器。 其中许多指令只能由操作系统软件或者处于特权级别0的程序执行。其他指令可以在任何特权级别执行，因此应用程序也可使用。<br>​    给出常用系统指令的总结：</p>
-<table>
-<thead>
-<tr>
-<th>指令</th>
-<th>指令全名</th>
-<th>受保护</th>
-<th>指令描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>LGDT</td>
-<td>Load GDTR Register</td>
-<td>是</td>
-<td>从内存加载GDT基址、限长到GDTR</td>
-</tr>
-<tr>
-<td>SGDT</td>
-<td>Store GDTR Register</td>
-<td>否</td>
-<td>将GDTR中的基址、限长存储到内存</td>
-</tr>
-<tr>
-<td>LIDT</td>
-<td>Load IDTR Register</td>
-<td>是</td>
-<td>从内存加载IDT基址、限长到IDTR</td>
-</tr>
-<tr>
-<td>SIDT</td>
-<td>Load IDTR Register</td>
-<td>否</td>
-<td>将IDTR中的基址、限长存储到内存</td>
-</tr>
-<tr>
-<td>LLDT</td>
-<td>Load LDT Register</td>
-<td>是</td>
-<td>从内存加载LDT段选择子、段描述符到LDTR或一个通用目的寄存器（段选择子操作数也可以位于通用目的寄存器中）</td>
-</tr>
-<tr>
-<td>SLDT</td>
-<td>Store LDT Register</td>
-<td>否</td>
-<td>将LDTR中LDT段的选择子存储到内存或一个通用目的寄存器</td>
-</tr>
-<tr>
-<td>LTR</td>
-<td>Load Task Register</td>
-<td>是</td>
-<td>从内存中将一个TSS的段选择子和段描述符加载进TR寄存器。（段选择子操作数也可以位于通用寄存器中）</td>
-</tr>
-<tr>
-<td>STR</td>
-<td>Store Task Register</td>
-<td>否</td>
-<td>将TR中的当前任务TSS的段选择子和段描述符存储到内存或一个通用目的寄存器</td>
-</tr>
-</tbody></table>
-]]></content>
   </entry>
 </search>
