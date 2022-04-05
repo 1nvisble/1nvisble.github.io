@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title> 知无涯也</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/panda.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <!-- mermaid -->
+      
+    <link rel="alternate" href="/atom.xml" title="知无涯也" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-系统级体系结构概述"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+     
+    <div class="article-meta">
+      <a href="/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/" class="article-date">
+  <time datetime="2022-04-05T15:59:41.207Z" itemprop="datePublished">2022-04-05</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">12.8k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">46 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="1-x86系统架构概览"><a href="#1-x86系统架构概览" class="headerlink" title="1. x86系统架构概览"></a>1. x86系统架构概览</h1><h2 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h2><p>先对几个概念进行说明：</p>
+<p>​    IA-32：Intel Architecture 32-bit简称，即英特尔32位体系架构，在英特尔公司1985年推出的80386微处理器中首先采用。IA-32属于X86体系结构的32位版本（X86-32），即具有32位内存地址和32位数据操作数的处理器体系结构，从1985年面世的80386直到Pentium，都是使用IA-32体系结构的处理器。而现在Intel把32位x86架构的名称x86-32改称为IA-32。而x86则是Intel开发的一类处理器体系结构的泛称，包括 Intel 8086、80286、i386和i486等，因此其架构称为“x86”。</p>
+<p>​    Intel 64：Intel 64-bit的简称，64位这个概念最早是由AMD首先提出，提出了一个兼容IA-32指令集的64位版本，其 扩充了指令及寄存器长度和个数等，更新了参数传送方式，AMD称其为AMD 64，Intel称其为Intl 64（不同于IA-64），其被命名为“x86-64” ，有时也简称为x64。。</p>
+<h2 id="1-1系统级体系结构概览"><a href="#1-1系统级体系结构概览" class="headerlink" title="1.1系统级体系结构概览"></a>1.1系统级体系结构概览</h2><h3 id="系统级体系结构的组成"><a href="#系统级体系结构的组成" class="headerlink" title="系统级体系结构的组成"></a>系统级体系结构的组成</h3><p>​    系统级体系结构是由一组寄存器、数据结构、指令组成。这里的指令是指被设计用于支持系统级操作的指令，例如：内存管理、中断、异常处理、任务管理、多线程控制等系统级操作。<br>​    下图概述了适用于32位模式下的系统寄存器和数据结构。  </p>
+<p><img src="/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/overview.jpg"></p>
+<center style="color:#1a1a1a;">图1 IA-32系统级寄存器和数据结构</center>
+
+<p><img src="/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/overview2.jpg"></p>
+<center style="color:#1a1a1a;">图2 IA-32e模式下系统级寄存器和数据结构</center>
+
+<h3 id="全局和局部描述符表-Global-and-Local-Descriptor-Tables"><a href="#全局和局部描述符表-Global-and-Local-Descriptor-Tables" class="headerlink" title="全局和局部描述符表(Global and Local Descriptor Tables)"></a>全局和局部描述符表(Global and Local Descriptor Tables)</h3><p>​    当在<strong>保护模式</strong>下运行时，所有的<strong>内存访问</strong>操作必须都通过<strong>全局描述表(GDT)<strong>，或者一个</strong>可选的本地描述符表(LDT)<strong>来完成。如图1所示。这些表包含</strong>一些条目的描述符，如段(segment)<strong>。</strong>段描述符</strong>负责提供<strong>段的基址</strong>，访问权限、类型和该段的用途等信息。那不禁让人疑惑为什么要这样做？</p>
+<p>​    传统的实地址模式下的汇编中，利用<code>CS:IP</code>来访问内存，<code>CS</code>左移四位加<code>IP</code>获得物理地址，但是通常不需要关心基地址，只需要偏移地址即可访问内存，因为实地址模式的基地址通常是固定的。但是在保护模式下，为了达到保护内存的目的，就需要让不同程序有不同的基地址（基地址如果固定，那么很容易就被他人直到程序的运行位置，很不安全）。所以，在保护模式下，内存是一段一段分配的，分配的那一段内存头地址就是基地址，也称段地址。同时，操作系统也需要记录分配出去的每一段内存，实际上，每段内存都使用一个8字节的段描述符记录着，所有的这些段描述符被放在一块连续内存空间中存储着，称为描述符表。<br>（参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_35261315/article/details/78479523%EF%BC%89">https://blog.csdn.net/sinat_35261315/article/details/78479523）</a></p>
+<p>​    每个段描述符都有一个与之关联的<strong>段选择子</strong>。一个<strong>段选择子</strong>为使用它的软件提供了一个GDT或LDT的<strong>索引</strong>（它所关联段的段描述符的<code>偏移量</code>）, 同时为指明段选择子指向的GDT还是LDT，其提供了一个<code>全局/局部标志</code>（global/local flag），此外还提供了程序对该段的访问权限信息。<br>​    若要访问一个段中的一个字节，则必须要有该段选择子和一个偏移信息。该段选择子提供访问该段的段描述符（在GDT或LDT）中。处理器可从段描述符中获得线性地址空间中该段的基址。然后偏移量则提供了这一字节相对于基址的位置。这一机制可用于访问任一有效代码、数据或堆栈段，但其前提是在处理器运行的当前特权级别（CPL，Current Privilege Level）下，这些段是可访问。<code>CPL</code>定义是指当前执行的代码段的保护级别。<br>​    看图1，图中的是实线箭头指示了线性地址，虚线指示了一个段选择子，而虚线箭头则指示了一个物理地址。为了简单起见，许多段选择子表示为指向段的直接指针。 然而，实际上段选择子并不是直接指向所关联的段，而是通过<code>GDT或LDT</code>。<br>​    GDT的线性地址的基址存储在<code>GDT寄存器（GDTR）</code>中; LDT的线性地址的基址存储在<code>LDT寄存器（LDTR）</code>中。</p>
+<p>​    针对这里的<strong>线性地址</strong>说明：我们已在操作系统中学习了<code>逻辑地址</code>（logical address），<code>逻辑地址</code>就是段基址加上段内偏移，将逻辑地址合成以后的地址称为<code>线性地址</code>（linear  address）。如果没有分页，<code>线性地址</code>就是最终的<code>物理地址</code>，而如果有分页的存在，则还需要经过分页机制的翻译才能得到最终的物理地址。</p>
+<p>​    总结：每个段都在GDT或LDT中存放了一个段描述符，同时对于每个段描述符，还有一个相关联的段选择子。如果访问内存的某一字节，要先获得这一字节所处段所关联的段选择子，通过这个段选择子到GDT或LDT找到该段的段描述符（具体过程：GDTR或LDTR提供GDT或LDT<code>基址</code>，段选择子提供该段在GDT或LDT中的<code>偏移</code>，相加得到该段描述符在GDT或LDT中的地址，然后就可获得段描述符），通过段描述符获得该段的基址，然后还需要获得该字节在相对于该基址的偏移量或者说相对地址，二者相加，就获得了该字节的实际地址，可访问该字节。</p>
+<p>​    补充：全局描述符表（GDT）是 Intel x86 系列处理器（从 80286 开始）所使用的一种数据结构，目的是为了在程序运行期间划分具有不同属性的内存区域，比如：可以运行、可写入等区域的起始地址与访问权限。这些区域被称作段。<br>​    全局描述符表除了可以保存<code>段信息</code>外还可以保存其它信息。全局描述符表中的每个表项（描述子）长度为  8-byte，全局描述符表的选择子可以为：任务状态描述子（TSS）、本地描述符表描述子或者调用门描述子。调用门在 x86  不同特权级中转移控制权非常重要，但是现在的操作系统很少使用这种机制。<br>​    同时存在的还有局部描述符表（LDT）。局部描述符表用来存储程序内部的段信息，而全局描述符表用来描述全局的段信息。x86 系列的处理器具有一种机制，可以在发生某些事件时自动切换局部描述符表，但是针对全局描述符表却没有这样的机制。<br>​    程序如果想访问某个段，需要在全局描述符表或者局部描述符表中找到该段对应的索引。这个索引被称为段选择子。为了使用相应的段，段选择子必须被首先加载到段寄存器。除了可以通过机器指令读取或者设置全局描述符表（还有中断描述符表）的内存地址外，指令所引用的内存地址存在于一个隐式的段，有时有两个。大部分情况下，默认的段寄存器可以通过在地址前面加一个段地址来替换。加载段选择子到段寄存器的过程中，程序会自动读取全局描述符表或者局部描述符表，并将相关信息保存到处理器中。在全局描述符表或者局部描述符表被加载后，对二者的修改并不会起作用，除非重新将相应的表加载到寄存器。<br>（来源:<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Proteas/archive/2010/11/28/2335682.html%EF%BC%89">https://www.cnblogs.com/Proteas/archive/2010/11/28/2335682.html）</a></p>
+<h4 id="IA—32e下的全局和局部描述符表-Global-and-Local-Descriptor-Tables-in-IA-32e-Mode"><a href="#IA—32e下的全局和局部描述符表-Global-and-Local-Descriptor-Tables-in-IA-32e-Mode" class="headerlink" title="IA—32e下的全局和局部描述符表(Global and Local Descriptor Tables in IA-32e Mode)"></a>IA—32e下的全局和局部描述符表(Global and Local Descriptor Tables in IA-32e Mode)</h4><p>​    在IA-32e的子模式(64位模式和兼容模式)下，GDTR和LDTR寄存器都扩展到了64位。 若要了解更多信息。<br>​    全局和局部描述符表被拓展至64位以支持64位基址（大小为16字节的LDT描述符保存了64位的基址和各种属性）。 需注意的是在兼容模式下，描述符将不会被拓展。  </p>
+<h3 id="系统段，段描述符，门-System-Segments-Segment-Descriptors-and-Gates"><a href="#系统段，段描述符，门-System-Segments-Segment-Descriptors-and-Gates" class="headerlink" title="系统段，段描述符，门(System Segments, Segment Descriptors, and Gates)"></a>系统段，段描述符，门(System Segments, Segment Descriptors, and Gates)</h3><p>​    除了代码、数据、堆栈段，其组成了一个程序的运行环境外，该体系结构还定义了两个系统段：<code>任务状态段</code>（the task-state segment–TSS）和<code>LDT</code>。GDT因其不能通过段选择子和段描述符的方式访问，从而不被看作是一个段。TSSs和LDTs都有为其定义的段描述符。<br>​    该体系结构也定义了一组特殊的<code>描述符</code>，可以称为<code>门（调用门、中断门、陷阱门、任务门）</code>。这些门为系统程序提供了保护，以致其可以在与大多数应用程序不同的权限级别上运行。简而言之，门提供了一种机制——跨权限级别的访问。例如，通过调用门的一次调用，能以比当前的代码段所需的更低权限数值（意味着更大的权限）访问代码段中的一个程序。要通过<code>调用门</code>调用一个程序，调用者需要提供当前<code>调用门</code>的<code>段选择子</code>，然后，处理器获得该调用门<code>权限级别</code>、以及该调用门指向的目的代码段的权限级别，然后与CPL比较，对该调用门执行其访问权限的检查。（总共有4个权限级别，分别为0，1，2，3，数字越小权限越大），从而可以理解上面更低权限数值。<br>​    如果允许访问目的代码段，处理器获得目的代码段的<code>段选择子</code>，以及从调用门到该代码段的<code>偏移量</code>。如果此次调用需要更改权限级别，处理器则会切换到<code>堆栈</code>以获取<code>目标特权级别</code>。 然后从当前运行的任务的TSS中获得新堆栈的段选择子。 门还促进了16位和32位代码段之间的转换，反之亦然。  </p>
+<p>​    补充：门描述符并不描述某种内存段，而是描述控制转移的入口点，也就是目标代码的门。通过这种门可以实现<code>特权级的转变和任务的切换</code>。门描述符主要由两部分组成：<code>选择子</code>、<code>偏移地址</code>以及<code>DPL</code>。<br>（来源于<a target="_blank" rel="noopener" href="http://blog.chinaunix.net/uid-12276369-id-2952355.html%EF%BC%89">http://blog.chinaunix.net/uid-12276369-id-2952355.html）</a></p>
+<ul>
+<li><p> 调用门一般用于<code>特权级别的切换</code>，存在于GDT中或者LDT中。调用门的选择子指向<code>代码段描述符</code>，偏移地址对应代码段中的<code>偏移量</code>。当jump和call指令的操作对象是调用门的时候，就会跳转到对应的代码处，并更改特权级别，也就会发生堆栈的切换。</p>
+</li>
+<li><p>任务门一般用在<code>任务的切换</code>，可以存放在GDT、LDT或IDT中。任务门的选择子指向GDT中的TSS选择符，而其偏移地址没有意义。当Jmp和Call指令的操作数是任务门的时候，就会发生任务的切换。</p>
+</li>
+<li><p> 中断门和陷阱门描述符是<code>中断处理程序的入口</code>，存在于IDT中。中断门和陷阱门的选择子指向代码段选择符，偏移地址是代码段中中断处理程序的入口地址。</p>
+</li>
+</ul>
+<h4 id="IA-32e模式下的门-Gates-in-IA-32e-Mode"><a href="#IA-32e模式下的门-Gates-in-IA-32e-Mode" class="headerlink" title="IA-32e模式下的门(Gates in IA-32e Mode)"></a>IA-32e模式下的门(Gates in IA-32e Mode)</h4><p>​    在IA-32e模式下，以下描述符是16字节的描述符(扩展以支持64位基地址):</p>
+<ul>
+<li>LDT描述符</li>
+<li>64位TSSs</li>
+<li>调用门</li>
+<li>中断门</li>
+<li>陷阱门</li>
+<li>调用门  </li>
+</ul>
+<p>​    调用门促进了64位模式和兼容模式之间的转换。 IA-32e模式下不支持任务门。 在特权级别改变时，其不会从TSS读取堆栈段选择子。 相反，它们被设置为NULL。</p>
+<h3 id="任务状态段和任务门-Task-State-Segments-and-Task-Gates"><a href="#任务状态段和任务门-Task-State-Segments-and-Task-Gates" class="headerlink" title="任务状态段和任务门(Task-State Segments and Task Gates)"></a>任务状态段和任务门(Task-State Segments and Task Gates)</h3><p>​    <code>TSS（任务状态段）</code>定义了任务的执行环境的状态。其包括以下几个部分：<code>通用寄存器，段寄存器，EFLAGS寄存器，EIP寄存器，3个堆栈段对应的段选择子</code>（每个权限级别都对应有一个堆栈，如果有三个权限级别：1，2，3，则会有3个栈分别对应每个权限级别）。TSS也包含了该任务的LDT的段选择子和页目录表的基地址的信息。<br>​    在保护模式下，系统中的每个程序都运行在一个任务（称为当前任务）的<code>上下文</code>中。而当前任务的TSS的段选择子存储在任务寄存器中。切换到一个任务的最简单方法就是调用或跳转到新任务。这个新任务的TSS段选择子由此次CALL或JMP指令给出。当切换任务的时候，处理器完成的几个步骤：</p>
+<ol>
+<li>将当前任务的状态信息存储到当前TSS中;</li>
+<li>将新任务的段选择子加载到任务寄存器中;</li>
+<li>通过GDT中的段描述子访问新TSS;</li>
+<li>从新TSS中加载新任务的状态信息至通用寄存器、段寄存器、LDTR、控制寄存器CR3(页目录表的基地址)、EFLAGS寄存器和EIP寄存器；</li>
+<li>开始执行新任务</li>
+</ol>
+<p>​     一个任务可通过任务门访问。任务门类似于调用门，唯一不同的是其访问的是TSS而不一个代码段。</p>
+<p>​    关于上下文的补充：上下文是由程序正确运行所需的状态组成的。这个状态包括存放在内存中的程序的代码和数据，他的栈、通用目的寄存器的内容、程序计数器、环境变量以及打开文件描述符的集合。（来源于CSAPP-P508）</p>
+<h4 id="IA-32e模式下的任务状态段TSS-Task-State-Segments-in-IA-32e-Mode"><a href="#IA-32e模式下的任务状态段TSS-Task-State-Segments-in-IA-32e-Mode" class="headerlink" title="IA-32e模式下的任务状态段TSS(Task-State Segments in IA-32e Mode)"></a>IA-32e模式下的任务状态段TSS(Task-State Segments in IA-32e Mode)</h4><p>​    IA-32e模式并不支持硬件实现任务交换。然而，TSS依然存在。一个TSS的基址由其段描述符指明。<br>​    一个64位的RSS保存以下对64位操作很重要的信息：</p>
+<ul>
+<li>每个权限级别对应的堆栈指针地址</li>
+<li>中断堆栈表的指针地址  </li>
+<li>IO权限位图的偏移地址（以TSS为基地址）</li>
+</ul>
+<p>​    IA-32e模式任务寄存器也被拓展64位以致能保存64位基地址。可参见7.7节“64位模式下的任务管理”。  </p>
+<h3 id="中断和异常处理-Interrupt-and-Exception-Handling"><a href="#中断和异常处理-Interrupt-and-Exception-Handling" class="headerlink" title="中断和异常处理(Interrupt and Exception Handling)"></a>中断和异常处理(Interrupt and Exception Handling)</h3><p>​    外部中断、软件中断以及异常通过<code>中断描述表(interrupt descriptor table--IDT)</code>处理。IDT存储了存储一组门描述符，其提供了对中断和异常处理程序的访问。同GDT一般，IDT也不是一个段。IDT线性地址的基地址存储在<code>IDT寄存器中（IDTR）</code>。<br>​    IDT的门描述符可以是中断、陷阱、任务门描述符。为访问一个<code>中断或异常处理程序</code>，处理器首先会从内部硬件、外部中断控制器或通过软件发出INT、INTO、INT 3或BOUND等指令接收中断向量（中断号）。中断向量提供了访问IDT的索引。如果被选中的门描述符是一个中断门或陷阱们，则其访问对应处理程序的过程就类似于通过一个调用门（call gate）来调用一个程序。如果描述符是一个任务门，则通过切换任务来访问处理程序。</p>
+<h4 id="IA-32e模式下中断和异常处理-Interrupt-and-Exception-Handling-IA-32e-Mode"><a href="#IA-32e模式下中断和异常处理-Interrupt-and-Exception-Handling-IA-32e-Mode" class="headerlink" title="IA-32e模式下中断和异常处理(Interrupt and Exception Handling IA-32e Mode  )"></a>IA-32e模式下中断和异常处理(Interrupt and Exception Handling IA-32e Mode  )</h4><p>​    在IA-32e模式下，中断描述符被拓展到16字节以至于支持64位及地址。对于64位模式和兼容模式非常重要。<br>​    IDTR寄存器被扩展以致保存64位的基址。但不支持任务门。  </p>
+<h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h3><p>​    系统体系结构支持内存的直接物理寻址或虚拟内存(通过分页机制)。当使用物理寻址时，线性地址就被是为实际物理地址。当通过<code>分页机制</code>寻址时，所有的代码、数据、系统段（包括GDT、IDT）所有代码、数据、堆栈和系统段（包括GDT和IDT）都可以进行分页寻址，只有最近访问的页面被保存在物理内存中。<br>​    <code>页（也被称为页帧）</code>在物理内存中的位置储存在在页目录表中。这些结构驻留在物理内存中。<br>​    控制寄存器CR3存储了页目录表物理地址的基址。页目录表中的条目指明了各页框物理地址的基址、访问权限和内存管理信息。<br>​    为使用分页机制，将连续的线性地址分为多个零碎的部分。每一部分为页目录表和页框提供其不同的偏移量。 一个系统可以有一个或多个页目录表。 例如，每个任务可以有自己的页目录表。<br>内存管理分为2种情况，<code>分段</code>或<code>分段+分页</code>。内存管理一定会进行分段，而分页则偏向于一种程序，可选的虚拟映射，由OS来指定是否需要开启的。</p>
+<h4 id="IA-32e模式下的内存管理"><a href="#IA-32e模式下的内存管理" class="headerlink" title="IA-32e模式下的内存管理"></a>IA-32e模式下的内存管理</h4><p>​    在IA-32e模式下，使用一组系统数据结构堆物理内存页进行管理。在兼容模式下和64位模式下，系统数据结构分为四级，其包含：</p>
+<ul>
+<li> 四级页面映射表(The page map level 4 ——PML4)：四级页面映射表中的一个表项存储了一个页目录指针表物理地址的基址、访问权限和内存管理信息。 PML4物理地址的基址则存储在CR3中。</li>
+<li>一组页目录指针表（A set of page directory pointer tables  ）：  页目录指针表中的一个表项存储了一个页目录表物理地址的基址、访问权限以及内存管理信息。</li>
+<li>一组页目录表（Sets of page directories ）：页目录表中的一个表项存储了一个页表物理地址的基址、访问权限以及内存管理信息。</li>
+<li>一组页表（Sets of page tables）：页表一个表项存储了一个页框物理地址的基址、访问权限以及内存管理信息。</li>
+</ul>
+<h3 id="系统寄存器"><a href="#系统寄存器" class="headerlink" title="系统寄存器"></a>系统寄存器</h3><p>​    为了帮助初始化处理器和控制系统操作，系统架构在EFLAGS寄存器和几个系统寄存器中提供了<code>系统标志位</code>：  </p>
+<ul>
+<li>EFLAGS寄存器的系统标志和IOPL字段控制任务和模式切换、中断处理、指令跟踪、访问权限中。 </li>
+<li>控制寄存器(CR0、CR2、CR3和CR4)包含用于控制系统级操作的各种标志和数据字段。 这些寄存器中的其他标志用于指示某些特殊处理器功能对操作系统或执行程序的支持与否。   </li>
+<li>调试寄存器(在图1中没有显示)则允许设置调试程序和系统软件所用的断点。 </li>
+<li>GDTR、LDTR和IDTR寄存器包含各自表的线性地址和大小（限长）。 </li>
+<li>任务寄存器包含当前任务的TSS的线性地址和大小。</li>
+<li>任务寄存器包含当前任务的TSS的线性地址和大小。  </li>
+<li>特殊模块寄存器(图1中没有显示)  。</li>
+</ul>
+<p>​    <code>特殊模块寄存器(MSRs)</code>是一组主要供操作系统或执行过程使用的寄存器（即在特权级别0上运行的代码，我们前面也提到数字越小，权限级别越高）。这些寄存器控制诸如调试扩展、性能监视计数器、机器检查体系和内存类型范围(MTRRs)等几项工作。在Intel 64和IA-32架构的处理器，这些寄存器的数量和功能中并不相同。 大多数系统都限制应用程序访问除EFLAGS寄存器外的系统寄存器。 然而，当程序运行在最高特权级别（特权级别0）时，应用程序将被允许修改系统寄存器。</p>
+<h4 id="IA-32e模式下的系统寄存器"><a href="#IA-32e模式下的系统寄存器" class="headerlink" title="IA-32e模式下的系统寄存器"></a>IA-32e模式下的系统寄存器</h4><p>​    在IA-32e模式下，四个系统描述表寄存器（GDTR、IDTR、LDTR和TR）硬件上扩展至能储存64位基址。EFLAGS寄存器拓展至64位RFLAGS寄存器。 CR0-CR4扩展为64位。 CR8也变为可用。 CR8提供对任务优先级寄存器（TPR）的读写访问，如此一来，操作系统就可以控制外部中断类别的优先级。<br>​    在64位模式下，调试寄存器DR0-DR7变为64位。在兼容模式下，DR0-DR3中执行64位地址匹配。<br>​    在支持IA-32e模式的系统上，扩展特性确保寄存器（IA32_EFER）可以使用。 这个特殊模块寄存器控制激活IA-32e模式和其他IA-32e模式操作。此外，还有几个特殊模块寄存器来管理IA-32e模式指令 ：</p>
+<ul>
+<li>IA32_KernelGSbase ：管理SWAPGS指令 </li>
+<li>IA32_LSTAR ：管理SYSCALL 指令  </li>
+<li>IA32_SYSCALL_FLAG_MASK  ：管理SYSCALL 指令</li>
+<li>IA32_STAR_CS  ：管理SYSCALL 和 SYSRET   指令</li>
+</ul>
+<h3 id="其他系统资源-Other-System-Resources"><a href="#其他系统资源-Other-System-Resources" class="headerlink" title="其他系统资源(Other System Resources)"></a>其他系统资源(Other System Resources)</h3><p>​    除了前面章节中描述的系统寄存器和数据结构之外，系统架构还提供了以下额外的资源:  </p>
+<ul>
+<li>操作系统说明</li>
+<li>性能监控计数器（图1中未显示）</li>
+<li>内部缓存和缓冲区（图1中未显示）</li>
+</ul>
+<p>​    性能监视计数器是事件计数器，可以通过编程来计数处理器处理事件，比如解码的指令数、接收到的中断数或缓存负载数。<br>​    处理器提供几个内部缓存和缓冲区。高速缓存用于存储数据和指令。 缓冲区用于存储，其存储，譬如：解码后的地址到系统和应用程序段，以及等待执行的写操作。 </p>
+<h2 id="1-2-实模式和保护模式转换"><a href="#1-2-实模式和保护模式转换" class="headerlink" title="1.2  实模式和保护模式转换"></a>1.2  实模式和保护模式转换</h2><h3 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h3><p> IA-32支持三种<code>工作模式和</code>一种<code>准工作模式</code>：（这些模式都是CPU的工作模式，而CPU的工作模式是指CPU的寻址方式、寄存器大小等用来反应CPU在该环境下如何工作的概念。）</p>
+<ul>
+<li><p>保护模式（Protected mode）：处理器原生支持的模式。在这个模式下运行，能体现处理器丰富的体系结构特性与功能，且处理器能以高灵活性、高性能运行，还提供对现有软件的向后兼容性。电脑运行的99.99%时间，处理器都是工作在保护模式下。在保护模式中，内存的管理模式分为两种——段模式和页模式。其中页模式也是基于段模式的。也就是说，保护模式的内存管理模式是：仅段模式或段页式。进一步说，段模式是必不可少的，而页模式则是可选的——如果使用页模式，则是段页式，否则这是仅段模式。</p>
+</li>
+<li><p>实地址模式（Real-address mode）：在这种操作模式下，处理器处于Intel 8086处理器的编译运行环境，但此外提供了一些扩展（例如切换到保护或系统管理模式的拓展）。 （这种模式只能跑Intel8086处理器对应的程序）。机器刚刚通电启动或CPU复位时，运行在实模式下。实模式只能访问地址在1M以下的内存称为常规内存，我们把地址在1M 以上的内存称为扩展内存。实模式的“实”体现在程序中用到的地址都是真实的物理地址，“段基址:段内偏移地址”产生的逻辑地址就是物理地址，即程序员可见的地址完全是真实的内存地址。由16位段寄存器的内容乘以16（左移4位）作为段基址，加上16位段偏移地址形成20位的物理地址，最大寻址空间1MB，最大分段64KB。</p>
+</li>
+<li><p>系统管理模式（System management mode (SMM)）：自Intel386 SL处理器开始，SMM是所有IA-32处理器的标准架构特性。 这种模式为操作系统或程序的执行提供了一个透明的机制来实现电源管理和OEM差异化特性。SMM是通过激活外部系统中断引脚(SMI#)进入中断，该引脚产生一个系统管理中断(SMI)。 在SMM中，处理器切换到一个单独的地址空间，同时保存当前运行的程序或任务的上下文。为SMM的设计代码可以透明地执行。 从SMM返回时，处理器被放置回SMI之前的状态</p>
+</li>
+<li><p>虚拟8086模式： 虚拟8086模式是运行在保护模式中的实模式，也称为准操作模式，为了在32位保护模式下执行纯16位程序。它不是一个真正的CPU模式，还属于保护模式。</p>
+</li>
+</ul>
+<p>保护模式同实模式的<code>根本区别</code>是<code>进程内存受保护与否</code>。可寻址空间的区别是前因的结果。</p>
+<p>Intel 64架构支持IA-32架构和IA-32e架构的所有工作模式:  </p>
+<p>​    IA-32e模式：64位操作系统运行在该模式。该模式有两种子模式: </p>
+<ul>
+<li>兼容模式：该模式下，64位操作系统运行在32位兼容环境，能正常运行16，32位应用程序就像在基本的保护模式下运行一样。可以访问32位地址空间，但不能运行纯16位实模式程序（即不能运行虚拟86模式程序）。 </li>
+<li>64位模式：在该模式下，处理器完全执行64位指令，使用64位地址空间和64操作数，运行16，32位程序必须切换到兼容模式。64位模式提供64位线性寻址，支持大于64GBytes的物理地址空间。  </li>
+</ul>
+<p>​    IA-32e子模式的切换完全基于代码段寄存器。这样一来，运行在IA-32e模式中（64位）的OS 通过设置32位后的CS，完全可以无缝的运行所有16，32，64为应用程序。</p>
+<h3 id="模式切换："><a href="#模式切换：" class="headerlink" title="模式切换："></a>模式切换：</h3><p>![](系统级体系结构概述/mode transition.jpg)</p>
+<center style="color:#1a1a1a;">图3 模式切换</center>
+
+<p>​    EFLAGS寄存器中的VM标志位决定处理器是在保护模式还是在虚拟8086模式下运行。保护模式和虚拟8086模式之间的转换通常作为任务切换或从中断或异常处理程序返回的一部分进行。<br>​    <code>LMA位(IA32_EFER.LMA[bit 10])</code>决定处理器是否在IA-32e模式下运行。 在IA-32e模式下运行时，又由代码段的CSA.L位决定是64位还是兼容模式 。处理器通过启用分页机制和设置<code>LME位    (IA32_EFER.LME[bit 8])</code>，然后从保护模式进入IA-32e模式。<br>​    当处理器处于实模式、保护模式、虚拟8086模式或IA-32e模式时，只要它接收到SMI中断，处理器就会切换到SMM模式。 在执行RSM指令之后，处理器总是返回到SMI中断发生前的模式。<br>​    机器上电，CPU进入实模式，从物理地址0xFFFFFFFF0处开始执行初始化代码，设置基本系统功能操作必要的数据结构信息，例如处理中断和异常的IDT表。接下来，如果继续在保护模式工作，需要加载操作系统模块；如果要进入实模式，那么需要进行模式切换。</p>
+<h3 id="保护模式与实模式的切换"><a href="#保护模式与实模式的切换" class="headerlink" title="保护模式与实模式的切换"></a>保护模式与实模式的切换</h3><p>​    为了在硬件或软件复位后，处理器以保护模式运行，那么必须要从实地址模式切换到保护模式。 一旦切换到保护模式，软件通常不需要切换回实地址模式。 若要运行以实地址模式（8086模式）编写的软件，通常以虚拟8086模式运行软件比切换回实地址模式更方便。 </p>
+<h4 id="切换到保护模式："><a href="#切换到保护模式：" class="headerlink" title="切换到保护模式："></a>切换到保护模式：</h4><p>​    处理器进入到保护模式之前，需要操作系统加载和初始化软件必须在内存中设置好保护模式下使用的数据结构的基本信息。这些数据结构包括<br> 1）保护模式中断描述符表IDT<br> 2）GDT<br> 3）任务状态段TSS<br> 4）LDT<br> 5）如果使用分页机制，最少要设置一个页目录和一个页表<br> 6）处理器切换到保护模式下运行的代码段</p>
+<p>还需要设置设置以下系统寄存器<br> 1）GDTR<br> 2）中断描述符表基地址寄存器<br> 3）控制寄存器CR1～CR3</p>
+<pre><code> 初始化这些数据结构、代码模块和系统寄存器之后，通过设置CR0寄存器的保护模式标志位PE即可进入保护模式。
+ 切换到保护模式的步骤如下：
+</code></pre>
+<ol>
+<li>禁用中断。 CLI指令禁用可屏蔽硬件中断。 NMI中断可以用外部电路禁用。 （软件必须保证模式切换过程中不产生异常或中断。）</li>
+<li>执行LGDT指令，将GDT的基址加载入GDTR寄存器  </li>
+<li>执行一条MOV CR0指令，在控制寄存器CR0中设置PE标志位（也可以设置PG标志位，启用分页机制）</li>
+<li>执行完MOV CR0指令之后，执行FAR JMP或 FAR CALL指令。（这个操作通常是远跳转或调用指令流中的下一条指令。）</li>
+<li>紧跟在MOVCR0指令的JMP或CALL指令改变了处理器执行流程并串行化处理器。  </li>
+<li>如果启用了分页机制，那么MOV CR0指令和JMP或CALL指令的代码必须来自已经经过映射的页面（即，跳转前的线性地址与启用了分页和保护模式后的物理地址相同）。 JMP或CALL指令的目标指令不需要进行内存映射。  </li>
+<li>如果要使用一个本地描述符表，则执行LLDT指令，在LDTR寄存器中加载LDT的段选择器。</li>
+<li>执行LTR指令，用初始保护模式任务的段选择符或者可写内存区域的段描述符加载任务寄存器TR</li>
+<li>进入保护模式后，段寄存器仍存储着实地址模式时候的内容。第4步中的JMP和CALL指令会重置CS寄存器。然后执行以下操作之一来更新剩余段寄存器的内容 ：（1）重新加载段寄存器DS, SS, ES, FS和GS。 若是不使用ES, FS和/或GS寄存器，则加载空选择子。  （2）对一个新任务执行JMP或CALL指令，这将自动重置段寄存器的值，并将其存储到一个新的代码段。</li>
+<li>执行LIDT指令，用受保护模式IDT的地址和限长加载IDTR寄存器。</li>
+<li>  开启中断。执行STI指令启用可屏蔽硬件中断，并执行必要的硬件操作启用NMI中断。</li>
+</ol>
+<h4 id="切换回实模式"><a href="#切换回实模式" class="headerlink" title="切换回实模式"></a>切换回实模式</h4><p>​    若MOV CR0指令复位CR0中的PE位，处理器从保护模式切换回实地址模式。重新进入实地址模式步骤如下：</p>
+<ol>
+<li>关中断；CLI指令禁用可屏蔽硬件中断。 NMI中断可以用外部电路禁用；</li>
+<li>如果开启分页机制，那么需要执行：<br> 把程序的控制转移到对等映射的线性地址处，这些地址的标识映射到物理地址（线性地址等同于物理地址）<br> 确保GDT和LDT在对等映射的页面上<br>复位CR0中的PG标志位<br> 设置CR3寄存器内容为0x00，用于刷新TLB缓冲</li>
+<li>把程序的控制转移到长度为64KB（0xFFFF）的可读段中。此操作使用实模式要求的段长度加载CS寄存器</li>
+<li>使用包含以下设定值的描述符选择子来加载SS、DS、ES、FS、GS段寄存器<br> 段限长=64kb（0xFFFF）<br> 字节粒度 （G = 0）<br> 向上扩展 E=0<br> 可写 W=1<br> 存在 P=1<br> 基址= 任何值<br>段寄存器存储的是非空的段选择子，否则段寄存器在实地址模式下将不可用。 注意，如果段寄存器没有重新加载，那么在保护模式中继续使用加载的描述符属性执行。</li>
+<li>执行LIDT指令来指向在1MB实模式地址范围内的实地址模式中断表</li>
+<li>复位CR0中的PE位已进入实模式</li>
+<li>执行一个FAR JMP指令跳转到一个实模式程序中。这个操作会刷新指令队列，并且为CS寄存器加载合适的基地址和访问权限值</li>
+<li>加载实地址模式程序代码会使用的SS、DS、ES、FS、GS。如果其中哪一个在实模式下不会用到，则写入0</li>
+<li>执行STI指令启用可屏蔽硬件中断，并执行必要的硬件操作启用NMI中断。   </li>
+</ol>
+<h2 id="1-3-80x86系统指令寄存器"><a href="#1-3-80x86系统指令寄存器" class="headerlink" title="1.3 80x86系统指令寄存器"></a>1.3 80x86系统指令寄存器</h2><h3 id="标志寄存器-EFLAGS"><a href="#标志寄存器-EFLAGS" class="headerlink" title="标志寄存器 EFLAGS"></a>标志寄存器 <code>EFLAGS</code></h3><p>​    EFLAGS寄存器的系统标志位和IOPL字段控制I/O、可屏蔽的硬件中断、调试、任务切换和虚拟8086模式（如图4所示）。一般情况下，只允许具有<code>特权级别</code>的代码（通常是操作系统或执行代码）才能修改这些标志位。  </p>
+<p><img src="/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/EFLAG.jpg" alt="EFLAG"></p>
+<center style="color:#1a1a1a;">图4 EFLAG寄存器中的系统标志位</center>
+
+<p>​    系统标志和IOPL如下：</p>
+<ul>
+<li><p>TF (Trap (bit 8))：跟踪标志位（第8位），设置该标志位可启用<code>单步调试模式</code>; 复位则禁用单步模式。 在单步模式下，处理器在每条指令执行后生成一个<code>调试异常</code>。如果程序使用POPF、POPFD或IRET指令设置TF标志，处理器则会在紧跟POPF、POPFD或IRET之后的指令后产生一个调试异常。</p>
+</li>
+<li><p>IF(Interrupt enable (bit 9))：中断使能位（第9位），控制处理器对<code>可屏蔽硬件中断</code>请求的响应（参见6.3.2节“可屏蔽硬件中断”）。设置该标志位表明处理器可以响应可屏蔽硬件中断; 复位则不响应可屏蔽硬件中断。  IF标志不会屏蔽异常或不可屏蔽中断（NMI中断）。通过控制寄存器CR4中的CPL、IOPL和VME标志位的值决定IF标志是否可以被CLI、STI、POPF、POPFD和IRET修改。  </p>
+</li>
+<li><p>I/O (privilege level field (bits 12 and 13))：I/O特权级别字段（第12、13位），该标志位指明当前运行的程序或任务的IOPL （I /O privilege level）。 当前运行的程序或任务的CPL必须小于等于其访问I/O地址空间的IOPL。 POPF和IRET指令只能在CPL为0时才能修改该字段。当虚拟8086模式扩展生效时（即当CR4.VME = 1时）， IOPL也是控制IF标志的修改和中断处理的机制之一  。</p>
+</li>
+<li><p>  Nested task (bit 14)  ： 嵌套任务标志位（第14位），控制被中断和调用任务之间的链接。处理器在调用由CALL指令、中断或异常发起的程序时会设置此标志。 在通过使用IRET指令从一个任务返回时会检查和修改这个标志。 该标志可以通过POPF/POPFD指令显式设置或复位; 但是，在应用程序中更改该标志位的状态可能会导致产生意外的异常。</p>
+</li>
+<li><p>  Resume (bit 16)  ：恢复标志位（第16位），控制处理器对断点指令的响应。 若设置该标志位，该标志暂时禁止为指令断点生成调试异常(#DB)（尽管其他异常条件可能导致异常产生）。 当该标志位复位时，断点指令会生成调试异常。</p>
+</li>
+</ul>
+<p>  RF标志的主要功能是允许在调试异常之后重新执行一条指令。 在使用IRETD指令返回被中断的程序之前，需要设置堆栈上的EFLAGS内容中设置RF标志位（以防指令断点引起另一个调试异常）。 当返回的指令成功执行后，处理器会自动复位这个标志位，从而再次允许指令断点异常。</p>
+<ul>
+<li><p>Virtual-8086 mode (bit 17) ：虚拟8086模式标志位（第17位），设置该标志位以切换到虚拟8086模式。复位则返回保护模式。</p>
+</li>
+<li><p>Alignment check (bit 18)：对齐检查位（第18位）  ：设置该标志位和CR0寄存器中的AM标志位可控制对内存引用进行对齐检查， 复位AC标志和/或AM标志以禁用对齐检查。当引用一个未对齐的操作数时，就会产生一个对齐检查异常，譬如：奇数字节地址上的一个字，或者不是4的整数倍地址上的一个双字。在用户模式下（特权级别3），才会产生对齐检查异常产生。默认特权级别为0的内存引用，例如引用段描述符，也不会产生此异常，即使该异常是由在用户模式下执行的指令引起的。</p>
+<p>对齐检查异常可用于检查数据的对齐。对于和进行数据对齐的处理器交换数据时，这一点非常有用。解释器也可以通过将指针指向错误的方式来使用对齐检查异常，并将指针标记为特殊指针。其免去了检查每个指针的开销，并且只在使用时处理特殊指针。 </p>
+</li>
+<li><p>   Virtual Interrupt (bit 19) ：虚拟中断（第19位），包含IF标志的虚拟映射。 此标志位与VIP标志位一同使用。 当设置了控制寄存器CR4中的VME或PVI标志位，并且IOPL小于3时，处理器才会识别VIF标志。（设置VME标志启用虚拟8086模式扩展；设置PVI标志位启用保护模式下的虚拟中断。）  </p>
+</li>
+<li><p> Virtual interrupt pending (bit 20)  ：虚拟中断等待位，软件设置该标志位表示有中断正在等待处理； 复位表示没有中断等待处理中。该标志位与VIF标志一起使用。 处理器会读取该标志位，但不会修改。当控制寄存器CR4中的VME或PVI标志被设置且IOPL小于3时，处理器才会识别VIP标志。 设置VME标志启用虚拟8086模式扩展；设置PVI标志位启用保护模式下的虚拟中断。</p>
+</li>
+<li><p>Identification (bit 21)：标识位（第21位），程序或过程可设置或复位该标志位以表示对CPUID指令的支持。 </p>
+</li>
+</ul>
+<h4 id="IA-32e模式下的系统标志位和字段"><a href="#IA-32e模式下的系统标志位和字段" class="headerlink" title="IA-32e模式下的系统标志位和字段"></a>IA-32e模式下的系统标志位和字段</h4><p>​    在64位模式下，RFLAGS寄存器扩展到64位，上面的32位保留。 RFLAGS（64位模式）和EFLAGS（兼容模式）的系统标志位如图4所示。<br>​    在IA-32e模式下，处理器不允许设置VM位，因为其不支持虚拟8086模式（尝试设置该标志位的操作会被忽略）。此外，处理器也不会设置NT位。 然而，处理器允许软件设置NT位（在IA-32e模式下，若设置了NT位，IRET会通常导致保护故障）。<br>​    在IA-32e模式下，可通过编程的方式使用SYSCALL/SYSRET指令来指定复位RFLAGS / EFLAGS中的一些标志位。 这些指令保存/恢复EFLAGS/RFLAGS。 </p>
+<h3 id="内存管理寄存器"><a href="#内存管理寄存器" class="headerlink" title="内存管理寄存器"></a>内存管理寄存器</h3><p>​    处理器提供四个内存管理寄存器(<code>GDTR、LDTR、IDTR和TR</code>)，用于指明内存分段管理所用的数据结构的基地址（见图5）。 处理器还为这些寄存器的加载和保存提供了特定的指令。<br>![](系统级体系结构概述/Memory Control.jpg)</p>
+<center style="color:#1a1a1a;">图5 内存管理寄存器</center>
+
+<ul>
+<li><p>全局描述符表寄存器GDTR（Global Descriptor Table Register (GDTR)  ）：GDTR寄存器用于存放全局描述符表的线性基地址（保护模式下32位，IA-32e模式下64位）和16位的GDT表限长值。基地址指定GDT表中字节0在线性地址空间中的地址，表限制长度指明GDT表的字节长度值。</p>
+<p>LGDT、SGDT指令分别用于加载和保存GDTR中的值。在机器刚通电或处理器复位后，基地址被默认设置为0，而长度被设置为0xFFFF。在保护模式初始化的过程中必须为GDTR加载一个新的值。</p>
+</li>
+<li><p>局部描述符表寄存器LDTR(Local Descriptor Table Register LDTR)：LDTR寄存器用于存放局部描述符表的16位的段选择子，基地址（保护模式下32位，IA-32e模式下64位），段限长和描述符属性值。基地址指明LDT段中字节0在线性地址空间中的地址，段限长度指明LDT段的字节数目。<br>LLDT、SLDT指令分别用于加载和保存LDTR寄存器中段描述符的部分。包含LDT表的段必须在GDT表中有一个段描述符项。当使用LLDT指令把含有LDT表段的选择符加载进LDTR时，LDT段描述符的段基址、段限长度以及描述符属性会被自动加载进LDTR中。当出现任务切换时，新任务的LDT段的段选择子和段描述符会自动加载到LDTR中。在写入新的LDT信息之前，LDTR的内容不会被自动保存寄存器中。</p>
+<p>当机器通电或处理器复位后，段选择符和基地址被默认设置为0，而段长度被设置成0xFFFF。</p>
+</li>
+<li><p>中断描述符表寄存器IDTR(IDTR Interrupt Descriptor Table Register )：IDTR寄存器用于存放中断描述符表的线性基地址（保护模式下32位，IA-32e模式下64位）和16位的中断描述符表限长值。基地址指定IDT表中字节0在线性地址空间中的地址，表限制长度指明IDT表的字节数目。LIDT、SIDT指令分别用于加载和保存IDTR中的值。在机器刚通电或处理器复位后，基地址被默认设置为0，而长度被设置为0xFFFF。在保护模式初始化的过程中必须为GDTR加载一个新的值。IDTR寄存器中的基址和限长可以在处理器初始化过程中进行更改。  </p>
+</li>
+<li><p>任务寄存器TR(Task Register (TR))：TR寄存器存放了当前任务TSS段的16段选择子，基地址（保护模式下32位，IA-32e模式下64位）、段长度和描述符属性值。其引用GDT表中的一个TSS类型的描述符。基地址指定TSS段中字节0在线性地址空间中的地址，段长度指明TSS的字节数目。LTR、STR指令分贝用于加载和保存TR寄存器的段选择符的部分。当LTR指令把选择符加载进任务寄存器时，TSS描述符中的段基址、段限长以及描述符属性会被自动加载到TR中。当机器通电或处理器复位后，段选择符和基地址被默认设置为0，而段长度被设置成0xFFFF。当执行任务切换时，处理器会把新任务的TSS的段选择子和段描述符自动加载入TR中。在写入新的LDT信息之前，LDTR的内容不会被自动保存寄存器中。在写入新的TSS信息之前，TR的内容不会被自动保存寄存器中。</p>
+</li>
+</ul>
+<h3 id="控制寄存器（CONTROL-REGISTERS-）"><a href="#控制寄存器（CONTROL-REGISTERS-）" class="headerlink" title="控制寄存器（CONTROL REGISTERS ）"></a>控制寄存器（CONTROL REGISTERS ）</h3><p>​    控制寄存器（CR0，CR1， CR2， CR3， CR4；如图6所示）决定了处理器的工作模式和当前正在执行的任务的特性。 这些寄存器在所有32位模式和兼容模式下都是32位的。 在64位模式下，控制寄存器扩展到64位。 MOV CRn指令用于操作控制寄存器寄存器标志位。</p>
+<p><img src="/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/contol.jpg"></p>
+<center style="color:#1a1a1a;">图6 控制寄存器</center>
+
+<p>​    控制寄存器总结如下，控制寄存器在每个体系结构定义的不同控制字段会被单独描述。 在图6中，64位模式下的寄存器宽度在括号中表示（CR0除外）。 </p>
+<ul>
+<li><p>CR0：存储系统控制标志位，这些标志位控制处理器运行模式和状态。</p>
+</li>
+<li><p>CR1：保留不用</p>
+</li>
+<li><p>CR2：存储导致页错误的线性地址（发生错误处）。</p>
+</li>
+<li><p>CR3：存储页目录表物理内存的基地址和两个标志位（PCD和PWT），因此该寄存器也被称为页目录基地址寄存器PDBR。PCD和PWT标志位控制处理器内部数据缓存中页目录表的缓存（它们不控制页目录信息的TLB缓存）</p>
+<p> 控制寄存器各标志位、字段说明如下：</p>
+</li>
+<li><p> PG(Paging (bit 31 of CR0))：分页标志位（CR0中的第31位），设置该位启用分页。复位不启动分页。不启用分页时，线性地址就等同于物理地址。如果没有设置PE位（CR0中的第0位），设置该标志位也不会启用分页。若没有设PE位，而尝试设置PG位会导致一般保护异常（#GP）。</p>
+</li>
+<li><p>CD(Cache Disable (bit 30 of CR0))：当复位CD和NW标志位时，会启用了处理器内部(和外部)缓存中整个物理内存的缓存。当设置了CD标志时，缓存则不启用。 为了防止处理器访问和更新它的缓存，必须设置CD标志并使缓存失效，这样就不会发生缓存命中。</p>
+</li>
+<li><p> NW（Not Write-through (bit 29 of CR0)）：当复位NW和CD标志位时，启用写回策略（写入缓存）（适用于Pentium 4、Intel Xeon、P6系列和Pentium处理器）或写直达策略（直接写内存）(适用于Intel486处理器)，来实现命中缓存的写操作，并启用失效周期。 </p>
+</li>
+<li><p>AM（Alignment Mask (bit 18 of CR0)）：设置该标志位时，可进行自动对齐检查；复位时禁用对齐检查。当且仅当设置AM、EFLAGS寄存器中的AC，且CPL为3，并且处理器在保护模式或虚拟8086模式下运行时，才会执行对齐检查。</p>
+</li>
+<li><p>WP（Write Protect (bit 16 of CR0) ）：写保护位（CR0的第16位），设置该标志位时，禁止管理员级程序写入只读页面; 复位时，允许管理员级程序写入只读页面（无论U/S位设置）。 这个标志有助于实现写时复制方法，还可用于创建UNIX等操作系统使用的新进程（fork）。  </p>
+</li>
+<li><p>NE(Numeric Error (bit 5 of CR0))：设置该标志位启用本机（内部）机制报告x87 FPU错误。并且输入IGNNE#，忽略x87 FPU错误。 复位时，没有输入IGNNE#，一个未被屏蔽的x87 FPU错误会导致处理器在FERR#引脚产生一个外部中断，并在执行下一个等待浮点指令或WAIT/FWAIT指令之前立即停止指令的执行。</p>
+</li>
+<li><p>ET（Extension Type (bit 4 of CR0))：扩展类型位（CR0的第4位），Pentium 4、Intel Xeon、P6系列和Pentium处理器中使用。 在Pentium 4、Intel Xeon和P6系列处理器中，该标志被硬编码为1。 在Intel386和Intel486处理器中，设置该标志表示支持intel387 DX数学协处理器指令。</p>
+</li>
+<li><p>TS (Task Switched (bit 3 of CR0)  )：任务切换标志位（CR0的第3位），允许切换任务的x87 FPU/MMX/SSE/SSE2/SSE3/SSSE3/SSE4上下文的延迟保存，直到新任务执行一个x87 FPU/MMX/SSE/SSE2/SSE3/SSSE3/SSE4指令。 处理器在每个任务开关上设置这个标志，并在执行x87 FPU/MMX/SSE/SSE2/SSE3/SSSE3/SSE4指令时测试它。如果设置了TS并且复位了EM(CR0的第2位)，在执行任何x87 FPU/MMX/SSE/ SSE2/SSE3/SSSE3/SSE4指令之前会引发设备不可用异常(#NM)；而PAUSE、PREFETCHh、SFENCE、LFENCE、MFENCE、MOVNTI、CLFLUSH、CRC32和POPCNT指令除外。如果设置TS，复位MP标志(CR0的第1位)和EM标志，在执行x87 FPU WAIT/FWAIT指令之前，不会引发#NM异常。 如果设置了EM标志，TS标志的设置对x87 FPU/MMX/SSE/SSE2/SSE3/SSSE3/SSE4指令的执行没有影响。</p>
+</li>
+<li><p>EM(Emulation (bit 2 of CR0))：仿真位（CR0的第2位），设置该标志位时表示处理器没有内部或外部x87 FPU;；复位时表示系统又协处理器。 这个标志位也影响MMX/SSE/SSE2/SSE3/SSSE3/SSE4指令的执行</p>
+</li>
+<li><p>MP(Monitor Coprocessor (bit 1 of CR0))：监控协处理器标志位（CR0的第1位），控制WAIT(或FWAIT)指令与TS标志（CR0的第3位）的交互作用。 若设置了MP标志位TS标志位，则WAIT指令会产生一个设备不可用异常(#NM)。 如果复位MP标志，则WAIT指令忽略TS标志的设置。   </p>
+</li>
+<li><p>PE(Protection Enable (bit 0 of CR0))：保护启用标志位（CR0的第0位），设置该标志位时启用保护模式; 复位时启用实地址模式。 设置该标志位不会直接启用分页。 它只启用段级保护。 若要启用分页功能，必须同时设置PE和PG标志。  </p>
+</li>
+<li><p>PCD(Page-level Cache Disable (bit 4 of CR3) )：页级缓存禁用(CR3的第4位)，控制访问页目表的第一个页表的内存类型。如果禁用分页，将不使用PAE分页；若CR4.PCIDE = 1，则使用IA-32e分页。</p>
+</li>
+<li><p>PWT(Page-level Write-Through (bit 3 of CR3))：页级透写（CR3的第3位），控制访问的当前页目表中第一个页表的内存类型。 如果禁用分页，将不使用PAE分页；若CR4.PCIDE = 1，则使用IA-32e分页。</p>
+</li>
+</ul>
+<h2 id="1-4-系统指令"><a href="#1-4-系统指令" class="headerlink" title="1.4 系统指令"></a>1.4 系统指令</h2><p>​    系统指令主要负责处理系统级函数，如加载系统寄存器、管理缓存、管理中断或设置调试寄存器。 其中许多指令只能由操作系统软件或者处于特权级别0的程序执行。其他指令可以在任何特权级别执行，因此应用程序也可使用。<br>​    给出常用系统指令的总结：</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>指令全名</th>
+<th>受保护</th>
+<th>指令描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LGDT</td>
+<td>Load GDTR Register</td>
+<td>是</td>
+<td>从内存加载GDT基址、限长到GDTR</td>
+</tr>
+<tr>
+<td>SGDT</td>
+<td>Store GDTR Register</td>
+<td>否</td>
+<td>将GDTR中的基址、限长存储到内存</td>
+</tr>
+<tr>
+<td>LIDT</td>
+<td>Load IDTR Register</td>
+<td>是</td>
+<td>从内存加载IDT基址、限长到IDTR</td>
+</tr>
+<tr>
+<td>SIDT</td>
+<td>Load IDTR Register</td>
+<td>否</td>
+<td>将IDTR中的基址、限长存储到内存</td>
+</tr>
+<tr>
+<td>LLDT</td>
+<td>Load LDT Register</td>
+<td>是</td>
+<td>从内存加载LDT段选择子、段描述符到LDTR或一个通用目的寄存器（段选择子操作数也可以位于通用目的寄存器中）</td>
+</tr>
+<tr>
+<td>SLDT</td>
+<td>Store LDT Register</td>
+<td>否</td>
+<td>将LDTR中LDT段的选择子存储到内存或一个通用目的寄存器</td>
+</tr>
+<tr>
+<td>LTR</td>
+<td>Load Task Register</td>
+<td>是</td>
+<td>从内存中将一个TSS的段选择子和段描述符加载进TR寄存器。（段选择子操作数也可以位于通用寄存器中）</td>
+</tr>
+<tr>
+<td>STR</td>
+<td>Store Task Register</td>
+<td>否</td>
+<td>将TR中的当前任务TSS的段选择子和段描述符存储到内存或一个通用目的寄存器</td>
+</tr>
+</tbody></table>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://1nvisble.github.io/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2022/04/05/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            (no title)
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2022/04/05/Leetcode704/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Leetcode704</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "tMzmCoClzWlTqD4Bt6fwEvl7-gzGzoHsz",
+    app_key: "yenrgDCsVOtSCvx3IWHen53i",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2019-2022
+        <i class="ri-heart-fill heart_icon"></i> 1nvisble
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="知无涯也"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+ 
+<script src="/js/clickBoom2.js"></script>
+ 
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+ 
+<script src="/js/dz.js"></script>
+ 
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=442867218&auto=1&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+</body>
+
+</html>
