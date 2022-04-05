@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title></title>
+    <title>AOP（面向切面编程）</title>
     <url>/2021/11/09/AOP%EF%BC%88%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B%EF%BC%89/</url>
     <content><![CDATA[<h1 id="AOP（面向切面编程）"><a href="#AOP（面向切面编程）" class="headerlink" title="AOP（面向切面编程）"></a>AOP（面向切面编程）</h1><h2 id="AOP-含义"><a href="#AOP-含义" class="headerlink" title="AOP 含义"></a>AOP 含义</h2><p>面向切面编程：也叫做面向方法编程，通过预编译方式和运行期动态代理的方式实现不修改源代码的情况下给程序动态统一添加功能的技术。</p>
 <p>将一些各接口都调用的相同方法抽象为接口，这个接口类似于切面；将方法注入到接口调用的某个地方，这个地方就为切点。</p>
@@ -41,6 +41,13 @@
 <p><a href="https://blog.csdn.net/qq_41701956/article/details/84427891">AOP如何实现及实现原理_Java笔记-CSDN博客_aop原理</a></p>
 <p><a href="https://blog.csdn.net/q982151756/article/details/80513340">细说Spring——AOP详解（AOP概览）_啦啦啦的博客-CSDN博客_aop</a></p>
 ]]></content>
+      <categories>
+        <category>面向切面编程</category>
+      </categories>
+      <tags>
+        <tag>面向切面编程</tag>
+        <tag>AOP</tag>
+      </tags>
   </entry>
   <entry>
     <title>Hello的自白.</title>
@@ -1156,8 +1163,8 @@
       </tags>
   </entry>
   <entry>
-    <title></title>
-    <url>/2022/04/05/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</url>
+    <title>保护模式内存管理</title>
+    <url>/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</url>
     <content><![CDATA[<h1 id="2-保护模式内存管理"><a href="#2-保护模式内存管理" class="headerlink" title="2. 保护模式内存管理"></a>2. 保护模式内存管理</h1><h2 id="2-1-内存管理概览"><a href="#2-1-内存管理概览" class="headerlink" title="2.1 内存管理概览"></a>2.1 内存管理概览</h2><p>​    IA-32架构的内存管理机制主要分为两部分：<strong>段式</strong>和<strong>页式</strong>。 <strong>分段</strong>提供了一种隔绝各个代码、数据和堆栈区域的机制，以致多个程序（或任务）可以运行在同一个处理器上，但不会相互干扰。 <strong>分页</strong>则为传统需求页的虚拟内存系统提供了一种实现机制，在虚拟内存系统中，程序运行所需的环境的各个部分按需映射到物理内存中。 分页同样可以为多个任务之间提供隔离措施。 当在保护模式下运行时，必须采用某种形式的分段机制。 这里没有<strong>模式位</strong>以设置禁用分段机制，也就说在保护模式的内存管理中<strong>分段机制</strong>是<strong>必需</strong>的。 但是，<strong>分页机制</strong>是<strong>可选</strong>的。<br>​    这两种机制（分段和分页）是可以被配置以致支持使用共享内存的简单的单程序（或单任务）系统、多任务系统或多处理器系统。<br>​    如图1所示，段式管理提供了一种机制：其将处理器的<strong>可寻址内存空间</strong>（也被称为<strong>线性地址空间</strong>）划分为较小的受保护的地址空间区域，称为<strong>段</strong>。 段可以用来保存<strong>程序的代码、数据和堆栈</strong>，也可用于保存<strong>系统数据结构</strong>（例如TSS或LDT）。 如果一个处理器中有多个程序（或任务）正在运行，那么每个程序都会被分配自己的一组段空间。 然后处理器可以加强这些段之间的界限，并且确保一个程序不会通过访问写入另一个程序的段而干扰另一个程序的运行。分段机制还允许对段进行分类，这样一来便可限制对特定类型段所要执行的操作。<br> ![](保护模式内存管理/segment and page.jpg)</p>
 <center style="color:#1a1a1a;">图1 分段与分页</center>    
 
@@ -1176,7 +1183,7 @@
 <center style="color:#1a1a1a;">图3 保护平坦模型</center>    
 
 <p>​    这个保护平坦模型可以被拓展变得更加复杂，以提供更多保护功能。例如，为了确保分页机制能提供用户程序和监控程序之间代码和数据的隔离，这里需要定义<strong>四个段</strong>：<strong>权限级别为3</strong>的<strong>用户程序</strong>代码段和数据段、<strong>权限级别为0</strong>的<strong>监管程序</strong>代码段和数据段。通常这些段都相互<strong>覆盖</strong>，并且在线性地址空间的<strong>起始地址都为0</strong>。这种平坦分段模型搭配简单的分页结构可以保护操作系统不受应用程序影响，此外通过为每个任务或进程增加单独的分页结构，其还可以确保一个应用程序不受其他应用程序影响。一些流行的多任务操作系统也使用此种类似的设计。</p>
-<h3 id="2-2-3-多段模型（Multi-Segment-Model）"><a href="#2-2-3-多段模型（Multi-Segment-Model）" class="headerlink" title="2.2.3 多段模型（Multi-Segment Model）"></a>2.2.3 多段模型（Multi-Segment Model）</h3><p>​    多段模型（如图4所示）利用了分段机制所提供的全部功能，为<strong>代码、数据结构、程序和任务</strong>都提供了<strong>硬件级强制保护</strong>。在这个模型中，每个程序（或任务）都被分配了自己的段描述符和段空间。段可以是其分配段的程序所<strong>私有</strong>的，也可多个程序<strong>共享</strong>。此外，操作系统硬件来控制对运行在系统中的各个程序的所有段和执行环境的访问。<br>​    <img src="/2022/04/05/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/multi-sgement.jpg"></p>
+<h3 id="2-2-3-多段模型（Multi-Segment-Model）"><a href="#2-2-3-多段模型（Multi-Segment-Model）" class="headerlink" title="2.2.3 多段模型（Multi-Segment Model）"></a>2.2.3 多段模型（Multi-Segment Model）</h3><p>​    多段模型（如图4所示）利用了分段机制所提供的全部功能，为<strong>代码、数据结构、程序和任务</strong>都提供了<strong>硬件级强制保护</strong>。在这个模型中，每个程序（或任务）都被分配了自己的段描述符和段空间。段可以是其分配段的程序所<strong>私有</strong>的，也可多个程序<strong>共享</strong>。此外，操作系统硬件来控制对运行在系统中的各个程序的所有段和执行环境的访问。<br>​    <img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/multi-sgement.jpg"></p>
 <center style="color:#1a1a1a;">图4 多段模型</center>        
 
 <p>​    对内存访问的检查不仅可以防止引用超过段大小的地址，还可以防止程序对某些段执行不被允许的操作。例如，一个代码为只读段，因此可使用硬件来防止对该代码段的写操作。每个段的访问权限信息也可用于设置保护区和保护级别。保护级别则可用于保护操作系统程序不被未经授权的应用程序访问。<br>​    分页机制可以与图2、图3和图4中所描述的任一分段模型搭配使用。 处理器的分页机制将线性地址空间（在线性地址空间中，段也被映射）划分为页面（如图1所示）。 然后在线性地址空间中的页面会映射到物理地址空间中的页面。 分页机制提供了几种页级保护功能，它们可以与段保护功能一起使用，也可以代替段保护功能。 例如，它允许逐页执行读写保护。 分页机制还提供了两级用户-监管保护，也可以逐页指定这种保护。</p>
@@ -1196,7 +1203,7 @@
 <li>TI (table indicator) flag  ：表指示标志位（第2位），指示所使用段描述符表，当复位时，表示选择GDT；设置该表示位时，表示选择LDT。</li>
 <li>Requested Privilege Level (RPL)  ：请求特权级别（第0和第1位），共两位，指示该段选择子的权限级别。权限级别的范围为0到3，<strong>权限级别0为最高权限级别</strong>。</li>
 </ul>
-<p><img src="/2022/04/05/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/selector.jpg"></p>
+<p><img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/selector.jpg"></p>
 <center style="color:#1a1a1a;">图6 段选择子</center>    
 
 <p>​    处理器不使用GDT的<strong>第一个表项</strong>。 指向这个GDT表项的段选择子（即索引值为0且TI标志设置为01的段选择子）称为<strong>“空段选择器”</strong>。 当空选择器加载入段寄存器（除CS或SS寄存器（代码段寄存器、堆栈段寄存器）外）时，处理器不会产生异常。 然而，当使用存储空选择器的段寄存器访问内存时，它会产生一个异常。 空选择器可以用于<strong>初始化未使用的段寄存器</strong>。 用空段选择器加载CS或SS寄存器会导致生成一个通用保护异常（#GP）。<br>​    段选择子作为指针变量的一部分对应用程序可见，段选择子的值通常由链接编辑器或链接加载器分配或修改，而不是应用程序。    </p>
@@ -1230,7 +1237,7 @@
 <li>L（64-bit code segment) flag  ：L标志位，在IA-32e模式下，段描述符第二个双字的第21位表示该代码段是否存储了本地64位代码。 当L=1时，表示在64位模式下执行该代码段中存储的指令。 当L=0时。表示在兼容模式下执行此代码段中存储的指令。 如果设置了L位，则必须复位D标志位。 当在非IA-32e模式或该段非代码段时，第21位是保留的，并且应该总是设置为0。  </li>
 <li>Available and reserved bits  ：可用和保留位，段描述符的第二个双字的第20位是保留给操作系统软件使用的；</li>
 </ul>
-<p><img src="/2022/04/05/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/descriptor(P=0).jpg"></p>
+<p><img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/descriptor(P=0).jpg"></p>
   <center style="color:#1a1a1a;">图9    P=0时的段描述符</center>        
 
 <h2 id="2-4描述符的分类"><a href="#2-4描述符的分类" class="headerlink" title="2.4描述符的分类"></a>2.4描述符的分类</h2><h3 id="数据段和代码段描述符（Data-and-Code-segment-Descriptor）"><a href="#数据段和代码段描述符（Data-and-Code-segment-Descriptor）" class="headerlink" title="数据段和代码段描述符（Data and Code segment Descriptor）"></a>数据段和代码段描述符（Data and Code segment Descriptor）</h3><p>​    当段描述符中的<strong>S标志位被设置</strong>时，该描述符描述的是一个代码或数据段。类型字段（type）的<strong>最高有效位</strong>（第二个双字的第11位）用于决定是一个数据段（复位）还是一个代码段描（置位）。<br>​    即：</p>
@@ -1262,18 +1269,27 @@
   <center style="color:#1a1a1a;">表2   系统段描述符类型</center>            
 
 ]]></content>
+      <categories>
+        <category>体系结构</category>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>X86</tag>
+        <tag>体系结构</tag>
+        <tag>内存管理</tag>
+      </tags>
   </entry>
   <entry>
-    <title></title>
-    <url>/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/</url>
+    <title>适配器模式</title>
+    <url>/2022/04/01/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/</url>
     <content><![CDATA[<h1 id="1-x86系统架构概览"><a href="#1-x86系统架构概览" class="headerlink" title="1. x86系统架构概览"></a>1. x86系统架构概览</h1><h2 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h2><p>先对几个概念进行说明：</p>
 <p>​    IA-32：Intel Architecture 32-bit简称，即英特尔32位体系架构，在英特尔公司1985年推出的80386微处理器中首先采用。IA-32属于X86体系结构的32位版本（X86-32），即具有32位内存地址和32位数据操作数的处理器体系结构，从1985年面世的80386直到Pentium，都是使用IA-32体系结构的处理器。而现在Intel把32位x86架构的名称x86-32改称为IA-32。而x86则是Intel开发的一类处理器体系结构的泛称，包括 Intel 8086、80286、i386和i486等，因此其架构称为“x86”。</p>
 <p>​    Intel 64：Intel 64-bit的简称，64位这个概念最早是由AMD首先提出，提出了一个兼容IA-32指令集的64位版本，其 扩充了指令及寄存器长度和个数等，更新了参数传送方式，AMD称其为AMD 64，Intel称其为Intl 64（不同于IA-64），其被命名为“x86-64” ，有时也简称为x64。。</p>
 <h2 id="1-1系统级体系结构概览"><a href="#1-1系统级体系结构概览" class="headerlink" title="1.1系统级体系结构概览"></a>1.1系统级体系结构概览</h2><h3 id="系统级体系结构的组成"><a href="#系统级体系结构的组成" class="headerlink" title="系统级体系结构的组成"></a>系统级体系结构的组成</h3><p>​    系统级体系结构是由一组寄存器、数据结构、指令组成。这里的指令是指被设计用于支持系统级操作的指令，例如：内存管理、中断、异常处理、任务管理、多线程控制等系统级操作。<br>​    下图概述了适用于32位模式下的系统寄存器和数据结构。  </p>
-<p><img src="/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/overview.jpg"></p>
+<p><img src="/2022/04/01/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/overview.jpg"></p>
 <center style="color:#1a1a1a;">图1 IA-32系统级寄存器和数据结构</center>
 
-<p><img src="/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/overview2.jpg"></p>
+<p><img src="/2022/04/01/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/overview2.jpg"></p>
 <center style="color:#1a1a1a;">图2 IA-32e模式下系统级寄存器和数据结构</center>
 
 <h3 id="全局和局部描述符表-Global-and-Local-Descriptor-Tables"><a href="#全局和局部描述符表-Global-and-Local-Descriptor-Tables" class="headerlink" title="全局和局部描述符表(Global and Local Descriptor Tables)"></a>全局和局部描述符表(Global and Local Descriptor Tables)</h3><p>​    当在<strong>保护模式</strong>下运行时，所有的<strong>内存访问</strong>操作必须都通过<strong>全局描述表(GDT)<strong>，或者一个</strong>可选的本地描述符表(LDT)<strong>来完成。如图1所示。这些表包含</strong>一些条目的描述符，如段(segment)<strong>。</strong>段描述符</strong>负责提供<strong>段的基址</strong>，访问权限、类型和该段的用途等信息。那不禁让人疑惑为什么要这样做？</p>
@@ -1410,7 +1426,7 @@
 <li>执行STI指令启用可屏蔽硬件中断，并执行必要的硬件操作启用NMI中断。   </li>
 </ol>
 <h2 id="1-3-80x86系统指令寄存器"><a href="#1-3-80x86系统指令寄存器" class="headerlink" title="1.3 80x86系统指令寄存器"></a>1.3 80x86系统指令寄存器</h2><h3 id="标志寄存器-EFLAGS"><a href="#标志寄存器-EFLAGS" class="headerlink" title="标志寄存器 EFLAGS"></a>标志寄存器 <code>EFLAGS</code></h3><p>​    EFLAGS寄存器的系统标志位和IOPL字段控制I/O、可屏蔽的硬件中断、调试、任务切换和虚拟8086模式（如图4所示）。一般情况下，只允许具有<code>特权级别</code>的代码（通常是操作系统或执行代码）才能修改这些标志位。  </p>
-<p><img src="/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/EFLAG.jpg" alt="EFLAG"></p>
+<p><img src="/2022/04/01/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/EFLAG.jpg" alt="EFLAG"></p>
 <center style="color:#1a1a1a;">图4 EFLAG寄存器中的系统标志位</center>
 
 <p>​    系统标志和IOPL如下：</p>
@@ -1457,7 +1473,7 @@
 </li>
 </ul>
 <h3 id="控制寄存器（CONTROL-REGISTERS-）"><a href="#控制寄存器（CONTROL-REGISTERS-）" class="headerlink" title="控制寄存器（CONTROL REGISTERS ）"></a>控制寄存器（CONTROL REGISTERS ）</h3><p>​    控制寄存器（CR0，CR1， CR2， CR3， CR4；如图6所示）决定了处理器的工作模式和当前正在执行的任务的特性。 这些寄存器在所有32位模式和兼容模式下都是32位的。 在64位模式下，控制寄存器扩展到64位。 MOV CRn指令用于操作控制寄存器寄存器标志位。</p>
-<p><img src="/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/contol.jpg"></p>
+<p><img src="/2022/04/01/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/contol.jpg"></p>
 <center style="color:#1a1a1a;">图6 控制寄存器</center>
 
 <p>​    控制寄存器总结如下，控制寄存器在每个体系结构定义的不同控制字段会被单独描述。 在图6中，64位模式下的寄存器宽度在括号中表示（CR0除外）。 </p>
@@ -1558,6 +1574,14 @@
 </tr>
 </tbody></table>
 ]]></content>
+      <categories>
+        <category>体系结构</category>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>X86</tag>
+        <tag>体系结构</tag>
+      </tags>
   </entry>
   <entry>
     <title>论文翻译</title>

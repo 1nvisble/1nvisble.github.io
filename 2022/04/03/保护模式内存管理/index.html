@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title> 知无涯也</title>
+      <title>保护模式内存管理 |  知无涯也</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/panda.ico" />
@@ -54,11 +54,25 @@
   data-scroll-reveal
 >
   <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  保护模式内存管理
+</h1>
+ 
+
+      
+    </header>
      
     <div class="article-meta">
-      <a href="/2022/04/05/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="article-date">
-  <time datetime="2022-04-05T15:59:41.245Z" itemprop="datePublished">2022-04-05</time>
-</a>   
+      <a href="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="article-date">
+  <time datetime="2022-04-03T11:15:19.000Z" itemprop="datePublished">2022-04-03</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">体系结构</a> / <a class="article-category-link" href="/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+  </div>
+  
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
@@ -106,7 +120,7 @@
 <center style="color:#1a1a1a;">图3 保护平坦模型</center>    
 
 <p>​    这个保护平坦模型可以被拓展变得更加复杂，以提供更多保护功能。例如，为了确保分页机制能提供用户程序和监控程序之间代码和数据的隔离，这里需要定义<strong>四个段</strong>：<strong>权限级别为3</strong>的<strong>用户程序</strong>代码段和数据段、<strong>权限级别为0</strong>的<strong>监管程序</strong>代码段和数据段。通常这些段都相互<strong>覆盖</strong>，并且在线性地址空间的<strong>起始地址都为0</strong>。这种平坦分段模型搭配简单的分页结构可以保护操作系统不受应用程序影响，此外通过为每个任务或进程增加单独的分页结构，其还可以确保一个应用程序不受其他应用程序影响。一些流行的多任务操作系统也使用此种类似的设计。</p>
-<h3 id="2-2-3-多段模型（Multi-Segment-Model）"><a href="#2-2-3-多段模型（Multi-Segment-Model）" class="headerlink" title="2.2.3 多段模型（Multi-Segment Model）"></a>2.2.3 多段模型（Multi-Segment Model）</h3><p>​    多段模型（如图4所示）利用了分段机制所提供的全部功能，为<strong>代码、数据结构、程序和任务</strong>都提供了<strong>硬件级强制保护</strong>。在这个模型中，每个程序（或任务）都被分配了自己的段描述符和段空间。段可以是其分配段的程序所<strong>私有</strong>的，也可多个程序<strong>共享</strong>。此外，操作系统硬件来控制对运行在系统中的各个程序的所有段和执行环境的访问。<br>​    <img src="/2022/04/05/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/multi-sgement.jpg"></p>
+<h3 id="2-2-3-多段模型（Multi-Segment-Model）"><a href="#2-2-3-多段模型（Multi-Segment-Model）" class="headerlink" title="2.2.3 多段模型（Multi-Segment Model）"></a>2.2.3 多段模型（Multi-Segment Model）</h3><p>​    多段模型（如图4所示）利用了分段机制所提供的全部功能，为<strong>代码、数据结构、程序和任务</strong>都提供了<strong>硬件级强制保护</strong>。在这个模型中，每个程序（或任务）都被分配了自己的段描述符和段空间。段可以是其分配段的程序所<strong>私有</strong>的，也可多个程序<strong>共享</strong>。此外，操作系统硬件来控制对运行在系统中的各个程序的所有段和执行环境的访问。<br>​    <img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/multi-sgement.jpg"></p>
 <center style="color:#1a1a1a;">图4 多段模型</center>        
 
 <p>​    对内存访问的检查不仅可以防止引用超过段大小的地址，还可以防止程序对某些段执行不被允许的操作。例如，一个代码为只读段，因此可使用硬件来防止对该代码段的写操作。每个段的访问权限信息也可用于设置保护区和保护级别。保护级别则可用于保护操作系统程序不被未经授权的应用程序访问。<br>​    分页机制可以与图2、图3和图4中所描述的任一分段模型搭配使用。 处理器的分页机制将线性地址空间（在线性地址空间中，段也被映射）划分为页面（如图1所示）。 然后在线性地址空间中的页面会映射到物理地址空间中的页面。 分页机制提供了几种页级保护功能，它们可以与段保护功能一起使用，也可以代替段保护功能。 例如，它允许逐页执行读写保护。 分页机制还提供了两级用户-监管保护，也可以逐页指定这种保护。</p>
@@ -126,7 +140,7 @@
 <li>TI (table indicator) flag  ：表指示标志位（第2位），指示所使用段描述符表，当复位时，表示选择GDT；设置该表示位时，表示选择LDT。</li>
 <li>Requested Privilege Level (RPL)  ：请求特权级别（第0和第1位），共两位，指示该段选择子的权限级别。权限级别的范围为0到3，<strong>权限级别0为最高权限级别</strong>。</li>
 </ul>
-<p><img src="/2022/04/05/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/selector.jpg"></p>
+<p><img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/selector.jpg"></p>
 <center style="color:#1a1a1a;">图6 段选择子</center>    
 
 <p>​    处理器不使用GDT的<strong>第一个表项</strong>。 指向这个GDT表项的段选择子（即索引值为0且TI标志设置为01的段选择子）称为<strong>“空段选择器”</strong>。 当空选择器加载入段寄存器（除CS或SS寄存器（代码段寄存器、堆栈段寄存器）外）时，处理器不会产生异常。 然而，当使用存储空选择器的段寄存器访问内存时，它会产生一个异常。 空选择器可以用于<strong>初始化未使用的段寄存器</strong>。 用空段选择器加载CS或SS寄存器会导致生成一个通用保护异常（#GP）。<br>​    段选择子作为指针变量的一部分对应用程序可见，段选择子的值通常由链接编辑器或链接加载器分配或修改，而不是应用程序。    </p>
@@ -160,7 +174,7 @@
 <li>L（64-bit code segment) flag  ：L标志位，在IA-32e模式下，段描述符第二个双字的第21位表示该代码段是否存储了本地64位代码。 当L=1时，表示在64位模式下执行该代码段中存储的指令。 当L=0时。表示在兼容模式下执行此代码段中存储的指令。 如果设置了L位，则必须复位D标志位。 当在非IA-32e模式或该段非代码段时，第21位是保留的，并且应该总是设置为0。  </li>
 <li>Available and reserved bits  ：可用和保留位，段描述符的第二个双字的第20位是保留给操作系统软件使用的；</li>
 </ul>
-<p><img src="/2022/04/05/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/descriptor(P=0).jpg"></p>
+<p><img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/descriptor(P=0).jpg"></p>
   <center style="color:#1a1a1a;">图9    P=0时的段描述符</center>        
 
 <h2 id="2-4描述符的分类"><a href="#2-4描述符的分类" class="headerlink" title="2.4描述符的分类"></a>2.4描述符的分类</h2><h3 id="数据段和代码段描述符（Data-and-Code-segment-Descriptor）"><a href="#数据段和代码段描述符（Data-and-Code-segment-Descriptor）" class="headerlink" title="数据段和代码段描述符（Data and Code segment Descriptor）"></a>数据段和代码段描述符（Data and Code segment Descriptor）</h3><p>​    当段描述符中的<strong>S标志位被设置</strong>时，该描述符描述的是一个代码或数据段。类型字段（type）的<strong>最高有效位</strong>（第二个双字的第11位）用于决定是一个数据段（复位）还是一个代码段描（置位）。<br>​    即：</p>
@@ -255,21 +269,32 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://1nvisble.github.io/2022/04/05/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://1nvisble.github.io/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/X86/" rel="tag">X86</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/" rel="tag">体系结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" rel="tag">内存管理</a></li></ul>
+
     </footer>
   </div>
 
    
   <nav class="article-nav">
     
+      <a href="/2022/04/05/Leetcode704/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Leetcode704
+          
+        </div>
+      </a>
     
-      <a href="/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/" class="article-nav-link">
+    
+      <a href="/2022/04/01/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title"></div>
+        <div class="article-nav-title">适配器模式</div>
       </a>
     
   </nav>

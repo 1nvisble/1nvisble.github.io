@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title> 知无涯也</title>
+      <title>适配器模式 |  知无涯也</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/panda.ico" />
@@ -54,11 +54,25 @@
   data-scroll-reveal
 >
   <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  适配器模式
+</h1>
+ 
+
+      
+    </header>
      
     <div class="article-meta">
-      <a href="/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/" class="article-date">
-  <time datetime="2022-04-05T15:59:41.207Z" itemprop="datePublished">2022-04-05</time>
-</a>   
+      <a href="/2022/04/01/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/" class="article-date">
+  <time datetime="2022-04-01T11:15:19.000Z" itemprop="datePublished">2022-04-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">体系结构</a> / <a class="article-category-link" href="/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+  </div>
+  
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
@@ -92,10 +106,10 @@
 <p>​    IA-32：Intel Architecture 32-bit简称，即英特尔32位体系架构，在英特尔公司1985年推出的80386微处理器中首先采用。IA-32属于X86体系结构的32位版本（X86-32），即具有32位内存地址和32位数据操作数的处理器体系结构，从1985年面世的80386直到Pentium，都是使用IA-32体系结构的处理器。而现在Intel把32位x86架构的名称x86-32改称为IA-32。而x86则是Intel开发的一类处理器体系结构的泛称，包括 Intel 8086、80286、i386和i486等，因此其架构称为“x86”。</p>
 <p>​    Intel 64：Intel 64-bit的简称，64位这个概念最早是由AMD首先提出，提出了一个兼容IA-32指令集的64位版本，其 扩充了指令及寄存器长度和个数等，更新了参数传送方式，AMD称其为AMD 64，Intel称其为Intl 64（不同于IA-64），其被命名为“x86-64” ，有时也简称为x64。。</p>
 <h2 id="1-1系统级体系结构概览"><a href="#1-1系统级体系结构概览" class="headerlink" title="1.1系统级体系结构概览"></a>1.1系统级体系结构概览</h2><h3 id="系统级体系结构的组成"><a href="#系统级体系结构的组成" class="headerlink" title="系统级体系结构的组成"></a>系统级体系结构的组成</h3><p>​    系统级体系结构是由一组寄存器、数据结构、指令组成。这里的指令是指被设计用于支持系统级操作的指令，例如：内存管理、中断、异常处理、任务管理、多线程控制等系统级操作。<br>​    下图概述了适用于32位模式下的系统寄存器和数据结构。  </p>
-<p><img src="/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/overview.jpg"></p>
+<p><img src="/2022/04/01/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/overview.jpg"></p>
 <center style="color:#1a1a1a;">图1 IA-32系统级寄存器和数据结构</center>
 
-<p><img src="/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/overview2.jpg"></p>
+<p><img src="/2022/04/01/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/overview2.jpg"></p>
 <center style="color:#1a1a1a;">图2 IA-32e模式下系统级寄存器和数据结构</center>
 
 <h3 id="全局和局部描述符表-Global-and-Local-Descriptor-Tables"><a href="#全局和局部描述符表-Global-and-Local-Descriptor-Tables" class="headerlink" title="全局和局部描述符表(Global and Local Descriptor Tables)"></a>全局和局部描述符表(Global and Local Descriptor Tables)</h3><p>​    当在<strong>保护模式</strong>下运行时，所有的<strong>内存访问</strong>操作必须都通过<strong>全局描述表(GDT)<strong>，或者一个</strong>可选的本地描述符表(LDT)<strong>来完成。如图1所示。这些表包含</strong>一些条目的描述符，如段(segment)<strong>。</strong>段描述符</strong>负责提供<strong>段的基址</strong>，访问权限、类型和该段的用途等信息。那不禁让人疑惑为什么要这样做？</p>
@@ -232,7 +246,7 @@
 <li>执行STI指令启用可屏蔽硬件中断，并执行必要的硬件操作启用NMI中断。   </li>
 </ol>
 <h2 id="1-3-80x86系统指令寄存器"><a href="#1-3-80x86系统指令寄存器" class="headerlink" title="1.3 80x86系统指令寄存器"></a>1.3 80x86系统指令寄存器</h2><h3 id="标志寄存器-EFLAGS"><a href="#标志寄存器-EFLAGS" class="headerlink" title="标志寄存器 EFLAGS"></a>标志寄存器 <code>EFLAGS</code></h3><p>​    EFLAGS寄存器的系统标志位和IOPL字段控制I/O、可屏蔽的硬件中断、调试、任务切换和虚拟8086模式（如图4所示）。一般情况下，只允许具有<code>特权级别</code>的代码（通常是操作系统或执行代码）才能修改这些标志位。  </p>
-<p><img src="/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/EFLAG.jpg" alt="EFLAG"></p>
+<p><img src="/2022/04/01/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/EFLAG.jpg" alt="EFLAG"></p>
 <center style="color:#1a1a1a;">图4 EFLAG寄存器中的系统标志位</center>
 
 <p>​    系统标志和IOPL如下：</p>
@@ -279,7 +293,7 @@
 </li>
 </ul>
 <h3 id="控制寄存器（CONTROL-REGISTERS-）"><a href="#控制寄存器（CONTROL-REGISTERS-）" class="headerlink" title="控制寄存器（CONTROL REGISTERS ）"></a>控制寄存器（CONTROL REGISTERS ）</h3><p>​    控制寄存器（CR0，CR1， CR2， CR3， CR4；如图6所示）决定了处理器的工作模式和当前正在执行的任务的特性。 这些寄存器在所有32位模式和兼容模式下都是32位的。 在64位模式下，控制寄存器扩展到64位。 MOV CRn指令用于操作控制寄存器寄存器标志位。</p>
-<p><img src="/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/contol.jpg"></p>
+<p><img src="/2022/04/01/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/contol.jpg"></p>
 <center style="color:#1a1a1a;">图6 控制寄存器</center>
 
 <p>​    控制寄存器总结如下，控制寄存器在每个体系结构定义的不同控制字段会被单独描述。 在图6中，64位模式下的寄存器宽度在括号中表示（CR0除外）。 </p>
@@ -443,30 +457,32 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://1nvisble.github.io/2022/04/05/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://1nvisble.github.io/2022/04/01/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/X86/" rel="tag">X86</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/" rel="tag">体系结构</a></li></ul>
+
     </footer>
   </div>
 
    
   <nav class="article-nav">
     
-      <a href="/2022/04/05/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="article-nav-link">
+      <a href="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            (no title)
+            保护模式内存管理
           
         </div>
       </a>
     
     
-      <a href="/2022/04/05/Leetcode704/" class="article-nav-link">
+      <a href="/2021/11/09/AOP%EF%BC%88%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B%EF%BC%89/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Leetcode704</div>
+        <div class="article-nav-title">AOP（面向切面编程）</div>
       </a>
     
   </nav>
