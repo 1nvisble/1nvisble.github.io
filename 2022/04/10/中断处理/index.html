@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title> 知无涯也</title>
+      <title>中断处理 |  知无涯也</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/panda.ico" />
@@ -54,11 +54,25 @@
   data-scroll-reveal
 >
   <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  中断处理
+</h1>
+ 
+
+      
+    </header>
      
     <div class="article-meta">
       <a href="/2022/04/10/%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86/" class="article-date">
-  <time datetime="2022-04-10T13:01:25.710Z" itemprop="datePublished">2022-04-10</time>
-</a>   
+  <time datetime="2022-04-10T11:15:19.000Z" itemprop="datePublished">2022-04-10</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+  </div>
+  
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
@@ -206,7 +220,7 @@
 
 <h2 id="3-5-中断与异常处理"><a href="#3-5-中断与异常处理" class="headerlink" title="3.5 中断与异常处理"></a>3.5 中断与异常处理</h2><p>​    处理器对异常和中断处理过程的调用，与其使用CALL指令调用一个过程或者任务的方法类似。当响应异常或中断时，处理器首先使用<strong>异常或中断向量</strong>作为到IDT表中对应描述符的<strong>索引</strong>。如果该索引指向的是<strong>陷阱门或者中断门</strong>，则处理器<strong>调用异常或中断处理程序的方式与使用CALL指令调用一个调用门的方式类似</strong>。如果是索引指向的是一个<strong>任务门</strong>，处理器进行<strong>任务切换，切换到异常处理程序或中断处理程序任务</strong>，其<strong>调用方式与使用CALL指令调用一个任务门的方式类似</strong>。</p>
 <h3 id="3-5-1-异常或中断处理程序"><a href="#3-5-1-异常或中断处理程序" class="headerlink" title="3.5.1 异常或中断处理程序"></a>3.5.1 异常或中断处理程序</h3><p>​    异常或中断门引用运行在当前任务上下文中的异常或中断处理过程，如图3所示 。 门的段选择符指向GDT或当前LDT中可执行代码段的段描述符。 门描述符的偏移量字段指向异常或中断处理过程的开始处。  </p>
-<p>![](images/Interupt handle.jpg)</p>
+<p>![](中断处理/Interupt handle.jpg)</p>
 <center style="color:#1a1a1a;">图3 中断过程调用</center>    
 
 <p>​    当处理器执行异常或中断处理过程调用时会进行以下操作：</p>
@@ -223,7 +237,7 @@
 </ol>
 </li>
 </ul>
-<p>![](images/stack switch.jpg)</p>
+<p>![](中断处理/stack switch.jpg)</p>
 <center style="color:#1a1a1a;">图4  转移到中断处理过程时堆栈的使用</center>    
 
 <p>​    要从异常或中断处理程序过程返回时，处理程序必须使用IRET（或IRETD）指令。 IRET指令与RET指令类似，区别在于其<strong>将保存的标志位信息恢复到EFLAGS寄存器中</strong>。<strong>只有当CPL值为0时</strong>，才会<strong>恢复EFLAGS寄存器的IOPL字段</strong>。 只有当<strong>CPL小于等于IOPL</strong>时，<strong>IF标志才会改变</strong>。<br>​    如果在调用处理程序过程时发生了堆栈切换，IRET指令在返回时切换回被中断的过程的堆栈。</p>
@@ -318,6 +332,8 @@
 </div>
 
 <div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%B8%AD%E6%96%AD/" rel="tag">中断</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%82%E5%B8%B8/" rel="tag">异常</a></li></ul>
+
     </footer>
   </div>
 

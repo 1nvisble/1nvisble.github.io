@@ -1,6 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>AOP（面向切面编程）</title>
+    <url>/2021/11/09/AOP%EF%BC%88%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="AOP（面向切面编程）"><a href="#AOP（面向切面编程）" class="headerlink" title="AOP（面向切面编程）"></a>AOP（面向切面编程）</h1><h2 id="AOP-含义"><a href="#AOP-含义" class="headerlink" title="AOP 含义"></a>AOP 含义</h2><p>面向切面编程：也叫做面向方法编程，通过预编译方式和运行期动态代理的方式实现不修改源代码的情况下给程序动态统一添加功能的技术。</p>
+<p>将一些各接口都调用的相同方法抽象为接口，这个接口类似于切面；将方法注入到接口调用的某个地方，这个地方就为切点。</p>
+<p>实现AOP的技术主要分为两类：一类是采用动态代理技术利用截取消息的方式，对消息进行装饰以取代原有对象行为的执行。另一类是采用静态织入的方式，引入特定语法创建切面，从而使编译器可以在编译期间织入相关的切面代码。（<a href="https://www.jianshu.com/p/f1770b9dce27%EF%BC%89">https://www.jianshu.com/p/f1770b9dce27）</a></p>
+<h2 id="AOP核心概念"><a href="#AOP核心概念" class="headerlink" title="AOP核心概念"></a>AOP核心概念</h2><h3 id="横切关注点"><a href="#横切关注点" class="headerlink" title="横切关注点"></a>横切关注点</h3><p>横切关注点主要关注于：对哪些方法进行拦截，拦截后怎样处理，是替换还是包装，此外，还有执行的顺序，</p>
+<h3 id="切面"><a href="#切面" class="headerlink" title="切面"></a>切面</h3><p><code>ASPECT</code>  切面是散落在系统各处<strong>通用</strong>的业务逻辑代码，如安全模块、日志模块、认证模块等。</p>
+<p>切面可以说是一个较大的概念，较为笼统；更具体的就是切点<code>PointCut</code>和通知<code>Advice</code>，由名字就可知，切点存在于切面上，切面上存在切点，切点又有相应的通知<code>Advice</code>；</p>
+<p>切面通常是一个类，可以定义切点<code>PointCut</code>和通知<code>Advice</code>。类是对物体特征的抽象，切面是对横切关注点的抽象。</p>
+<p>切面是业务流程运行的某个特定步骤，是应用运行过程中的关注点，关注点通常会横切多个对象，因此也被称为横切关注点。</p>
+<h3 id="程序执行点"><a href="#程序执行点" class="headerlink" title="程序执行点"></a>程序执行点</h3><p><code>JointPoint</code>连接点是程序执行过程中明确的点，感觉这个说法比较抽象，我个人理解为一些入口点（如方法调用，异常处理），典型的为方法的调用，对类成员的访问以及异常处理程序块的执行。连接点是程序在运行过程中能够插入切面的点，比如方法调用、异常抛出、字段修改等。</p>
+<p>注意：一个<code>JointPoint</code>自身可以<strong>嵌套</strong>其他<code>JointPoint</code>，就比如说，一个方法中又调用了另一个方法。</p>
+<h3 id="切入点"><a href="#切入点" class="headerlink" title="切入点"></a>切入点</h3><p><code>PointCut</code>切入点是带有通知的连接点，在程序中主要体现为编写切入点表达式。切入点是对连接点进行拦截的定义。切入点用于定义通知应该切入到哪些连接点上，不同的通知需要切入到不同的连接点上，这种精准的匹配是由切入点的正则表达式来定义的。</p>
+<p>切入点是可以插入增强处理的连接点，当某个连接点满足执行要求时，该连接点将被连接增强处理，该连接点也就变成了切入点。</p>
+<p>切入点是拦截的方法，连接点<code>JointPoint</code>拦截后将变成切入点。</p>
+<h3 id="通知"><a href="#通知" class="headerlink" title="通知"></a>通知</h3><p><code>Advice</code>通知是AOP在特定切入点上执行的增强处理，是拦截到连接点之后要执行的代码，通知可以分为前置通知<code>Before</code>、后置通知<code>AfterReturning</code>、异常通知<code>AfterThrowing</code>、最终通知<code>After</code>、环绕通知<code>Around</code>五类。</p>
+<ol>
+<li><p> <code>before advice</code>, 在<code>join point</code>前被执行的<code> advice</code>. 虽然<code>before advice</code>是在<code>join point</code>前被执行, 但是它并不能够阻止<code> join point</code> 的执行, 除非发生了异常(即我们在 <code>before advice </code>代码中, 不能人为地决定是否继续执行<code> join point</code> 中的代码)</p>
+</li>
+<li><p>after return advice<code>, 在一个</code> join point <code>正常返回后执行的</code> advice`</p>
+</li>
+<li><p><code>after throwing advice</code>, 当一个<code> join point</code> 抛出异常后执行的 <code>advice</code></p>
+</li>
+<li><p><code>after(final) advice</code>, 无论一个<code>join point</code>是正常退出还是发生了异常, 都会被执行的 advice.</p>
+</li>
+<li><p><code>around advice</code>, 在<code> join poin</code>t 前和<code> joint point</code> 退出后都执行的 <code>advice</code>. 这个是最常用的<code> advice</code>.</p>
+</li>
+<li><p><code>introduction</code>，<code>introduction</code>可以为原有的对象增加新的属性和方法。</p>
+</li>
+</ol>
+<h3 id="织入"><a href="#织入" class="headerlink" title="织入"></a>织入</h3><p><code>Weaving</code> 织入通过切入点切入，将切面应用到目标对象并导致代理对象创建的过程。将切面应用到目标对象从而创建一个新的代理对象的过程，这个过程可以发生在编译器、类转载期、运行期，不同的发生点有着不同的前提条件。如果发生在编译器就需要有一个支持这种AOP实现的特殊编译器，发生在类转载期就需要有一个支持AOP实现的特殊类转载其，发生在运行期则可以直接通过反射机制与动态代理机制来动态实现。</p>
+<h3 id="代理对象"><a href="#代理对象" class="headerlink" title="代理对象"></a>代理对象</h3><p><code>Proxy</code>代理对象是AOP创建的对象，包含通知，代理是目标对象的加强。 代理是将通知应用到目标对象之后被动态创建的对象，可以简单理解代理对象的功能等同于目标对象的核心业务逻辑功能加上共有功能。代理对象对于使用者而言是透明的，是程序运行过程中的产物。</p>
+<h3 id="目标对象"><a href="#目标对象" class="headerlink" title="目标对象"></a>目标对象</h3><p><code>Target</code>目标对象是指代理的目标对象，是指要织入的对象模块。目标对象是那些即将切入切面的对象，也就是被通知的对象。这些对象中已经只剩下干干净净的核心业务逻辑代码，所有的共有功能等待AOP容器的切入。</p>
+<p>目标对象是AOP进行增强处理的对象，也被称为增强的对象。如果AOP是通过运行时代理来实现的，那么这个对象将是一个被代理的对象。</p>
+<p>AOP是典型的代理模式的体现，代理模式的特征是代理类与委托类有同样的接口，代理类主要负责为委托类预处理消息、过滤消息、将消息转发给委托类、事后处理消息等。代理类与委托类之间通常会存在关联关系，一个代理类的对象与一个委托类的对象相关联，代理类的对象本身并不真正实现服务，而是通过调用委托类的对象方法来提供特定的服务。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在AOP中切面就是与业务逻辑独立，但又垂直存在于业务逻辑的代码结构中的通用功能组合；切面与业务逻辑相交的点就是切点；连接点就是把业务逻辑离散化后的关键节点；切点属于连接点，是连接点的子集；Advice（增强）就是切面在切点上要执行的功能增加的具体操作；在切点上可以把要完成增强操作的目标对象（Target）连接到切面里，这个连接的方式就叫织入</p>
+<p><a href="https://www.jianshu.com/p/281dcde6974d">从代理机制到Spring AOP，这篇给你安排得明明白白的 - 简书 (jianshu.com)</a></p>
+<p><a href="https://blog.csdn.net/qq_41701956/article/details/84427891">AOP如何实现及实现原理_Java笔记-CSDN博客_aop原理</a></p>
+<p><a href="https://blog.csdn.net/q982151756/article/details/80513340">细说Spring——AOP详解（AOP概览）_啦啦啦的博客-CSDN博客_aop</a></p>
+]]></content>
+      <categories>
+        <category>面向切面编程</category>
+      </categories>
+      <tags>
+        <tag>面向切面编程</tag>
+        <tag>AOP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello的自白.</title>
     <url>/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/</url>
     <content><![CDATA[<h1 id="Hello的自白"><a href="#Hello的自白" class="headerlink" title="Hello的自白"></a>Hello的自白</h1><img src="/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/Hello1.jpg" class title="This is a Hello1s image">
@@ -307,6 +356,33 @@
       </tags>
   </entry>
   <entry>
+    <title>Leetcode977</title>
+    <url>/2022/04/07/Leetcode977/</url>
+    <content><![CDATA[<h2 id="有序数组的平方"><a href="#有序数组的平方" class="headerlink" title="有序数组的平方"></a>有序数组的平方</h2><p><a href="https://leetcode-cn.com/problems/squares-of-a-sorted-array/submissions/">Leetcode977</a></p>
+<p>​    给你一个按 <strong>非递减顺序</strong> 排序的整数数组 <code>nums</code>，返回 <strong>每个数字的平方</strong> 组成的新数组，要求也按 <strong>非递减顺序</strong> 排序。</p>
+<p>示例 1：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">输入：nums = [<span class="number">-4</span>,<span class="number">-1</span>,<span class="number">0</span>,<span class="number">3</span>,<span class="number">10</span>]</span><br><span class="line">输出：[<span class="number">0</span>,<span class="number">1</span>,<span class="number">9</span>,<span class="number">16</span>,<span class="number">100</span>]</span><br><span class="line">解释：平方后，数组变为 [<span class="number">16</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">9</span>,<span class="number">100</span>]</span><br><span class="line">排序后，数组变为 [<span class="number">0</span>,<span class="number">1</span>,<span class="number">9</span>,<span class="number">16</span>,<span class="number">100</span>]</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">输入：nums = [<span class="number">-7</span>,<span class="number">-3</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">11</span>]</span><br><span class="line">输出：[<span class="number">4</span>,<span class="number">9</span>,<span class="number">9</span>,<span class="number">49</span>,<span class="number">121</span>]</span><br></pre></td></tr></table></figure>
+
+<h3 id="暴力法"><a href="#暴力法" class="headerlink" title="暴力法"></a>暴力法</h3><p>​    最简单的当然就是暴力法，直接平方，再排序。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">sortedSquares</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">            nums[i] = nums[i] * nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(),nums.<span class="built_in">end</span>());</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="双指针法"><a href="#双指针法" class="headerlink" title="双指针法"></a>双指针法</h3><p>​    已知数组是有序的，非递减排序，只不过负数平方之后，可能比一些数要大得多，例如$ (-4)^2 &gt; 1^2$ ，从而影响排列顺序。<br>​    <strong>重点：</strong>数组平方的<strong>最大值就在数组的两端</strong>，不是<strong>最左边就是最右边</strong>，不可能是中间。<br>​    因此，这里考虑使用一个双指针，一个指向数组第一项——i，一个指向数组最后一项——j。<br>​    定义一个新数组result，和nums数组一样的大小，让<strong>k指向result数组终止位置</strong>。<br>​    当前面比后面大时，直接将其赋给新数组的最后一项，i++；<br>​    当后面比前面大时，直接将其赋给新数组的最后一项，j–；</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">sortedSquares</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;  <span class="comment">//左边指针</span></span><br><span class="line">        <span class="keyword">int</span> right = nums.<span class="built_in">size</span>()<span class="number">-1</span>; <span class="comment">//右边指针</span></span><br><span class="line">        <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">result</span><span class="params">(nums.size())</span></span>;</span><br><span class="line">        <span class="keyword">int</span> k = right; <span class="comment">//指向result数组最后一个元素</span></span><br><span class="line">        <span class="keyword">while</span>(left &lt;= right)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[left] * nums[left] &lt; nums[right]*nums[right])&#123;</span><br><span class="line">                result[k--] = nums[right]*nums[right];</span><br><span class="line">                right--;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                result[k--] = nums[left]*nums[left];</span><br><span class="line">                left++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>乐扣刷题</category>
+        <category>数组</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>数组</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>可变数据类型和不可变数据类型以及Snaphot图</title>
     <url>/2021/05/20/Snaphot/</url>
     <content><![CDATA[<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>在上软件构造这门课时，在讲数据类型时引入了可变数据类型和不可变数据类型，这是以前未接触过的概念，以前自学Java时，仅有基本数据类型，和引用数据类型这两种概念；此外，老师还引入了Snaphot digrams，其用于描述程序运行时的内部状态，较为实用，今天“趁热打铁”，写博客记录一下。</p>
@@ -440,81 +516,6 @@
       <tags>
         <tag>Java</tag>
         <tag>Snaphot</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2021/05/04/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>适配器模式</title>
-    <url>/2021/06/24/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>老师上课讲了7种设计模式，分为三种类型:创建型模式，结构型模式，行为类模式。</p>
-<p>结构型模式中主要讲了，适配器模式和装饰器模式。其中个人理解了装饰器模式，就是通过装饰对象来在原有对象的基础上增加一些新特性，上课举的咖啡的例子，在最基础的咖啡上加糖、加牛奶等等，这就是一个装饰的过程。但对适配器模式，并未理解，依旧云里雾里，课下学习，写博客记录。</p>
-<h2 id="适配器模式（Adapter-Pattern）简述"><a href="#适配器模式（Adapter-Pattern）简述" class="headerlink" title="适配器模式（Adapter Pattern）简述"></a>适配器模式（Adapter Pattern）简述</h2><p>先从字面意思来理解，适配器，生活中有电源适配器，也就是插头，其作用是将插座上220V的电压转化为一般为5V（万年5V1A）的电压，以供手机充电，解决了电压过大，无法充电的问题，其实现的是插座电源和手机充电电源之间两个不兼容的接口的问题。</p>
-<p>形象地说，适配器是两个不兼容的接口之间的桥梁。</p>
-<p><strong>意图</strong>：将一个类的接口转换成客户端Client希望的另外一个接口。适配器模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。</p>
-<p><strong>解决的问题：</strong>主要解决改变环境后，原有的类不能在新环境下使用的情况，导致我们设计好的类被浪费，不能复用，重写耗费时间。</p>
-<p><strong>主要实现方式：</strong>继承。通过增加一个接口，将已存在的子类封装起来， client 面向接口编程，从而隐藏了具体子类。</p>
-<p>UML类图关系：</p>
-<p><img src="/2021/06/24/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/1.png" alt="image-20210707202243644"></p>
-<p>不兼容：target想要调用Request方法，而Adaptee并没有这个方法，只有SpecificRequest方法，要进行一个转换。</p>
-<p>下面举一个例子来说，还是拿手机电源和插座电源来说：</p>
-<p>先定义创建二者的接口：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OutletPower</span></span>&#123;  <span class="comment">//插座电源</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">charge</span><span class="params">(String appliance)</span></span>;  <span class="comment">//appliance 充电电器</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PhonePower</span></span>&#123; <span class="comment">//手机电源</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">phoneCharge</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后创建两个类分别实现上面的接口：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OutletPowerImpl</span> <span class="keyword">implements</span> <span class="title">OutletPower</span></span>&#123;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">charge</span><span class="params">(String appliance)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;插座电源220V：充电&quot;</span>+appliace);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PhonePowerImpl</span> <span class="keyword">implements</span> <span class="title">PhonePower</span></span>&#123;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">phoneCharge</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;手机充电电压5V：手机充电&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
-
-<p>然后，现在我们就需要一个手机电源设配器，将电压由220V转换成5V，让其可以给手机充电。定义创建一个实现了phonePower接口的电源适配器类。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PowerAdapter</span> <span class="keyword">implements</span> <span class="title">phonePower</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> OutletPower outletPower;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PowerAdapter</span><span class="params">()</span></span>&#123;</span><br><span class="line">           OutletPowerImpl = <span class="keyword">new</span> OutletPowerImpl();  </span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">phoneCharge</span><span class="params">(String appliance)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(appliace.equalsIgnoreCase(<span class="string">&quot;phone&quot;</span>))&#123;</span><br><span class="line">          OutletPowerImpl.charge(appliance);</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后实现电源转换：</p>
-<p>这样一来，插座电源通过手机电源设配器能给手机充电。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>优点：</strong> </p>
-<ol>
-<li><p>可以让任何两个没有关联的类一起运行。</p>
-</li>
-<li><p>提高了类的复用。 </p>
-</li>
-<li><p>增加了类的透明度。 </p>
-</li>
-<li><p>灵活性好。</p>
-</li>
-</ol>
-<p><strong>缺点：</strong> </p>
-<ol>
-<li>过多地使用适配器，会让系统非常零乱，不易整体进行把握。比如，明明看到调用的是 A 接口，其实内部被适配成了 B 接口的实现，一个系统如果太多出现这种情况，无异于一场灾难。因此如果不是很有必要，可以不使用适配器，而是直接对系统进行重构。 </li>
-<li> 由于 JAVA规定，一个子类 至多继承一个类，即只有一个父类，所以至多只能适配一个适配者类，而且目标类必须是抽象类。</li>
-</ol>
-<h2 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h2><p>【1】 <a href="https://www.runoob.com/design-pattern/adapter-pattern.html">https://www.runoob.com/design-pattern/adapter-pattern.html</a></p>
-<p>【2】 <a href="https://www.jianshu.com/p/9d0575311214">https://www.jianshu.com/p/9d0575311214</a></p>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>设计模式</tag>
       </tags>
   </entry>
   <entry>
@@ -722,52 +723,78 @@
       </tags>
   </entry>
   <entry>
-    <title>AOP（面向切面编程）</title>
-    <url>/2021/11/09/AOP%EF%BC%88%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="AOP（面向切面编程）"><a href="#AOP（面向切面编程）" class="headerlink" title="AOP（面向切面编程）"></a>AOP（面向切面编程）</h1><h2 id="AOP-含义"><a href="#AOP-含义" class="headerlink" title="AOP 含义"></a>AOP 含义</h2><p>面向切面编程：也叫做面向方法编程，通过预编译方式和运行期动态代理的方式实现不修改源代码的情况下给程序动态统一添加功能的技术。</p>
-<p>将一些各接口都调用的相同方法抽象为接口，这个接口类似于切面；将方法注入到接口调用的某个地方，这个地方就为切点。</p>
-<p>实现AOP的技术主要分为两类：一类是采用动态代理技术利用截取消息的方式，对消息进行装饰以取代原有对象行为的执行。另一类是采用静态织入的方式，引入特定语法创建切面，从而使编译器可以在编译期间织入相关的切面代码。（<a href="https://www.jianshu.com/p/f1770b9dce27%EF%BC%89">https://www.jianshu.com/p/f1770b9dce27）</a></p>
-<h2 id="AOP核心概念"><a href="#AOP核心概念" class="headerlink" title="AOP核心概念"></a>AOP核心概念</h2><h3 id="横切关注点"><a href="#横切关注点" class="headerlink" title="横切关注点"></a>横切关注点</h3><p>横切关注点主要关注于：对哪些方法进行拦截，拦截后怎样处理，是替换还是包装，此外，还有执行的顺序，</p>
-<h3 id="切面"><a href="#切面" class="headerlink" title="切面"></a>切面</h3><p><code>ASPECT</code>  切面是散落在系统各处<strong>通用</strong>的业务逻辑代码，如安全模块、日志模块、认证模块等。</p>
-<p>切面可以说是一个较大的概念，较为笼统；更具体的就是切点<code>PointCut</code>和通知<code>Advice</code>，由名字就可知，切点存在于切面上，切面上存在切点，切点又有相应的通知<code>Advice</code>；</p>
-<p>切面通常是一个类，可以定义切点<code>PointCut</code>和通知<code>Advice</code>。类是对物体特征的抽象，切面是对横切关注点的抽象。</p>
-<p>切面是业务流程运行的某个特定步骤，是应用运行过程中的关注点，关注点通常会横切多个对象，因此也被称为横切关注点。</p>
-<h3 id="程序执行点"><a href="#程序执行点" class="headerlink" title="程序执行点"></a>程序执行点</h3><p><code>JointPoint</code>连接点是程序执行过程中明确的点，感觉这个说法比较抽象，我个人理解为一些入口点（如方法调用，异常处理），典型的为方法的调用，对类成员的访问以及异常处理程序块的执行。连接点是程序在运行过程中能够插入切面的点，比如方法调用、异常抛出、字段修改等。</p>
-<p>注意：一个<code>JointPoint</code>自身可以<strong>嵌套</strong>其他<code>JointPoint</code>，就比如说，一个方法中又调用了另一个方法。</p>
-<h3 id="切入点"><a href="#切入点" class="headerlink" title="切入点"></a>切入点</h3><p><code>PointCut</code>切入点是带有通知的连接点，在程序中主要体现为编写切入点表达式。切入点是对连接点进行拦截的定义。切入点用于定义通知应该切入到哪些连接点上，不同的通知需要切入到不同的连接点上，这种精准的匹配是由切入点的正则表达式来定义的。</p>
-<p>切入点是可以插入增强处理的连接点，当某个连接点满足执行要求时，该连接点将被连接增强处理，该连接点也就变成了切入点。</p>
-<p>切入点是拦截的方法，连接点<code>JointPoint</code>拦截后将变成切入点。</p>
-<h3 id="通知"><a href="#通知" class="headerlink" title="通知"></a>通知</h3><p><code>Advice</code>通知是AOP在特定切入点上执行的增强处理，是拦截到连接点之后要执行的代码，通知可以分为前置通知<code>Before</code>、后置通知<code>AfterReturning</code>、异常通知<code>AfterThrowing</code>、最终通知<code>After</code>、环绕通知<code>Around</code>五类。</p>
+    <title>Hello World</title>
+    <url>/2021/05/04/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>适配器模式</title>
+    <url>/2021/06/24/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>老师上课讲了7种设计模式，分为三种类型:创建型模式，结构型模式，行为类模式。</p>
+<p>结构型模式中主要讲了，适配器模式和装饰器模式。其中个人理解了装饰器模式，就是通过装饰对象来在原有对象的基础上增加一些新特性，上课举的咖啡的例子，在最基础的咖啡上加糖、加牛奶等等，这就是一个装饰的过程。但对适配器模式，并未理解，依旧云里雾里，课下学习，写博客记录。</p>
+<h2 id="适配器模式（Adapter-Pattern）简述"><a href="#适配器模式（Adapter-Pattern）简述" class="headerlink" title="适配器模式（Adapter Pattern）简述"></a>适配器模式（Adapter Pattern）简述</h2><p>先从字面意思来理解，适配器，生活中有电源适配器，也就是插头，其作用是将插座上220V的电压转化为一般为5V（万年5V1A）的电压，以供手机充电，解决了电压过大，无法充电的问题，其实现的是插座电源和手机充电电源之间两个不兼容的接口的问题。</p>
+<p>形象地说，适配器是两个不兼容的接口之间的桥梁。</p>
+<p><strong>意图</strong>：将一个类的接口转换成客户端Client希望的另外一个接口。适配器模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。</p>
+<p><strong>解决的问题：</strong>主要解决改变环境后，原有的类不能在新环境下使用的情况，导致我们设计好的类被浪费，不能复用，重写耗费时间。</p>
+<p><strong>主要实现方式：</strong>继承。通过增加一个接口，将已存在的子类封装起来， client 面向接口编程，从而隐藏了具体子类。</p>
+<p>UML类图关系：</p>
+<p><img src="/2021/06/24/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/1.png" alt="image-20210707202243644"></p>
+<p>不兼容：target想要调用Request方法，而Adaptee并没有这个方法，只有SpecificRequest方法，要进行一个转换。</p>
+<p>下面举一个例子来说，还是拿手机电源和插座电源来说：</p>
+<p>先定义创建二者的接口：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OutletPower</span></span>&#123;  <span class="comment">//插座电源</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">charge</span><span class="params">(String appliance)</span></span>;  <span class="comment">//appliance 充电电器</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PhonePower</span></span>&#123; <span class="comment">//手机电源</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">phoneCharge</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后创建两个类分别实现上面的接口：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OutletPowerImpl</span> <span class="keyword">implements</span> <span class="title">OutletPower</span></span>&#123;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">charge</span><span class="params">(String appliance)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;插座电源220V：充电&quot;</span>+appliace);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PhonePowerImpl</span> <span class="keyword">implements</span> <span class="title">PhonePower</span></span>&#123;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">phoneCharge</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;手机充电电压5V：手机充电&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>然后，现在我们就需要一个手机电源设配器，将电压由220V转换成5V，让其可以给手机充电。定义创建一个实现了phonePower接口的电源适配器类。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PowerAdapter</span> <span class="keyword">implements</span> <span class="title">phonePower</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> OutletPower outletPower;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PowerAdapter</span><span class="params">()</span></span>&#123;</span><br><span class="line">           OutletPowerImpl = <span class="keyword">new</span> OutletPowerImpl();  </span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">phoneCharge</span><span class="params">(String appliance)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(appliace.equalsIgnoreCase(<span class="string">&quot;phone&quot;</span>))&#123;</span><br><span class="line">          OutletPowerImpl.charge(appliance);</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后实现电源转换：</p>
+<p>这样一来，插座电源通过手机电源设配器能给手机充电。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>优点：</strong> </p>
 <ol>
-<li><p> <code>before advice</code>, 在<code>join point</code>前被执行的<code> advice</code>. 虽然<code>before advice</code>是在<code>join point</code>前被执行, 但是它并不能够阻止<code> join point</code> 的执行, 除非发生了异常(即我们在 <code>before advice </code>代码中, 不能人为地决定是否继续执行<code> join point</code> 中的代码)</p>
+<li><p>可以让任何两个没有关联的类一起运行。</p>
 </li>
-<li><p>after return advice<code>, 在一个</code> join point <code>正常返回后执行的</code> advice`</p>
+<li><p>提高了类的复用。 </p>
 </li>
-<li><p><code>after throwing advice</code>, 当一个<code> join point</code> 抛出异常后执行的 <code>advice</code></p>
+<li><p>增加了类的透明度。 </p>
 </li>
-<li><p><code>after(final) advice</code>, 无论一个<code>join point</code>是正常退出还是发生了异常, 都会被执行的 advice.</p>
-</li>
-<li><p><code>around advice</code>, 在<code> join poin</code>t 前和<code> joint point</code> 退出后都执行的 <code>advice</code>. 这个是最常用的<code> advice</code>.</p>
-</li>
-<li><p><code>introduction</code>，<code>introduction</code>可以为原有的对象增加新的属性和方法。</p>
+<li><p>灵活性好。</p>
 </li>
 </ol>
-<h3 id="织入"><a href="#织入" class="headerlink" title="织入"></a>织入</h3><p><code>Weaving</code> 织入通过切入点切入，将切面应用到目标对象并导致代理对象创建的过程。将切面应用到目标对象从而创建一个新的代理对象的过程，这个过程可以发生在编译器、类转载期、运行期，不同的发生点有着不同的前提条件。如果发生在编译器就需要有一个支持这种AOP实现的特殊编译器，发生在类转载期就需要有一个支持AOP实现的特殊类转载其，发生在运行期则可以直接通过反射机制与动态代理机制来动态实现。</p>
-<h3 id="代理对象"><a href="#代理对象" class="headerlink" title="代理对象"></a>代理对象</h3><p><code>Proxy</code>代理对象是AOP创建的对象，包含通知，代理是目标对象的加强。 代理是将通知应用到目标对象之后被动态创建的对象，可以简单理解代理对象的功能等同于目标对象的核心业务逻辑功能加上共有功能。代理对象对于使用者而言是透明的，是程序运行过程中的产物。</p>
-<h3 id="目标对象"><a href="#目标对象" class="headerlink" title="目标对象"></a>目标对象</h3><p><code>Target</code>目标对象是指代理的目标对象，是指要织入的对象模块。目标对象是那些即将切入切面的对象，也就是被通知的对象。这些对象中已经只剩下干干净净的核心业务逻辑代码，所有的共有功能等待AOP容器的切入。</p>
-<p>目标对象是AOP进行增强处理的对象，也被称为增强的对象。如果AOP是通过运行时代理来实现的，那么这个对象将是一个被代理的对象。</p>
-<p>AOP是典型的代理模式的体现，代理模式的特征是代理类与委托类有同样的接口，代理类主要负责为委托类预处理消息、过滤消息、将消息转发给委托类、事后处理消息等。代理类与委托类之间通常会存在关联关系，一个代理类的对象与一个委托类的对象相关联，代理类的对象本身并不真正实现服务，而是通过调用委托类的对象方法来提供特定的服务。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在AOP中切面就是与业务逻辑独立，但又垂直存在于业务逻辑的代码结构中的通用功能组合；切面与业务逻辑相交的点就是切点；连接点就是把业务逻辑离散化后的关键节点；切点属于连接点，是连接点的子集；Advice（增强）就是切面在切点上要执行的功能增加的具体操作；在切点上可以把要完成增强操作的目标对象（Target）连接到切面里，这个连接的方式就叫织入</p>
-<p><a href="https://www.jianshu.com/p/281dcde6974d">从代理机制到Spring AOP，这篇给你安排得明明白白的 - 简书 (jianshu.com)</a></p>
-<p><a href="https://blog.csdn.net/qq_41701956/article/details/84427891">AOP如何实现及实现原理_Java笔记-CSDN博客_aop原理</a></p>
-<p><a href="https://blog.csdn.net/q982151756/article/details/80513340">细说Spring——AOP详解（AOP概览）_啦啦啦的博客-CSDN博客_aop</a></p>
+<p><strong>缺点：</strong> </p>
+<ol>
+<li>过多地使用适配器，会让系统非常零乱，不易整体进行把握。比如，明明看到调用的是 A 接口，其实内部被适配成了 B 接口的实现，一个系统如果太多出现这种情况，无异于一场灾难。因此如果不是很有必要，可以不使用适配器，而是直接对系统进行重构。 </li>
+<li> 由于 JAVA规定，一个子类 至多继承一个类，即只有一个父类，所以至多只能适配一个适配者类，而且目标类必须是抽象类。</li>
+</ol>
+<h2 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h2><p>【1】 <a href="https://www.runoob.com/design-pattern/adapter-pattern.html">https://www.runoob.com/design-pattern/adapter-pattern.html</a></p>
+<p>【2】 <a href="https://www.jianshu.com/p/9d0575311214">https://www.jianshu.com/p/9d0575311214</a></p>
 ]]></content>
       <categories>
-        <category>面向切面编程</category>
+        <category>java</category>
+        <category>设计模式</category>
       </categories>
       <tags>
-        <tag>面向切面编程</tag>
-        <tag>AOP</tag>
+        <tag>Java</tag>
+        <tag>设计模式</tag>
       </tags>
   </entry>
   <entry>
@@ -1237,124 +1264,7 @@
       </tags>
   </entry>
   <entry>
-    <title>保护模式内存管理</title>
-    <url>/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<h1 id="2-保护模式内存管理"><a href="#2-保护模式内存管理" class="headerlink" title="2. 保护模式内存管理"></a>2. 保护模式内存管理</h1><h2 id="2-1-内存管理概览"><a href="#2-1-内存管理概览" class="headerlink" title="2.1 内存管理概览"></a>2.1 内存管理概览</h2><p>​    IA-32架构的内存管理机制主要分为两部分：<strong>段式</strong>和<strong>页式</strong>。 <strong>分段</strong>提供了一种隔绝各个代码、数据和堆栈区域的机制，以致多个程序（或任务）可以运行在同一个处理器上，但不会相互干扰。 <strong>分页</strong>则为传统需求页的虚拟内存系统提供了一种实现机制，在虚拟内存系统中，程序运行所需的环境的各个部分按需映射到物理内存中。 分页同样可以为多个任务之间提供隔离措施。 当在保护模式下运行时，必须采用某种形式的分段机制。 这里没有<strong>模式位</strong>以设置禁用分段机制，也就说在保护模式的内存管理中<strong>分段机制</strong>是<strong>必需</strong>的。 但是，<strong>分页机制</strong>是<strong>可选</strong>的。<br>​    这两种机制（分段和分页）是可以被配置以致支持使用共享内存的简单的单程序（或单任务）系统、多任务系统或多处理器系统。<br>​    如图1所示，段式管理提供了一种机制：其将处理器的<strong>可寻址内存空间</strong>（也被称为<strong>线性地址空间</strong>）划分为较小的受保护的地址空间区域，称为<strong>段</strong>。 段可以用来保存<strong>程序的代码、数据和堆栈</strong>，也可用于保存<strong>系统数据结构</strong>（例如TSS或LDT）。 如果一个处理器中有多个程序（或任务）正在运行，那么每个程序都会被分配自己的一组段空间。 然后处理器可以加强这些段之间的界限，并且确保一个程序不会通过访问写入另一个程序的段而干扰另一个程序的运行。分段机制还允许对段进行分类，这样一来便可限制对特定类型段所要执行的操作。<br> ![](保护模式内存管理/segment and page.jpg)</p>
-<center style="color:#1a1a1a;">图1 分段与分页</center>    
-
-<p>​    一个系统中的所有段都包含在处理器的线性地址空间中。 为了定位到指定段中的一个字节，程序必须提供一个逻辑地址（也称为远指针）。 <strong>逻辑地址</strong>由一个<strong>段选择子</strong>和一个<strong>偏移量</strong>组成。 <strong>段选择子</strong>是一个段的<strong>唯一标识</strong>。 此外，段选择子还提供了段描述符表（如全局描述符表，GDT）中到一个被称为段描述符的数据结构的偏移量。 每个段都有一个段描述符，它指定了段的大小、段的访问权限和特权级别、段的类型以及段的第一个字节在线性地址空间中的位置（即段基址)。 将逻辑地址的偏移量部分与段的基址相加，就可以定位段内的某个字节。 因此<strong>基址加上偏移量</strong>就形成了在处理器的线性地址空间中的一个<strong>线性地址</strong>。<br>​    如果不启用分页，那么处理器的线性地址空间会被直接映射到处理器的物理地址空间。 物理地址空间定义为处理器可以在其地址总线上生成的地址范围。<br>​    因为多任务计算系统定义的线性地址空间通常都要比其含有的物理内存容量大得多，所以需要采取一些“虚拟化”线性地址空间的方法。而这种线性地址空间的虚拟化是通过处理器的分页机制来处理的。<br>​    分页机制支持建立一个<strong>虚拟内存</strong>环境，在这个环境中，可以用小量的物理内存（RAM和ROM）和一些磁盘存储空间就可以模拟大容量的线性地址空间。启用分页机制时，每个段被划为分为页（通常每个页大小为4KB），这些页存储在物理内存或硬盘中。 操作系统或程序通过维护一个页目录和一组页表来跟踪这些页。当程序（或任务）视图访问线性地址空间中的一个地址位置时，处理器便会使用页目录和页表将线性地址转换为一个物理地址，然后在该内存位置上执行所要求的操作（读或写）。<br>​    如果当前被访问的页面不在物理内存中，处理器便会中断当前程序的执行（通过产生一个页错误异常）。 然后，操作系统执行程序将从磁盘读取该页面进入物理内存，然后继续执行刚才被中断的程序。<br>​      当分页机制在操作系统或执行程序正常运作时，对于正确执行的程序来说，物理内存和磁盘之间的页面交换是透明的。 即使在IA-32处理器中，16位的程序也可在虚拟8086模式下运行时进行分页（透明地）。</p>
-<p>​    总结：</p>
-<ul>
-<li><strong>逻辑地址（Logical Address）</strong>：一个逻辑地址由两部份组成，<strong>段标识符</strong>: <strong>段内偏移量</strong>。段标识符是由一个16位长的字段组成，称为<strong>段选择子</strong>（段选择子就是段标识符）。</li>
-<li><strong>线性地址（Linear Address）</strong>：一个<strong>段的基址</strong>加上<strong>段内偏移量</strong>，形成线性地址空间中的一个线性地址。线性地址是逻辑地址到物理地址变换之间的中间层。这里段内偏移量就是逻辑地址中的段内偏移量。而段的基址跟逻辑地址中段标识符有关，通过段标识符（段选择子）可获得段描述符表中与该段选择子相关联的段描述符，段描述符提供了该段的基址。</li>
-<li><strong>物理地址（Physical Address）</strong>：物理内存中的地址。</li>
-</ul>
-<h2 id="2-2-分段机制"><a href="#2-2-分段机制" class="headerlink" title="2.2 分段机制"></a>2.2 分段机制</h2><p>​    IA-32架构支持的分段机制可用于实现多种系统设计。这些设计范围从最小使用分段来保护程序的平坦模型，到使用分段来创建良好健壮性的操作环境的多段模型，在这种环境中，多个程序和任务可同时可靠运行的<br>​    下面几节给出了几个例子，说明如何在系统中使用分段来提高内存管理的性能和可靠性。 </p>
-<h3 id="2-2-1-基本平坦模型（Basic-Flat-Model）"><a href="#2-2-1-基本平坦模型（Basic-Flat-Model）" class="headerlink" title="2.2.1 基本平坦模型（Basic Flat Model）"></a>2.2.1 基本平坦模型（Basic Flat Model）</h3><p>​    最简单的系统内存模型就是就是基本<strong>“平坦模型”</strong>，在这种模型中，操作系统或应用程序可访问一个连续的、未分段的地址空间。这样一来最大程度地向系统设计人员和程序员隐藏了体系机构的分段机制。<br>​    若要在IA-32架构下实现内存的一个基本平坦模型，则需要至少创建两个段描述符，一个用于引用代码段，一个用于引用数据段（如图2所示）。 然而，这两个段都会被映射到整个线性地址空间：即，这两个段描述符具有相同的基址：0和相同的段限长（段的最大长度）：4 GB。 通过将段限长设置为4 GB，可以避免分段机制对超过段空间大小的内存的引用产生异常，即使指定的地址不存在物理内存中。 ROM （EPROM）通常位于物理地址空间的顶部，因为处理器从FFFF_FFF0H开始执行。 RAM （DRAM）则位于在地址空间的底部，因为复位初始化后DS数据段的初始基址为0。<br>![](保护模式内存管理/flat model.jpg)</p>
-<center style="color:#1a1a1a;">图2 平坦模型</center>    
-
-<h3 id="2-2-2-保护平坦模型（Protected-Flat-Model）"><a href="#2-2-2-保护平坦模型（Protected-Flat-Model）" class="headerlink" title="2.2.2 保护平坦模型（Protected Flat Model）"></a>2.2.2 保护平坦模型（Protected Flat Model）</h3><p>​    保护平坦模型类似于基本平坦模型，指示保护平坦模型将段限制在包含<strong>物理内存实际存在的地址范围内</strong>（如图3所示）。当尝试访问不存在的内存时，会产生一个<strong>通用保护异常（#GP）</strong>。该模型针对某些程序bug提供了最低水平的硬件保护。<br>![](保护模式内存管理/protected flat model.jpg)</p>
-<center style="color:#1a1a1a;">图3 保护平坦模型</center>    
-
-<p>​    这个保护平坦模型可以被拓展变得更加复杂，以提供更多保护功能。例如，为了确保分页机制能提供用户程序和监控程序之间代码和数据的隔离，这里需要定义<strong>四个段</strong>：<strong>权限级别为3</strong>的<strong>用户程序</strong>代码段和数据段、<strong>权限级别为0</strong>的<strong>监管程序</strong>代码段和数据段。通常这些段都相互<strong>覆盖</strong>，并且在线性地址空间的<strong>起始地址都为0</strong>。这种平坦分段模型搭配简单的分页结构可以保护操作系统不受应用程序影响，此外通过为每个任务或进程增加单独的分页结构，其还可以确保一个应用程序不受其他应用程序影响。一些流行的多任务操作系统也使用此种类似的设计。</p>
-<h3 id="2-2-3-多段模型（Multi-Segment-Model）"><a href="#2-2-3-多段模型（Multi-Segment-Model）" class="headerlink" title="2.2.3 多段模型（Multi-Segment Model）"></a>2.2.3 多段模型（Multi-Segment Model）</h3><p>​    多段模型（如图4所示）利用了分段机制所提供的全部功能，为<strong>代码、数据结构、程序和任务</strong>都提供了<strong>硬件级强制保护</strong>。在这个模型中，每个程序（或任务）都被分配了自己的段描述符和段空间。段可以是其分配段的程序所<strong>私有</strong>的，也可多个程序<strong>共享</strong>。此外，操作系统硬件来控制对运行在系统中的各个程序的所有段和执行环境的访问。<br>​    <img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/multi-sgement.jpg"></p>
-<center style="color:#1a1a1a;">图4 多段模型</center>        
-
-<p>​    对内存访问的检查不仅可以防止引用超过段大小的地址，还可以防止程序对某些段执行不被允许的操作。例如，一个代码为只读段，因此可使用硬件来防止对该代码段的写操作。每个段的访问权限信息也可用于设置保护区和保护级别。保护级别则可用于保护操作系统程序不被未经授权的应用程序访问。<br>​    分页机制可以与图2、图3和图4中所描述的任一分段模型搭配使用。 处理器的分页机制将线性地址空间（在线性地址空间中，段也被映射）划分为页面（如图1所示）。 然后在线性地址空间中的页面会映射到物理地址空间中的页面。 分页机制提供了几种页级保护功能，它们可以与段保护功能一起使用，也可以代替段保护功能。 例如，它允许逐页执行读写保护。 分页机制还提供了两级用户-监管保护，也可以逐页指定这种保护。</p>
-<h2 id="2-3-逻辑地址和线性地址的转换"><a href="#2-3-逻辑地址和线性地址的转换" class="headerlink" title="2.3 逻辑地址和线性地址的转换"></a>2.3 逻辑地址和线性地址的转换</h2><p>​    在系统保护模式中，处理器需要经过两部分的地址转换以完成到物理地址空间的转换：逻辑地址转换和线性地址空间分页。<br>​    即使最小程度地使用分段，处理器地址空间中的每一个字节都需要使用逻辑地址访问。一个<strong>逻辑地址</strong>由<strong>16位段选择符</strong>和<strong>32位偏移量</strong>组成，如图5所示。<strong>段选择符</strong>标识该字节所位于的段，偏移量确定字节相对于段基址的<strong>段内位置</strong>。<br>     处理器会将每个逻辑地址转换成线性地址。 线性地址是处理器线性地址空间中的一个32位地址。 与物理地址空间类似，线性地址空间是一个平坦的（未分段的）、大小为$2^{32}$字节的地址空间，地址范围从0开始到0xFFFFFFFF结束。<strong>线性地址空间</strong>包含<strong>所有的段</strong>和<strong>系统定义的系统表</strong>。<br>![](保护模式内存管理/logic address.jpg)</p>
-<center style="color:#1a1a1a;">图5 逻辑地址到线性地址的转换</center>    
-
-<p>​    从逻辑地址转换到线性地址，处理器需要做如下操作：</p>
-<ol>
-<li>使用<strong>段选择子中的偏移量</strong>来定位在GDT或LDT中对应的段描述符，然后读取到处理器中。（这步仅当一个新的段选择子被加载到段寄存器时才需要）。</li>
-<li>检查段描述符以检查<strong>段的访问权限和范围</strong>，以确保该段是可访问的，并且保证<strong>段偏移在段的大小范围</strong>内。</li>
-<li>将<strong>段描述符中的段的基址</strong>与<strong>段偏移量</strong>相加，形成一个<strong>线性地址</strong>。  </li>
-</ol>
-<p>​    如果不使用分页机制，处理器将会将线性地址直接映射为物理地址（也就是说，也就是说，线性地址可以直接送到处理器的地址总线，也就是说，线性地址等同于物理地址）。 如果线性地址空间被分页，启用分页机制，则会使用第二级地址转换来将线性地址转换为物理地址。</p>
-<h3 id="2-3-1-段选择子（Segment-Selectors）"><a href="#2-3-1-段选择子（Segment-Selectors）" class="headerlink" title="2.3.1 段选择子（Segment Selectors）"></a>2.3.1 段选择子（Segment Selectors）</h3><p>​    一个段选择子是一个<strong>段的16位标识符</strong>（如图6所示）。段选择子不直接指向一个段，反而指向定义了一个段的段描述符。一个段选择子包含了如下几项信息：</p>
-<ul>
-<li>Index：索引（第3到15位），共13位，可从GDT或LDT中8192（$2^{13}$）个段描述符中选择一个。处理器将索引值乘以8（一个段描述符的大小为8字节），并将其与GDT或LDT的基址（分别来自GDTR或LDTR寄存器）相加可定位一个段描述符。  </li>
-<li>TI (table indicator) flag  ：表指示标志位（第2位），指示所使用段描述符表，当复位时，表示选择GDT；设置该表示位时，表示选择LDT。</li>
-<li>Requested Privilege Level (RPL)  ：请求特权级别（第0和第1位），共两位，指示该段选择子的权限级别。权限级别的范围为0到3，<strong>权限级别0为最高权限级别</strong>。</li>
-</ul>
-<p><img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/selector.jpg"></p>
-<center style="color:#1a1a1a;">图6 段选择子</center>    
-
-<p>​    处理器不使用GDT的<strong>第一个表项</strong>。 指向这个GDT表项的段选择子（即索引值为0且TI标志设置为01的段选择子）称为<strong>“空段选择器”</strong>。 当空选择器加载入段寄存器（除CS或SS寄存器（代码段寄存器、堆栈段寄存器）外）时，处理器不会产生异常。 然而，当使用存储空选择器的段寄存器访问内存时，它会产生一个异常。 空选择器可以用于<strong>初始化未使用的段寄存器</strong>。 用空段选择器加载CS或SS寄存器会导致生成一个通用保护异常（#GP）。<br>​    段选择子作为指针变量的一部分对应用程序可见，段选择子的值通常由链接编辑器或链接加载器分配或修改，而不是应用程序。    </p>
-<h3 id="2-3-2-段寄存器（Segment-Registers）"><a href="#2-3-2-段寄存器（Segment-Registers）" class="headerlink" title="2.3.2 段寄存器（Segment Registers）"></a>2.3.2 段寄存器（Segment Registers）</h3><p>​    为了减少地址转换时间和降低编程复杂度，处理器提拱了至多可存储<strong>6个段选择子的寄存器</strong>（如图7所示）。每个段寄存器支持一种特定类型的内存引用（代码、堆栈或数据）。对于执行任何类型的程序，至少要将<strong>有效的段选择符</strong>加载到<strong>代码段（CS）、数据段（DS）和堆栈段（SS）</strong>。处理器还提供另外的数据段寄存器（ES、FS、GS），可贝用于让当前正在执行的程序（或任务）能够访问其他几个数据段。<br>​    对于访问一个段的一个程序，段选择器必须已经加载到一个段寄存器中。 因此，尽管一个系统可以定义上千个段，但只有6个段可立即访问使用。 在程序执行期间，通过将其他段的段选择子加载到这些寄存器中，就可以访问其他段。<br>![](保护模式内存管理/Segment Register.jpg)</p>
-  <center style="color:#1a1a1a;">图7 段寄存器</center>        
-
-<p>​    每个段寄存器都有一个<strong>“可见”</strong>部分和一个<strong>“隐藏”</strong>部分 （隐藏部分有时被称为<strong>“描述符缓存”</strong>或<strong>“影子寄存器”</strong>）。当一个段选择符被加载到段寄存器的可见部分时，处理器会同时将<strong>段选择符所指向的段描述符的段基址、段限长、 以及访问控制信息</strong>加载到段寄存器的隐藏部分。 段选择符缓存在段寄存器中的信息（可见和隐藏部分）使得处理器可以直接进行地址转换，而不需要再花费额外的总线周期从段描述符读取段的基址和段限长信息。 在一个多处理器系统中，处理器都访问同一个描述符表，如果描述表被修改，则软件应负责重新加载段寄存器。 如果不重新加载，则可能出现段描述符已经被修改，却仍在使用缓存在段寄存器中的旧段描述符的清空。<br>​    提供了以下两种方法来加载段寄存器：</p>
-<ul>
-<li>使用MOV，POP，LDS，LES，LSS，LGS和LFS 等指令加载。这些指令<strong>显式</strong>地引用段寄存器。</li>
-<li>隐式加载指令，例如使用长指针方法的CALL，JMP和RET指令，还有SYSENTER和SYSEXIT指令，IRET，INT <em>n</em>，INTO和INT3指令。这些指令执行时会附带修改CS寄存器的内容（有时也会修改其它寄存器的内容）。</li>
-<li>MOV指令也可被用于把段寄存器的可见部分的内容加载到一个通用目的寄存器。</li>
-</ul>
-<h3 id="2-3-3-段描述符（Segment-Descriptors）"><a href="#2-3-3-段描述符（Segment-Descriptors）" class="headerlink" title="2.3.3 段描述符（Segment Descriptors）"></a>2.3.3 段描述符（Segment Descriptors）</h3><p>​    一个段描述符是GDT或LDT中的一个数据结构，其提供处理器中一个段的大小、位置、访问控制和状态信息。段描述符通常由编译器、链接器、加载器或操作系统或执行程序创建，而不是应用程序创建。图8展示了所有类型的段描述符的通用描述符格式。<br>​    ![](保护模式内存管理/segment descripotor.jpg)</p>
-  <center style="color:#1a1a1a;">图8 段描述符</center>        
-
-<p>​    一个段描述符的标志位和字段信息如下：</p>
-<ul>
-<li>Segment limit field ：段限长字段，指明一个段的大小。处理器会把<strong>两个段限长字段</strong>拼接形成一个<strong>20位长的值</strong>。并根据颗粒度标志位G的两种不同的值来解释段限长字段的含义。<br>若G=0，段大小的范围为1字节到1MB字节，单位为1字节。若G=1，段大小的范围为4KB到4GB字节，单位为4KB字节。<br>处理器通过两种不同方式使用段限长，其依据是段是<strong>向上扩展段</strong>还是<strong>向下扩展段</strong>。  对于向上拓展的段，逻辑地址的段偏移量的范围为<strong>0字节到段限长值</strong>。大于段限长的偏移量将会产生一个一般保护异常（#GP，所有段都会产生除了堆栈段外）或一个堆栈错误异常（#SS表示SS段）  。对于一个向下拓展段，则相反，段偏移量的范围为<strong>段限长1字节增长到0xFFFFFFFFH或0xFFFFH</strong>（这个取决于B标志位的设置）。小于或等于段限制的偏移量会产生一般保护异常或堆栈故障异常。对于向下拓展段，减少段限长的值允许在段地址空间底部分配新的内存，而不是再顶部。因为IA-32架构所使用的栈总是向下增长的，所以这种机制便于栈的扩展。</li>
-<li>Base address fields  ：基址字段，该字段定义了段的0字节在4GB大小的线性地址空间中的位置。 处理器将<strong>三个基址字段</strong>拼接在一起形成一个<strong>32位长</strong>的值。 段基址应按16字节边界进行对齐。 虽然16字节对齐不是必需的，但是通过把程序的代码和数据按16字节边界上对齐，可使得程序性能最佳。（即，边界对齐便于数据的访问）</li>
-<li>Type field  ：类型字段，指示<strong>该段或门的类型</strong>，并指明段的访问类型和段的扩展方向。根据描述符类型标志位，这个字段会有两种含义：<strong>应用程序（数据、代码）段描述符</strong>或<strong>系统段描述符</strong>。对于代码段、数据段、系统段，这个字段的编码并不相同。</li>
-<li>S (descriptor type) flag：描述符类型标志位，其指明了一个段描述符是一个系统段描述符（该标志位复位）还是一个代码或数据段描述符（该标志位被设置）。</li>
-<li>DPL（descriptor privilege level  ）field：指明该段的特权级别。特权级别的取值范围为<strong>0 -3</strong>，<strong>0是权限级别最高</strong>。DPL用于控制对段的访问。</li>
-<li>P(segment-present) flag：段存在标志位，指明段是否于内存中存在（P=1，在内存中；P＝0，不存在内存中）。若P＝0，当一个段描述符的段选择符加载进段寄存器时处理器会产生一个<strong>段不存在异常</strong>。内存管理软件可以使用此标志位来控制在某一给定时间将指定的段加载进物理内存中，这为管理虚拟内存提供了除分页以外的控制。图9展示了P＝0时一个段描述符的格式。当复位该标志位时，操作系统或执行程序可以<strong>自由使用格式中标为“可用”（Available）的位置</strong>来存储自己的数据，例如有关不存在段实际在什么地方的信息。</li>
-<li>D/B(default operation size/default stack pointer size and/or upper bound) flag  ：D/B（默认操作大小/默认栈指针大小和/或上界限）标志，其根据段描述符描述的是一个可执行代码段、还是下扩数据段、或堆栈段来执行不同的功能。（对于32位代码和数据段，该标志位应该总被设置为1；对于16位数据和代码段，该标志段被设置为0）。<ul>
-<li><strong>可执行代码段：</strong>此时这个标志被称为<strong>D标志位</strong>，其指明段中的指令引用有效地址和操作数的默认长度。当D＝1，则默认值为32位地址和32位或8位操作数；当D＝0，则默认值为16位地址和16位或8 位操作数。指令前缀0x66H可用来选择非默认值的操作数大小；指令0x67H可用来选择非默认值的操作地址大小。</li>
-<li><strong>堆栈段（由SS寄存器指向的数据段）：</strong>此时这个标志被称为<strong>B标志位</strong>，它用于指明隐含栈操作（如pushes、pops、calls）时的栈指针的大小。当B＝1，则使用一个32位的栈指针，它存储在32位的ESP寄存器中；假如B=0，则使用一个16位的栈指针，它存储在16位的SP寄存器中。假如堆栈段被设置成一个下扩数据段，那么B标志也同时指定了堆栈段的上界限。</li>
-<li><strong>下扩段（Expand-downdata segment）</strong>此时标志叫作<strong>B标志</strong>，它指明堆栈段的上界。当B=1,上界为0xFFFFFFFFH（4Gbytes）；当B＝0，上界为0xFFFFH（64KBytes）。</li>
-</ul>
-</li>
-<li>G (granularity) flag  ：颗粒度标志位G，其决定了段限长域字段的单位。当G＝0时，段限长的单位为字节；当G＝1时，段限长的单位为4KB（这个标志位不会影响基地址的颗粒度，基地址的颗粒度总是字节单位。）。若设置了该标志位，则在使用段限长检查偏移量时，不会检查偏移量的12位最低有效位。 例如，当G=1时，段限长为0表明有效偏移量为0到4095。</li>
-<li>L（64-bit code segment) flag  ：L标志位，在IA-32e模式下，段描述符第二个双字的第21位表示该代码段是否存储了本地64位代码。 当L=1时，表示在64位模式下执行该代码段中存储的指令。 当L=0时。表示在兼容模式下执行此代码段中存储的指令。 如果设置了L位，则必须复位D标志位。 当在非IA-32e模式或该段非代码段时，第21位是保留的，并且应该总是设置为0。  </li>
-<li>Available and reserved bits  ：可用和保留位，段描述符的第二个双字的第20位是保留给操作系统软件使用的；</li>
-</ul>
-<p><img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/descriptor(P=0).jpg"></p>
-  <center style="color:#1a1a1a;">图9    P=0时的段描述符</center>        
-
-<h2 id="2-4描述符的分类"><a href="#2-4描述符的分类" class="headerlink" title="2.4描述符的分类"></a>2.4描述符的分类</h2><h3 id="数据段和代码段描述符（Data-and-Code-segment-Descriptor）"><a href="#数据段和代码段描述符（Data-and-Code-segment-Descriptor）" class="headerlink" title="数据段和代码段描述符（Data and Code segment Descriptor）"></a>数据段和代码段描述符（Data and Code segment Descriptor）</h3><p>​    当段描述符中的<strong>S标志位被设置</strong>时，该描述符描述的是一个代码或数据段。类型字段（type）的<strong>最高有效位</strong>（第二个双字的第11位）用于决定是一个数据段（复位）还是一个代码段描（置位）。<br>​    即：</p>
-<ul>
-<li>当S=1，type的最高有效位为0时，该段描述符指向一个数据段；</li>
-<li>当S=1，type的最高有效位为1时，该段描述符指向一个代码段。</li>
-</ul>
-<p>​    对于数据段描述符，类型字段的低3位（第8、9、10位）的含义分别为被访问accessed (A)、可写write-enable (W)和拓展方向expand -direction (E)。表1展示了代码段和数据段的类型字段比特位编码的说明。根据可写比特位W的设置, 数据段可以是只读的，也可以是可读/写的。<br>![](保护模式内存管理/date and code.jpg) </p>
-  <center style="color:#1a1a1a;">表1   代码段和数据段描述符类型</center>        
-
-<p>​    <strong>堆栈段</strong>必须是一个<strong>可读/写的数据段</strong>。若将不可写数据段的段选择符加载到 SS 寄存器中，则会导致产生一个一般保护异常。如果堆栈段的长度会动态变化，那么堆栈段可以是一个<strong>向下扩展的数据段</strong>（扩展方向标志被设置）。因而，动态改变段限长的值将导致栈空间被添加到栈底部。  如果希望堆栈段的大小保持不变，则堆栈段可以是向上拓展或向下拓展类型。<br>​    被访问位A指明该段自上次操作系统或执行程序复位<strong>该位后是否被访问过</strong>。 如果包含段描述符的内存类型支持<strong>处理器写操作</strong>，那么处理器每次将<strong>段选择符加载到段寄存器</strong>时都会设置这个位。 该位会一直保持被设置状态，直到其<strong>显式复位</strong>。 该标志位既可以用于虚拟内存管理，也可以用于调试。<br>​    对于代码段，类型字段的低三位的含义（第8、9、10位）分别为<strong>被访问accessed (A)、可读read enable (R)、 一致conforming (C)<strong>。代码段可以是</strong>只能执行或可执行/可读</strong>，这取决于<strong>可读位的设置</strong>。 当<strong>常数或其他静态数据以及指令码</strong>存储在了一个ROM 中时，就可以使用一个可执行/可读代码段。  通过使用<strong>带CS前缀的指令</strong>或者把<strong>代码段选择符</strong>加载进一个<strong>数据段寄存器</strong>（DS、ES、FS或GS寄存器），就可读取代码段中的数据。 在<strong>保护模式</strong>下，<strong>代码段是不可写</strong>的。<br>​    代码段可以是<strong>一致性和非一致性的</strong>。操作系统允许执行在当前特权级的程序向一个<strong>更高权级的一致性代码段</strong>进行转移。当向一个<strong>不同特权级别</strong>的<strong>非一致性代码段</strong>进行执行转移时，会产生一个通用保护异常（#GP），除非使用<strong>调用门（call gate）或任务门（task  gate）</strong>（这个我们已经在读书笔记1中，有所了解，通过门，可以进行<strong>跨权限级别的访问</strong>）。一些系统工具（不访问保护设施）和一些处理某些异常类型（如除出错，溢出）的处理程序可以放在一致性代码段内。<strong>需要保护其不能被更低特权级程序</strong>访问的程序应该放在非一致性代码段内。<br>​     所有的<strong>数据段</strong>都是<strong>非一致性</strong>的，这意味着它们不能<strong>被更低特权级（权限数字值较大）的程序或过程访问</strong>。与代码段不同的是，<strong>数据段</strong>总是能被<strong>更高特权级（权限数字值较小，数字越小，权限越高）的程序或过程访问</strong>，而不需要使用特别的访问门。<br>​    当GDT或LDT中的<strong>段描述符存储在在ROM</strong>中时，若软件或处理器试图<strong>更新（写入）位于ROM的段描述符</strong>，则处理器就会进入一个<strong>无限循环</strong>。 为了避免该问题发生，将ROM中所有段描述符的<strong>访问位都置位</strong>。同时，会将那些试图修改ROM中段描述符的操作系统代码或执行代码删除掉。<br>​    <strong>注意：</strong>不能通过call或jump转入更低权限级别（权限数字值较大）的代码段执行，不管目标段是一个一致性还是非一致代码段。这种转移执行的尝试操作，将会引起一个一般保护异常。</p>
-<h3 id="系统描述符类型（SYSTEM-DESCRIPTOR-TYPES-）"><a href="#系统描述符类型（SYSTEM-DESCRIPTOR-TYPES-）" class="headerlink" title="系统描述符类型（SYSTEM DESCRIPTOR TYPES  ）"></a>系统描述符类型（SYSTEM DESCRIPTOR TYPES  ）</h3><p>​    当段描述符中的<strong>S标志位（描述符类型）被复位</strong>时，表明该段描述符为一个系统描述符。处理器能识别以下一些类型的系统段描述符：</p>
-<ul>
-<li><p>本地描述符表(LDT)的段描述符</p>
-</li>
-<li><p>任务状态段(TSS)描述符</p>
-</li>
-<li><p>调用门描述符</p>
-</li>
-<li><p>中断门描述符</p>
-</li>
-<li><p>陷阱门描述符</p>
-</li>
-<li><p>任务门描述符</p>
-<p>这些描述符可分为两大类：<strong>系统段描述符和门描述符</strong>。系统段描述符指向一个系统段（LDT或TSS段）。门描述符就是他们自己——“门”，这些门描述符存储了代码段中指向程序入口点的指针（调用、中断和陷阱门），或者存储了TSS的段选择符（任务门）。  图2占了系统段描述符和门描述符类型字段的编码及说明。</p>
-</li>
-</ul>
-<p>![](保护模式内存管理/system descriptor.jpg)</p>
-  <center style="color:#1a1a1a;">表2   系统段描述符类型</center>            
-
-]]></content>
-      <categories>
-        <category>体系结构</category>
-        <category>操作系统</category>
-      </categories>
-      <tags>
-        <tag>X86</tag>
-        <tag>体系结构</tag>
-        <tag>内存管理</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title></title>
+    <title>中断处理</title>
     <url>/2022/04/10/%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86/</url>
     <content><![CDATA[<h1 id="3-中断处理"><a href="#3-中断处理" class="headerlink" title="3. 中断处理"></a>3. 中断处理</h1><h2 id="3-1-中断和异常处理概述"><a href="#3-1-中断和异常处理概述" class="headerlink" title="3.1 中断和异常处理概述"></a>3.1 中断和异常处理概述</h2><p>​    <code>中断和异常</code>是指在系统、处理器或在当前执行的程序或任务的某处出现了一些<code>需要处理器注意并进行处理</code>的<code>事件</code>。 它们通常会导致从当前正在运行的程序或任务强制转移到一个称为<code>中断处理程序</code>或<code>异常处理程序</code>的特殊软件程序或任务(<strong>简单来说：中断和异常会导致处理器转移到中断处理程序或异常处理程序进行处理，再返回到刚才中断或异常处继续执行</strong>)。 处理器响应中断或异常所<code>采取的动作被</code>称为<code>中断/异常服务或处理</code>。<br>​    <strong>中断</strong>在一个程序执行期间内的<strong>任意时间</strong>都有可能发生，以响应<strong>硬件发出的信号</strong>。系统硬件使用中断处理来自处理器外部的事件。比如外围设备的服务请求。软件也可通过执行指令<code>INT n</code>产生中断。<br>​    <strong>异常</strong>则在<strong>处理器执行指令过程中检测到错误条件</strong>才发生，例如除零错误。处理器检测一系列各种类的错误，包括：违反保护机制、页缺失、机器内部故障。Pentium 4、Intel Xeon、P6系列和Pentium处理器的机器检查体系架构会在检测到<strong>内部硬件错误和总线错误</strong>时产生<strong>机器检查异常</strong>。<br>​    当收到一个中断或检测到一个异常时，当前运行的过程或任务会被<strong>挂起直到处理器执行完中断或异常处理程序</strong>。当执行完处理程序，处理器<strong>恢复执行被中断的过程或任务</strong>。恢复被中断的的过程或任务<strong>不会失去程序执行的连续性</strong>，除非<strong>不能从异常中恢复</strong>，或者<strong>中断导致当前运行程序终止</strong>。<br>​    </p>
 <h2 id="3-2-有关中断和异常了解性的内容"><a href="#3-2-有关中断和异常了解性的内容" class="headerlink" title="3.2 有关中断和异常了解性的内容"></a>3.2 有关中断和异常了解性的内容</h2><h3 id="3-2-1-中断和异常向量"><a href="#3-2-1-中断和异常向量" class="headerlink" title="3.2.1 中断和异常向量"></a>3.2.1 中断和异常向量</h3><p>​    为了帮助处理异常和中断，处理器为每个需被处理器特殊处理的异常和中断条件都赋予了一个独一无二的标识号，称为向量号。处理器使用赋予给一个异常或中断的<strong>向量号</strong>作为访问<strong>中断描述符表（IDT）</strong>的一个索引。中断描述符表提供了到一个异常或中断处理程序的入口点位置。<br>​    向量号的范围为<code>0</code>到<code>255</code>。其中<code>0</code>到<code>31</code>保留用作n<code>Intel 64</code>和<code>IA-32</code>体系架构处理器的系统架构定义的中断和异常，目前并不是该范围内（<code>0-31</code>）的所有向量号都被定义了功能。未被定义功能的向量号被保留日后使用。<strong>不要使用这些保留的向量号。</strong><br>​    在<code>32</code>到<code>255</code>范围内的所有向量号用于用户定义的中断，而且不保留给<code>Intel 64</code>和<code>IA-32</code>使用。这些中断通常用于外部I/O设备，以确保这些设备可以通过外部硬件中断机制发送中断给处理器。<br>​    表1展示了分配给系统架构定义的异常以及NMI中断的向量号。该表还给出了异常类型以及是否会产生一个错误码并保存在栈上。同时还给出了每个预定义的异常和NMI中断源。<br><img src="/2022/04/10/%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86/vector_num.jpg" alt="vector nums"></p>
@@ -1474,7 +1384,7 @@
 
 <h2 id="3-5-中断与异常处理"><a href="#3-5-中断与异常处理" class="headerlink" title="3.5 中断与异常处理"></a>3.5 中断与异常处理</h2><p>​    处理器对异常和中断处理过程的调用，与其使用CALL指令调用一个过程或者任务的方法类似。当响应异常或中断时，处理器首先使用<strong>异常或中断向量</strong>作为到IDT表中对应描述符的<strong>索引</strong>。如果该索引指向的是<strong>陷阱门或者中断门</strong>，则处理器<strong>调用异常或中断处理程序的方式与使用CALL指令调用一个调用门的方式类似</strong>。如果是索引指向的是一个<strong>任务门</strong>，处理器进行<strong>任务切换，切换到异常处理程序或中断处理程序任务</strong>，其<strong>调用方式与使用CALL指令调用一个任务门的方式类似</strong>。</p>
 <h3 id="3-5-1-异常或中断处理程序"><a href="#3-5-1-异常或中断处理程序" class="headerlink" title="3.5.1 异常或中断处理程序"></a>3.5.1 异常或中断处理程序</h3><p>​    异常或中断门引用运行在当前任务上下文中的异常或中断处理过程，如图3所示 。 门的段选择符指向GDT或当前LDT中可执行代码段的段描述符。 门描述符的偏移量字段指向异常或中断处理过程的开始处。  </p>
-<p>![](images/Interupt handle.jpg)</p>
+<p>![](中断处理/Interupt handle.jpg)</p>
 <center style="color:#1a1a1a;">图3 中断过程调用</center>    
 
 <p>​    当处理器执行异常或中断处理过程调用时会进行以下操作：</p>
@@ -1491,7 +1401,7 @@
 </ol>
 </li>
 </ul>
-<p>![](images/stack switch.jpg)</p>
+<p>![](中断处理/stack switch.jpg)</p>
 <center style="color:#1a1a1a;">图4  转移到中断处理过程时堆栈的使用</center>    
 
 <p>​    要从异常或中断处理程序过程返回时，处理程序必须使用IRET（或IRETD）指令。 IRET指令与RET指令类似，区别在于其<strong>将保存的标志位信息恢复到EFLAGS寄存器中</strong>。<strong>只有当CPL值为0时</strong>，才会<strong>恢复EFLAGS寄存器的IOPL字段</strong>。 只有当<strong>CPL小于等于IOPL</strong>时，<strong>IF标志才会改变</strong>。<br>​    如果在调用处理程序过程时发生了堆栈切换，IRET指令在返回时切换回被中断的过程的堆栈。</p>
@@ -1518,116 +1428,129 @@
 
 <p>​     当在操作系统中使用异常或中断处理任务时，实际上有两种机制可用于任务调度：<strong>软件调度（操作系统的一部分）</strong>和<strong>硬件调度（处理器中断机制的一部分）</strong>。使用软件调度方法时则考虑到开启中断时，需要采用中断处理任务。            </p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>论文翻译</title>
-    <url>/2021/09/19/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91/</url>
-    <content><![CDATA[<h1 id="需求，瓶颈，好运：微处理器演变的动力"><a href="#需求，瓶颈，好运：微处理器演变的动力" class="headerlink" title="需求，瓶颈，好运：微处理器演变的动力"></a>需求，瓶颈，好运：微处理器演变的动力</h1><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>​    第一台微处理器——Intel 4004于1971年问世，其集成了2300个晶体管，时钟频率为108KHz。在三十年后的今天，一个微处理器中集成了近2亿个晶体管，其时钟频率超过了1GHz。在未来的5年里，集成在单个芯片上的晶体管的数量预计将超过10亿，以从6GHz到10GHz的时钟频率运行。</p>
-<p>​    微处理器的演变，始于1971年，发展到今日的状况，再到未来5年后可能到达的位置，是因为几个贡献性的力量。我们的立场是：这种演变不是恰好发生的，而是演变的每一步都是三件事其一影响的结果，而且其背景总是计算机架构师于三者中做权衡、折衷。这三件事是：1)新需求；2)瓶颈；3)好运气。我将它们统称为演变的动力。</p>
-<p>​    这篇文章尝试从三个方面展开：描述微处理器领域的一个基本框架，展示自第一台微处理器问世后的三十年里的重大发展，最后，提出一些新事物，有望于在未来的5年内看到发生在高性能微处理器上的新事物。</p>
-<p>​    <strong>关键词</strong>——计算机体系结构，微体系结构，微处理器， 微处理器设计，微处理器进化。</p>
-<h2 id="Ⅰ-基本框架"><a href="#Ⅰ-基本框架" class="headerlink" title="Ⅰ. 基本框架"></a>Ⅰ. 基本框架</h2><h3 id="A-计算机体系结构：折衷（权衡）的科学"><a href="#A-计算机体系结构：折衷（权衡）的科学" class="headerlink" title="A. 计算机体系结构：折衷（权衡）的科学"></a><em>A. 计算机体系结构：折衷（权衡）的科学</em></h3><p>​    计算机体系结构，与其说是“科学”，不如说是“艺术”。随着阅历的增长，我们的能力和洞察力都有所提升。计算机架构师会借鉴以往的设计经验来对当前项目做出决策。如果说计算机体系结构是一门科学，那么它是一门关于权衡的科学。在过去的半个世纪里，计算机架构师一直在学习钻研基础知识，以帮助他们能够实践他们的工艺。 计算机架构师的工作几乎总是需要使用这些基础知识来进行权衡，尤其在微处理器的整个发展过程中，亦是如此。 </p>
-<p><img src="/2021/09/19/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91/fig1.jpg" alt="image"></p>
-<p>​                                                 图1  现代微处理器</p>
-<h3 id="B-抽象变换的层次结构"><a href="#B-抽象变换的层次结构" class="headerlink" title="B. 抽象变换的层次结构"></a><em>B. 抽象变换的层次结构</em></h3><p>​    晶体管的数量以及其开关时间是工艺技术所提供的资源。（以上为直译，个人理解为：集成在单个芯片上的晶体管的数量和晶体管的开关时间由加工技术决定。）我们将这些资源用于什么则取决于市场的需求。 我们如何使用这些资源就是微处理器的全部意义所在（个人理解为：根据市场需求，而后使用这些资源来制造微处理器，也就是需求和资源的一种折衷）。 图1展示了抽象变换的层次结构，一个用自然语言描述的问题如英语，必须通过这几层的抽象变换（根据问题，求解算法，选择适当算法编写程序，然后高级语言程序翻译成机器语言程序，再到微程序解释机器语言程序，最后硬件执行微指令，再到底层的电路，最后是最底层的电子，也就高低电平变换01变换，也就是电子）最终才能得以解决。在现实中，是电子运动做动解决了问题。然而，我们并不会在实际中说“电子”，同时“电子”也不会说任何自然语言，我们能做的最好的事情就是通过图1所示的层次结构系统地来转换问题，直到到达电子（或着说设备）层，这一层也就是集成了2亿个集体管，时钟频率为1GHz的芯片。</p>
-<p>​    在这个过程中，问题的解决方案首先被用算法的形式来明确阐述以致消除自然语言的一些不可接受的特性，如歧义性。然后用机器语言对其编码并编译为特定微处理器的指令集架构（ISA）。ISA是一致商定的接口:1)编译后的程序用来告诉微处理器该程序需要做什么；2）微处理器用来知道它必须代表程序执行什么。ISA由一组硬件结构实现，其被统称为微处理器的微体系架构。每个硬件结构以及之间的相互连接均由电子数字电路组成，而电子数字电路又由电子设备组成。</p>
-<p>​    当我们今天讨论微处理器时，我们通常是指图1的阴影部分。每个微处理器由电路组成，电路实现了硬件结构（统称为微体系架构），其提供了一个面向软件的接口（被称为ISA）。在个人计算机中，ISA一般是IA-32，个人电脑的ISA是IA-32，微架构是Intel的Pentium IV，或者是早期的Pentium III、Pentium II、Pentium Pro、486等等，或者AMD的K-8， 或者为更早的K-7、K-6 等。 </p>
-<p>​    还有一些其他的ISA：例如SPARC(来自Sun Microsystems)，Alpha（来自Compaq），以及Power-PC(来自Motorola and IBM)。每种ISA都有其自己的特性来为编译器提供更好或更坏的接口，或者说微体系架构跟好或更坏地执行工作。对于每个ISA，都有多个不同的微体系架构。 我们已经提到了IA-32 的几个微架构。 于Alpha而言， 有 21064、21164 和 21264。</p>
-<p>​    在层次结构的每一步中，从算法的选择到语言，到ISA 到微体系结构，到电路，都有选择，因此就有权衡。 </p>
-<p>​    人们通常在更高的性能和更低的价格之间做选择，但并非总是如此。举一个汽车的类比可能更有启发性。可以制造一台高性能跑车，其可以在几乎0秒内从0英里/小时加速到 100 英里/小时。但是其造价会非常高。或者，可以制造一辆非常便宜的汽车，它的时速永远无法达到 100 英里/小时，但每加仑汽油可以行驶 100 英里。性能和经济性不可兼得。这就是权衡。</p>
-<h3 id="C-设计要点"><a href="#C-设计要点" class="headerlink" title="C. 设计要点"></a><em>C. 设计要点</em></h3><p>​    微处理器的设计就是做相关的权衡（折衷）。我们将微处理器设计中的这组考虑因素以及每个考虑因素相关重要性成为微处理器的“设计要点”–也就是说，于微处理器用途而言最重要的特性，以至于较少关注于其他特性。性能、成本、散热和功耗是强烈影响设计点的特性的示例。另一个示例是“高可用性”——设计一个微处理器时其中考虑最多的就是这个微处理器永远不会出故障。如果可以确保微处理器永远不会出现故障，一些客户愿意接受更低的性能或更高的价格。我们将这种处理器称为“容错”或高可用性的。</p>
-<p>​    其他客户则愿意为节能、续航牺牲一部分性能，随着最高性能芯片的功率和能耗越来越大，大得令人无法接受，这个设计要点愈发重要。这就存在一个最高性能与功耗意识的权衡。</p>
-<p>​    值得一提的是，“功耗意识”与另一个重要的设计要点“低功耗”不同，在许多应用中，首先考虑的是微处理器消耗非常少量的能源但能长时间运行。</p>
-<h3 id="D-应用空间"><a href="#D-应用空间" class="headerlink" title="D. 应用空间"></a><em>D. 应用空间</em></h3><p>图1中“问题”一词是应用空间的统称，或者说我们希望使用微处理器的一组应用程序。应用程序的数量正在以惊人的速度增加，而且预计未来仍会保持增长的趋势。实际上，只要人们期望计算机的用途更加广泛（或者说计算机能实现更多功能），则对于微处理器的需求和权衡将会持续扩大。也就是说，应用空间（或更准确说，具有核心重要性的应用）驱动着这个设计要点。我们前面那已经提到了高可用性处理器，其中应用程序要求微处理器永远不出故障，以及在低功耗处理器中，应用程序必须能够消耗少量能量而能长时间运行。</p>
-<p>​    持续驱动独特设计要点需求的应用空间的其他示例如下：</p>
-<pre><code>1. 科学应用，例如，计算控制核电站，决定开采石油的位置，预测天气；
-2. 基于事务的应用程序，例如办理ATM转账和电子商务业务;
-3. 业务数据处理应用程序，例如处理库存控制、工资、IRS活动和各种个人记录的应用程序，无论这些个人是雇员、学生还是选民;
-4. 网络应用，例如高速路由的互联网数据包，使你的家庭系统连接利用互联网;
-5. 有保证的交付(即实时)应用程序，要求在某个关键期限之前得到计算结果;
-6. 嵌入式应用程序，其中处理器是更大系统的一个组件，用于解决(通常)专用应用程序;
-7. 解码视频和音频文件等媒体应用程序;
-8. 桌面用户希望在自己的电脑上运行的随机软件包。
-</code></pre>
-<p>每个应用领域都有其特点，与其他领域大不同。每个应用领域都要求做不同的权衡、折衷来设计微处理器来满足其完成工作。</p>
-<h3 id="E-基本处理"><a href="#E-基本处理" class="headerlink" title="E. 基本处理"></a><em>E. 基本处理</em></h3><p>​        微处理器处理执行指令，简单地说，有三个步骤：1)向处理器核心提供指令，让每条指令都能完成它的工作;2)提供每条指令所需的数据;3)执行每条指令。</p>
-<h3 id="F-指令供给"><a href="#F-指令供给" class="headerlink" title="F. 指令供给"></a><em>F. 指令供给</em></h3><p>在提供指令的早期阶段，一次取一条指令，解码并发送到内核进行处理。 随着时间的流逝，一次能取到指令的数量已经从一个增加到了四个，而且很可能不久就增长到六或八。 有三个因素会妨碍为内核充分提供待处理的指令：指令缓存未命中、获取中断和条件分支错误预测。 当对指令缓存不命中时，指令的供应量下降到零，直到高速缓存未命中得到解决。 当被提取的指令是一个已采取的分支时，则会发生提取中断，这使得在同一周期中提取的所有后续指令都变得无用，与问题宽度无关。 条件分支错误预测意味着自错误预测分支以来取出的所有指令都是无用且浪费了资源，并且必须在执行正确的指令路径继续之前将其丢弃。 </p>
-<h3 id="G-数据供给"><a href="#G-数据供给" class="headerlink" title="G. 数据供给"></a><em>G. 数据供给</em></h3><p>为了提供一条指令所需的数据，人们需要能够在接近0的时间内（尽可能的快）以合理的成本（成本和速度的折衷）无限地提供所需数据。实际数据存储器无法满足这三个要求。 我们能做的最好的是一个存储层次结构，其中可以在一到三个周期内访问少量数据（在芯片上），在十到十六个周期内可以访问更多数据（也在芯片上）， 并且可以在数百个周期内访问更多数据（片外）。 <del>结果是实际数据存储器受到取出特定数据元素的时延和将该数据元素从其在存储层次结构中的位置移动到需要它的处理器核心所必需的带宽的二者的制约。</del> </p>
-<p>尽管这种片外延迟在今天依旧很糟糕，而这种情况一直在变得更差。 处理器的指令周期时间（这里联系上文中的处理器，这里的周期应该为指令周期——CPU每取出并执行一条指令所需要的时间，是从取指令、分析指令到执行完指令所需的全部时间。）的改进一直在增长，，且比内存周期时间快得多的速度增长。 几年后，我们希望看到对内存的片外数据访问需要数千个处理器周期。</p>
-<h3 id="H-指令处理"><a href="#H-指令处理" class="headerlink" title="H. 指令处理"></a><em>H. 指令处理</em></h3><p>为了执行这些指令所需的操作，需要足够数量的功能单元来在数据可用时立即处理数据，并且需要足够的互连以将一个功能单元产生的结果立即提供给需要它的功能单元 来源。 然而，足够的互连是不够的。 随着片上周期时间的减少，将芯片某一部分的功能单元所产生的结果转发到芯片其他部分的功能单元，在这个功能单元中结果是源操作数的一部分，其所需的延迟会变得更糟。  </p>
-<h2 id="Ⅱ-演变的动力"><a href="#Ⅱ-演变的动力" class="headerlink" title="Ⅱ. 演变的动力"></a>Ⅱ. 演变的动力</h2><p>许多因素促进了微处理器的发展：消费者愿意购买供应商生产的产品——如果没有市场，我们早就回家了。 工程师解决问题的创造性——没有解决方案，就没有更新演化。 </p>
-<p>我认为这些事情是次要的，强制性的功能（我称之为演变的动力）是新的需求、瓶颈和幸运。 </p>
-<h3 id="A-动力-Ⅰ：新的需求"><a href="#A-动力-Ⅰ：新的需求" class="headerlink" title="A. 动力 Ⅰ：新的需求"></a>A. <em>动力 Ⅰ：新的需求</em></h3><p>早期的微处理器将处理限制为在每个周期内取指、译码，并将其及其数据转发到内核中的功能单元进行处理。但对于更高性能的需求来说，每个周期获取一条指令是远远不够的。 结果是宽发射微处理器（wide-issue microprocessor），其中取指机制允许在每个时钟周期内取指、译码和转发多条指令到执行核心。 </p>
-<p>另一个例子，也是由于对高性能的要求，需要同时处理多条指令。 如果只有一个 ALU，则一次只能做一个 ADD。 其结果是目前在一个执行核心中集成了多个功能单元。 </p>
-<p>今天，普遍的新需求涉及功耗，或称为功耗感知计算。 要求是提供与先前设计相同水平的计算机性能，同时功率小于先前设计所需功率。 请注意，这与嵌入式处理器的低功耗要求不同，后者在一段时间内一直是一个重要的设计要点。 </p>
-<p>有很多人认为未来的新需求将涉及人机交互界面，随着计算机/人机交互变得越来越普遍，人机界面需要越来越多的关注。 </p>
-<h3 id="B-动力-Ⅱ：瓶颈"><a href="#B-动力-Ⅱ：瓶颈" class="headerlink" title="B. 动力 Ⅱ：瓶颈"></a>B. <em>动力 Ⅱ：瓶颈</em></h3><p>我们已经在上面确定了指令处理的三个组成部分（取指、取数和执行指令的操作），以及每个组成部分的含义。 到目前为止，微处理器的大部分改进都是为了消除阻碍这三个组件完成工作的瓶颈。 </p>
-<p>例如，取指需要在每个周期取一定数量的指令——今天是四个——指令。 如果这些指令存储在内存中，那么获取的时间会太长。 瓶颈是缓慢的访存。 因此，发明了指令缓存。 </p>
-<p>如果硬件有能力获取四条指令，但第二条指令是条件分支，则只能获取两条指令，而不是四条指令。 由条件分支引起的瓶颈是指令按照编译器生成的顺序排列，而不是指令执行的（动态）顺序。 最近添加到 Pentium IV 的新功能是跟踪缓存，它按照最近执行的顺序而不是编译器编译的（静态的）顺序来存储指令。 </p>
-<p>最后，如果每个周期都提供指令（取指），则在遇到分支时会出现问题，因为尚不确定是否满足条件而采取分支转移，有可能转移，也有可能不转移。可以等待得出指令的执行结果，先暂时停止指令的获取，直到确定是否满足条件，（即确定该指令的下一条指令）。 通过引入分支预测器突破了这个瓶颈，它猜测是否应该采用分支，并根据这个猜测立即取指。 </p>
-<h3 id="C-动力-Ⅲ：好运气"><a href="#C-动力-Ⅲ：好运气" class="headerlink" title="C. 动力 Ⅲ：好运气"></a>C. <em>动力 Ⅲ：好运气</em></h3><p>当某些事情导致意外收获时，这就是幸运，然后其意外收获可被用于为微处理器提供额外的功能。 这方面的一个很好的例子是技术收缩，它允许微处理器的下一代实现比以前的实现占用更少的芯片空间。 由于旧设计所需的空间更少，因此可以有更多空间用于做其他事情。 以这种方式引入微处理器的其他两个例子是 1980 年代中期的片上浮点加速器和 1990 年代后期在片上添加的多媒体指令扩展功能。</p>
-<h2 id="Ⅲ-演变历程：从1971到今天"><a href="#Ⅲ-演变历程：从1971到今天" class="headerlink" title="Ⅲ. 演变历程：从1971到今天"></a>Ⅲ. 演变历程：从1971到今天</h2><p>微处理器已经从 Intel 4004 的简单 2300 个晶体管发展到今天的样子。这种演变是源于几个原因，正如上面所述。 其结果是今天的 Pentium IV 与 1971 年的 Intel 4004 几乎没有相似之处。</p>
-<p>这种演变的一些例子如下。 </p>
-<h3 id="A-流水线"><a href="#A-流水线" class="headerlink" title="A. 流水线"></a><em>A. 流水线</em></h3><p>早期的微处理器在开始处理下一条指令之前，处理一条指令要经历取指到指令休止。流水线，最晚自 1960 年代以来就在大型计算机中出现，是解决该性能瓶颈的重要方案。 具有商业利益(商用)的微处理器（例如 Intel 8086）在 1970 年代后期通过在执行当前指令时预取出下一条指令，向流水线迈出了第一步。 </p>
-<p>片内缓存稍微些才出现在微处理器中。 从片外存储器取指令和数据到片内处理元件的时延太大。解决方案是：片内缓存。 1984 年，第一个具有片上缓存的商业可行（商业）微处理器是摩托罗拉 MC68020。 在具有流水线技术的处理器中，能够在同一周期内取指令和取数据，而不是争用一个端口到缓存读取，突破了瓶颈，这是很有用的。1986 年，摩托罗拉的 MC68030 是第一批包含独立的片内的指令和数据缓存的微处理器。 </p>
-<p>缓存要么速度快要么容量大，不能两者兼得。因为缓存必须很快，那么它的容量不得不很小，从而导致缓存未命中率过大。 高速缓存未命中的问题是片外为解决未命中的延迟太大。解决方案是：芯片上有两级缓存，因此较快、容量小的一级缓存中的未命中可以通过容量较大、速度较慢的二级缓存来解决，这仍然比片外快得多。 直到 1994 年左右Alpha 21164 问世，这个技术才出现在微处理器上。今天，几乎所有的高性能微处理器都有两级缓存。 </p>
-<h3 id="C-分支预测"><a href="#C-分支预测" class="headerlink" title="C. 分支预测"></a><em>C. 分支预测</em></h3><p>如果条件分支产生流水线停顿，等待处理分支条件且执行完分支指令，则失去了流水线的优势。 硬件（运行时）分支预测器直到 1990 年代初才在微处理器芯片上实现。早期，一些引入运行时分支预测器的微处理器是摩托罗拉的 MC88110、Digital 的 Alpha 21064 和英特尔的 Pentium。 </p>
-<h3 id="D-片内浮点单元"><a href="#D-片内浮点单元" class="headerlink" title="D. 片内浮点单元"></a><em>D. 片内浮点单元</em></h3><p>早期的微处理器有一个单独的芯片来处理浮点运算。 随着晶体管越来越小，芯片越来越大，通过利用“新”的空闲容量并节省不必要的片外通信，芯片上集成的晶体管数目达到了可以将浮点单元与主处理单元放在同一芯片上的程度。 摩托罗拉 MC88100 和英特尔 486 是 80 年代后期在主处理器芯片上集成浮点单元的两款早期芯片。 </p>
-<h3 id="E-其余专业功能单元"><a href="#E-其余专业功能单元" class="headerlink" title="E. 其余专业功能单元"></a><em>E. 其余专业功能单元</em></h3><p>早期的微处理器只有一个或很少的功能单元。 随着芯片上晶体管数量的增多，人们也认识到可以通过利用多个功能单元来并发执行。 首先添加了诸如单独处理 ALUs之类的功能单元。 然后，更复杂的加载/存储功能单元其包含写缓冲区、未命中未决队列和处理内存消歧机制等，成为 1990 年代通用微处理器芯片的一部分。1986 年，英特尔的 I860 是首批拥有多个专用功能单元之一，除了浮点加法和乘法单元之外，还有一个单元用于辅助图形处理。 </p>
-<h3 id="F-乱序执行"><a href="#F-乱序执行" class="headerlink" title="F. 乱序执行"></a><em>F. 乱序执行</em></h3><p>程序员/编译器和微体系结构之间的契约要求指令必须按照翻译程序指定的顺序执行。而这就导致了一个瓶颈：如果当前指令因需要其后续指令为他提供其开始执行所需的全部内容，而不能执行，则会阻止其他指令执行。（简而言之，就是当前指令需要后续指令为其提供数据才能开始执行，那么当前数据不能执行，因为只有执行了当前指令，才能执行后续指令，就陷入了一个死锁）</p>
-<p>自 1960 年代中期以来， 就已经提出这一瓶颈的机制，即乱序处理，例如，IBM 360/91。然而，该机制仅限于高性能科学计算，同时在高性能计算中，能够处理精确异常并不是重要需求。然而目前几乎所有制造商都认可IEEE 浮点标准，这表明处理精确异常并非不是重要需求。 尽管如此，虽然乱序执行已在大型机上使用了 35 年，但直到在1990 年代中期，它与精确异常处理的结合使用才在微处理器上首次出现。</p>
-<p>为了适应乱序执行，微处理器调整了早期大型机上使用的寄存器别名和执行部件中的驻留站 。为了做到这一点，微处理器必须能区分指令执行和指令退出。指令在它们的执行所需资源（数据和功能单元）可用时才被允许执行，独立于它们在程序中的顺序，但被迫以它们在执行程序中出现的相同顺序退出。也就是说，内部微架构可以乱序执行指令，但必须按照指令在执行程序中出现的顺序报告执行结果（即改变计算的永久状态）。如果要实现这样功能，则需要一个能在异常情况下恢复状态的机制。这种状态恢复机制在当今大多数微处理器上通常表现为重新排序缓冲区，在少数微处理器上表现为检查点退休结构。尽管其他微处理器更早地出现了无序执行的情况，但第一个充分实现这一机制的是 1995 年的 Pentium Pro。</p>
-<h3 id="G-集群"><a href="#G-集群" class="headerlink" title="G. 集群"></a><em>G. 集群</em></h3><p>单芯片尺寸继续增大，特征尺寸继续减小，片内频率继续增大。 结果是芯片一角上的功能单元得到的值不能在片间传输，从而不能在下一个周期内中于芯片对角上的功能单元为源操作数使用。 解决方案——将执行核心划分为集群，以便在大多数情况下，一个集群中的功能单元产生的结果将被同一集群中的另一个功能单元使用。 但仍然存在不知道将特定指令引导到哪个集群取执行的问题，但是如果成功，原来因一个执行结果必须经芯片的主要部分传输而需要多个周期的不正常延迟消失。 此功能在 1990 年代后期首次出现在 Alpha 21264 上。 </p>
-<h3 id="H-芯片多处理器"><a href="#H-芯片多处理器" class="headerlink" title="H. 芯片多处理器"></a><em>H. 芯片多处理器</em></h3><p>芯片日益丰富的另一种用途（更多的晶体管，与更快的工作频率相结合）是将芯片划分为多个区域，每个区域使用相同的处理器。 该范例被称为 CMP，用于芯片多处理器。 对于易于划分为独立指令流的任务，其中需要指令流之间的大量通信，CMP 是一种有用的范例。 它提供了发生在片内的处理器间通信的额外好处，其中这种通信比片外通信快得多。 IBM 于 2000 年实现了此功能，其 G4 芯片上有两个处理器。 </p>
-<h3 id="I-同步多线程"><a href="#I-同步多线程" class="headerlink" title="I. 同步多线程"></a><em>I. 同步多线程</em></h3><p>当指令高速缓存访问出现未命中时，指令供应会受到影响。 在等待缓存命中时浪费了大量容量。 Burton Smith 在 1978 年 [3] 建议使用该空闲容量从其他指令流中获取指令。 这个概念首先在他的 Donelcor HEP 上实现。 这个概念直到 1990 年代才在微处理器世界中亮相，在微处理器中，它被扩展为允许在交替周期中从交替的单个指令流中取指，但基于所需数据的可用性，在同一周期中同时从所有指令流中执行 取指。第一个实现此功能的微处理器是 2000 年的 Pentium IV。 </p>
-<h3 id="J-更快的内核"><a href="#J-更快的内核" class="headerlink" title="J.更快的内核"></a><em>J.更快的内核</em></h3><p>在密集型计算任务中，等待较早执行指令产生的结果为源操作数的数据依赖可能是一个重要的瓶颈。 一个解决方案是——以比微处理器其他部分快得多的频率运行执行核心。 2000 年推出的 Pentium IV 芯片的工作频率为 1.7 GHz，但 ALU 的工作频率为 3.4 GHz。 </p>
-<h2 id="Ⅳ-十亿晶体管芯片的未来"><a href="#Ⅳ-十亿晶体管芯片的未来" class="headerlink" title="Ⅳ. 十亿晶体管芯片的未来"></a>Ⅳ. 十亿晶体管芯片的未来</h2><p>正如我们所说，在当前的十年内，工艺技术有望在单个芯片上集成 10 亿个晶体管，并以 6 至 10 GHz 的频率运行。 那么我们将如何利用所有这些能力？ </p>
-<p>今天的计算机架构师并不认同。 有些人主张扩展我们上面描述的 CMP 理念。 论据是，如果有 10 亿个晶体管，我们可以在单个芯片上集成 100 个微处理器，每个处理器由 1000 万个晶体管组成。 该论点进一步指出，一个 1000 万晶体管处理器仍然非常庞大，建造任何比这更大的东西只会适得其反，导致更大的收益递减。 </p>
-<p>其他人则是建议扩大使用同步多线程。 他们认为 CMP 所需的许多资源可以在单个处理器 SMT 芯片上共享，从而将节省的资源释放给其他功能，例如更大的缓存、更好的分支预测器、更多功能单元等 </p>
-<p>而包括本文作者在内的一些人指出，虽然 SMT 在共享资源方面肯定比 CMP 有所改进，但在加快大多数重要的非科学基准测试方面，它们都存在不足。 原因：这些基准测试中的大多数都有令人失望的特性，re: SMT，由单个指令流组成。 一个非常昂贵的芯片应该解决多计算机网络无法解决的问题，这个计算机网络由许多更小更便宜的芯片组成的。这一观点主张使用所有的10亿个晶体管来生产一个非常高性能的单处理器。</p>
-<p>还有一些人抱怨说，由于 CAD 工具已经无法准确验证我们当前的芯片，所以设计更复杂的芯片是不负责任的。 他们提倡一个非常简单的核心处理器，其有较大容量的片上缓存。</p>
-<p>那些以成本为中心(这是一个非常不同的设计要点)的厂商认识到，更高水平的集成可以生产出更便宜的产品，并建议使用10亿个晶体管，将整个非激进的系统放在一个芯片上。</p>
-<p>这些都是可供选择的建议，我推测它们中的每一个都会在未来十年内出现在某些产品中。我个人的偏好是使用十亿个晶体管来发展最高性能的单处理器，以处理单指令流应用。推动这一发展的因素和以前一样:新的需求、瓶颈和好运。以下是我们可能会看到的一些想法。 </p>
-<h3 id="A-新微处理器"><a href="#A-新微处理器" class="headerlink" title="A. 新微处理器"></a>A. 新微处理器</h3><p>到目前为止，微处理器的设计方式如图1所示。但是为什么这样做呢？如果我们把我们的抽象变换层次并把算法和语言包含在微处理器中，那么微处理器就变成了使用 器件工艺来解决问题的东西。参见图2。为什么不能为解决应用空间中的某一点，而设计一个微处理器，在这个微处理其中，将解决该问题所需的专用算法嵌入到微处理器中，为什么这样实现是不合理的呢？我们今天在低成本的嵌入式应用程序中这样实现。但为什么不能在可接受的高成本的有高性能要求的机器中实现呢呢？</p>
-<p>这种定做可以采用以下讨论的可重构逻辑的形式，ISA中的特殊专用指令，或者芯片上提供的集成功能单元(如DSP引擎。</p>
-<p><img src="/2021/09/19/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91/fig2.jpg" alt="image"></p>
-<p>​                                                图2   未来的微处理器</p>
-<h3 id="B-新的数据路径"><a href="#B-新的数据路径" class="headerlink" title="B. 新的数据路径"></a><em>B. 新的数据路径</em></h3><p>片内的时钟频率有望于到达很高以至于必须认真考虑芯片上任何信号线的长度。有些信号需要多个周期才能在芯片完成传输。必须仔细检查哪些信号可以这样做。大多数信号可能都不行。 这就产生了挑战：根据线长的新限制重新设计数据路径。</p>
-<h3 id="C-内部容错"><a href="#C-内部容错" class="headerlink" title="C. 内部容错"></a><em>C. 内部容错</em></h3><p>片内的时钟频率提升的另一个后果是对软错误的敏感性——由于材料的物理特性，在有望实现的如此高的时钟频率下运行，这些错误将间歇性地和不频繁地出现。未来的微处理器将必须提供在这些软错误发生时进行检查和纠正的功能。 </p>
-<h3 id="D-异步和同步单元共存"><a href="#D-异步和同步单元共存" class="headerlink" title="D. 异步和同步单元共存"></a><em>D. 异步和同步单元共存</em></h3><p>时钟脉冲相位差（查阅资料：<strong>时钟脉冲相位差</strong>是指同时产生的两个时钟信号，到达接收端的时间不同步。）已经成为一个严重的问题。在时钟频率为 6 GHz 时，情况会更糟糕。 诚然，异步结构更难设计，但它们确实解决了所有部件都要同步的全局时钟的问题。这一点非常重要，值得我们应对设计困难这一挑战。我的期望是，我们将看到一些部件在一段固定的时间内异步运行(以时钟周期衡量)，之后它们与全局时钟同步。 不同的部件需要不同的时间来进行异步操作，以解决其独特的时钟脉冲相位差问题。</p>
-<h3 id="E-不同功能的不等周期时间"><a href="#E-不同功能的不等周期时间" class="headerlink" title="E. 不同功能的不等周期时间"></a><em>E. 不同功能的不等周期时间</em></h3><p>对于那些同步运行的部件，没有必要它们都以芯片的额定频率运行。例如，不需要以高速运行的部件可以设计成以慢速运行，从而节省电力。未来的晶体管预算可以提供巨大的灵活性，以适当地满足片上需求的可变性。</p>
-<p>ALU以处理核上其余部分运行频率的两倍运行，这只是冰山一角。 未来的微处理器可以智能地使用时钟，在需要的地方提高速度，在不需要的地方降低速度，在速度根本不重要的地方可以非常慢。</p>
-<h3 id="F-新材料"><a href="#F-新材料" class="headerlink" title="F. 新材料"></a><em>F. 新材料</em></h3><p>我不知道这些材料从何而来，但摩尔定律仍然适用，尽管每五年左右就会出现一些末日论者来宣告它的消亡。 关键的重要材料要与芯片上的导电性相比，更重要的是，与功率要求和散热相比（关键材料要关注导电性、功率、散热）。 因此，本着纯粹的一厢情愿的精神，我希望工程的独创性再次占上风。 （即，有新材料的出现实现更好的性能）。</p>
-<h3 id="G-微程序的扩展使用"><a href="#G-微程序的扩展使用" class="headerlink" title="G. 微程序的扩展使用"></a><em>G. 微程序的扩展使用</em></h3><p>片外带宽十分昂贵，片上带宽十分充足。 我的期望是：我们将更有效地利用片上带宽。 微程序的扩展使用是实现这一点的一种方法。 例如，微程序可以利用处于主指令流从属地位的未充分利用的功能单元的空闲容量。 我们创造了术语：从属同步微线程 (SSMT) 来反映其在 SMT 机器中的作用 [4]。 这些微程序可以执行动态重新编译、计算一些复合指令、调整缓存替换策略，或者以其他方式执行计算，使主指令流执行得更快。 </p>
-<h3 id="H-可重构逻辑"><a href="#H-可重构逻辑" class="headerlink" title="H. 可重构逻辑"></a><em>H. 可重构逻辑</em></h3><p>与图2一致，我希望未来的许多微处理器能够满足特定应用的要求。一个应用程序可以很好地利用一些对其他应用程序无用的逻辑功能，而另一个应用程序可以很好地利用另一个对第一个应用程序无用的逻辑功能。也许这两个应用程序都可以在具有运行时动态调整能力的微处理器有效运行。也就是说，我认为片上结构(可能是低粒度FPGA，但更可能是高粒度可重构逻辑结构)将是未来微处理器的通用结构。</p>
-<h3 id="I-集锦"><a href="#I-集锦" class="headerlink" title="I. 集锦"></a><em>I. 集锦</em></h3><p>最后，我列出了我希望在 2008 年或 2009 年的高性能微处理器中实现的功能的清单，或者是无论何时工艺技术最终使得我们可在单个心片上集成了 10 亿个晶体管。 </p>
-<ol>
-<li>跟踪缓存的扩展使用，其中动态指令流段每个条目将包含远远超过8条指令，可能在编译器的帮助下预先安排(类似于块结构ISA或重放机制)，但在运行时进行优化。</li>
-<li>片内微程序，其用于使用执行核心的空闲容量来调整片上硬件结构。</li>
-<li>执行程序的动态重新编译，可能由填充单元执行，或者片上微程序实现，这将会十分常见。</li>
-<li> 多个（至少三个）级别的缓存以及相应的ISA的 添加（多个预取和后存储指令）以响应内核对数据的需求 ，将数据移近内核并远离内核。</li>
-<li>激进的价值预测硬件，可能是程序级别的预测，以及有相应的编译器优化以帮助其有效性。</li>
-<li>性能监控硬件，其允许在运行时调整硬件以更有效地与执行程序的需求相匹配。 </li>
-<li>一种用于监控和影响芯片能源使用的片上部件</li>
-</ol>
-<h2 id="Ⅴ-总结"><a href="#Ⅴ-总结" class="headerlink" title="Ⅴ. 总结"></a>Ⅴ. 总结</h2><p>自 1971 年问世以来，微处理器经历了一段激动人心的历程。很少有技术可以夸耀它取得的巨大进步。 不幸的是，有些人会争辩说这个黄金时代即将结束。 但这样的反对者以前也有过。 1986年，他们说MIPS R2000是所有人需要的微处理器，十年后，他们说Intel Pentium Pro 是任何人都需要的微处理器。 该行业将会继续发展得很好，享用该技术的用户能继续“更好地”享用这种技术。 </p>
-<p>这并不是说这样的情况会一成不变，不再需要新的独创性。在下层，我们可能需要底层结构发生彻底的根本的变化，比如量子计算，来拯救我们，但我们现在几乎没有受到限制。</p>
-<p>当然，我们需要开发更好的 CAD 工具。 当前的 CAD 工具无法验证当今的微处理器，更不用说本文中的建议了。 而且，我们确实需要更广泛地思考微处理器的概念（例如，图 2）。但底线是，摩尔定律仍然存在，并且仍然提供了大量的机会。</p>
-<h2 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h2><p>这篇导论脱胎于多年来与以前和现在的学生以及同事的许多互动交流。 也感谢S. J. Patel、R. Belgard 和 R. R. Ronen 对本文的评论和批评。 值得一提的是，Ronen 和他在英特尔的同事 [5] 的一篇论文中提供了对这里涉及的许多问题的出色以及更详细的回答，本文作者向读者推荐该论文。</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
-<li>[1] H. Mazor, “The history of the microcomputer-invention and evolution,”<br>Proc. IEEE, vol. 83, pp. 1601–1608, Dec. 1995.</li>
-<li>[2] Intel web site [Online]. Available: <a href="http://www.intel.com/pressroom/kits/quickrefyr.htm#1971">http://www.intel.com/pressroom/kits/quickrefyr.htm#1971</a>.</li>
-<li>[3] B. Smith, “A pipelined, shared resource MIMD computer,” in Proc.<br>1978 Int. Conf. Parallel Processing, Aug. 1978, pp. 6–8.</li>
-<li>[4] R. S. Chappell, J. Stark, S. P. Kim, S. K. Reinhardt, and Y. N. Patt,<br>“Simultaneous subordinate microthreading (SSMT),” in Proc. 26th<br>Annu. Int. Symp. Computer Architecture, May 1999, pp. 186–195.</li>
-<li>[5] R. Ronen, A. Mendelson, K. Lai, S.-L. Lu, F. Pollack, and J. P. Shen,<br>“Coming challenges in microarchitecture and architecture,” Proc.<br>IEEE, vol. 89, pp. 325–340, Mar. 2001.</li>
-</ul>
-]]></content>
       <categories>
-        <category>计算机组成原理与体系结构</category>
+        <category>操作系统</category>
       </categories>
       <tags>
-        <tag>计算机组成原理</tag>
-        <tag>计算机体系结构</tag>
+        <tag>中断</tag>
+        <tag>异常</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>保护模式内存管理</title>
+    <url>/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h1 id="2-保护模式内存管理"><a href="#2-保护模式内存管理" class="headerlink" title="2. 保护模式内存管理"></a>2. 保护模式内存管理</h1><h2 id="2-1-内存管理概览"><a href="#2-1-内存管理概览" class="headerlink" title="2.1 内存管理概览"></a>2.1 内存管理概览</h2><p>​    IA-32架构的内存管理机制主要分为两部分：<strong>段式</strong>和<strong>页式</strong>。 <strong>分段</strong>提供了一种隔绝各个代码、数据和堆栈区域的机制，以致多个程序（或任务）可以运行在同一个处理器上，但不会相互干扰。 <strong>分页</strong>则为传统需求页的虚拟内存系统提供了一种实现机制，在虚拟内存系统中，程序运行所需的环境的各个部分按需映射到物理内存中。 分页同样可以为多个任务之间提供隔离措施。 当在保护模式下运行时，必须采用某种形式的分段机制。 这里没有<strong>模式位</strong>以设置禁用分段机制，也就说在保护模式的内存管理中<strong>分段机制</strong>是<strong>必需</strong>的。 但是，<strong>分页机制</strong>是<strong>可选</strong>的。<br>​    这两种机制（分段和分页）是可以被配置以致支持使用共享内存的简单的单程序（或单任务）系统、多任务系统或多处理器系统。<br>​    如图1所示，段式管理提供了一种机制：其将处理器的<strong>可寻址内存空间</strong>（也被称为<strong>线性地址空间</strong>）划分为较小的受保护的地址空间区域，称为<strong>段</strong>。 段可以用来保存<strong>程序的代码、数据和堆栈</strong>，也可用于保存<strong>系统数据结构</strong>（例如TSS或LDT）。 如果一个处理器中有多个程序（或任务）正在运行，那么每个程序都会被分配自己的一组段空间。 然后处理器可以加强这些段之间的界限，并且确保一个程序不会通过访问写入另一个程序的段而干扰另一个程序的运行。分段机制还允许对段进行分类，这样一来便可限制对特定类型段所要执行的操作。<br> ![](保护模式内存管理/segment and page.jpg)</p>
+<center style="color:#1a1a1a;">图1 分段与分页</center>    
+
+<p>​    一个系统中的所有段都包含在处理器的线性地址空间中。 为了定位到指定段中的一个字节，程序必须提供一个逻辑地址（也称为远指针）。 <strong>逻辑地址</strong>由一个<strong>段选择子</strong>和一个<strong>偏移量</strong>组成。 <strong>段选择子</strong>是一个段的<strong>唯一标识</strong>。 此外，段选择子还提供了段描述符表（如全局描述符表，GDT）中到一个被称为段描述符的数据结构的偏移量。 每个段都有一个段描述符，它指定了段的大小、段的访问权限和特权级别、段的类型以及段的第一个字节在线性地址空间中的位置（即段基址)。 将逻辑地址的偏移量部分与段的基址相加，就可以定位段内的某个字节。 因此<strong>基址加上偏移量</strong>就形成了在处理器的线性地址空间中的一个<strong>线性地址</strong>。<br>​    如果不启用分页，那么处理器的线性地址空间会被直接映射到处理器的物理地址空间。 物理地址空间定义为处理器可以在其地址总线上生成的地址范围。<br>​    因为多任务计算系统定义的线性地址空间通常都要比其含有的物理内存容量大得多，所以需要采取一些“虚拟化”线性地址空间的方法。而这种线性地址空间的虚拟化是通过处理器的分页机制来处理的。<br>​    分页机制支持建立一个<strong>虚拟内存</strong>环境，在这个环境中，可以用小量的物理内存（RAM和ROM）和一些磁盘存储空间就可以模拟大容量的线性地址空间。启用分页机制时，每个段被划为分为页（通常每个页大小为4KB），这些页存储在物理内存或硬盘中。 操作系统或程序通过维护一个页目录和一组页表来跟踪这些页。当程序（或任务）视图访问线性地址空间中的一个地址位置时，处理器便会使用页目录和页表将线性地址转换为一个物理地址，然后在该内存位置上执行所要求的操作（读或写）。<br>​    如果当前被访问的页面不在物理内存中，处理器便会中断当前程序的执行（通过产生一个页错误异常）。 然后，操作系统执行程序将从磁盘读取该页面进入物理内存，然后继续执行刚才被中断的程序。<br>​      当分页机制在操作系统或执行程序正常运作时，对于正确执行的程序来说，物理内存和磁盘之间的页面交换是透明的。 即使在IA-32处理器中，16位的程序也可在虚拟8086模式下运行时进行分页（透明地）。</p>
+<p>​    总结：</p>
+<ul>
+<li><strong>逻辑地址（Logical Address）</strong>：一个逻辑地址由两部份组成，<strong>段标识符</strong>: <strong>段内偏移量</strong>。段标识符是由一个16位长的字段组成，称为<strong>段选择子</strong>（段选择子就是段标识符）。</li>
+<li><strong>线性地址（Linear Address）</strong>：一个<strong>段的基址</strong>加上<strong>段内偏移量</strong>，形成线性地址空间中的一个线性地址。线性地址是逻辑地址到物理地址变换之间的中间层。这里段内偏移量就是逻辑地址中的段内偏移量。而段的基址跟逻辑地址中段标识符有关，通过段标识符（段选择子）可获得段描述符表中与该段选择子相关联的段描述符，段描述符提供了该段的基址。</li>
+<li><strong>物理地址（Physical Address）</strong>：物理内存中的地址。</li>
+</ul>
+<h2 id="2-2-分段机制"><a href="#2-2-分段机制" class="headerlink" title="2.2 分段机制"></a>2.2 分段机制</h2><p>​    IA-32架构支持的分段机制可用于实现多种系统设计。这些设计范围从最小使用分段来保护程序的平坦模型，到使用分段来创建良好健壮性的操作环境的多段模型，在这种环境中，多个程序和任务可同时可靠运行的<br>​    下面几节给出了几个例子，说明如何在系统中使用分段来提高内存管理的性能和可靠性。 </p>
+<h3 id="2-2-1-基本平坦模型（Basic-Flat-Model）"><a href="#2-2-1-基本平坦模型（Basic-Flat-Model）" class="headerlink" title="2.2.1 基本平坦模型（Basic Flat Model）"></a>2.2.1 基本平坦模型（Basic Flat Model）</h3><p>​    最简单的系统内存模型就是就是基本<strong>“平坦模型”</strong>，在这种模型中，操作系统或应用程序可访问一个连续的、未分段的地址空间。这样一来最大程度地向系统设计人员和程序员隐藏了体系机构的分段机制。<br>​    若要在IA-32架构下实现内存的一个基本平坦模型，则需要至少创建两个段描述符，一个用于引用代码段，一个用于引用数据段（如图2所示）。 然而，这两个段都会被映射到整个线性地址空间：即，这两个段描述符具有相同的基址：0和相同的段限长（段的最大长度）：4 GB。 通过将段限长设置为4 GB，可以避免分段机制对超过段空间大小的内存的引用产生异常，即使指定的地址不存在物理内存中。 ROM （EPROM）通常位于物理地址空间的顶部，因为处理器从FFFF_FFF0H开始执行。 RAM （DRAM）则位于在地址空间的底部，因为复位初始化后DS数据段的初始基址为0。<br>![](保护模式内存管理/flat model.jpg)</p>
+<center style="color:#1a1a1a;">图2 平坦模型</center>    
+
+<h3 id="2-2-2-保护平坦模型（Protected-Flat-Model）"><a href="#2-2-2-保护平坦模型（Protected-Flat-Model）" class="headerlink" title="2.2.2 保护平坦模型（Protected Flat Model）"></a>2.2.2 保护平坦模型（Protected Flat Model）</h3><p>​    保护平坦模型类似于基本平坦模型，指示保护平坦模型将段限制在包含<strong>物理内存实际存在的地址范围内</strong>（如图3所示）。当尝试访问不存在的内存时，会产生一个<strong>通用保护异常（#GP）</strong>。该模型针对某些程序bug提供了最低水平的硬件保护。<br>![](保护模式内存管理/protected flat model.jpg)</p>
+<center style="color:#1a1a1a;">图3 保护平坦模型</center>    
+
+<p>​    这个保护平坦模型可以被拓展变得更加复杂，以提供更多保护功能。例如，为了确保分页机制能提供用户程序和监控程序之间代码和数据的隔离，这里需要定义<strong>四个段</strong>：<strong>权限级别为3</strong>的<strong>用户程序</strong>代码段和数据段、<strong>权限级别为0</strong>的<strong>监管程序</strong>代码段和数据段。通常这些段都相互<strong>覆盖</strong>，并且在线性地址空间的<strong>起始地址都为0</strong>。这种平坦分段模型搭配简单的分页结构可以保护操作系统不受应用程序影响，此外通过为每个任务或进程增加单独的分页结构，其还可以确保一个应用程序不受其他应用程序影响。一些流行的多任务操作系统也使用此种类似的设计。</p>
+<h3 id="2-2-3-多段模型（Multi-Segment-Model）"><a href="#2-2-3-多段模型（Multi-Segment-Model）" class="headerlink" title="2.2.3 多段模型（Multi-Segment Model）"></a>2.2.3 多段模型（Multi-Segment Model）</h3><p>​    多段模型（如图4所示）利用了分段机制所提供的全部功能，为<strong>代码、数据结构、程序和任务</strong>都提供了<strong>硬件级强制保护</strong>。在这个模型中，每个程序（或任务）都被分配了自己的段描述符和段空间。段可以是其分配段的程序所<strong>私有</strong>的，也可多个程序<strong>共享</strong>。此外，操作系统硬件来控制对运行在系统中的各个程序的所有段和执行环境的访问。<br>​    <img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/multi-sgement.jpg"></p>
+<center style="color:#1a1a1a;">图4 多段模型</center>        
+
+<p>​    对内存访问的检查不仅可以防止引用超过段大小的地址，还可以防止程序对某些段执行不被允许的操作。例如，一个代码为只读段，因此可使用硬件来防止对该代码段的写操作。每个段的访问权限信息也可用于设置保护区和保护级别。保护级别则可用于保护操作系统程序不被未经授权的应用程序访问。<br>​    分页机制可以与图2、图3和图4中所描述的任一分段模型搭配使用。 处理器的分页机制将线性地址空间（在线性地址空间中，段也被映射）划分为页面（如图1所示）。 然后在线性地址空间中的页面会映射到物理地址空间中的页面。 分页机制提供了几种页级保护功能，它们可以与段保护功能一起使用，也可以代替段保护功能。 例如，它允许逐页执行读写保护。 分页机制还提供了两级用户-监管保护，也可以逐页指定这种保护。</p>
+<h2 id="2-3-逻辑地址和线性地址的转换"><a href="#2-3-逻辑地址和线性地址的转换" class="headerlink" title="2.3 逻辑地址和线性地址的转换"></a>2.3 逻辑地址和线性地址的转换</h2><p>​    在系统保护模式中，处理器需要经过两部分的地址转换以完成到物理地址空间的转换：逻辑地址转换和线性地址空间分页。<br>​    即使最小程度地使用分段，处理器地址空间中的每一个字节都需要使用逻辑地址访问。一个<strong>逻辑地址</strong>由<strong>16位段选择符</strong>和<strong>32位偏移量</strong>组成，如图5所示。<strong>段选择符</strong>标识该字节所位于的段，偏移量确定字节相对于段基址的<strong>段内位置</strong>。<br>     处理器会将每个逻辑地址转换成线性地址。 线性地址是处理器线性地址空间中的一个32位地址。 与物理地址空间类似，线性地址空间是一个平坦的（未分段的）、大小为$2^{32}$字节的地址空间，地址范围从0开始到0xFFFFFFFF结束。<strong>线性地址空间</strong>包含<strong>所有的段</strong>和<strong>系统定义的系统表</strong>。<br>![](保护模式内存管理/logic address.jpg)</p>
+<center style="color:#1a1a1a;">图5 逻辑地址到线性地址的转换</center>    
+
+<p>​    从逻辑地址转换到线性地址，处理器需要做如下操作：</p>
+<ol>
+<li>使用<strong>段选择子中的偏移量</strong>来定位在GDT或LDT中对应的段描述符，然后读取到处理器中。（这步仅当一个新的段选择子被加载到段寄存器时才需要）。</li>
+<li>检查段描述符以检查<strong>段的访问权限和范围</strong>，以确保该段是可访问的，并且保证<strong>段偏移在段的大小范围</strong>内。</li>
+<li>将<strong>段描述符中的段的基址</strong>与<strong>段偏移量</strong>相加，形成一个<strong>线性地址</strong>。  </li>
+</ol>
+<p>​    如果不使用分页机制，处理器将会将线性地址直接映射为物理地址（也就是说，也就是说，线性地址可以直接送到处理器的地址总线，也就是说，线性地址等同于物理地址）。 如果线性地址空间被分页，启用分页机制，则会使用第二级地址转换来将线性地址转换为物理地址。</p>
+<h3 id="2-3-1-段选择子（Segment-Selectors）"><a href="#2-3-1-段选择子（Segment-Selectors）" class="headerlink" title="2.3.1 段选择子（Segment Selectors）"></a>2.3.1 段选择子（Segment Selectors）</h3><p>​    一个段选择子是一个<strong>段的16位标识符</strong>（如图6所示）。段选择子不直接指向一个段，反而指向定义了一个段的段描述符。一个段选择子包含了如下几项信息：</p>
+<ul>
+<li>Index：索引（第3到15位），共13位，可从GDT或LDT中8192（$2^{13}$）个段描述符中选择一个。处理器将索引值乘以8（一个段描述符的大小为8字节），并将其与GDT或LDT的基址（分别来自GDTR或LDTR寄存器）相加可定位一个段描述符。  </li>
+<li>TI (table indicator) flag  ：表指示标志位（第2位），指示所使用段描述符表，当复位时，表示选择GDT；设置该表示位时，表示选择LDT。</li>
+<li>Requested Privilege Level (RPL)  ：请求特权级别（第0和第1位），共两位，指示该段选择子的权限级别。权限级别的范围为0到3，<strong>权限级别0为最高权限级别</strong>。</li>
+</ul>
+<p><img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/selector.jpg"></p>
+<center style="color:#1a1a1a;">图6 段选择子</center>    
+
+<p>​    处理器不使用GDT的<strong>第一个表项</strong>。 指向这个GDT表项的段选择子（即索引值为0且TI标志设置为01的段选择子）称为<strong>“空段选择器”</strong>。 当空选择器加载入段寄存器（除CS或SS寄存器（代码段寄存器、堆栈段寄存器）外）时，处理器不会产生异常。 然而，当使用存储空选择器的段寄存器访问内存时，它会产生一个异常。 空选择器可以用于<strong>初始化未使用的段寄存器</strong>。 用空段选择器加载CS或SS寄存器会导致生成一个通用保护异常（#GP）。<br>​    段选择子作为指针变量的一部分对应用程序可见，段选择子的值通常由链接编辑器或链接加载器分配或修改，而不是应用程序。    </p>
+<h3 id="2-3-2-段寄存器（Segment-Registers）"><a href="#2-3-2-段寄存器（Segment-Registers）" class="headerlink" title="2.3.2 段寄存器（Segment Registers）"></a>2.3.2 段寄存器（Segment Registers）</h3><p>​    为了减少地址转换时间和降低编程复杂度，处理器提拱了至多可存储<strong>6个段选择子的寄存器</strong>（如图7所示）。每个段寄存器支持一种特定类型的内存引用（代码、堆栈或数据）。对于执行任何类型的程序，至少要将<strong>有效的段选择符</strong>加载到<strong>代码段（CS）、数据段（DS）和堆栈段（SS）</strong>。处理器还提供另外的数据段寄存器（ES、FS、GS），可贝用于让当前正在执行的程序（或任务）能够访问其他几个数据段。<br>​    对于访问一个段的一个程序，段选择器必须已经加载到一个段寄存器中。 因此，尽管一个系统可以定义上千个段，但只有6个段可立即访问使用。 在程序执行期间，通过将其他段的段选择子加载到这些寄存器中，就可以访问其他段。<br>![](保护模式内存管理/Segment Register.jpg)</p>
+  <center style="color:#1a1a1a;">图7 段寄存器</center>        
+
+<p>​    每个段寄存器都有一个<strong>“可见”</strong>部分和一个<strong>“隐藏”</strong>部分 （隐藏部分有时被称为<strong>“描述符缓存”</strong>或<strong>“影子寄存器”</strong>）。当一个段选择符被加载到段寄存器的可见部分时，处理器会同时将<strong>段选择符所指向的段描述符的段基址、段限长、 以及访问控制信息</strong>加载到段寄存器的隐藏部分。 段选择符缓存在段寄存器中的信息（可见和隐藏部分）使得处理器可以直接进行地址转换，而不需要再花费额外的总线周期从段描述符读取段的基址和段限长信息。 在一个多处理器系统中，处理器都访问同一个描述符表，如果描述表被修改，则软件应负责重新加载段寄存器。 如果不重新加载，则可能出现段描述符已经被修改，却仍在使用缓存在段寄存器中的旧段描述符的清空。<br>​    提供了以下两种方法来加载段寄存器：</p>
+<ul>
+<li>使用MOV，POP，LDS，LES，LSS，LGS和LFS 等指令加载。这些指令<strong>显式</strong>地引用段寄存器。</li>
+<li>隐式加载指令，例如使用长指针方法的CALL，JMP和RET指令，还有SYSENTER和SYSEXIT指令，IRET，INT <em>n</em>，INTO和INT3指令。这些指令执行时会附带修改CS寄存器的内容（有时也会修改其它寄存器的内容）。</li>
+<li>MOV指令也可被用于把段寄存器的可见部分的内容加载到一个通用目的寄存器。</li>
+</ul>
+<h3 id="2-3-3-段描述符（Segment-Descriptors）"><a href="#2-3-3-段描述符（Segment-Descriptors）" class="headerlink" title="2.3.3 段描述符（Segment Descriptors）"></a>2.3.3 段描述符（Segment Descriptors）</h3><p>​    一个段描述符是GDT或LDT中的一个数据结构，其提供处理器中一个段的大小、位置、访问控制和状态信息。段描述符通常由编译器、链接器、加载器或操作系统或执行程序创建，而不是应用程序创建。图8展示了所有类型的段描述符的通用描述符格式。<br>​    ![](保护模式内存管理/segment descripotor.jpg)</p>
+  <center style="color:#1a1a1a;">图8 段描述符</center>        
+
+<p>​    一个段描述符的标志位和字段信息如下：</p>
+<ul>
+<li>Segment limit field ：段限长字段，指明一个段的大小。处理器会把<strong>两个段限长字段</strong>拼接形成一个<strong>20位长的值</strong>。并根据颗粒度标志位G的两种不同的值来解释段限长字段的含义。<br>若G=0，段大小的范围为1字节到1MB字节，单位为1字节。若G=1，段大小的范围为4KB到4GB字节，单位为4KB字节。<br>处理器通过两种不同方式使用段限长，其依据是段是<strong>向上扩展段</strong>还是<strong>向下扩展段</strong>。  对于向上拓展的段，逻辑地址的段偏移量的范围为<strong>0字节到段限长值</strong>。大于段限长的偏移量将会产生一个一般保护异常（#GP，所有段都会产生除了堆栈段外）或一个堆栈错误异常（#SS表示SS段）  。对于一个向下拓展段，则相反，段偏移量的范围为<strong>段限长1字节增长到0xFFFFFFFFH或0xFFFFH</strong>（这个取决于B标志位的设置）。小于或等于段限制的偏移量会产生一般保护异常或堆栈故障异常。对于向下拓展段，减少段限长的值允许在段地址空间底部分配新的内存，而不是再顶部。因为IA-32架构所使用的栈总是向下增长的，所以这种机制便于栈的扩展。</li>
+<li>Base address fields  ：基址字段，该字段定义了段的0字节在4GB大小的线性地址空间中的位置。 处理器将<strong>三个基址字段</strong>拼接在一起形成一个<strong>32位长</strong>的值。 段基址应按16字节边界进行对齐。 虽然16字节对齐不是必需的，但是通过把程序的代码和数据按16字节边界上对齐，可使得程序性能最佳。（即，边界对齐便于数据的访问）</li>
+<li>Type field  ：类型字段，指示<strong>该段或门的类型</strong>，并指明段的访问类型和段的扩展方向。根据描述符类型标志位，这个字段会有两种含义：<strong>应用程序（数据、代码）段描述符</strong>或<strong>系统段描述符</strong>。对于代码段、数据段、系统段，这个字段的编码并不相同。</li>
+<li>S (descriptor type) flag：描述符类型标志位，其指明了一个段描述符是一个系统段描述符（该标志位复位）还是一个代码或数据段描述符（该标志位被设置）。</li>
+<li>DPL（descriptor privilege level  ）field：指明该段的特权级别。特权级别的取值范围为<strong>0 -3</strong>，<strong>0是权限级别最高</strong>。DPL用于控制对段的访问。</li>
+<li>P(segment-present) flag：段存在标志位，指明段是否于内存中存在（P=1，在内存中；P＝0，不存在内存中）。若P＝0，当一个段描述符的段选择符加载进段寄存器时处理器会产生一个<strong>段不存在异常</strong>。内存管理软件可以使用此标志位来控制在某一给定时间将指定的段加载进物理内存中，这为管理虚拟内存提供了除分页以外的控制。图9展示了P＝0时一个段描述符的格式。当复位该标志位时，操作系统或执行程序可以<strong>自由使用格式中标为“可用”（Available）的位置</strong>来存储自己的数据，例如有关不存在段实际在什么地方的信息。</li>
+<li>D/B(default operation size/default stack pointer size and/or upper bound) flag  ：D/B（默认操作大小/默认栈指针大小和/或上界限）标志，其根据段描述符描述的是一个可执行代码段、还是下扩数据段、或堆栈段来执行不同的功能。（对于32位代码和数据段，该标志位应该总被设置为1；对于16位数据和代码段，该标志段被设置为0）。<ul>
+<li><strong>可执行代码段：</strong>此时这个标志被称为<strong>D标志位</strong>，其指明段中的指令引用有效地址和操作数的默认长度。当D＝1，则默认值为32位地址和32位或8位操作数；当D＝0，则默认值为16位地址和16位或8 位操作数。指令前缀0x66H可用来选择非默认值的操作数大小；指令0x67H可用来选择非默认值的操作地址大小。</li>
+<li><strong>堆栈段（由SS寄存器指向的数据段）：</strong>此时这个标志被称为<strong>B标志位</strong>，它用于指明隐含栈操作（如pushes、pops、calls）时的栈指针的大小。当B＝1，则使用一个32位的栈指针，它存储在32位的ESP寄存器中；假如B=0，则使用一个16位的栈指针，它存储在16位的SP寄存器中。假如堆栈段被设置成一个下扩数据段，那么B标志也同时指定了堆栈段的上界限。</li>
+<li><strong>下扩段（Expand-downdata segment）</strong>此时标志叫作<strong>B标志</strong>，它指明堆栈段的上界。当B=1,上界为0xFFFFFFFFH（4Gbytes）；当B＝0，上界为0xFFFFH（64KBytes）。</li>
+</ul>
+</li>
+<li>G (granularity) flag  ：颗粒度标志位G，其决定了段限长域字段的单位。当G＝0时，段限长的单位为字节；当G＝1时，段限长的单位为4KB（这个标志位不会影响基地址的颗粒度，基地址的颗粒度总是字节单位。）。若设置了该标志位，则在使用段限长检查偏移量时，不会检查偏移量的12位最低有效位。 例如，当G=1时，段限长为0表明有效偏移量为0到4095。</li>
+<li>L（64-bit code segment) flag  ：L标志位，在IA-32e模式下，段描述符第二个双字的第21位表示该代码段是否存储了本地64位代码。 当L=1时，表示在64位模式下执行该代码段中存储的指令。 当L=0时。表示在兼容模式下执行此代码段中存储的指令。 如果设置了L位，则必须复位D标志位。 当在非IA-32e模式或该段非代码段时，第21位是保留的，并且应该总是设置为0。  </li>
+<li>Available and reserved bits  ：可用和保留位，段描述符的第二个双字的第20位是保留给操作系统软件使用的；</li>
+</ul>
+<p><img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/descriptor(P=0).jpg"></p>
+  <center style="color:#1a1a1a;">图9    P=0时的段描述符</center>        
+
+<h2 id="2-4描述符的分类"><a href="#2-4描述符的分类" class="headerlink" title="2.4描述符的分类"></a>2.4描述符的分类</h2><h3 id="数据段和代码段描述符（Data-and-Code-segment-Descriptor）"><a href="#数据段和代码段描述符（Data-and-Code-segment-Descriptor）" class="headerlink" title="数据段和代码段描述符（Data and Code segment Descriptor）"></a>数据段和代码段描述符（Data and Code segment Descriptor）</h3><p>​    当段描述符中的<strong>S标志位被设置</strong>时，该描述符描述的是一个代码或数据段。类型字段（type）的<strong>最高有效位</strong>（第二个双字的第11位）用于决定是一个数据段（复位）还是一个代码段描（置位）。<br>​    即：</p>
+<ul>
+<li>当S=1，type的最高有效位为0时，该段描述符指向一个数据段；</li>
+<li>当S=1，type的最高有效位为1时，该段描述符指向一个代码段。</li>
+</ul>
+<p>​    对于数据段描述符，类型字段的低3位（第8、9、10位）的含义分别为被访问accessed (A)、可写write-enable (W)和拓展方向expand -direction (E)。表1展示了代码段和数据段的类型字段比特位编码的说明。根据可写比特位W的设置, 数据段可以是只读的，也可以是可读/写的。<br>![](保护模式内存管理/date and code.jpg) </p>
+  <center style="color:#1a1a1a;">表1   代码段和数据段描述符类型</center>        
+
+<p>​    <strong>堆栈段</strong>必须是一个<strong>可读/写的数据段</strong>。若将不可写数据段的段选择符加载到 SS 寄存器中，则会导致产生一个一般保护异常。如果堆栈段的长度会动态变化，那么堆栈段可以是一个<strong>向下扩展的数据段</strong>（扩展方向标志被设置）。因而，动态改变段限长的值将导致栈空间被添加到栈底部。  如果希望堆栈段的大小保持不变，则堆栈段可以是向上拓展或向下拓展类型。<br>​    被访问位A指明该段自上次操作系统或执行程序复位<strong>该位后是否被访问过</strong>。 如果包含段描述符的内存类型支持<strong>处理器写操作</strong>，那么处理器每次将<strong>段选择符加载到段寄存器</strong>时都会设置这个位。 该位会一直保持被设置状态，直到其<strong>显式复位</strong>。 该标志位既可以用于虚拟内存管理，也可以用于调试。<br>​    对于代码段，类型字段的低三位的含义（第8、9、10位）分别为<strong>被访问accessed (A)、可读read enable (R)、 一致conforming (C)<strong>。代码段可以是</strong>只能执行或可执行/可读</strong>，这取决于<strong>可读位的设置</strong>。 当<strong>常数或其他静态数据以及指令码</strong>存储在了一个ROM 中时，就可以使用一个可执行/可读代码段。  通过使用<strong>带CS前缀的指令</strong>或者把<strong>代码段选择符</strong>加载进一个<strong>数据段寄存器</strong>（DS、ES、FS或GS寄存器），就可读取代码段中的数据。 在<strong>保护模式</strong>下，<strong>代码段是不可写</strong>的。<br>​    代码段可以是<strong>一致性和非一致性的</strong>。操作系统允许执行在当前特权级的程序向一个<strong>更高权级的一致性代码段</strong>进行转移。当向一个<strong>不同特权级别</strong>的<strong>非一致性代码段</strong>进行执行转移时，会产生一个通用保护异常（#GP），除非使用<strong>调用门（call gate）或任务门（task  gate）</strong>（这个我们已经在读书笔记1中，有所了解，通过门，可以进行<strong>跨权限级别的访问</strong>）。一些系统工具（不访问保护设施）和一些处理某些异常类型（如除出错，溢出）的处理程序可以放在一致性代码段内。<strong>需要保护其不能被更低特权级程序</strong>访问的程序应该放在非一致性代码段内。<br>​     所有的<strong>数据段</strong>都是<strong>非一致性</strong>的，这意味着它们不能<strong>被更低特权级（权限数字值较大）的程序或过程访问</strong>。与代码段不同的是，<strong>数据段</strong>总是能被<strong>更高特权级（权限数字值较小，数字越小，权限越高）的程序或过程访问</strong>，而不需要使用特别的访问门。<br>​    当GDT或LDT中的<strong>段描述符存储在在ROM</strong>中时，若软件或处理器试图<strong>更新（写入）位于ROM的段描述符</strong>，则处理器就会进入一个<strong>无限循环</strong>。 为了避免该问题发生，将ROM中所有段描述符的<strong>访问位都置位</strong>。同时，会将那些试图修改ROM中段描述符的操作系统代码或执行代码删除掉。<br>​    <strong>注意：</strong>不能通过call或jump转入更低权限级别（权限数字值较大）的代码段执行，不管目标段是一个一致性还是非一致代码段。这种转移执行的尝试操作，将会引起一个一般保护异常。</p>
+<h3 id="系统描述符类型（SYSTEM-DESCRIPTOR-TYPES-）"><a href="#系统描述符类型（SYSTEM-DESCRIPTOR-TYPES-）" class="headerlink" title="系统描述符类型（SYSTEM DESCRIPTOR TYPES  ）"></a>系统描述符类型（SYSTEM DESCRIPTOR TYPES  ）</h3><p>​    当段描述符中的<strong>S标志位（描述符类型）被复位</strong>时，表明该段描述符为一个系统描述符。处理器能识别以下一些类型的系统段描述符：</p>
+<ul>
+<li><p>本地描述符表(LDT)的段描述符</p>
+</li>
+<li><p>任务状态段(TSS)描述符</p>
+</li>
+<li><p>调用门描述符</p>
+</li>
+<li><p>中断门描述符</p>
+</li>
+<li><p>陷阱门描述符</p>
+</li>
+<li><p>任务门描述符</p>
+<p>这些描述符可分为两大类：<strong>系统段描述符和门描述符</strong>。系统段描述符指向一个系统段（LDT或TSS段）。门描述符就是他们自己——“门”，这些门描述符存储了代码段中指向程序入口点的指针（调用、中断和陷阱门），或者存储了TSS的段选择符（任务门）。  图2占了系统段描述符和门描述符类型字段的编码及说明。</p>
+</li>
+</ul>
+<p>![](保护模式内存管理/system descriptor.jpg)</p>
+  <center style="color:#1a1a1a;">表2   系统段描述符类型</center>            
+
+]]></content>
+      <categories>
+        <category>体系结构</category>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>X86</tag>
+        <tag>体系结构</tag>
+        <tag>内存管理</tag>
       </tags>
   </entry>
   <entry>
@@ -1932,6 +1855,117 @@
       <tags>
         <tag>体系结构</tag>
         <tag>x86</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>论文翻译</title>
+    <url>/2021/09/19/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91/</url>
+    <content><![CDATA[<h1 id="需求，瓶颈，好运：微处理器演变的动力"><a href="#需求，瓶颈，好运：微处理器演变的动力" class="headerlink" title="需求，瓶颈，好运：微处理器演变的动力"></a>需求，瓶颈，好运：微处理器演变的动力</h1><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>​    第一台微处理器——Intel 4004于1971年问世，其集成了2300个晶体管，时钟频率为108KHz。在三十年后的今天，一个微处理器中集成了近2亿个晶体管，其时钟频率超过了1GHz。在未来的5年里，集成在单个芯片上的晶体管的数量预计将超过10亿，以从6GHz到10GHz的时钟频率运行。</p>
+<p>​    微处理器的演变，始于1971年，发展到今日的状况，再到未来5年后可能到达的位置，是因为几个贡献性的力量。我们的立场是：这种演变不是恰好发生的，而是演变的每一步都是三件事其一影响的结果，而且其背景总是计算机架构师于三者中做权衡、折衷。这三件事是：1)新需求；2)瓶颈；3)好运气。我将它们统称为演变的动力。</p>
+<p>​    这篇文章尝试从三个方面展开：描述微处理器领域的一个基本框架，展示自第一台微处理器问世后的三十年里的重大发展，最后，提出一些新事物，有望于在未来的5年内看到发生在高性能微处理器上的新事物。</p>
+<p>​    <strong>关键词</strong>——计算机体系结构，微体系结构，微处理器， 微处理器设计，微处理器进化。</p>
+<h2 id="Ⅰ-基本框架"><a href="#Ⅰ-基本框架" class="headerlink" title="Ⅰ. 基本框架"></a>Ⅰ. 基本框架</h2><h3 id="A-计算机体系结构：折衷（权衡）的科学"><a href="#A-计算机体系结构：折衷（权衡）的科学" class="headerlink" title="A. 计算机体系结构：折衷（权衡）的科学"></a><em>A. 计算机体系结构：折衷（权衡）的科学</em></h3><p>​    计算机体系结构，与其说是“科学”，不如说是“艺术”。随着阅历的增长，我们的能力和洞察力都有所提升。计算机架构师会借鉴以往的设计经验来对当前项目做出决策。如果说计算机体系结构是一门科学，那么它是一门关于权衡的科学。在过去的半个世纪里，计算机架构师一直在学习钻研基础知识，以帮助他们能够实践他们的工艺。 计算机架构师的工作几乎总是需要使用这些基础知识来进行权衡，尤其在微处理器的整个发展过程中，亦是如此。 </p>
+<p><img src="/2021/09/19/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91/fig1.jpg" alt="image"></p>
+<p>​                                                 图1  现代微处理器</p>
+<h3 id="B-抽象变换的层次结构"><a href="#B-抽象变换的层次结构" class="headerlink" title="B. 抽象变换的层次结构"></a><em>B. 抽象变换的层次结构</em></h3><p>​    晶体管的数量以及其开关时间是工艺技术所提供的资源。（以上为直译，个人理解为：集成在单个芯片上的晶体管的数量和晶体管的开关时间由加工技术决定。）我们将这些资源用于什么则取决于市场的需求。 我们如何使用这些资源就是微处理器的全部意义所在（个人理解为：根据市场需求，而后使用这些资源来制造微处理器，也就是需求和资源的一种折衷）。 图1展示了抽象变换的层次结构，一个用自然语言描述的问题如英语，必须通过这几层的抽象变换（根据问题，求解算法，选择适当算法编写程序，然后高级语言程序翻译成机器语言程序，再到微程序解释机器语言程序，最后硬件执行微指令，再到底层的电路，最后是最底层的电子，也就高低电平变换01变换，也就是电子）最终才能得以解决。在现实中，是电子运动做动解决了问题。然而，我们并不会在实际中说“电子”，同时“电子”也不会说任何自然语言，我们能做的最好的事情就是通过图1所示的层次结构系统地来转换问题，直到到达电子（或着说设备）层，这一层也就是集成了2亿个集体管，时钟频率为1GHz的芯片。</p>
+<p>​    在这个过程中，问题的解决方案首先被用算法的形式来明确阐述以致消除自然语言的一些不可接受的特性，如歧义性。然后用机器语言对其编码并编译为特定微处理器的指令集架构（ISA）。ISA是一致商定的接口:1)编译后的程序用来告诉微处理器该程序需要做什么；2）微处理器用来知道它必须代表程序执行什么。ISA由一组硬件结构实现，其被统称为微处理器的微体系架构。每个硬件结构以及之间的相互连接均由电子数字电路组成，而电子数字电路又由电子设备组成。</p>
+<p>​    当我们今天讨论微处理器时，我们通常是指图1的阴影部分。每个微处理器由电路组成，电路实现了硬件结构（统称为微体系架构），其提供了一个面向软件的接口（被称为ISA）。在个人计算机中，ISA一般是IA-32，个人电脑的ISA是IA-32，微架构是Intel的Pentium IV，或者是早期的Pentium III、Pentium II、Pentium Pro、486等等，或者AMD的K-8， 或者为更早的K-7、K-6 等。 </p>
+<p>​    还有一些其他的ISA：例如SPARC(来自Sun Microsystems)，Alpha（来自Compaq），以及Power-PC(来自Motorola and IBM)。每种ISA都有其自己的特性来为编译器提供更好或更坏的接口，或者说微体系架构跟好或更坏地执行工作。对于每个ISA，都有多个不同的微体系架构。 我们已经提到了IA-32 的几个微架构。 于Alpha而言， 有 21064、21164 和 21264。</p>
+<p>​    在层次结构的每一步中，从算法的选择到语言，到ISA 到微体系结构，到电路，都有选择，因此就有权衡。 </p>
+<p>​    人们通常在更高的性能和更低的价格之间做选择，但并非总是如此。举一个汽车的类比可能更有启发性。可以制造一台高性能跑车，其可以在几乎0秒内从0英里/小时加速到 100 英里/小时。但是其造价会非常高。或者，可以制造一辆非常便宜的汽车，它的时速永远无法达到 100 英里/小时，但每加仑汽油可以行驶 100 英里。性能和经济性不可兼得。这就是权衡。</p>
+<h3 id="C-设计要点"><a href="#C-设计要点" class="headerlink" title="C. 设计要点"></a><em>C. 设计要点</em></h3><p>​    微处理器的设计就是做相关的权衡（折衷）。我们将微处理器设计中的这组考虑因素以及每个考虑因素相关重要性成为微处理器的“设计要点”–也就是说，于微处理器用途而言最重要的特性，以至于较少关注于其他特性。性能、成本、散热和功耗是强烈影响设计点的特性的示例。另一个示例是“高可用性”——设计一个微处理器时其中考虑最多的就是这个微处理器永远不会出故障。如果可以确保微处理器永远不会出现故障，一些客户愿意接受更低的性能或更高的价格。我们将这种处理器称为“容错”或高可用性的。</p>
+<p>​    其他客户则愿意为节能、续航牺牲一部分性能，随着最高性能芯片的功率和能耗越来越大，大得令人无法接受，这个设计要点愈发重要。这就存在一个最高性能与功耗意识的权衡。</p>
+<p>​    值得一提的是，“功耗意识”与另一个重要的设计要点“低功耗”不同，在许多应用中，首先考虑的是微处理器消耗非常少量的能源但能长时间运行。</p>
+<h3 id="D-应用空间"><a href="#D-应用空间" class="headerlink" title="D. 应用空间"></a><em>D. 应用空间</em></h3><p>图1中“问题”一词是应用空间的统称，或者说我们希望使用微处理器的一组应用程序。应用程序的数量正在以惊人的速度增加，而且预计未来仍会保持增长的趋势。实际上，只要人们期望计算机的用途更加广泛（或者说计算机能实现更多功能），则对于微处理器的需求和权衡将会持续扩大。也就是说，应用空间（或更准确说，具有核心重要性的应用）驱动着这个设计要点。我们前面那已经提到了高可用性处理器，其中应用程序要求微处理器永远不出故障，以及在低功耗处理器中，应用程序必须能够消耗少量能量而能长时间运行。</p>
+<p>​    持续驱动独特设计要点需求的应用空间的其他示例如下：</p>
+<pre><code>1. 科学应用，例如，计算控制核电站，决定开采石油的位置，预测天气；
+2. 基于事务的应用程序，例如办理ATM转账和电子商务业务;
+3. 业务数据处理应用程序，例如处理库存控制、工资、IRS活动和各种个人记录的应用程序，无论这些个人是雇员、学生还是选民;
+4. 网络应用，例如高速路由的互联网数据包，使你的家庭系统连接利用互联网;
+5. 有保证的交付(即实时)应用程序，要求在某个关键期限之前得到计算结果;
+6. 嵌入式应用程序，其中处理器是更大系统的一个组件，用于解决(通常)专用应用程序;
+7. 解码视频和音频文件等媒体应用程序;
+8. 桌面用户希望在自己的电脑上运行的随机软件包。
+</code></pre>
+<p>每个应用领域都有其特点，与其他领域大不同。每个应用领域都要求做不同的权衡、折衷来设计微处理器来满足其完成工作。</p>
+<h3 id="E-基本处理"><a href="#E-基本处理" class="headerlink" title="E. 基本处理"></a><em>E. 基本处理</em></h3><p>​        微处理器处理执行指令，简单地说，有三个步骤：1)向处理器核心提供指令，让每条指令都能完成它的工作;2)提供每条指令所需的数据;3)执行每条指令。</p>
+<h3 id="F-指令供给"><a href="#F-指令供给" class="headerlink" title="F. 指令供给"></a><em>F. 指令供给</em></h3><p>在提供指令的早期阶段，一次取一条指令，解码并发送到内核进行处理。 随着时间的流逝，一次能取到指令的数量已经从一个增加到了四个，而且很可能不久就增长到六或八。 有三个因素会妨碍为内核充分提供待处理的指令：指令缓存未命中、获取中断和条件分支错误预测。 当对指令缓存不命中时，指令的供应量下降到零，直到高速缓存未命中得到解决。 当被提取的指令是一个已采取的分支时，则会发生提取中断，这使得在同一周期中提取的所有后续指令都变得无用，与问题宽度无关。 条件分支错误预测意味着自错误预测分支以来取出的所有指令都是无用且浪费了资源，并且必须在执行正确的指令路径继续之前将其丢弃。 </p>
+<h3 id="G-数据供给"><a href="#G-数据供给" class="headerlink" title="G. 数据供给"></a><em>G. 数据供给</em></h3><p>为了提供一条指令所需的数据，人们需要能够在接近0的时间内（尽可能的快）以合理的成本（成本和速度的折衷）无限地提供所需数据。实际数据存储器无法满足这三个要求。 我们能做的最好的是一个存储层次结构，其中可以在一到三个周期内访问少量数据（在芯片上），在十到十六个周期内可以访问更多数据（也在芯片上）， 并且可以在数百个周期内访问更多数据（片外）。 <del>结果是实际数据存储器受到取出特定数据元素的时延和将该数据元素从其在存储层次结构中的位置移动到需要它的处理器核心所必需的带宽的二者的制约。</del> </p>
+<p>尽管这种片外延迟在今天依旧很糟糕，而这种情况一直在变得更差。 处理器的指令周期时间（这里联系上文中的处理器，这里的周期应该为指令周期——CPU每取出并执行一条指令所需要的时间，是从取指令、分析指令到执行完指令所需的全部时间。）的改进一直在增长，，且比内存周期时间快得多的速度增长。 几年后，我们希望看到对内存的片外数据访问需要数千个处理器周期。</p>
+<h3 id="H-指令处理"><a href="#H-指令处理" class="headerlink" title="H. 指令处理"></a><em>H. 指令处理</em></h3><p>为了执行这些指令所需的操作，需要足够数量的功能单元来在数据可用时立即处理数据，并且需要足够的互连以将一个功能单元产生的结果立即提供给需要它的功能单元 来源。 然而，足够的互连是不够的。 随着片上周期时间的减少，将芯片某一部分的功能单元所产生的结果转发到芯片其他部分的功能单元，在这个功能单元中结果是源操作数的一部分，其所需的延迟会变得更糟。  </p>
+<h2 id="Ⅱ-演变的动力"><a href="#Ⅱ-演变的动力" class="headerlink" title="Ⅱ. 演变的动力"></a>Ⅱ. 演变的动力</h2><p>许多因素促进了微处理器的发展：消费者愿意购买供应商生产的产品——如果没有市场，我们早就回家了。 工程师解决问题的创造性——没有解决方案，就没有更新演化。 </p>
+<p>我认为这些事情是次要的，强制性的功能（我称之为演变的动力）是新的需求、瓶颈和幸运。 </p>
+<h3 id="A-动力-Ⅰ：新的需求"><a href="#A-动力-Ⅰ：新的需求" class="headerlink" title="A. 动力 Ⅰ：新的需求"></a>A. <em>动力 Ⅰ：新的需求</em></h3><p>早期的微处理器将处理限制为在每个周期内取指、译码，并将其及其数据转发到内核中的功能单元进行处理。但对于更高性能的需求来说，每个周期获取一条指令是远远不够的。 结果是宽发射微处理器（wide-issue microprocessor），其中取指机制允许在每个时钟周期内取指、译码和转发多条指令到执行核心。 </p>
+<p>另一个例子，也是由于对高性能的要求，需要同时处理多条指令。 如果只有一个 ALU，则一次只能做一个 ADD。 其结果是目前在一个执行核心中集成了多个功能单元。 </p>
+<p>今天，普遍的新需求涉及功耗，或称为功耗感知计算。 要求是提供与先前设计相同水平的计算机性能，同时功率小于先前设计所需功率。 请注意，这与嵌入式处理器的低功耗要求不同，后者在一段时间内一直是一个重要的设计要点。 </p>
+<p>有很多人认为未来的新需求将涉及人机交互界面，随着计算机/人机交互变得越来越普遍，人机界面需要越来越多的关注。 </p>
+<h3 id="B-动力-Ⅱ：瓶颈"><a href="#B-动力-Ⅱ：瓶颈" class="headerlink" title="B. 动力 Ⅱ：瓶颈"></a>B. <em>动力 Ⅱ：瓶颈</em></h3><p>我们已经在上面确定了指令处理的三个组成部分（取指、取数和执行指令的操作），以及每个组成部分的含义。 到目前为止，微处理器的大部分改进都是为了消除阻碍这三个组件完成工作的瓶颈。 </p>
+<p>例如，取指需要在每个周期取一定数量的指令——今天是四个——指令。 如果这些指令存储在内存中，那么获取的时间会太长。 瓶颈是缓慢的访存。 因此，发明了指令缓存。 </p>
+<p>如果硬件有能力获取四条指令，但第二条指令是条件分支，则只能获取两条指令，而不是四条指令。 由条件分支引起的瓶颈是指令按照编译器生成的顺序排列，而不是指令执行的（动态）顺序。 最近添加到 Pentium IV 的新功能是跟踪缓存，它按照最近执行的顺序而不是编译器编译的（静态的）顺序来存储指令。 </p>
+<p>最后，如果每个周期都提供指令（取指），则在遇到分支时会出现问题，因为尚不确定是否满足条件而采取分支转移，有可能转移，也有可能不转移。可以等待得出指令的执行结果，先暂时停止指令的获取，直到确定是否满足条件，（即确定该指令的下一条指令）。 通过引入分支预测器突破了这个瓶颈，它猜测是否应该采用分支，并根据这个猜测立即取指。 </p>
+<h3 id="C-动力-Ⅲ：好运气"><a href="#C-动力-Ⅲ：好运气" class="headerlink" title="C. 动力 Ⅲ：好运气"></a>C. <em>动力 Ⅲ：好运气</em></h3><p>当某些事情导致意外收获时，这就是幸运，然后其意外收获可被用于为微处理器提供额外的功能。 这方面的一个很好的例子是技术收缩，它允许微处理器的下一代实现比以前的实现占用更少的芯片空间。 由于旧设计所需的空间更少，因此可以有更多空间用于做其他事情。 以这种方式引入微处理器的其他两个例子是 1980 年代中期的片上浮点加速器和 1990 年代后期在片上添加的多媒体指令扩展功能。</p>
+<h2 id="Ⅲ-演变历程：从1971到今天"><a href="#Ⅲ-演变历程：从1971到今天" class="headerlink" title="Ⅲ. 演变历程：从1971到今天"></a>Ⅲ. 演变历程：从1971到今天</h2><p>微处理器已经从 Intel 4004 的简单 2300 个晶体管发展到今天的样子。这种演变是源于几个原因，正如上面所述。 其结果是今天的 Pentium IV 与 1971 年的 Intel 4004 几乎没有相似之处。</p>
+<p>这种演变的一些例子如下。 </p>
+<h3 id="A-流水线"><a href="#A-流水线" class="headerlink" title="A. 流水线"></a><em>A. 流水线</em></h3><p>早期的微处理器在开始处理下一条指令之前，处理一条指令要经历取指到指令休止。流水线，最晚自 1960 年代以来就在大型计算机中出现，是解决该性能瓶颈的重要方案。 具有商业利益(商用)的微处理器（例如 Intel 8086）在 1970 年代后期通过在执行当前指令时预取出下一条指令，向流水线迈出了第一步。 </p>
+<p>片内缓存稍微些才出现在微处理器中。 从片外存储器取指令和数据到片内处理元件的时延太大。解决方案是：片内缓存。 1984 年，第一个具有片上缓存的商业可行（商业）微处理器是摩托罗拉 MC68020。 在具有流水线技术的处理器中，能够在同一周期内取指令和取数据，而不是争用一个端口到缓存读取，突破了瓶颈，这是很有用的。1986 年，摩托罗拉的 MC68030 是第一批包含独立的片内的指令和数据缓存的微处理器。 </p>
+<p>缓存要么速度快要么容量大，不能两者兼得。因为缓存必须很快，那么它的容量不得不很小，从而导致缓存未命中率过大。 高速缓存未命中的问题是片外为解决未命中的延迟太大。解决方案是：芯片上有两级缓存，因此较快、容量小的一级缓存中的未命中可以通过容量较大、速度较慢的二级缓存来解决，这仍然比片外快得多。 直到 1994 年左右Alpha 21164 问世，这个技术才出现在微处理器上。今天，几乎所有的高性能微处理器都有两级缓存。 </p>
+<h3 id="C-分支预测"><a href="#C-分支预测" class="headerlink" title="C. 分支预测"></a><em>C. 分支预测</em></h3><p>如果条件分支产生流水线停顿，等待处理分支条件且执行完分支指令，则失去了流水线的优势。 硬件（运行时）分支预测器直到 1990 年代初才在微处理器芯片上实现。早期，一些引入运行时分支预测器的微处理器是摩托罗拉的 MC88110、Digital 的 Alpha 21064 和英特尔的 Pentium。 </p>
+<h3 id="D-片内浮点单元"><a href="#D-片内浮点单元" class="headerlink" title="D. 片内浮点单元"></a><em>D. 片内浮点单元</em></h3><p>早期的微处理器有一个单独的芯片来处理浮点运算。 随着晶体管越来越小，芯片越来越大，通过利用“新”的空闲容量并节省不必要的片外通信，芯片上集成的晶体管数目达到了可以将浮点单元与主处理单元放在同一芯片上的程度。 摩托罗拉 MC88100 和英特尔 486 是 80 年代后期在主处理器芯片上集成浮点单元的两款早期芯片。 </p>
+<h3 id="E-其余专业功能单元"><a href="#E-其余专业功能单元" class="headerlink" title="E. 其余专业功能单元"></a><em>E. 其余专业功能单元</em></h3><p>早期的微处理器只有一个或很少的功能单元。 随着芯片上晶体管数量的增多，人们也认识到可以通过利用多个功能单元来并发执行。 首先添加了诸如单独处理 ALUs之类的功能单元。 然后，更复杂的加载/存储功能单元其包含写缓冲区、未命中未决队列和处理内存消歧机制等，成为 1990 年代通用微处理器芯片的一部分。1986 年，英特尔的 I860 是首批拥有多个专用功能单元之一，除了浮点加法和乘法单元之外，还有一个单元用于辅助图形处理。 </p>
+<h3 id="F-乱序执行"><a href="#F-乱序执行" class="headerlink" title="F. 乱序执行"></a><em>F. 乱序执行</em></h3><p>程序员/编译器和微体系结构之间的契约要求指令必须按照翻译程序指定的顺序执行。而这就导致了一个瓶颈：如果当前指令因需要其后续指令为他提供其开始执行所需的全部内容，而不能执行，则会阻止其他指令执行。（简而言之，就是当前指令需要后续指令为其提供数据才能开始执行，那么当前数据不能执行，因为只有执行了当前指令，才能执行后续指令，就陷入了一个死锁）</p>
+<p>自 1960 年代中期以来， 就已经提出这一瓶颈的机制，即乱序处理，例如，IBM 360/91。然而，该机制仅限于高性能科学计算，同时在高性能计算中，能够处理精确异常并不是重要需求。然而目前几乎所有制造商都认可IEEE 浮点标准，这表明处理精确异常并非不是重要需求。 尽管如此，虽然乱序执行已在大型机上使用了 35 年，但直到在1990 年代中期，它与精确异常处理的结合使用才在微处理器上首次出现。</p>
+<p>为了适应乱序执行，微处理器调整了早期大型机上使用的寄存器别名和执行部件中的驻留站 。为了做到这一点，微处理器必须能区分指令执行和指令退出。指令在它们的执行所需资源（数据和功能单元）可用时才被允许执行，独立于它们在程序中的顺序，但被迫以它们在执行程序中出现的相同顺序退出。也就是说，内部微架构可以乱序执行指令，但必须按照指令在执行程序中出现的顺序报告执行结果（即改变计算的永久状态）。如果要实现这样功能，则需要一个能在异常情况下恢复状态的机制。这种状态恢复机制在当今大多数微处理器上通常表现为重新排序缓冲区，在少数微处理器上表现为检查点退休结构。尽管其他微处理器更早地出现了无序执行的情况，但第一个充分实现这一机制的是 1995 年的 Pentium Pro。</p>
+<h3 id="G-集群"><a href="#G-集群" class="headerlink" title="G. 集群"></a><em>G. 集群</em></h3><p>单芯片尺寸继续增大，特征尺寸继续减小，片内频率继续增大。 结果是芯片一角上的功能单元得到的值不能在片间传输，从而不能在下一个周期内中于芯片对角上的功能单元为源操作数使用。 解决方案——将执行核心划分为集群，以便在大多数情况下，一个集群中的功能单元产生的结果将被同一集群中的另一个功能单元使用。 但仍然存在不知道将特定指令引导到哪个集群取执行的问题，但是如果成功，原来因一个执行结果必须经芯片的主要部分传输而需要多个周期的不正常延迟消失。 此功能在 1990 年代后期首次出现在 Alpha 21264 上。 </p>
+<h3 id="H-芯片多处理器"><a href="#H-芯片多处理器" class="headerlink" title="H. 芯片多处理器"></a><em>H. 芯片多处理器</em></h3><p>芯片日益丰富的另一种用途（更多的晶体管，与更快的工作频率相结合）是将芯片划分为多个区域，每个区域使用相同的处理器。 该范例被称为 CMP，用于芯片多处理器。 对于易于划分为独立指令流的任务，其中需要指令流之间的大量通信，CMP 是一种有用的范例。 它提供了发生在片内的处理器间通信的额外好处，其中这种通信比片外通信快得多。 IBM 于 2000 年实现了此功能，其 G4 芯片上有两个处理器。 </p>
+<h3 id="I-同步多线程"><a href="#I-同步多线程" class="headerlink" title="I. 同步多线程"></a><em>I. 同步多线程</em></h3><p>当指令高速缓存访问出现未命中时，指令供应会受到影响。 在等待缓存命中时浪费了大量容量。 Burton Smith 在 1978 年 [3] 建议使用该空闲容量从其他指令流中获取指令。 这个概念首先在他的 Donelcor HEP 上实现。 这个概念直到 1990 年代才在微处理器世界中亮相，在微处理器中，它被扩展为允许在交替周期中从交替的单个指令流中取指，但基于所需数据的可用性，在同一周期中同时从所有指令流中执行 取指。第一个实现此功能的微处理器是 2000 年的 Pentium IV。 </p>
+<h3 id="J-更快的内核"><a href="#J-更快的内核" class="headerlink" title="J.更快的内核"></a><em>J.更快的内核</em></h3><p>在密集型计算任务中，等待较早执行指令产生的结果为源操作数的数据依赖可能是一个重要的瓶颈。 一个解决方案是——以比微处理器其他部分快得多的频率运行执行核心。 2000 年推出的 Pentium IV 芯片的工作频率为 1.7 GHz，但 ALU 的工作频率为 3.4 GHz。 </p>
+<h2 id="Ⅳ-十亿晶体管芯片的未来"><a href="#Ⅳ-十亿晶体管芯片的未来" class="headerlink" title="Ⅳ. 十亿晶体管芯片的未来"></a>Ⅳ. 十亿晶体管芯片的未来</h2><p>正如我们所说，在当前的十年内，工艺技术有望在单个芯片上集成 10 亿个晶体管，并以 6 至 10 GHz 的频率运行。 那么我们将如何利用所有这些能力？ </p>
+<p>今天的计算机架构师并不认同。 有些人主张扩展我们上面描述的 CMP 理念。 论据是，如果有 10 亿个晶体管，我们可以在单个芯片上集成 100 个微处理器，每个处理器由 1000 万个晶体管组成。 该论点进一步指出，一个 1000 万晶体管处理器仍然非常庞大，建造任何比这更大的东西只会适得其反，导致更大的收益递减。 </p>
+<p>其他人则是建议扩大使用同步多线程。 他们认为 CMP 所需的许多资源可以在单个处理器 SMT 芯片上共享，从而将节省的资源释放给其他功能，例如更大的缓存、更好的分支预测器、更多功能单元等 </p>
+<p>而包括本文作者在内的一些人指出，虽然 SMT 在共享资源方面肯定比 CMP 有所改进，但在加快大多数重要的非科学基准测试方面，它们都存在不足。 原因：这些基准测试中的大多数都有令人失望的特性，re: SMT，由单个指令流组成。 一个非常昂贵的芯片应该解决多计算机网络无法解决的问题，这个计算机网络由许多更小更便宜的芯片组成的。这一观点主张使用所有的10亿个晶体管来生产一个非常高性能的单处理器。</p>
+<p>还有一些人抱怨说，由于 CAD 工具已经无法准确验证我们当前的芯片，所以设计更复杂的芯片是不负责任的。 他们提倡一个非常简单的核心处理器，其有较大容量的片上缓存。</p>
+<p>那些以成本为中心(这是一个非常不同的设计要点)的厂商认识到，更高水平的集成可以生产出更便宜的产品，并建议使用10亿个晶体管，将整个非激进的系统放在一个芯片上。</p>
+<p>这些都是可供选择的建议，我推测它们中的每一个都会在未来十年内出现在某些产品中。我个人的偏好是使用十亿个晶体管来发展最高性能的单处理器，以处理单指令流应用。推动这一发展的因素和以前一样:新的需求、瓶颈和好运。以下是我们可能会看到的一些想法。 </p>
+<h3 id="A-新微处理器"><a href="#A-新微处理器" class="headerlink" title="A. 新微处理器"></a>A. 新微处理器</h3><p>到目前为止，微处理器的设计方式如图1所示。但是为什么这样做呢？如果我们把我们的抽象变换层次并把算法和语言包含在微处理器中，那么微处理器就变成了使用 器件工艺来解决问题的东西。参见图2。为什么不能为解决应用空间中的某一点，而设计一个微处理器，在这个微处理其中，将解决该问题所需的专用算法嵌入到微处理器中，为什么这样实现是不合理的呢？我们今天在低成本的嵌入式应用程序中这样实现。但为什么不能在可接受的高成本的有高性能要求的机器中实现呢呢？</p>
+<p>这种定做可以采用以下讨论的可重构逻辑的形式，ISA中的特殊专用指令，或者芯片上提供的集成功能单元(如DSP引擎。</p>
+<p><img src="/2021/09/19/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91/fig2.jpg" alt="image"></p>
+<p>​                                                图2   未来的微处理器</p>
+<h3 id="B-新的数据路径"><a href="#B-新的数据路径" class="headerlink" title="B. 新的数据路径"></a><em>B. 新的数据路径</em></h3><p>片内的时钟频率有望于到达很高以至于必须认真考虑芯片上任何信号线的长度。有些信号需要多个周期才能在芯片完成传输。必须仔细检查哪些信号可以这样做。大多数信号可能都不行。 这就产生了挑战：根据线长的新限制重新设计数据路径。</p>
+<h3 id="C-内部容错"><a href="#C-内部容错" class="headerlink" title="C. 内部容错"></a><em>C. 内部容错</em></h3><p>片内的时钟频率提升的另一个后果是对软错误的敏感性——由于材料的物理特性，在有望实现的如此高的时钟频率下运行，这些错误将间歇性地和不频繁地出现。未来的微处理器将必须提供在这些软错误发生时进行检查和纠正的功能。 </p>
+<h3 id="D-异步和同步单元共存"><a href="#D-异步和同步单元共存" class="headerlink" title="D. 异步和同步单元共存"></a><em>D. 异步和同步单元共存</em></h3><p>时钟脉冲相位差（查阅资料：<strong>时钟脉冲相位差</strong>是指同时产生的两个时钟信号，到达接收端的时间不同步。）已经成为一个严重的问题。在时钟频率为 6 GHz 时，情况会更糟糕。 诚然，异步结构更难设计，但它们确实解决了所有部件都要同步的全局时钟的问题。这一点非常重要，值得我们应对设计困难这一挑战。我的期望是，我们将看到一些部件在一段固定的时间内异步运行(以时钟周期衡量)，之后它们与全局时钟同步。 不同的部件需要不同的时间来进行异步操作，以解决其独特的时钟脉冲相位差问题。</p>
+<h3 id="E-不同功能的不等周期时间"><a href="#E-不同功能的不等周期时间" class="headerlink" title="E. 不同功能的不等周期时间"></a><em>E. 不同功能的不等周期时间</em></h3><p>对于那些同步运行的部件，没有必要它们都以芯片的额定频率运行。例如，不需要以高速运行的部件可以设计成以慢速运行，从而节省电力。未来的晶体管预算可以提供巨大的灵活性，以适当地满足片上需求的可变性。</p>
+<p>ALU以处理核上其余部分运行频率的两倍运行，这只是冰山一角。 未来的微处理器可以智能地使用时钟，在需要的地方提高速度，在不需要的地方降低速度，在速度根本不重要的地方可以非常慢。</p>
+<h3 id="F-新材料"><a href="#F-新材料" class="headerlink" title="F. 新材料"></a><em>F. 新材料</em></h3><p>我不知道这些材料从何而来，但摩尔定律仍然适用，尽管每五年左右就会出现一些末日论者来宣告它的消亡。 关键的重要材料要与芯片上的导电性相比，更重要的是，与功率要求和散热相比（关键材料要关注导电性、功率、散热）。 因此，本着纯粹的一厢情愿的精神，我希望工程的独创性再次占上风。 （即，有新材料的出现实现更好的性能）。</p>
+<h3 id="G-微程序的扩展使用"><a href="#G-微程序的扩展使用" class="headerlink" title="G. 微程序的扩展使用"></a><em>G. 微程序的扩展使用</em></h3><p>片外带宽十分昂贵，片上带宽十分充足。 我的期望是：我们将更有效地利用片上带宽。 微程序的扩展使用是实现这一点的一种方法。 例如，微程序可以利用处于主指令流从属地位的未充分利用的功能单元的空闲容量。 我们创造了术语：从属同步微线程 (SSMT) 来反映其在 SMT 机器中的作用 [4]。 这些微程序可以执行动态重新编译、计算一些复合指令、调整缓存替换策略，或者以其他方式执行计算，使主指令流执行得更快。 </p>
+<h3 id="H-可重构逻辑"><a href="#H-可重构逻辑" class="headerlink" title="H. 可重构逻辑"></a><em>H. 可重构逻辑</em></h3><p>与图2一致，我希望未来的许多微处理器能够满足特定应用的要求。一个应用程序可以很好地利用一些对其他应用程序无用的逻辑功能，而另一个应用程序可以很好地利用另一个对第一个应用程序无用的逻辑功能。也许这两个应用程序都可以在具有运行时动态调整能力的微处理器有效运行。也就是说，我认为片上结构(可能是低粒度FPGA，但更可能是高粒度可重构逻辑结构)将是未来微处理器的通用结构。</p>
+<h3 id="I-集锦"><a href="#I-集锦" class="headerlink" title="I. 集锦"></a><em>I. 集锦</em></h3><p>最后，我列出了我希望在 2008 年或 2009 年的高性能微处理器中实现的功能的清单，或者是无论何时工艺技术最终使得我们可在单个心片上集成了 10 亿个晶体管。 </p>
+<ol>
+<li>跟踪缓存的扩展使用，其中动态指令流段每个条目将包含远远超过8条指令，可能在编译器的帮助下预先安排(类似于块结构ISA或重放机制)，但在运行时进行优化。</li>
+<li>片内微程序，其用于使用执行核心的空闲容量来调整片上硬件结构。</li>
+<li>执行程序的动态重新编译，可能由填充单元执行，或者片上微程序实现，这将会十分常见。</li>
+<li> 多个（至少三个）级别的缓存以及相应的ISA的 添加（多个预取和后存储指令）以响应内核对数据的需求 ，将数据移近内核并远离内核。</li>
+<li>激进的价值预测硬件，可能是程序级别的预测，以及有相应的编译器优化以帮助其有效性。</li>
+<li>性能监控硬件，其允许在运行时调整硬件以更有效地与执行程序的需求相匹配。 </li>
+<li>一种用于监控和影响芯片能源使用的片上部件</li>
+</ol>
+<h2 id="Ⅴ-总结"><a href="#Ⅴ-总结" class="headerlink" title="Ⅴ. 总结"></a>Ⅴ. 总结</h2><p>自 1971 年问世以来，微处理器经历了一段激动人心的历程。很少有技术可以夸耀它取得的巨大进步。 不幸的是，有些人会争辩说这个黄金时代即将结束。 但这样的反对者以前也有过。 1986年，他们说MIPS R2000是所有人需要的微处理器，十年后，他们说Intel Pentium Pro 是任何人都需要的微处理器。 该行业将会继续发展得很好，享用该技术的用户能继续“更好地”享用这种技术。 </p>
+<p>这并不是说这样的情况会一成不变，不再需要新的独创性。在下层，我们可能需要底层结构发生彻底的根本的变化，比如量子计算，来拯救我们，但我们现在几乎没有受到限制。</p>
+<p>当然，我们需要开发更好的 CAD 工具。 当前的 CAD 工具无法验证当今的微处理器，更不用说本文中的建议了。 而且，我们确实需要更广泛地思考微处理器的概念（例如，图 2）。但底线是，摩尔定律仍然存在，并且仍然提供了大量的机会。</p>
+<h2 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h2><p>这篇导论脱胎于多年来与以前和现在的学生以及同事的许多互动交流。 也感谢S. J. Patel、R. Belgard 和 R. R. Ronen 对本文的评论和批评。 值得一提的是，Ronen 和他在英特尔的同事 [5] 的一篇论文中提供了对这里涉及的许多问题的出色以及更详细的回答，本文作者向读者推荐该论文。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li>[1] H. Mazor, “The history of the microcomputer-invention and evolution,”<br>Proc. IEEE, vol. 83, pp. 1601–1608, Dec. 1995.</li>
+<li>[2] Intel web site [Online]. Available: <a href="http://www.intel.com/pressroom/kits/quickrefyr.htm#1971">http://www.intel.com/pressroom/kits/quickrefyr.htm#1971</a>.</li>
+<li>[3] B. Smith, “A pipelined, shared resource MIMD computer,” in Proc.<br>1978 Int. Conf. Parallel Processing, Aug. 1978, pp. 6–8.</li>
+<li>[4] R. S. Chappell, J. Stark, S. P. Kim, S. K. Reinhardt, and Y. N. Patt,<br>“Simultaneous subordinate microthreading (SSMT),” in Proc. 26th<br>Annu. Int. Symp. Computer Architecture, May 1999, pp. 186–195.</li>
+<li>[5] R. Ronen, A. Mendelson, K. Lai, S.-L. Lu, F. Pollack, and J. P. Shen,<br>“Coming challenges in microarchitecture and architecture,” Proc.<br>IEEE, vol. 89, pp. 325–340, Mar. 2001.</li>
+</ul>
+]]></content>
+      <categories>
+        <category>计算机组成原理与体系结构</category>
+      </categories>
+      <tags>
+        <tag>计算机组成原理</tag>
+        <tag>计算机体系结构</tag>
       </tags>
   </entry>
   <entry>
