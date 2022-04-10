@@ -1,6 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hello的自白.</title>
+    <url>/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/</url>
+    <content><![CDATA[<h1 id="Hello的自白"><a href="#Hello的自白" class="headerlink" title="Hello的自白"></a>Hello的自白</h1><img src="/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/Hello1.jpg" class title="This is a Hello1s image">
+
+
+
+<blockquote>
+<p>俺是Hello，额是每一个程序猿🐵的初恋(😊羞羞……)，</p>
+<p>却在短短几分钟后惨遭每个菜鸟的无情抛弃(😭呜呜….)，他们很快喜欢上sum、sort、matrix、PR、AI、IOT、BD、MIS……，从不回头😞。</p>
+</blockquote>
+<p><strong>只有我自己知道，我的出身有多么高贵，我的一生多么坎坷! ╰（‵□′）╯</strong></p>
+<p><strong>多年以后，那些真正懂我的大佬(也是曾经的<del>菜鸟一枚</del>)，才恍然感悟我的伟大 !</strong></p>
+<hr>
+<blockquote>
+<p>······<em>想当年</em>：</p>
+<p><strong>俺</strong>才是第一个玩P2P的:<em><strong><font color="#FF0000">From Program to Process</font></strong></em></p>
+<p>懵懵懂懂的你笨笨磕磕地将我一字一键敲进电脑存成<font color="#FF0000">hello.c(Program)</font>，无意识中将我<strong>预处理、编译、汇编、链接</strong>，历经<strong>艰辛-神秘-高贵-欣喜</strong>，我—<font color="#FF0000"><em><strong>Hello</strong></em></font>一个完美的生命诞生了 <strong>o((&gt;ω&lt; ))o</strong>。</p>
+<blockquote>
+<h6 id="你造吗？"><a href="#你造吗？" class="headerlink" title="你造吗？"></a>你造吗？</h6><ul>
+<li><p>在<strong>壳(Bash)<strong>里，</strong><font color="#000080">伟大的OS(进程管理)</font><strong>为我</strong><font color="#000080">fork(Process) </font><strong>，为我</strong><font color="#000080">execve</font></strong>, 为我<font color="#000080"><strong>mmap</strong></font>，</p>
+<p>分我时间片，让我得以在<font color="#000080"><strong>Hardware(CPU/RAM/IO)</strong></font>上驰骋<font color="#000080"><strong>（取指译码执行、流水线等）</strong></font>  </p>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<h6 id="你造吗？-1"><a href="#你造吗？-1" class="headerlink" title="你造吗？"></a>你造吗？</h6><ul>
+<li><strong>OS(存储管理)与MMU</strong>为VA到PA操碎了心:<strong>TLB、4级页表、3级Cache，Pagefile</strong>等等各显神通为我加速；<strong>IO管理与信号处理</strong>使尽了浑身解数，软硬结合，才使我能在键盘、主板、显卡、屏幕间游刃有余，虽说我在台上的表演只是一瞬间😶、演技看起来很Low、效果很苍白 （︶^︶）。</li>
+</ul>
+</blockquote>
+<p><strong>感谢OS!感谢Bash!在我完美谢幕后为我收尸</strong>。我赤条条来去无牵挂!😌</p>
+</blockquote>
+<hr>
+<p><strong>我朝CS(计算机系统-</strong><u><strong>Editor+Cpp+Compiler+AS+LD+OS+CPU/RAM/IO等</strong></u>)<strong>挥一挥手，不带走一片云彩!</strong> 😛    </p>
+<p><strong>想想俺也是<font color="#FF0000"> <em><strong>020:From Zero-0 to Zero-0</strong></em></font>.</strong>  <strong>(^人^)</strong>   </p>
+<p><strong>历史长河中一个个<del>菜鸟</del>与我擦肩而过，只有CS知道我的生、我的死，我的坎坷，“只有CS知道……我曾经……来…………过……”</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello world!\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<img src="/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/Hello2.jpg" class title="This is a Hello2 image">
+
+
+
+<hr>
+<p><strong>《Hello的自白》为哈工大CSAPP老师史老师原创的大作业——“程序人生”的导读，本人只是觉其有趣，哪一个程序猿与代码的初见不是“Hello world”呢，从而尝试用markdown写成博客发表，进行二次加工搬运，如有侵权，立即删除！</strong></p>
+]]></content>
+      <categories>
+        <category>CS</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java中equals方法和hashCode方法</title>
     <url>/2021/06/15/Java%E4%B8%ADequals%E6%96%B9%E6%B3%95%E5%92%8ChashCode%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>软件构造课上，之前介绍了ADT，讲了RI、AF，AF，及抽象函数解释了该类型是如何将内部表示映射为使用者理解的抽象数据的。那如何判断这些ADT的相等性，这就涉及到了java中很重要的一个知识点，equals方法和hashCode方法。</p>
@@ -59,109 +113,6 @@
       </categories>
       <tags>
         <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello的自白.</title>
-    <url>/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/</url>
-    <content><![CDATA[<h1 id="Hello的自白"><a href="#Hello的自白" class="headerlink" title="Hello的自白"></a>Hello的自白</h1><img src="/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/Hello1.jpg" class title="This is a Hello1s image">
-
-
-
-<blockquote>
-<p>俺是Hello，额是每一个程序猿🐵的初恋(😊羞羞……)，</p>
-<p>却在短短几分钟后惨遭每个菜鸟的无情抛弃(😭呜呜….)，他们很快喜欢上sum、sort、matrix、PR、AI、IOT、BD、MIS……，从不回头😞。</p>
-</blockquote>
-<p><strong>只有我自己知道，我的出身有多么高贵，我的一生多么坎坷! ╰（‵□′）╯</strong></p>
-<p><strong>多年以后，那些真正懂我的大佬(也是曾经的<del>菜鸟一枚</del>)，才恍然感悟我的伟大 !</strong></p>
-<hr>
-<blockquote>
-<p>······<em>想当年</em>：</p>
-<p><strong>俺</strong>才是第一个玩P2P的:<em><strong><font color="#FF0000">From Program to Process</font></strong></em></p>
-<p>懵懵懂懂的你笨笨磕磕地将我一字一键敲进电脑存成<font color="#FF0000">hello.c(Program)</font>，无意识中将我<strong>预处理、编译、汇编、链接</strong>，历经<strong>艰辛-神秘-高贵-欣喜</strong>，我—<font color="#FF0000"><em><strong>Hello</strong></em></font>一个完美的生命诞生了 <strong>o((&gt;ω&lt; ))o</strong>。</p>
-<blockquote>
-<h6 id="你造吗？"><a href="#你造吗？" class="headerlink" title="你造吗？"></a>你造吗？</h6><ul>
-<li><p>在<strong>壳(Bash)<strong>里，</strong><font color="#000080">伟大的OS(进程管理)</font><strong>为我</strong><font color="#000080">fork(Process) </font><strong>，为我</strong><font color="#000080">execve</font></strong>, 为我<font color="#000080"><strong>mmap</strong></font>，</p>
-<p>分我时间片，让我得以在<font color="#000080"><strong>Hardware(CPU/RAM/IO)</strong></font>上驰骋<font color="#000080"><strong>（取指译码执行、流水线等）</strong></font>  </p>
-</li>
-</ul>
-</blockquote>
-<blockquote>
-<h6 id="你造吗？-1"><a href="#你造吗？-1" class="headerlink" title="你造吗？"></a>你造吗？</h6><ul>
-<li><strong>OS(存储管理)与MMU</strong>为VA到PA操碎了心:<strong>TLB、4级页表、3级Cache，Pagefile</strong>等等各显神通为我加速；<strong>IO管理与信号处理</strong>使尽了浑身解数，软硬结合，才使我能在键盘、主板、显卡、屏幕间游刃有余，虽说我在台上的表演只是一瞬间😶、演技看起来很Low、效果很苍白 （︶^︶）。</li>
-</ul>
-</blockquote>
-<p><strong>感谢OS!感谢Bash!在我完美谢幕后为我收尸</strong>。我赤条条来去无牵挂!😌</p>
-</blockquote>
-<hr>
-<p><strong>我朝CS(计算机系统-</strong><u><strong>Editor+Cpp+Compiler+AS+LD+OS+CPU/RAM/IO等</strong></u>)<strong>挥一挥手，不带走一片云彩!</strong> 😛    </p>
-<p><strong>想想俺也是<font color="#FF0000"> <em><strong>020:From Zero-0 to Zero-0</strong></em></font>.</strong>  <strong>(^人^)</strong>   </p>
-<p><strong>历史长河中一个个<del>菜鸟</del>与我擦肩而过，只有CS知道我的生、我的死，我的坎坷，“只有CS知道……我曾经……来…………过……”</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello world!\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<img src="/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/Hello2.jpg" class title="This is a Hello2 image">
-
-
-
-<hr>
-<p><strong>《Hello的自白》为哈工大CSAPP老师史老师原创的大作业——“程序人生”的导读，本人只是觉其有趣，哪一个程序猿与代码的初见不是“Hello world”呢，从而尝试用markdown写成博客发表，进行二次加工搬运，如有侵权，立即删除！</strong></p>
-]]></content>
-      <categories>
-        <category>CS</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>AOP（面向切面编程）</title>
-    <url>/2021/11/09/AOP%EF%BC%88%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="AOP（面向切面编程）"><a href="#AOP（面向切面编程）" class="headerlink" title="AOP（面向切面编程）"></a>AOP（面向切面编程）</h1><h2 id="AOP-含义"><a href="#AOP-含义" class="headerlink" title="AOP 含义"></a>AOP 含义</h2><p>面向切面编程：也叫做面向方法编程，通过预编译方式和运行期动态代理的方式实现不修改源代码的情况下给程序动态统一添加功能的技术。</p>
-<p>将一些各接口都调用的相同方法抽象为接口，这个接口类似于切面；将方法注入到接口调用的某个地方，这个地方就为切点。</p>
-<p>实现AOP的技术主要分为两类：一类是采用动态代理技术利用截取消息的方式，对消息进行装饰以取代原有对象行为的执行。另一类是采用静态织入的方式，引入特定语法创建切面，从而使编译器可以在编译期间织入相关的切面代码。（<a href="https://www.jianshu.com/p/f1770b9dce27%EF%BC%89">https://www.jianshu.com/p/f1770b9dce27）</a></p>
-<h2 id="AOP核心概念"><a href="#AOP核心概念" class="headerlink" title="AOP核心概念"></a>AOP核心概念</h2><h3 id="横切关注点"><a href="#横切关注点" class="headerlink" title="横切关注点"></a>横切关注点</h3><p>横切关注点主要关注于：对哪些方法进行拦截，拦截后怎样处理，是替换还是包装，此外，还有执行的顺序，</p>
-<h3 id="切面"><a href="#切面" class="headerlink" title="切面"></a>切面</h3><p><code>ASPECT</code>  切面是散落在系统各处<strong>通用</strong>的业务逻辑代码，如安全模块、日志模块、认证模块等。</p>
-<p>切面可以说是一个较大的概念，较为笼统；更具体的就是切点<code>PointCut</code>和通知<code>Advice</code>，由名字就可知，切点存在于切面上，切面上存在切点，切点又有相应的通知<code>Advice</code>；</p>
-<p>切面通常是一个类，可以定义切点<code>PointCut</code>和通知<code>Advice</code>。类是对物体特征的抽象，切面是对横切关注点的抽象。</p>
-<p>切面是业务流程运行的某个特定步骤，是应用运行过程中的关注点，关注点通常会横切多个对象，因此也被称为横切关注点。</p>
-<h3 id="程序执行点"><a href="#程序执行点" class="headerlink" title="程序执行点"></a>程序执行点</h3><p><code>JointPoint</code>连接点是程序执行过程中明确的点，感觉这个说法比较抽象，我个人理解为一些入口点（如方法调用，异常处理），典型的为方法的调用，对类成员的访问以及异常处理程序块的执行。连接点是程序在运行过程中能够插入切面的点，比如方法调用、异常抛出、字段修改等。</p>
-<p>注意：一个<code>JointPoint</code>自身可以<strong>嵌套</strong>其他<code>JointPoint</code>，就比如说，一个方法中又调用了另一个方法。</p>
-<h3 id="切入点"><a href="#切入点" class="headerlink" title="切入点"></a>切入点</h3><p><code>PointCut</code>切入点是带有通知的连接点，在程序中主要体现为编写切入点表达式。切入点是对连接点进行拦截的定义。切入点用于定义通知应该切入到哪些连接点上，不同的通知需要切入到不同的连接点上，这种精准的匹配是由切入点的正则表达式来定义的。</p>
-<p>切入点是可以插入增强处理的连接点，当某个连接点满足执行要求时，该连接点将被连接增强处理，该连接点也就变成了切入点。</p>
-<p>切入点是拦截的方法，连接点<code>JointPoint</code>拦截后将变成切入点。</p>
-<h3 id="通知"><a href="#通知" class="headerlink" title="通知"></a>通知</h3><p><code>Advice</code>通知是AOP在特定切入点上执行的增强处理，是拦截到连接点之后要执行的代码，通知可以分为前置通知<code>Before</code>、后置通知<code>AfterReturning</code>、异常通知<code>AfterThrowing</code>、最终通知<code>After</code>、环绕通知<code>Around</code>五类。</p>
-<ol>
-<li><p> <code>before advice</code>, 在<code>join point</code>前被执行的<code> advice</code>. 虽然<code>before advice</code>是在<code>join point</code>前被执行, 但是它并不能够阻止<code> join point</code> 的执行, 除非发生了异常(即我们在 <code>before advice </code>代码中, 不能人为地决定是否继续执行<code> join point</code> 中的代码)</p>
-</li>
-<li><p>after return advice<code>, 在一个</code> join point <code>正常返回后执行的</code> advice`</p>
-</li>
-<li><p><code>after throwing advice</code>, 当一个<code> join point</code> 抛出异常后执行的 <code>advice</code></p>
-</li>
-<li><p><code>after(final) advice</code>, 无论一个<code>join point</code>是正常退出还是发生了异常, 都会被执行的 advice.</p>
-</li>
-<li><p><code>around advice</code>, 在<code> join poin</code>t 前和<code> joint point</code> 退出后都执行的 <code>advice</code>. 这个是最常用的<code> advice</code>.</p>
-</li>
-<li><p><code>introduction</code>，<code>introduction</code>可以为原有的对象增加新的属性和方法。</p>
-</li>
-</ol>
-<h3 id="织入"><a href="#织入" class="headerlink" title="织入"></a>织入</h3><p><code>Weaving</code> 织入通过切入点切入，将切面应用到目标对象并导致代理对象创建的过程。将切面应用到目标对象从而创建一个新的代理对象的过程，这个过程可以发生在编译器、类转载期、运行期，不同的发生点有着不同的前提条件。如果发生在编译器就需要有一个支持这种AOP实现的特殊编译器，发生在类转载期就需要有一个支持AOP实现的特殊类转载其，发生在运行期则可以直接通过反射机制与动态代理机制来动态实现。</p>
-<h3 id="代理对象"><a href="#代理对象" class="headerlink" title="代理对象"></a>代理对象</h3><p><code>Proxy</code>代理对象是AOP创建的对象，包含通知，代理是目标对象的加强。 代理是将通知应用到目标对象之后被动态创建的对象，可以简单理解代理对象的功能等同于目标对象的核心业务逻辑功能加上共有功能。代理对象对于使用者而言是透明的，是程序运行过程中的产物。</p>
-<h3 id="目标对象"><a href="#目标对象" class="headerlink" title="目标对象"></a>目标对象</h3><p><code>Target</code>目标对象是指代理的目标对象，是指要织入的对象模块。目标对象是那些即将切入切面的对象，也就是被通知的对象。这些对象中已经只剩下干干净净的核心业务逻辑代码，所有的共有功能等待AOP容器的切入。</p>
-<p>目标对象是AOP进行增强处理的对象，也被称为增强的对象。如果AOP是通过运行时代理来实现的，那么这个对象将是一个被代理的对象。</p>
-<p>AOP是典型的代理模式的体现，代理模式的特征是代理类与委托类有同样的接口，代理类主要负责为委托类预处理消息、过滤消息、将消息转发给委托类、事后处理消息等。代理类与委托类之间通常会存在关联关系，一个代理类的对象与一个委托类的对象相关联，代理类的对象本身并不真正实现服务，而是通过调用委托类的对象方法来提供特定的服务。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在AOP中切面就是与业务逻辑独立，但又垂直存在于业务逻辑的代码结构中的通用功能组合；切面与业务逻辑相交的点就是切点；连接点就是把业务逻辑离散化后的关键节点；切点属于连接点，是连接点的子集；Advice（增强）就是切面在切点上要执行的功能增加的具体操作；在切点上可以把要完成增强操作的目标对象（Target）连接到切面里，这个连接的方式就叫织入</p>
-<p><a href="https://www.jianshu.com/p/281dcde6974d">从代理机制到Spring AOP，这篇给你安排得明明白白的 - 简书 (jianshu.com)</a></p>
-<p><a href="https://blog.csdn.net/qq_41701956/article/details/84427891">AOP如何实现及实现原理_Java笔记-CSDN博客_aop原理</a></p>
-<p><a href="https://blog.csdn.net/q982151756/article/details/80513340">细说Spring——AOP详解（AOP概览）_啦啦啦的博客-CSDN博客_aop</a></p>
-]]></content>
-      <categories>
-        <category>面向切面编程</category>
-      </categories>
-      <tags>
-        <tag>面向切面编程</tag>
-        <tag>AOP</tag>
       </tags>
   </entry>
   <entry>
@@ -315,210 +266,6 @@
       <tags>
         <tag>leetcode</tag>
         <tag>数组</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>UML类图简述及IDEA中UML插件的安装和使用</title>
-    <url>/2021/06/15/UML%E7%B1%BB%E5%9B%BE/</url>
-    <content><![CDATA[<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>在上软件构造这门课中，随着课程的深入，PPT上出现了许多的类图，初次看起来不太懂各种箭头指向表明的含义；此外，老师还提到了许多类与类之间的关系，依赖、组合、泛化、实现等等，其在UML类图上都有体现。同时考虑到UML类图的在工作学习种会广泛使用，以及其清晰简洁的类与类之间关系的表示，同时可以在我们的实验报告中用类图展示类与类之间关系，简洁明了，由此产生了学习UML类图的想法，到网上查阅资料学习并撰写博客记录。</p>
-<h2 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h2><h3 id="UML图定义"><a href="#UML图定义" class="headerlink" title="UML图定义"></a>UML图定义</h3><p>​        UML图，实际上是一种<strong>语言</strong>， 统一建模语言，又称标准建模语言，是用来对软件密集系统进行可视化建模的一种语言。UML的包括<strong>UML语义</strong>和<strong>UML表示法</strong>两个元素。</p>
-<p>​        UML是在开发阶段，说明、可视化、构建和书写一个<strong>面向对象</strong>软件密集系统的制品的开放方法。最佳的应用是工程实践，对大规模，复杂系统进行建模方面，特别是在<strong>软件架构</strong>层次，已经被验证有效。统一建模语言（UML）是一种模型化语言。模型大多以<strong>图表</strong>的方式表现出来。一份典型的建模图表通常包含几个块或框，连接线和作为模型附加信息之用的文本。这些虽简单却非常重要，在UML规则中相互联系和扩展。</p>
-<p>​        UML本身是一套符号的规定，就像数学符号和化学符号一样，这些符号用于描述软件模型中的各个元素和他们之间的关系，比如类、接口、实现、泛化、依赖、组合、聚合等</p>
-<h3 id="UML图分类"><a href="#UML图分类" class="headerlink" title="UML图分类"></a>UML图分类</h3><ol>
-<li>用例图。</li>
-<li>静态结构图：<strong>类图</strong>、对象图、包图、组件图、部署图。</li>
-<li>动态行为图：交互图（时序图与协作图）、状态图、活动图。</li>
-</ol>
-<p>说明：</p>
-<ul>
-<li>类图是描述<strong>类与类</strong>之间的<strong>关系</strong>，是UML图中最<strong>核心</strong>的。</li>
-</ul>
-<p>下面着重介绍UML类图</p>
-<h2 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h2><p>​        UML类图的介绍：</p>
-<ul>
-<li>描述系统中类（对象）本身的组成（成员属性和成员方法）和类（对象）之间的各种<strong>静态关系</strong>。</li>
-<li>类之间的关系：依赖、泛化、实现、关联、聚合与组合。</li>
-</ul>
-<h3 id="类图的依赖关系（Dependence）"><a href="#类图的依赖关系（Dependence）" class="headerlink" title="类图的依赖关系（Dependence）"></a>类图的依赖关系（Dependence）</h3><p>​        只要是在类中用到了对方，那么他们之间就存在依赖关系，如果没有对方，甚至连编译都过不了。依赖关系是类与类之间最广泛、最普遍也是最基础的关系。</p>
-<p>​        下面几条为判断类依赖关系的依据：</p>
-<ul>
-<li><p>类中用到了对方</p>
-</li>
-<li><p>类的成员属性</p>
-</li>
-<li><p>方法中使用到</p>
-</li>
-<li><p>是方法的返回类型</p>
-</li>
-<li><p>是方法接收的参数类型</p>
-<p>​    就拿最简单的Person来举例。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDnumber id;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIDnumber</span><span class="params">(IDnumber id)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.IDnumber = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDnumber <span class="title">getIDnumber</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IDnumber</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>​    每个人Person都有自己的身份证号，这里新建一个IDnumber类，使用到了IDnumber类，而id又是Peroson的成员变量，同时在setIDnumber方法传入参数类型也为IDnumber ，getIDnumber方法中返回的类型也为IDnumber，只要存在上述的任意一条出现，就可以说IDnumber类和Peroson类构成了依赖关系。</p>
-<p>​    在UML类图中，用带箭头的虚线表示，箭头指向被依赖方，比如说，这里Person类指向IDnumber类。如下图所示。</p>
-<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/Dependence.jpg"></p>
-</li>
-</ul>
-<h3 id="类图中的泛化关系（Generalization）"><a href="#类图中的泛化关系（Generalization）" class="headerlink" title="类图中的泛化关系（Generalization）"></a>类图中的泛化关系（Generalization）</h3><p>​        泛化关系实际上就是继承关系，比如B类（子类）继承了A类（父类），二者构成了泛化关系。泛化关系是依赖关系的特例。前面已经提到依赖关系是最普遍的关系，而这里则是针对关系的特点再细分。</p>
-<p>​        这里就用Human和Person来举例，每个人都是人类，都要吃饭和睡觉。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Human</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">extends</span> <span class="title">Human</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDnumber idnumber;</span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span></span>&#123;</span><br><span class="line">       System.out.println(<span class="string">&quot;人吃饭&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;人睡觉&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>​        在UML类图中，用带三角箭头的实线表示泛化关系，其箭头指向父类。如下图所示。</p>
-<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/extend.jpg"></p>
-<h3 id="类图中的实现关系（Realization）"><a href="#类图中的实现关系（Realization）" class="headerlink" title="类图中的实现关系（Realization）"></a>类图中的实现关系（Realization）</h3><p>​        实现关系就是A类实现B接口，表示类具备了某种能力，也是依赖关系的特例。</p>
-<p>​        这里就用Person类和Swimming接口来举例，并不是每个人都会游泳，就比如说我这只“旱鸭子”。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Swimming</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swim</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="title">implenment</span> <span class="title">Swimming</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"> 	<span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swim</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;人游泳&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>​        在UML类图中带三角箭头的虚线表示依赖关系，其箭头指向实现的接口。如下图所示。</p>
-<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/implement.jpg"></p>
-<h3 id="类图中的关联关系（Association）"><a href="#类图中的关联关系（Association）" class="headerlink" title="类图中的关联关系（Association）"></a>类图中的关联关系（Association）</h3><p>​        一个类中的成员变量（成员属性）用到了其他类，则称二者构成关联关系。关联关系实际上就是类与类之间的联系，也是依赖关系的特例。</p>
-<p>​        关系具有导航性，即双向关系或单向关系，单向一对一关系，双向一对一关系。</p>
-<p>​        关系具有多重性，如“1”表示有且仅有一个，“0…”表示0个或者多个，“0，1”表示0个或1个，“i…j”表示i到j个都可以，“m…*”表示至少m个。</p>
-<p>​        这里依旧拿Person和IDnumber来举例。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">现在Person类和IDnumber类的关系就是关联关系，Person类的成员属性中用到了IDnumber类，此时是单向一对一的，Person对应IDnumber，而IDnumber并没对应Person。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDnumber id;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIDnumber</span><span class="params">(IDnumber id)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.IDnumber = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDnumber <span class="title">getIDnumber</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IDnumber</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>UML类图如下：</p>
-<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/Associate1.jpg"></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">这段表示Person与IDnumber关系仍是关联关系，但与上面的单向一对一的不同，此时，Person对应IDnumber，而IDnumber也对应Person，是双向一对一关系。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDnumber id;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIDnumber</span><span class="params">(IDnumber id)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.IDnumber = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDnumber <span class="title">getIDnumber</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IDnumber</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Person person;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>​    UML类图如下：</p>
-<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/Associate2.jpg"></p>
-<p>​    在UML类图中带箭头的实线表示关联关系，箭头指向关联类。</p>
-<h3 id="类图中的聚合关系（Aggregation）"><a href="#类图中的聚合关系（Aggregation）" class="headerlink" title="类图中的聚合关系（Aggregation）"></a>类图中的聚合关系（Aggregation）</h3><p>​        聚合关系表示的是整体和部分的关系，整体与部分可以分离，部分具有一定的独立性。整体和部分具有各自的生命周期，部分可以属于多个对象，也可以被多个对象共享；比如计算机和CPU、鼠标、键盘，公司与员工的关系。</p>
-<p>​        在代码层面来讲，聚合与关联是一致的，只能从语义上来区分。聚合关系是关联关系的特例，具有关联的导航性与多重性。</p>
-<p>​        这里拿Computer类和Mouse类、Keyboard类来举例，电脑有鼠标、键盘等组成，但鼠标、键盘都可以拔下来，电脑损害不会损坏到鼠标、键盘，鼠标、键盘损坏也不会损坏电脑，换个新鼠标、键盘就是了。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Computer</span></span></span><br><span class="line"><span class="class">    <span class="title">private</span> <span class="title">Mouse</span> <span class="title">mouse</span></span>;</span><br><span class="line">	<span class="keyword">private</span> Keyboard keyboard;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMouse</span><span class="params">(Mouse mouse)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.mouse = mouse;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setKeyboard</span><span class="params">(Keyboard keyboard)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.keyboard= keyboard;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Mouse</span></span>&#123;  </span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Keyboard</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>​        在UML类图中用带空心菱形的实线表示，菱形指向整体。如图所示。</p>
-<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/Aggreation.jpg"></p>
-<h3 id="类图中的组合关系（Composition-）"><a href="#类图中的组合关系（Composition-）" class="headerlink" title="类图中的组合关系（Composition    ）"></a>类图中的组合关系（Composition    ）</h3><p>​        组合关系表示的也是整体和部分的关系，但是聚合关系的升级，整体和部分不可以分开，部分不能从整体中分离出来，创建了整体的同时，部分也随之创立，共诞生、共灭亡。同样是关联关系的特例。</p>
-<p>​        这里依旧拿Person和Heart类举例，每个人都有心脏，自一出生下来，心脏无时无刻不跳动，当然不跳动了，人就die了，同生共死。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDnumber id;   <span class="comment">//聚合关系</span></span><br><span class="line">    <span class="keyword">private</span> Heart heart = <span class="keyword">new</span> Heart();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIDnumber</span><span class="params">(IDnumber id)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.IDnumber = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDnumber <span class="title">getIDnumber</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IDnumber</span></span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Heart</span></span>&#123;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>UML类图如下：</p>
-<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/composition.jpg"></p>
-<p>​        此外，还有一种特例，会将聚合关系升级成组合关系，即级联删除。其前提是：类A与类B是聚合关系，A是整体，B是部分；当销毁删除A的同时，连同B一块销毁删除，这就是级联删除。当定义了级联删除时，那么A与B由原来的聚合关系升级为组合关系。就比如说上面举的Person和IDnumber的例子，删除Person时连同IDnumber一块删除，那么IDnumber和Person就是组合关系了。</p>
-<p>​        在UML类图中用带实心菱形的实线表示，菱形指向整体。</p>
-<h3 id="类图关系小结"><a href="#类图关系小结" class="headerlink" title="类图关系小结"></a>类图关系小结</h3><p>​        类图的6种关系中，其中依赖关系是最普遍、最基础、最广泛的一类关系，再根据关系的特点细分，可以划分出泛型、实现、关联、组合、聚合关系，其都是依赖关系的特例。就像人类社会一般，每个人都与他人之间有着依赖关系，维持着人际关系，再根据人际关系特点或身份等等，分成各种关系，诸如父子、师生、朋友等等关系。</p>
-<h2 id="IDEA中UML插件的安装与使用"><a href="#IDEA中UML插件的安装与使用" class="headerlink" title="IDEA中UML插件的安装与使用"></a>IDEA中UML插件的安装与使用</h2><h3 id="UML的安装"><a href="#UML的安装" class="headerlink" title="UML的安装"></a>UML的安装</h3><p>​        第一步：打开IDEA，选中左上角的<strong>文件（File）—&gt;设置（Settings）—&gt;插件（Plugins）</strong>，搜索UML，这里推荐PlantUML，然后安装，安装完成后需要重新启动IDEA。</p>
-<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/1.png"></p>
-<p>​        第二步：重启IDEA完成后，选中左上角的<strong>文件（File）—&gt;新建（new）</strong>，可以发现一个<strong>PlantUML File</strong>，说明可以创建UML文件了</p>
-<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/2.png"></p>
-<p>​        点击出现文件创建，输入文件名，以及选择UML图的类型，这里选择class，即我们最常用的UML类图。</p>
-<p>​        下面是初次创建其给我们的示例：</p>
-<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/3.png"></p>
-<p>​        如想了解更多有关其类图的信息可以到其官网。</p>
-<p>​        传送门：<a href="https://plantuml.com/class-diagram">https://plantuml.com/class-diagram</a></p>
-<p>​        若要学习绘制UML图的语法，可以到PlantUML的github上获取资源。</p>
-<p>​        传送门：<a href="https://github.com/plantuml/plantuml">https://github.com/plantuml/plantuml</a></p>
-<h3 id="PlantUML语法"><a href="#PlantUML语法" class="headerlink" title="PlantUML语法"></a>PlantUML语法</h3><p>​        这里给出常用语法：        </p>
-<table>
-<thead>
-<tr>
-<th align="center">符号</th>
-<th align="center">含义</th>
-<th align="center">示例</th>
-<th align="center">示例含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">–</td>
-<td align="center">UML图中体现为实线</td>
-<td align="center">无</td>
-<td align="center">无</td>
-</tr>
-<tr>
-<td align="center">..</td>
-<td align="center">UML图中体现为虚线</td>
-<td align="center">无</td>
-<td align="center">无</td>
-</tr>
-<tr>
-<td align="center">..&gt;</td>
-<td align="center">依赖</td>
-<td align="center">A..&gt;B</td>
-<td align="center">类A依赖于B</td>
-</tr>
-<tr>
-<td align="center">–&gt;</td>
-<td align="center">关联</td>
-<td align="center">A..&gt;B</td>
-<td align="center">类A关联于B</td>
-</tr>
-<tr>
-<td align="center">–|&gt;</td>
-<td align="center">继承</td>
-<td align="center">A–|&gt;B</td>
-<td align="center">类A继承于B</td>
-</tr>
-<tr>
-<td align="center">..|&gt;</td>
-<td align="center">实现</td>
-<td align="center">A..|&gt;B</td>
-<td align="center">类A实现接口B</td>
-</tr>
-<tr>
-<td align="center">–o</td>
-<td align="center">聚合</td>
-<td align="center">A–oB</td>
-<td align="center">类A聚合了B</td>
-</tr>
-<tr>
-<td align="center">–*</td>
-<td align="center">组合</td>
-<td align="center">A–*B</td>
-<td align="center">类A组合了B</td>
-</tr>
-</tbody></table>
-<p>​        注：</p>
-<ul>
-<li>这里给符号&gt;, o, *指向那一侧，在UML图中会如实体现。</li>
-<li>还支持双向箭头&gt;、o、*，比如说关联关系中的双向单一关系，可以用A&lt;–&gt;B，其效果如前面所展示的Person和IDnumber的双向单一关系的UML类图一致。</li>
-<li>在左侧的类一般在UML图的上侧，如Human–|&gt;Person，Person..&gt;IDnumber，其UML图如前面所说类图中泛化关系的类图所示。</li>
-</ul>
-<p>​        然后是权限修饰符：</p>
-<table>
-<thead>
-<tr>
-<th align="center">符号</th>
-<th align="center">含义</th>
-<th align="center">示例</th>
-<th align="center">示例含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">-</td>
-<td align="center">private</td>
-<td align="center">-id: IDnumber</td>
-<td align="center">private IDnumber id;</td>
-</tr>
-<tr>
-<td align="center">+</td>
-<td align="center">public</td>
-<td align="center">+id: IDnumber</td>
-<td align="center">public IDnumber id;</td>
-</tr>
-<tr>
-<td align="center">#</td>
-<td align="center">protected</td>
-<td align="center">#id: IDnumber</td>
-<td align="center">protected IDnumber id;</td>
-</tr>
-</tbody></table>
-<p>​        再是抽象类和接口：</p>
-<p>​        可直接用抽象类和接口对应关键词即可，abstract和interface来声明即可。</p>
-<p>​        建议：根据第一次新建UML类图文件其官方给出的示例，照猫画虎，稍加研究，很快就可以上手，需要时间不到半小时，而且一旦熟练掌握后，效率十分之高，比拖拽画类图方便很多，同时plantUML做到了所见即所得，就是实时预览，十分方便。</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>[1] 尚硅谷UML介绍：<a href="https://www.bilibili.com/video/BV1G4411c7N4?p=23&amp;spm_id_from=pageDriver">https://www.bilibili.com/video/BV1G4411c7N4?p=23&amp;spm_id_from=pageDriver</a></p>
-<p>[2] PlantUML语法：<a href="https://www.cnblogs.com/liruilong/p/11506280.html">https://www.cnblogs.com/liruilong/p/11506280.html</a></p>
-]]></content>
-      <categories>
-        <category>UML类图</category>
-      </categories>
-      <tags>
-        <tag>JAVA</tag>
-        <tag>IDEA</tag>
-        <tag>UML类图</tag>
-        <tag>依赖</tag>
       </tags>
   </entry>
   <entry>
@@ -768,6 +515,259 @@
       <tags>
         <tag>Java</tag>
         <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>UML类图简述及IDEA中UML插件的安装和使用</title>
+    <url>/2021/06/15/UML%E7%B1%BB%E5%9B%BE/</url>
+    <content><![CDATA[<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>在上软件构造这门课中，随着课程的深入，PPT上出现了许多的类图，初次看起来不太懂各种箭头指向表明的含义；此外，老师还提到了许多类与类之间的关系，依赖、组合、泛化、实现等等，其在UML类图上都有体现。同时考虑到UML类图的在工作学习种会广泛使用，以及其清晰简洁的类与类之间关系的表示，同时可以在我们的实验报告中用类图展示类与类之间关系，简洁明了，由此产生了学习UML类图的想法，到网上查阅资料学习并撰写博客记录。</p>
+<h2 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h2><h3 id="UML图定义"><a href="#UML图定义" class="headerlink" title="UML图定义"></a>UML图定义</h3><p>​        UML图，实际上是一种<strong>语言</strong>， 统一建模语言，又称标准建模语言，是用来对软件密集系统进行可视化建模的一种语言。UML的包括<strong>UML语义</strong>和<strong>UML表示法</strong>两个元素。</p>
+<p>​        UML是在开发阶段，说明、可视化、构建和书写一个<strong>面向对象</strong>软件密集系统的制品的开放方法。最佳的应用是工程实践，对大规模，复杂系统进行建模方面，特别是在<strong>软件架构</strong>层次，已经被验证有效。统一建模语言（UML）是一种模型化语言。模型大多以<strong>图表</strong>的方式表现出来。一份典型的建模图表通常包含几个块或框，连接线和作为模型附加信息之用的文本。这些虽简单却非常重要，在UML规则中相互联系和扩展。</p>
+<p>​        UML本身是一套符号的规定，就像数学符号和化学符号一样，这些符号用于描述软件模型中的各个元素和他们之间的关系，比如类、接口、实现、泛化、依赖、组合、聚合等</p>
+<h3 id="UML图分类"><a href="#UML图分类" class="headerlink" title="UML图分类"></a>UML图分类</h3><ol>
+<li>用例图。</li>
+<li>静态结构图：<strong>类图</strong>、对象图、包图、组件图、部署图。</li>
+<li>动态行为图：交互图（时序图与协作图）、状态图、活动图。</li>
+</ol>
+<p>说明：</p>
+<ul>
+<li>类图是描述<strong>类与类</strong>之间的<strong>关系</strong>，是UML图中最<strong>核心</strong>的。</li>
+</ul>
+<p>下面着重介绍UML类图</p>
+<h2 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h2><p>​        UML类图的介绍：</p>
+<ul>
+<li>描述系统中类（对象）本身的组成（成员属性和成员方法）和类（对象）之间的各种<strong>静态关系</strong>。</li>
+<li>类之间的关系：依赖、泛化、实现、关联、聚合与组合。</li>
+</ul>
+<h3 id="类图的依赖关系（Dependence）"><a href="#类图的依赖关系（Dependence）" class="headerlink" title="类图的依赖关系（Dependence）"></a>类图的依赖关系（Dependence）</h3><p>​        只要是在类中用到了对方，那么他们之间就存在依赖关系，如果没有对方，甚至连编译都过不了。依赖关系是类与类之间最广泛、最普遍也是最基础的关系。</p>
+<p>​        下面几条为判断类依赖关系的依据：</p>
+<ul>
+<li><p>类中用到了对方</p>
+</li>
+<li><p>类的成员属性</p>
+</li>
+<li><p>方法中使用到</p>
+</li>
+<li><p>是方法的返回类型</p>
+</li>
+<li><p>是方法接收的参数类型</p>
+<p>​    就拿最简单的Person来举例。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDnumber id;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIDnumber</span><span class="params">(IDnumber id)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.IDnumber = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDnumber <span class="title">getIDnumber</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IDnumber</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    每个人Person都有自己的身份证号，这里新建一个IDnumber类，使用到了IDnumber类，而id又是Peroson的成员变量，同时在setIDnumber方法传入参数类型也为IDnumber ，getIDnumber方法中返回的类型也为IDnumber，只要存在上述的任意一条出现，就可以说IDnumber类和Peroson类构成了依赖关系。</p>
+<p>​    在UML类图中，用带箭头的虚线表示，箭头指向被依赖方，比如说，这里Person类指向IDnumber类。如下图所示。</p>
+<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/Dependence.jpg"></p>
+</li>
+</ul>
+<h3 id="类图中的泛化关系（Generalization）"><a href="#类图中的泛化关系（Generalization）" class="headerlink" title="类图中的泛化关系（Generalization）"></a>类图中的泛化关系（Generalization）</h3><p>​        泛化关系实际上就是继承关系，比如B类（子类）继承了A类（父类），二者构成了泛化关系。泛化关系是依赖关系的特例。前面已经提到依赖关系是最普遍的关系，而这里则是针对关系的特点再细分。</p>
+<p>​        这里就用Human和Person来举例，每个人都是人类，都要吃饭和睡觉。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Human</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">extends</span> <span class="title">Human</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDnumber idnumber;</span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span></span>&#123;</span><br><span class="line">       System.out.println(<span class="string">&quot;人吃饭&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;人睡觉&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        在UML类图中，用带三角箭头的实线表示泛化关系，其箭头指向父类。如下图所示。</p>
+<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/extend.jpg"></p>
+<h3 id="类图中的实现关系（Realization）"><a href="#类图中的实现关系（Realization）" class="headerlink" title="类图中的实现关系（Realization）"></a>类图中的实现关系（Realization）</h3><p>​        实现关系就是A类实现B接口，表示类具备了某种能力，也是依赖关系的特例。</p>
+<p>​        这里就用Person类和Swimming接口来举例，并不是每个人都会游泳，就比如说我这只“旱鸭子”。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Swimming</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swim</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="title">implenment</span> <span class="title">Swimming</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"> 	<span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swim</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;人游泳&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        在UML类图中带三角箭头的虚线表示依赖关系，其箭头指向实现的接口。如下图所示。</p>
+<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/implement.jpg"></p>
+<h3 id="类图中的关联关系（Association）"><a href="#类图中的关联关系（Association）" class="headerlink" title="类图中的关联关系（Association）"></a>类图中的关联关系（Association）</h3><p>​        一个类中的成员变量（成员属性）用到了其他类，则称二者构成关联关系。关联关系实际上就是类与类之间的联系，也是依赖关系的特例。</p>
+<p>​        关系具有导航性，即双向关系或单向关系，单向一对一关系，双向一对一关系。</p>
+<p>​        关系具有多重性，如“1”表示有且仅有一个，“0…”表示0个或者多个，“0，1”表示0个或1个，“i…j”表示i到j个都可以，“m…*”表示至少m个。</p>
+<p>​        这里依旧拿Person和IDnumber来举例。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">现在Person类和IDnumber类的关系就是关联关系，Person类的成员属性中用到了IDnumber类，此时是单向一对一的，Person对应IDnumber，而IDnumber并没对应Person。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDnumber id;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIDnumber</span><span class="params">(IDnumber id)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.IDnumber = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDnumber <span class="title">getIDnumber</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IDnumber</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>UML类图如下：</p>
+<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/Associate1.jpg"></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">这段表示Person与IDnumber关系仍是关联关系，但与上面的单向一对一的不同，此时，Person对应IDnumber，而IDnumber也对应Person，是双向一对一关系。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDnumber id;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIDnumber</span><span class="params">(IDnumber id)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.IDnumber = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDnumber <span class="title">getIDnumber</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IDnumber</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Person person;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    UML类图如下：</p>
+<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/Associate2.jpg"></p>
+<p>​    在UML类图中带箭头的实线表示关联关系，箭头指向关联类。</p>
+<h3 id="类图中的聚合关系（Aggregation）"><a href="#类图中的聚合关系（Aggregation）" class="headerlink" title="类图中的聚合关系（Aggregation）"></a>类图中的聚合关系（Aggregation）</h3><p>​        聚合关系表示的是整体和部分的关系，整体与部分可以分离，部分具有一定的独立性。整体和部分具有各自的生命周期，部分可以属于多个对象，也可以被多个对象共享；比如计算机和CPU、鼠标、键盘，公司与员工的关系。</p>
+<p>​        在代码层面来讲，聚合与关联是一致的，只能从语义上来区分。聚合关系是关联关系的特例，具有关联的导航性与多重性。</p>
+<p>​        这里拿Computer类和Mouse类、Keyboard类来举例，电脑有鼠标、键盘等组成，但鼠标、键盘都可以拔下来，电脑损害不会损坏到鼠标、键盘，鼠标、键盘损坏也不会损坏电脑，换个新鼠标、键盘就是了。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Computer</span></span></span><br><span class="line"><span class="class">    <span class="title">private</span> <span class="title">Mouse</span> <span class="title">mouse</span></span>;</span><br><span class="line">	<span class="keyword">private</span> Keyboard keyboard;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMouse</span><span class="params">(Mouse mouse)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.mouse = mouse;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setKeyboard</span><span class="params">(Keyboard keyboard)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.keyboard= keyboard;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Mouse</span></span>&#123;  </span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Keyboard</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        在UML类图中用带空心菱形的实线表示，菱形指向整体。如图所示。</p>
+<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/Aggreation.jpg"></p>
+<h3 id="类图中的组合关系（Composition-）"><a href="#类图中的组合关系（Composition-）" class="headerlink" title="类图中的组合关系（Composition    ）"></a>类图中的组合关系（Composition    ）</h3><p>​        组合关系表示的也是整体和部分的关系，但是聚合关系的升级，整体和部分不可以分开，部分不能从整体中分离出来，创建了整体的同时，部分也随之创立，共诞生、共灭亡。同样是关联关系的特例。</p>
+<p>​        这里依旧拿Person和Heart类举例，每个人都有心脏，自一出生下来，心脏无时无刻不跳动，当然不跳动了，人就die了，同生共死。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDnumber id;   <span class="comment">//聚合关系</span></span><br><span class="line">    <span class="keyword">private</span> Heart heart = <span class="keyword">new</span> Heart();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIDnumber</span><span class="params">(IDnumber id)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.IDnumber = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDnumber <span class="title">getIDnumber</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IDnumber</span></span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Heart</span></span>&#123;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>UML类图如下：</p>
+<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/composition.jpg"></p>
+<p>​        此外，还有一种特例，会将聚合关系升级成组合关系，即级联删除。其前提是：类A与类B是聚合关系，A是整体，B是部分；当销毁删除A的同时，连同B一块销毁删除，这就是级联删除。当定义了级联删除时，那么A与B由原来的聚合关系升级为组合关系。就比如说上面举的Person和IDnumber的例子，删除Person时连同IDnumber一块删除，那么IDnumber和Person就是组合关系了。</p>
+<p>​        在UML类图中用带实心菱形的实线表示，菱形指向整体。</p>
+<h3 id="类图关系小结"><a href="#类图关系小结" class="headerlink" title="类图关系小结"></a>类图关系小结</h3><p>​        类图的6种关系中，其中依赖关系是最普遍、最基础、最广泛的一类关系，再根据关系的特点细分，可以划分出泛型、实现、关联、组合、聚合关系，其都是依赖关系的特例。就像人类社会一般，每个人都与他人之间有着依赖关系，维持着人际关系，再根据人际关系特点或身份等等，分成各种关系，诸如父子、师生、朋友等等关系。</p>
+<h2 id="IDEA中UML插件的安装与使用"><a href="#IDEA中UML插件的安装与使用" class="headerlink" title="IDEA中UML插件的安装与使用"></a>IDEA中UML插件的安装与使用</h2><h3 id="UML的安装"><a href="#UML的安装" class="headerlink" title="UML的安装"></a>UML的安装</h3><p>​        第一步：打开IDEA，选中左上角的<strong>文件（File）—&gt;设置（Settings）—&gt;插件（Plugins）</strong>，搜索UML，这里推荐PlantUML，然后安装，安装完成后需要重新启动IDEA。</p>
+<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/1.png"></p>
+<p>​        第二步：重启IDEA完成后，选中左上角的<strong>文件（File）—&gt;新建（new）</strong>，可以发现一个<strong>PlantUML File</strong>，说明可以创建UML文件了</p>
+<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/2.png"></p>
+<p>​        点击出现文件创建，输入文件名，以及选择UML图的类型，这里选择class，即我们最常用的UML类图。</p>
+<p>​        下面是初次创建其给我们的示例：</p>
+<p><img src="/2021/06/15/UML%E7%B1%BB%E5%9B%BE/3.png"></p>
+<p>​        如想了解更多有关其类图的信息可以到其官网。</p>
+<p>​        传送门：<a href="https://plantuml.com/class-diagram">https://plantuml.com/class-diagram</a></p>
+<p>​        若要学习绘制UML图的语法，可以到PlantUML的github上获取资源。</p>
+<p>​        传送门：<a href="https://github.com/plantuml/plantuml">https://github.com/plantuml/plantuml</a></p>
+<h3 id="PlantUML语法"><a href="#PlantUML语法" class="headerlink" title="PlantUML语法"></a>PlantUML语法</h3><p>​        这里给出常用语法：        </p>
+<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">含义</th>
+<th align="center">示例</th>
+<th align="center">示例含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">–</td>
+<td align="center">UML图中体现为实线</td>
+<td align="center">无</td>
+<td align="center">无</td>
+</tr>
+<tr>
+<td align="center">..</td>
+<td align="center">UML图中体现为虚线</td>
+<td align="center">无</td>
+<td align="center">无</td>
+</tr>
+<tr>
+<td align="center">..&gt;</td>
+<td align="center">依赖</td>
+<td align="center">A..&gt;B</td>
+<td align="center">类A依赖于B</td>
+</tr>
+<tr>
+<td align="center">–&gt;</td>
+<td align="center">关联</td>
+<td align="center">A..&gt;B</td>
+<td align="center">类A关联于B</td>
+</tr>
+<tr>
+<td align="center">–|&gt;</td>
+<td align="center">继承</td>
+<td align="center">A–|&gt;B</td>
+<td align="center">类A继承于B</td>
+</tr>
+<tr>
+<td align="center">..|&gt;</td>
+<td align="center">实现</td>
+<td align="center">A..|&gt;B</td>
+<td align="center">类A实现接口B</td>
+</tr>
+<tr>
+<td align="center">–o</td>
+<td align="center">聚合</td>
+<td align="center">A–oB</td>
+<td align="center">类A聚合了B</td>
+</tr>
+<tr>
+<td align="center">–*</td>
+<td align="center">组合</td>
+<td align="center">A–*B</td>
+<td align="center">类A组合了B</td>
+</tr>
+</tbody></table>
+<p>​        注：</p>
+<ul>
+<li>这里给符号&gt;, o, *指向那一侧，在UML图中会如实体现。</li>
+<li>还支持双向箭头&gt;、o、*，比如说关联关系中的双向单一关系，可以用A&lt;–&gt;B，其效果如前面所展示的Person和IDnumber的双向单一关系的UML类图一致。</li>
+<li>在左侧的类一般在UML图的上侧，如Human–|&gt;Person，Person..&gt;IDnumber，其UML图如前面所说类图中泛化关系的类图所示。</li>
+</ul>
+<p>​        然后是权限修饰符：</p>
+<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">含义</th>
+<th align="center">示例</th>
+<th align="center">示例含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-</td>
+<td align="center">private</td>
+<td align="center">-id: IDnumber</td>
+<td align="center">private IDnumber id;</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="center">public</td>
+<td align="center">+id: IDnumber</td>
+<td align="center">public IDnumber id;</td>
+</tr>
+<tr>
+<td align="center">#</td>
+<td align="center">protected</td>
+<td align="center">#id: IDnumber</td>
+<td align="center">protected IDnumber id;</td>
+</tr>
+</tbody></table>
+<p>​        再是抽象类和接口：</p>
+<p>​        可直接用抽象类和接口对应关键词即可，abstract和interface来声明即可。</p>
+<p>​        建议：根据第一次新建UML类图文件其官方给出的示例，照猫画虎，稍加研究，很快就可以上手，需要时间不到半小时，而且一旦熟练掌握后，效率十分之高，比拖拽画类图方便很多，同时plantUML做到了所见即所得，就是实时预览，十分方便。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>[1] 尚硅谷UML介绍：<a href="https://www.bilibili.com/video/BV1G4411c7N4?p=23&amp;spm_id_from=pageDriver">https://www.bilibili.com/video/BV1G4411c7N4?p=23&amp;spm_id_from=pageDriver</a></p>
+<p>[2] PlantUML语法：<a href="https://www.cnblogs.com/liruilong/p/11506280.html">https://www.cnblogs.com/liruilong/p/11506280.html</a></p>
+]]></content>
+      <categories>
+        <category>UML类图</category>
+      </categories>
+      <tags>
+        <tag>JAVA</tag>
+        <tag>IDEA</tag>
+        <tag>UML类图</tag>
+        <tag>依赖</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>AOP（面向切面编程）</title>
+    <url>/2021/11/09/AOP%EF%BC%88%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="AOP（面向切面编程）"><a href="#AOP（面向切面编程）" class="headerlink" title="AOP（面向切面编程）"></a>AOP（面向切面编程）</h1><h2 id="AOP-含义"><a href="#AOP-含义" class="headerlink" title="AOP 含义"></a>AOP 含义</h2><p>面向切面编程：也叫做面向方法编程，通过预编译方式和运行期动态代理的方式实现不修改源代码的情况下给程序动态统一添加功能的技术。</p>
+<p>将一些各接口都调用的相同方法抽象为接口，这个接口类似于切面；将方法注入到接口调用的某个地方，这个地方就为切点。</p>
+<p>实现AOP的技术主要分为两类：一类是采用动态代理技术利用截取消息的方式，对消息进行装饰以取代原有对象行为的执行。另一类是采用静态织入的方式，引入特定语法创建切面，从而使编译器可以在编译期间织入相关的切面代码。（<a href="https://www.jianshu.com/p/f1770b9dce27%EF%BC%89">https://www.jianshu.com/p/f1770b9dce27）</a></p>
+<h2 id="AOP核心概念"><a href="#AOP核心概念" class="headerlink" title="AOP核心概念"></a>AOP核心概念</h2><h3 id="横切关注点"><a href="#横切关注点" class="headerlink" title="横切关注点"></a>横切关注点</h3><p>横切关注点主要关注于：对哪些方法进行拦截，拦截后怎样处理，是替换还是包装，此外，还有执行的顺序，</p>
+<h3 id="切面"><a href="#切面" class="headerlink" title="切面"></a>切面</h3><p><code>ASPECT</code>  切面是散落在系统各处<strong>通用</strong>的业务逻辑代码，如安全模块、日志模块、认证模块等。</p>
+<p>切面可以说是一个较大的概念，较为笼统；更具体的就是切点<code>PointCut</code>和通知<code>Advice</code>，由名字就可知，切点存在于切面上，切面上存在切点，切点又有相应的通知<code>Advice</code>；</p>
+<p>切面通常是一个类，可以定义切点<code>PointCut</code>和通知<code>Advice</code>。类是对物体特征的抽象，切面是对横切关注点的抽象。</p>
+<p>切面是业务流程运行的某个特定步骤，是应用运行过程中的关注点，关注点通常会横切多个对象，因此也被称为横切关注点。</p>
+<h3 id="程序执行点"><a href="#程序执行点" class="headerlink" title="程序执行点"></a>程序执行点</h3><p><code>JointPoint</code>连接点是程序执行过程中明确的点，感觉这个说法比较抽象，我个人理解为一些入口点（如方法调用，异常处理），典型的为方法的调用，对类成员的访问以及异常处理程序块的执行。连接点是程序在运行过程中能够插入切面的点，比如方法调用、异常抛出、字段修改等。</p>
+<p>注意：一个<code>JointPoint</code>自身可以<strong>嵌套</strong>其他<code>JointPoint</code>，就比如说，一个方法中又调用了另一个方法。</p>
+<h3 id="切入点"><a href="#切入点" class="headerlink" title="切入点"></a>切入点</h3><p><code>PointCut</code>切入点是带有通知的连接点，在程序中主要体现为编写切入点表达式。切入点是对连接点进行拦截的定义。切入点用于定义通知应该切入到哪些连接点上，不同的通知需要切入到不同的连接点上，这种精准的匹配是由切入点的正则表达式来定义的。</p>
+<p>切入点是可以插入增强处理的连接点，当某个连接点满足执行要求时，该连接点将被连接增强处理，该连接点也就变成了切入点。</p>
+<p>切入点是拦截的方法，连接点<code>JointPoint</code>拦截后将变成切入点。</p>
+<h3 id="通知"><a href="#通知" class="headerlink" title="通知"></a>通知</h3><p><code>Advice</code>通知是AOP在特定切入点上执行的增强处理，是拦截到连接点之后要执行的代码，通知可以分为前置通知<code>Before</code>、后置通知<code>AfterReturning</code>、异常通知<code>AfterThrowing</code>、最终通知<code>After</code>、环绕通知<code>Around</code>五类。</p>
+<ol>
+<li><p> <code>before advice</code>, 在<code>join point</code>前被执行的<code> advice</code>. 虽然<code>before advice</code>是在<code>join point</code>前被执行, 但是它并不能够阻止<code> join point</code> 的执行, 除非发生了异常(即我们在 <code>before advice </code>代码中, 不能人为地决定是否继续执行<code> join point</code> 中的代码)</p>
+</li>
+<li><p>after return advice<code>, 在一个</code> join point <code>正常返回后执行的</code> advice`</p>
+</li>
+<li><p><code>after throwing advice</code>, 当一个<code> join point</code> 抛出异常后执行的 <code>advice</code></p>
+</li>
+<li><p><code>after(final) advice</code>, 无论一个<code>join point</code>是正常退出还是发生了异常, 都会被执行的 advice.</p>
+</li>
+<li><p><code>around advice</code>, 在<code> join poin</code>t 前和<code> joint point</code> 退出后都执行的 <code>advice</code>. 这个是最常用的<code> advice</code>.</p>
+</li>
+<li><p><code>introduction</code>，<code>introduction</code>可以为原有的对象增加新的属性和方法。</p>
+</li>
+</ol>
+<h3 id="织入"><a href="#织入" class="headerlink" title="织入"></a>织入</h3><p><code>Weaving</code> 织入通过切入点切入，将切面应用到目标对象并导致代理对象创建的过程。将切面应用到目标对象从而创建一个新的代理对象的过程，这个过程可以发生在编译器、类转载期、运行期，不同的发生点有着不同的前提条件。如果发生在编译器就需要有一个支持这种AOP实现的特殊编译器，发生在类转载期就需要有一个支持AOP实现的特殊类转载其，发生在运行期则可以直接通过反射机制与动态代理机制来动态实现。</p>
+<h3 id="代理对象"><a href="#代理对象" class="headerlink" title="代理对象"></a>代理对象</h3><p><code>Proxy</code>代理对象是AOP创建的对象，包含通知，代理是目标对象的加强。 代理是将通知应用到目标对象之后被动态创建的对象，可以简单理解代理对象的功能等同于目标对象的核心业务逻辑功能加上共有功能。代理对象对于使用者而言是透明的，是程序运行过程中的产物。</p>
+<h3 id="目标对象"><a href="#目标对象" class="headerlink" title="目标对象"></a>目标对象</h3><p><code>Target</code>目标对象是指代理的目标对象，是指要织入的对象模块。目标对象是那些即将切入切面的对象，也就是被通知的对象。这些对象中已经只剩下干干净净的核心业务逻辑代码，所有的共有功能等待AOP容器的切入。</p>
+<p>目标对象是AOP进行增强处理的对象，也被称为增强的对象。如果AOP是通过运行时代理来实现的，那么这个对象将是一个被代理的对象。</p>
+<p>AOP是典型的代理模式的体现，代理模式的特征是代理类与委托类有同样的接口，代理类主要负责为委托类预处理消息、过滤消息、将消息转发给委托类、事后处理消息等。代理类与委托类之间通常会存在关联关系，一个代理类的对象与一个委托类的对象相关联，代理类的对象本身并不真正实现服务，而是通过调用委托类的对象方法来提供特定的服务。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在AOP中切面就是与业务逻辑独立，但又垂直存在于业务逻辑的代码结构中的通用功能组合；切面与业务逻辑相交的点就是切点；连接点就是把业务逻辑离散化后的关键节点；切点属于连接点，是连接点的子集；Advice（增强）就是切面在切点上要执行的功能增加的具体操作；在切点上可以把要完成增强操作的目标对象（Target）连接到切面里，这个连接的方式就叫织入</p>
+<p><a href="https://www.jianshu.com/p/281dcde6974d">从代理机制到Spring AOP，这篇给你安排得明明白白的 - 简书 (jianshu.com)</a></p>
+<p><a href="https://blog.csdn.net/qq_41701956/article/details/84427891">AOP如何实现及实现原理_Java笔记-CSDN博客_aop原理</a></p>
+<p><a href="https://blog.csdn.net/q982151756/article/details/80513340">细说Spring——AOP详解（AOP概览）_啦啦啦的博客-CSDN博客_aop</a></p>
+]]></content>
+      <categories>
+        <category>面向切面编程</category>
+      </categories>
+      <tags>
+        <tag>面向切面编程</tag>
+        <tag>AOP</tag>
       </tags>
   </entry>
   <entry>
@@ -1352,6 +1352,172 @@
         <tag>体系结构</tag>
         <tag>内存管理</tag>
       </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2022/04/10/%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86/</url>
+    <content><![CDATA[<h1 id="3-中断处理"><a href="#3-中断处理" class="headerlink" title="3. 中断处理"></a>3. 中断处理</h1><h2 id="3-1-中断和异常处理概述"><a href="#3-1-中断和异常处理概述" class="headerlink" title="3.1 中断和异常处理概述"></a>3.1 中断和异常处理概述</h2><p>​    <code>中断和异常</code>是指在系统、处理器或在当前执行的程序或任务的某处出现了一些<code>需要处理器注意并进行处理</code>的<code>事件</code>。 它们通常会导致从当前正在运行的程序或任务强制转移到一个称为<code>中断处理程序</code>或<code>异常处理程序</code>的特殊软件程序或任务(<strong>简单来说：中断和异常会导致处理器转移到中断处理程序或异常处理程序进行处理，再返回到刚才中断或异常处继续执行</strong>)。 处理器响应中断或异常所<code>采取的动作被</code>称为<code>中断/异常服务或处理</code>。<br>​    <strong>中断</strong>在一个程序执行期间内的<strong>任意时间</strong>都有可能发生，以响应<strong>硬件发出的信号</strong>。系统硬件使用中断处理来自处理器外部的事件。比如外围设备的服务请求。软件也可通过执行指令<code>INT n</code>产生中断。<br>​    <strong>异常</strong>则在<strong>处理器执行指令过程中检测到错误条件</strong>才发生，例如除零错误。处理器检测一系列各种类的错误，包括：违反保护机制、页缺失、机器内部故障。Pentium 4、Intel Xeon、P6系列和Pentium处理器的机器检查体系架构会在检测到<strong>内部硬件错误和总线错误</strong>时产生<strong>机器检查异常</strong>。<br>​    当收到一个中断或检测到一个异常时，当前运行的过程或任务会被<strong>挂起直到处理器执行完中断或异常处理程序</strong>。当执行完处理程序，处理器<strong>恢复执行被中断的过程或任务</strong>。恢复被中断的的过程或任务<strong>不会失去程序执行的连续性</strong>，除非<strong>不能从异常中恢复</strong>，或者<strong>中断导致当前运行程序终止</strong>。<br>​    </p>
+<h2 id="3-2-有关中断和异常了解性的内容"><a href="#3-2-有关中断和异常了解性的内容" class="headerlink" title="3.2 有关中断和异常了解性的内容"></a>3.2 有关中断和异常了解性的内容</h2><h3 id="3-2-1-中断和异常向量"><a href="#3-2-1-中断和异常向量" class="headerlink" title="3.2.1 中断和异常向量"></a>3.2.1 中断和异常向量</h3><p>​    为了帮助处理异常和中断，处理器为每个需被处理器特殊处理的异常和中断条件都赋予了一个独一无二的标识号，称为向量号。处理器使用赋予给一个异常或中断的<strong>向量号</strong>作为访问<strong>中断描述符表（IDT）</strong>的一个索引。中断描述符表提供了到一个异常或中断处理程序的入口点位置。<br>​    向量号的范围为<code>0</code>到<code>255</code>。其中<code>0</code>到<code>31</code>保留用作n<code>Intel 64</code>和<code>IA-32</code>体系架构处理器的系统架构定义的中断和异常，目前并不是该范围内（<code>0-31</code>）的所有向量号都被定义了功能。未被定义功能的向量号被保留日后使用。<strong>不要使用这些保留的向量号。</strong><br>​    在<code>32</code>到<code>255</code>范围内的所有向量号用于用户定义的中断，而且不保留给<code>Intel 64</code>和<code>IA-32</code>使用。这些中断通常用于外部I/O设备，以确保这些设备可以通过外部硬件中断机制发送中断给处理器。<br>​    表1展示了分配给系统架构定义的异常以及NMI中断的向量号。该表还给出了异常类型以及是否会产生一个错误码并保存在栈上。同时还给出了每个预定义的异常和NMI中断源。<br><img src="/2022/04/10/%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86/vector_num.jpg" alt="vector nums"></p>
+<center style="color:#1a1a1a;">表1 保护模式下的异常和中断</center>    
+
+<h3 id="3-2-2-中断源和异常源"><a href="#3-2-2-中断源和异常源" class="headerlink" title="3.2.2 中断源和异常源"></a>3.2.2 中断源和异常源</h3><pre><code>#### 3.2.2.1中断源
+</code></pre>
+<p>​    处理器从两种地方接收中断；</p>
+<ul>
+<li>外部（硬件产生）中断</li>
+<li>软件产生的终端</li>
+</ul>
+<h5 id="外部中断"><a href="#外部中断" class="headerlink" title="外部中断"></a>外部中断</h5><p>​    处理器通过处理器上的引脚或本地上的APIC来接收中断。 Pentium 4、Intel Xeon、P6系列和Pentium处理器上的主要的中断引脚是<code>LINT[1:0]</code>引脚，其连接到<strong>本地APIC（高级可编程中断控制器）</strong>。当本地APIC启用时，可以通过<strong>APIC的本地向量表（LVT）</strong>对<code>LINT[1:0]</code>引脚编程，使其与任何处理器的异常或中断向量相关联。<br>​    当本地APIC被全局/硬件禁用，这些引脚分别被配置为<code>INTR</code>和<code>NMI</code>引脚。 当<code>INTR</code>引脚接收到外部发生的中断信号时， 处理器从系统总线上读取由外部中断控制器（例如82590A）提供的中断向量号。 当<code>NMI</code>引脚接收到信号时，会产生一个<strong>不可屏蔽中断（NMI）</strong>，其使用固定的向量号<code>2</code>。<br>​    处理器的<code>本地APIC</code>通常会与基于系统的<code>I/O APIC</code>连接。因而，I/O APIC的引脚所接收到的外部中断信号可以通过系统总线（Pentium 4, Intel Core Duo, Intel Core 2, Intel®Atom™和Intel Xeon处理器）或APIC串行总线（P6家族和Pentium处理器）直接传递给本地APIC。 I/O APIC获得该中断的向量号，然后发送给本地APIC。 当系统中有多个处理器时，处理器之间也可以通过系统总线（Pentium 4、Intel Core Duo、Intel Core 2、Intel Atom、Intel Xeon处理器）或APIC串行总线9P6族和Pentium处理器）相互发送中断信号。<br>​    在Intel486处理器和不包含片上本地APIC的早期Pentium处理器上，<code>LINT[1:0]</code>引脚是不可用的。 这些处理器有专用的<code>NMI</code>和<code>INTR</code>引脚。 对于这些处理器，外部中断通常由基于系统的中断控制器（8259A）产生，通过INTR引脚发送中断信号。<br>​    需注意的是，处理器上的其他几个引脚可能会导致发生处理器中断。 然而，这些中断并不会被本章中描述的中断和异常机制处理。 这些引脚包括<code>RESET#， FLUSH#， STPCLK#， SMI#， R/S#和INIT#</code>引脚。 不是每个处理器都有这些引脚，这却决于处理器的实现。</p>
+<h5 id="可屏蔽硬件中断"><a href="#可屏蔽硬件中断" class="headerlink" title="可屏蔽硬件中断"></a>可屏蔽硬件中断</h5><p>​    任何通过<code>INTR</code>引脚或<code>本地APIC</code>接收到的<strong>外部中断</strong>都被称为<strong>可屏蔽硬件中断</strong>。 通过<code>INTR</code>引脚接收到的可屏蔽硬件中断包括<code>IA-32</code>体系结构定义的中断向量号<code>0到255</code>； 通过<code>本地APIC</code>接收到的可屏蔽硬件中断包括中断向量号<code>16到255</code>。</p>
+<h5 id="软件产生的中断"><a href="#软件产生的中断" class="headerlink" title="软件产生的中断"></a>软件产生的中断</h5><p>​    <code>INT n</code>指令可通过指定一个中断向量号，在软件中生成中断。 例如，<code>INT 35</code>指令强制隐式调用中断35的中断处理程序进行。<br>​    向量号0到255种的任意一个都可以用作这个指令的中断号。 然而，如果使用处理器预定义的<code>NMI向量</code>，处理器的响应将与正常方式产生的NMI中断不同。 如果在这条指令中指定使用向量号2 （NMI向量），则会调用NMI中断处理程序，但是处理器的NMI处理硬件并不会被激活。<br>​    注意：EFLAGS寄存器中的IF标志位不能屏蔽使用<code>INT n</code>指令从软件中产生的中断。 </p>
+<h4 id="3-2-2-2-异常源"><a href="#3-2-2-2-异常源" class="headerlink" title="3.2.2.2 异常源"></a>3.2.2.2 异常源</h4><p>​        处理器从三种来源接收异常；</p>
+<ul>
+<li>处理器检测到的程序错误异常</li>
+<li>软件产生的异常</li>
+<li>机器检查异常</li>
+</ul>
+<h5 id="程序错误异常"><a href="#程序错误异常" class="headerlink" title="程序错误异常"></a>程序错误异常</h5><p>在一个应用程序或操作系统执行期间，如果处理器检测到了程序错误，则会产生一个或多个异常。Intel 64和IA-32架构的处理器为其检测的每个异常都定义了一个向量号。一场可被分为故障、陷阱、中止。</p>
+<h5 id="软件产生的异常"><a href="#软件产生的异常" class="headerlink" title="软件产生的异常"></a>软件产生的异常</h5><p>​    <code>INTO、INT 3和BOUND</code>指令可在软件中生成异常。 这些指令可对指令流中指定点执行的特殊异常条件进行检查。 例如，<code>INT 3</code>会产生一个断点异常。<br>​    <code>INT n</code>指令可用于在软件中模拟指定的异常；但也存在限制。 如果<code>INT n</code>指令指定的向量号<code>n</code>是系统架构定义的异常的向量号之一，那么处理器会为该向量号产生一个对应的中断（以访问异常处理程序），但不会把产生的错误码压入栈，因为处理器将其看作为一个中断，而不是异常。 即使与之关联硬件产生的异常通常会产生一个错误码。虽然前面处理器并没有将错误码压入栈，但当处理异常时，异常处理程序仍会尝试将错误码弹出堆栈。因为处理器没有将错误码压入堆栈，而处理程序会把EIP（代正好处于缺失的错误码的位置处）弹栈，从而造成返回位置错误。</p>
+<h5 id="机器检查异常"><a href="#机器检查异常" class="headerlink" title="机器检查异常"></a>机器检查异常</h5><pre><code> `P6系列`和`Pentium`处理器提供内、外部机器检查机制，其检查内部芯片硬件和总线事务的操作。 是否进行机器检查取决于处理器的实现。 当检测到机器检查错误时，处理器产生机器检查异常信号（`向量18`）并返回错误代码。  
+</code></pre>
+<h3 id="3-2-3-异常的分类"><a href="#3-2-3-异常的分类" class="headerlink" title="3.2.3 异常的分类"></a>3.2.3 异常的分类</h3><p>​    根据<strong>异常的报告方式以及导致异常的指令</strong>是否能在不损害程序或任务执行连贯性的情况下重新启动（简言之，就是重新执行导致异常的指令，并从此继续执行），可以将异常分为<strong>故障（Faults）、陷阱（Traps）或中止（Abort）</strong>。</p>
+<ul>
+<li> 故障：故障是一种通常<strong>可被纠正</strong>的异常。一旦纠正，程序可以在不丢失程序执行的连贯性情况下继续执行（就是从异常处继续运行）。当报告了一个故障时，处理器会把<strong>机器状态恢复到产生故障的指令执行前的状态</strong>。此时异常处理程序的<strong>返回地址（保存的CS和EIP寄存器的内容）指向产生故障的指令</strong>，而不是其之后的指令。</li>
+<li>陷阱：陷阱是一种执行trapping指令后立即报告的异常。陷阱允许程序或任务<strong>继续执行</strong>，而不会丢失程序执行的连贯性。 trap处理程序的返回地址指向在trapping指令之的随后的一条指令。就是从异常指令的后一条指令处继续执行。</li>
+<li>中止：中止是这样一种异常，其并不总是报告引起异常的指令的精确位置，并且<strong>不允许异常程序或任务的重新继续执行</strong>。 中止用于报告严重错误，例如硬件错误和系统表中存在不一致性或非法值。  </li>
+</ul>
+<p>注意：被报告为故障的一个异常子集是不能重新继续程序执行的。 这样的异常会丢失处理器的某些状态信息。 例如，执行POPAD指令会导致堆栈帧越界，从而报告错误。 在这种情况下，异常处理程序会看到指令指针（CS:EIP）已经恢复，就像POPAD指令没有被执行一样。 但是，内部处理器状态（通用寄存器）将被修改。 这种情况被认为是编程错误。 操作系统会终止引起这类异常的应用程序。  </p>
+<h3 id="3-2-4-程序或任务的重新执行"><a href="#3-2-4-程序或任务的重新执行" class="headerlink" title="3.2.4 程序或任务的重新执行"></a>3.2.4 程序或任务的重新执行</h3><p>​    为了使得程序或任务在处理完异常或中断后重新恢复执行，所有的异常（<strong>除了中止</strong>）都必须能报告异常指令的精确位置。，并且所有中断必须在指令边界发生上。<br>​    对于<strong>故障类异常</strong>，返回指令的指针（在处理器产生异常时所保存）指向出错的指令。 因此，当程序或任务在处理完故障后重新开始执行时，将<strong>重新启动（重新执行）原来的出错指令</strong>。 重新执行故障指令通常用于<strong>处理访问操作数被阻塞所产生的异常</strong>。 这类故障最常见的例子是<strong>页故障异常（#PF）</strong>，当程序或任务<strong>引用不在内存中的页面上的操作数</strong>时，就会出现页故障异常。 当页面故障异常发生时，异常处理程序可以将该要引用页面加载到内存中，并通过重新执行出错指令来恢复程序或任务的执行。 为了确保重新执行对当前执行程序或任务是透明的（即用户意识不到发生了故障以及进行了处理），处理器会保存必要的寄存器和堆栈指针信息，以使得能返回到执行出错指令之前的状态。<br>​    对于<strong>陷阱类异常</strong>，返回指令的指针指向trapping指令的后一条指令。 如果在一条<strong>控制转移指令的执行期间</strong>检测到一个trap，则<strong>返回指令指针会反映出控制的转移情况</strong>。 例如，如果在执行JMP指令时检测到一个trap，则返回指令的指针会指向JMP指令的目的地址，而不是JMP指令之后一条指令的地址。 所有的陷阱异常都允许程序或任务在不丢失执行连贯性的情况下重新继续执行。 例如，溢出异常是陷阱异常。而返回指令的指针指向<strong>检查EFLAGS.OS（溢出）标志位</strong>的<code>INTO</code>指令的后一条指令。该陷阱异常的处理程序解决溢出情况。 从陷阱类异常处理程序返回后，程序或任务继续执行<code>INTO</code>指令后的指令。<br>​    <strong>中止类异常</strong>不支持可靠地重新执行程序或任务。 中止异常的处理程序通常会在中止异常发生时，<strong>收集有关处理器状态的诊断信息</strong>，然后尽可能优雅地关闭应用程序和系统。<br>​    <strong>中断会严格地支持被中断程序和任务的重新执行而不丢失执行的连贯性</strong>。 中断所保存的返回指令的指针指向处理器获取中断时将要执行的下一条指令边界处。 如果刚执行的指令有一个<code>repeat</code>（重复）前缀，则中断会在<strong>当前迭代结束</strong>，且<strong>寄存器已被设置好以执行下一次迭代</strong>后，才发生。<br>​    P6系列处理器的指令预测执行功能并不会影响处理器的中断。 中断发生在指令执行的<code>retirement</code>阶段的指令边界上；因此，它们总是在“按顺序”的指令流中获取。（这一部分与上一学期所学的计组中“指令级并行”相关）。<br>​      注意：Pentium 处理器和早期的IA-32处理器也执行不同数量的指令预取和初步译码。 对于这些处理器，异常和中断直到指令实际执行时才会发出信号。 对于给定的示例代码，当代码在任何IA-32处理器系列上运行时，异常信号都会发生（除非定义了新的异常或新的操作码）。</p>
+<h3 id="3-2-5-不可屏蔽中断（NMI）"><a href="#3-2-5-不可屏蔽中断（NMI）" class="headerlink" title="3.2.5 不可屏蔽中断（NMI）"></a>3.2.5 不可屏蔽中断（NMI）</h3><p>​    不可屏蔽中断（NMI）可通过以下两种方式产生:  </p>
+<ul>
+<li>NMI引脚接收到外部硬件中断信号</li>
+<li>处理器<strong>在NMI传输模式下</strong>在系统总线（Pentium 4、Intel Core Duo、Intel Core 2、Intel Atom和Intel Xeon处理器）或APIC串行总线（P6系列和Pentium处理器）上接收到消息</li>
+</ul>
+<p>​    当处理器从这两个来源之一收到一个NMI信号时，处理器会立即调用<strong>中断向量号2</strong>所指向的NMI处理程序来处理中断。 处理器也会设置某些硬件条件以确保在NMI处理程序执行完前不会收到其他中断，包括NMI中断。（即，当处理NMI中断时，不会被其他任何中断打断，也就说屏蔽了所有其他中断信号）。<br>​     此外，从上述的任一来源所收到的NMI信号时，其不能被EFLAGS寄存器中的IF标志位给屏蔽。<br>​     也可通过INTR引脚发送一个可屏蔽的硬件中断，且其中断向量号为2来调用NMI中断处理程序；然而，这个中断并不是一个真正的NMI中断。 一个真正的NMI中断必须通过上述两种来源的任一来源所传递，且处理器会激活相关的NMI处理硬件。</p>
+<h3 id="3-2-6-开中断和关中断"><a href="#3-2-6-开中断和关中断" class="headerlink" title="3.2.6 开中断和关中断"></a>3.2.6 开中断和关中断</h3><p>​    处理器可以抑制某些中断的产生，这取决于<strong>处理器的状态以及EFLAGS寄存器中的IF和RF标志</strong>。</p>
+<h4 id="屏蔽可屏蔽硬件中断"><a href="#屏蔽可屏蔽硬件中断" class="headerlink" title="屏蔽可屏蔽硬件中断"></a>屏蔽可屏蔽硬件中断</h4><p>​    IF标志位可以禁止为处理器INTR引脚或本地APIC收到的<strong>可屏蔽硬件中断</strong>提供服务。 当IF标志复位时，处理器会禁止发送到INTR引脚的中断或通过本地APIC产生的内部中断请求；当设置了IF标志位时，发送到INTR引脚或通过本地APIC的中断会作为正常的外部中断进行处理。<br>​    IF标志位<strong>不会影响</strong>发送到NMI引脚的<strong>不可屏蔽中断（NMI）</strong>，也不会影响在NMI传递模式通过本地APIC传递的消息，也不影响处理器产生的异常。 与EFLAGS寄存器中的其他标志一样，处理器在<strong>响应硬件复位操作</strong>时会复位IF标志位。<br>​    因这组可屏蔽硬件中断包括保留的中断和异常向量号0到32，这潜在地可能会引起混乱。 在架构上，当设置IF标志时，<strong>0到32</strong>内的任一向量号的中断都可<strong>通过INTR引脚</strong>发送到处理器，<strong>16到32</strong>内的任一向量号都可<strong>通过本地APIC</strong>发送。 处理器将产生一个中断，并调用由向量号指向的中断或异常处理程序。 例如，可以通过INTR引脚调用页面故障处理程序（通过向量号14）； 然而，这并不是一个真正的页面故障异常， 它实际是一个中断。 与<code>INT n</code>指令一样，当一个中断通过INTR引脚产生一个异常向量时，处理器不会将错误码压栈，所以异常处理程序可能不能正确执行。<br>​    可以通过<code>STI</code> （set interrupt-enable flag）和<code>CLI</code> （clear interrupt-enable flag）指令设置和复位IF标志。 这些指令只有在CPL等于或小于IOPL时才能执行（即，正在执行的程序的权限足够大）。 当CPL大于IOPL时（数字越大，权限越小），会产生一个一般保护异常（#GP）。<br>​    IF标志也会受到以下操作的影响:  </p>
+<ul>
+<li><code>PUSHF</code>指令将所有的标志位信息都存储在堆栈上，在栈中，这些标志位的信息可被检查和修改。<code>POPF</code>  指令可用于将被修改过的标志位信息加载回EFLAGS寄存器。 </li>
+<li><strong>任务切换</strong>和<code>POPF</code>和<code>IRET</code>指令会加载EFLAGS寄存器； 因此，其可用于修改IF标志的设置。</li>
+<li>当通过中断门进行中断处理时，IF标志被自动复位， 其禁止可屏蔽硬件中断。 （如果通过陷阱门处理中断，则IF标志位不会被复位）</li>
+</ul>
+<h4 id="屏蔽指令断点"><a href="#屏蔽指令断点" class="headerlink" title="屏蔽指令断点"></a>屏蔽指令断点</h4><p>​    EFLAGS寄存器中的RF （resume）标志位控制处理器对指令断点条件的响应。RF=1时，其禁止指令断点生成调试异常（#DB）； RF=0时，指令断点可以生成调试异常。 RF标志的主要功能是防止处理器进入指令断点上的调试异常循环。</p>
+<h4 id="任务切换时屏蔽异常和中断"><a href="#任务切换时屏蔽异常和中断" class="headerlink" title="任务切换时屏蔽异常和中断"></a>任务切换时屏蔽异常和中断</h4><p>​    为切换到一个不同的堆栈段，软件通常使用一对指令，例如:  </p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">MOV SS, AX</span><br><span class="line">MOV ESP, Stack Top</span><br></pre></td></tr></table></figure>
+
+<p>​    如果一个中断或异常发生在<strong>段选择符被加载到SS寄存器之后</strong>，但<strong>在ESP寄存器被加载之前</strong>，在中断或异常处理过程中，这两个逻辑地址在堆栈空间中是<strong>不一致</strong>的，。<br>​    为了防止这种情况发送，处理器在<code>MOV</code>到<code>SS</code>指令或<code>POP</code>到<code>SS</code>指令之后，屏蔽中断、调试异常和单步捕获异常，直到执行到下一条指令的指令边界。但这 仍然可能产生其他错误。 如果使用<code>LSS</code>指令修改SS寄存器的内容（推荐以此方法修改该寄存器），则不会发生此问题。 </p>
+<h3 id="3-2-7-异常和中断的优先级"><a href="#3-2-7-异常和中断的优先级" class="headerlink" title="3.2.7 异常和中断的优先级"></a>3.2.7 异常和中断的优先级</h3><p>​    如果在一个指令边界上有多个异常或中断等待处理，处理器会按照规定的顺序对它们进行处理。 异常源和中断源的优先级如表2所示。处理器首先处理<strong>最高优先级的异常或中断</strong>，执行转移到异常或中断处理程序的第一条指令。 <strong>低优先级异常会被丢弃</strong>； 而<strong>低优先级的中断被挂起等待</strong>。 当中断处理程序返回到产生异常和/或中断的程序或任务中时，被丢弃的异常会重新产生。  </p>
+<table>
+<thead>
+<tr>
+<th>优先级</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1（最高）</td>
+<td align="left">硬件复位（REST）和机器检查</td>
+</tr>
+<tr>
+<td>2</td>
+<td align="left">任务切换陷阱、TSS中设置了T标志位</td>
+</tr>
+<tr>
+<td>3</td>
+<td align="left">外部硬件介入：FLUSH、STOPCLK、SMI、INIT</td>
+</tr>
+<tr>
+<td>4</td>
+<td align="left">前一指令陷阱：断点、调试陷阱异常</td>
+</tr>
+<tr>
+<td>5</td>
+<td align="left">不可屏蔽硬件中断</td>
+</tr>
+<tr>
+<td>6</td>
+<td align="left">可屏蔽硬件中断</td>
+</tr>
+<tr>
+<td>7</td>
+<td align="left">代码断点故障</td>
+</tr>
+<tr>
+<td>8</td>
+<td align="left">取下条指令故障：违反代码段限长、代码页故障</td>
+</tr>
+<tr>
+<td>9</td>
+<td align="left">下条指令译码故障：指令长度&gt;15字节、无效操作码、协处理器不存在</td>
+</tr>
+<tr>
+<td>10（最低）</td>
+<td align="left">执行指令故障：溢出、边界检查、无效TSS、段不存在、堆栈故障、一般报告、数据页故障、对齐检查、浮点错误、虚拟化异常</td>
+</tr>
+</tbody></table>
+<center style="color:#1a1a1a;">表2 异常和中断的优先级</center>    
+
+<h2 id="3-3中断描述符表（IDT）"><a href="#3-3中断描述符表（IDT）" class="headerlink" title="3.3中断描述符表（IDT）"></a>3.3中断描述符表（IDT）</h2><p>​    中断描述符表（IDT）将每个异常或中断向量与用于其对应的<strong>异常或中断处理过程</strong>或<strong>任务的门描述符</strong>关联起来。 与GDT和LDT类似，IDT是由<strong>8字节长的描述符</strong>组成的一个数组（在保护模式下）。 但与GDT不同，IDT的<strong>第一个表项可以包含一个描述符</strong>。 为了构成IDT表中的一个索引值，处理器将异常或中断向量<strong>变大为8倍</strong>（门描述符的字节数）。 因为<strong>最多有256个</strong>中断或异常向量，所以IDT不需要包含多于256个描述符。 IDT表可以包含<strong>少于256个描述符</strong>，因为只有在可能发生的中断和异常时才需要描述符。 但IDT中所有<strong>空描述符项都应该将存在标志位设置为0</strong>。<br>​    IDT表的基址应该在8字节边界上进行对齐，以最大化填充缓存行的性能。限长值以字节为单位，将其基址相加以获得最后一个有效字节的地址。 限长值位0则正好只有1个有效字节。 因为IDT每个表项总是8字节长，所以限长应该总是比8的整数倍（即8N - 1）小1，即[0,8N-1]。<br>​    IDT表可以驻留<strong>在线性地址空间的任何地方</strong>。 如图1所示，处理器通过IDTR寄存器定位IDT表。 该寄存器存储了32位IDT表的基址和16位IDT表限长。  </p>
+<p><img src="/2022/04/10/%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86/IDT.jpg"></p>
+<center style="color:#1a1a1a;">图1 中断描述符表IDT和寄存器IDTR</center>    
+
+<p>​    <code>LIDT</code>（加载IDT寄存器）和<code>SIDT</code>（存储IDT寄存器）指令分别用于加载和存储IDTR寄存器的内容。 LIDT指令把<strong>存储在内存的基址和限长操作数</strong>加载到IDTR寄存器。 该指令只能在CPL为0时执行，通常被用于创建IDT表时的操作系统的初始化代码中。 操作系统也可以使用该指令从一个IDT变为一个IDT。 SIDT指令将存储在IDTR中的基址和段限长值复制到内存中，这个指令可在任何特权级别下执行。<br>​    如果中断或异常向量引用的描述符超出了IDT界限，则会产生一个通用保护异常（#GP）。<br>​    注意：因为中断只被发送到处理器核心一次，一个配置错误的IDT表可能会导致不完整的中断处理和/或阻塞中断。 在设置IDTR的<code>base/limit/access</code>字段以及<code>gate</code>描述符中的每个字段时，需要遵循IA-32架构规则。 这对Intel 64架构同样适用。 配置包括通过GDT或LDT隐式引用目标代码段和访问堆栈。  </p>
+<h2 id="3-4-IDT描述符"><a href="#3-4-IDT描述符" class="headerlink" title="3.4 IDT描述符"></a>3.4 IDT描述符</h2><p>​    IDT 表中可以存放三种类型的门描述符：  </p>
+<ul>
+<li>中断门（Interrupt-gate descriptor）</li>
+<li>陷阱门（Trap-gate descriptor）</li>
+<li>任务门（Task-gate descriptor）</li>
+</ul>
+<p>​    图2展示了任务门、中断门和陷阱门描述符的格式。 在IDT表中任务门的格式和GDT或LDT中任务门格式一致。任务门描述符含有一个用于异常和/或中断处理任务的TSS的段选择符。 中断门和陷阱门与call gate非常相似，它们含有一个长指针（段选择符和偏移量），处理器使用这个长指针将程序执行权转移到代码段中异常或中断的处理过程中。 这些门的不同之处在于处理器操作EFLAGS寄存器中IF标志的方式 。</p>
+<p><img src="/2022/04/10/%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86/gate.jpg"></p>
+<center style="color:#1a1a1a;">图2 IDT门描述符</center>    
+
+<h2 id="3-5-中断与异常处理"><a href="#3-5-中断与异常处理" class="headerlink" title="3.5 中断与异常处理"></a>3.5 中断与异常处理</h2><p>​    处理器对异常和中断处理过程的调用，与其使用CALL指令调用一个过程或者任务的方法类似。当响应异常或中断时，处理器首先使用<strong>异常或中断向量</strong>作为到IDT表中对应描述符的<strong>索引</strong>。如果该索引指向的是<strong>陷阱门或者中断门</strong>，则处理器<strong>调用异常或中断处理程序的方式与使用CALL指令调用一个调用门的方式类似</strong>。如果是索引指向的是一个<strong>任务门</strong>，处理器进行<strong>任务切换，切换到异常处理程序或中断处理程序任务</strong>，其<strong>调用方式与使用CALL指令调用一个任务门的方式类似</strong>。</p>
+<h3 id="3-5-1-异常或中断处理程序"><a href="#3-5-1-异常或中断处理程序" class="headerlink" title="3.5.1 异常或中断处理程序"></a>3.5.1 异常或中断处理程序</h3><p>​    异常或中断门引用运行在当前任务上下文中的异常或中断处理过程，如图3所示 。 门的段选择符指向GDT或当前LDT中可执行代码段的段描述符。 门描述符的偏移量字段指向异常或中断处理过程的开始处。  </p>
+<p>![](images/Interupt handle.jpg)</p>
+<center style="color:#1a1a1a;">图3 中断过程调用</center>    
+
+<p>​    当处理器执行异常或中断处理过程调用时会进行以下操作：</p>
+<ul>
+<li>如果处理过程将在一个数值更小（权限更大）的权限级别执行时，会发生堆栈的切换。堆栈切换时会发生如下操作：<ol>
+<li>处理器从当前执行任务的TSS中获取中断或异常处理过程使用的堆栈的段选择符和栈指针。然后将被中断过程的堆栈段选择符和栈指针压入新栈。</li>
+<li> 处理器将EFLAGS、CS、EIP寄存器的当前状态信息保存到新栈。（如图4所示）</li>
+<li>如果异常会产生一个错误码，那么该错误码在压入EIP值之后被压入新栈。</li>
+</ol>
+</li>
+<li>如果处理过程将在与被中断过程相同的权限级别执行时：<ol>
+<li>处理器将EFLAGS、CS、EIP寄存器的当前状态信息保存到当前栈。</li>
+<li>如果异常会产生一个错误码，那么该错误码在压入EIP值之后被压入当前栈。</li>
+</ol>
+</li>
+</ul>
+<p>![](images/stack switch.jpg)</p>
+<center style="color:#1a1a1a;">图4  转移到中断处理过程时堆栈的使用</center>    
+
+<p>​    要从异常或中断处理程序过程返回时，处理程序必须使用IRET（或IRETD）指令。 IRET指令与RET指令类似，区别在于其<strong>将保存的标志位信息恢复到EFLAGS寄存器中</strong>。<strong>只有当CPL值为0时</strong>，才会<strong>恢复EFLAGS寄存器的IOPL字段</strong>。 只有当<strong>CPL小于等于IOPL</strong>时，<strong>IF标志才会改变</strong>。<br>​    如果在调用处理程序过程时发生了堆栈切换，IRET指令在返回时切换回被中断的过程的堆栈。</p>
+<h4 id="异常和中断处理程序的保护机制"><a href="#异常和中断处理程序的保护机制" class="headerlink" title="异常和中断处理程序的保护机制"></a>异常和中断处理程序的保护机制</h4><p>​    <strong>异常和中断处理程序的特权级别保护方式</strong>与通过<strong>调用门调用普通过程时所使用的特权级别保护</strong>的方式类似。 处理器不允许把执行控制流转移到比<strong>CPL特权更小</strong>的代码段（数值上更大，权限小）中的异常或中断处理过程，否则将产生一个一般保护性异常 （#GP）。异常处理程序和中断处理程序的保护机制在以下方面有所不同:  </p>
+<ul>
+<li>因为中断和异常向量没有RPL，因此在隐式调用异常和中断处理过程时不会检查 RPL。  </li>
+<li>处理器只对<code>INT n</code>、<code>INT 3</code>或<code>INTO</code>指令产生的异常或中断才进行中断门或陷阱门的DPL的检查。其<strong>CPL必须小于或等于门的DPL</strong>。 这一约束阻止了在特权级别3上运行的应用程序或过程使用软件中断来访问重要的异常处理程序，比如页面故障处理程序，前提是这些处理程序位于<strong>更高特权的代码段</strong>中（数字更小）。 对于硬件产生的中断和处理器检测到的异常，处理器<strong>忽略中断门和陷阱门中的DPL</strong>。</li>
+</ul>
+<p>​    因为异常和中断通常可能在任意时间发生，所以这些有关特权级别的规则有效地加强了异常和中断处理过程能够运行的特权级的限制。我们可以利用以下技术之一来避免违反特权级保护：  </p>
+<ul>
+<li>异常或中断处理程序可以存放在一个一致性的代码段内。 这种技术可用于只需要访问堆栈上的数据的处理程序（例如，除出错异常）。如果处理程序需要访问数据段中的数据，那么必须以特权级 3 访问该数据段，但这样一来保护机制就失效了。</li>
+<li>异常或中断处理程序存放在一个非一致性且特权级别0的代码段内。这样一来处理程序总可以运行，而不管被中断程序或任务的当前特权级 CPL。</li>
+</ul>
+<h4 id="异常或中断处理程序标志位的使用"><a href="#异常或中断处理程序标志位的使用" class="headerlink" title="异常或中断处理程序标志位的使用"></a>异常或中断处理程序标志位的使用</h4><p>​    当通过一个中断门或一个陷阱门访问异常或中断处理程序时，处理器在把<strong>EFLAGS寄存器中的内容保存到堆栈上</strong>后，<strong>复位EFLAGS寄存器中的TF标志位</strong> （在调用异常和中断处理程序时，处理器还会将EFLAGS寄存器中VM、RF和NT标志位的信息保存在堆栈中，然后复位这些标志位）。 <strong>清除TF标志可以防止指令跟踪影响中断响应</strong>。 而随后的IRET指令会使用保存在堆栈上的EFLAGS寄存器内容中的值恢复TF（以及VM、RF和NT）标志位。<br>​    <strong>中断门和陷阱门</strong>之间的<strong>唯一区别</strong>在于处理器在EFLAGS寄存器中处理IF标志位的方式。 当通过<strong>中断门</strong>访问一个异常或中断处理过程时，处理器<strong>复位IF标志</strong>以防止其他中断干扰当前的中断处理程序。 随后的IRET指令使用保存在堆栈上的EFLAGS寄存器的值<strong>恢复IF标志位</strong>。 通过<strong>陷阱门</strong>访问处理程序过程<strong>不影响IF标志位</strong>。  </p>
+<h3 id="3-5-2-中断任务"><a href="#3-5-2-中断任务" class="headerlink" title="3.5.2 中断任务"></a>3.5.2 中断任务</h3><p>​    当通过IDT表中的任务门来访问一个异常或中断处理程序时，就会发生一个任务切换。 用一个单独的任务处理异常或中断有以下几个优点：</p>
+<ul>
+<li>被中断的程序或任务的完整上下文会被自动保存</li>
+<li>在处理异常或中断时，一个新的TSS允许处理程序使用新特权级别0的堆栈。如果当前的特权级别0的堆栈被损毁，导致产生了异常或中断时，可通过任务门访问处理程序，从而为处理程序提供新的特权级别0的堆栈来防止系统崩溃。 </li>
+<li>通过使用单独的IDT给中断或异常处理任务分配一个单独的地址空间，可进一步将其与其他任务隔离开。 </li>
+</ul>
+<p>​    但是使用单独的任务处理中断的缺点是：进行任务切换需要<strong>保存大量的机器状态</strong>，远多于使用中断门，导致其响应速度要比中断门慢，从而<strong>增加了中断延时</strong>。<br>​    使用IDT中的任务门引用GDT中的TSS描述符的过程，如图5所示。 切换到处理任务的过程与普通任务切换的过程相同。 返回到被中断任务的链接被存储在<strong>处理任务的TSS段的前一个任务链接字段</strong>中。 如果异常导致产生错误码，则将该错误码复制到新任务的堆栈中。</p>
+<p><img src="/2022/04/10/%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86/task.jpg"></p>
+<center style="color:#1a1a1a;">图5  中断任务切换</center>    
+
+<p>​     当在操作系统中使用异常或中断处理任务时，实际上有两种机制可用于任务调度：<strong>软件调度（操作系统的一部分）</strong>和<strong>硬件调度（处理器中断机制的一部分）</strong>。使用软件调度方法时则考虑到开启中断时，需要采用中断处理任务。            </p>
+]]></content>
   </entry>
   <entry>
     <title>论文翻译</title>

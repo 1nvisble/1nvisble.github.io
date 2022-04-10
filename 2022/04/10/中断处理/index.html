@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title> 知无涯也</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/panda.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <!-- mermaid -->
+      
+    <link rel="alternate" href="/atom.xml" title="知无涯也" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-中断处理"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+     
+    <div class="article-meta">
+      <a href="/2022/04/10/%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86/" class="article-date">
+  <time datetime="2022-04-10T13:01:25.710Z" itemprop="datePublished">2022-04-10</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">8.5k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">29 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="3-中断处理"><a href="#3-中断处理" class="headerlink" title="3. 中断处理"></a>3. 中断处理</h1><h2 id="3-1-中断和异常处理概述"><a href="#3-1-中断和异常处理概述" class="headerlink" title="3.1 中断和异常处理概述"></a>3.1 中断和异常处理概述</h2><p>​    <code>中断和异常</code>是指在系统、处理器或在当前执行的程序或任务的某处出现了一些<code>需要处理器注意并进行处理</code>的<code>事件</code>。 它们通常会导致从当前正在运行的程序或任务强制转移到一个称为<code>中断处理程序</code>或<code>异常处理程序</code>的特殊软件程序或任务(<strong>简单来说：中断和异常会导致处理器转移到中断处理程序或异常处理程序进行处理，再返回到刚才中断或异常处继续执行</strong>)。 处理器响应中断或异常所<code>采取的动作被</code>称为<code>中断/异常服务或处理</code>。<br>​    <strong>中断</strong>在一个程序执行期间内的<strong>任意时间</strong>都有可能发生，以响应<strong>硬件发出的信号</strong>。系统硬件使用中断处理来自处理器外部的事件。比如外围设备的服务请求。软件也可通过执行指令<code>INT n</code>产生中断。<br>​    <strong>异常</strong>则在<strong>处理器执行指令过程中检测到错误条件</strong>才发生，例如除零错误。处理器检测一系列各种类的错误，包括：违反保护机制、页缺失、机器内部故障。Pentium 4、Intel Xeon、P6系列和Pentium处理器的机器检查体系架构会在检测到<strong>内部硬件错误和总线错误</strong>时产生<strong>机器检查异常</strong>。<br>​    当收到一个中断或检测到一个异常时，当前运行的过程或任务会被<strong>挂起直到处理器执行完中断或异常处理程序</strong>。当执行完处理程序，处理器<strong>恢复执行被中断的过程或任务</strong>。恢复被中断的的过程或任务<strong>不会失去程序执行的连续性</strong>，除非<strong>不能从异常中恢复</strong>，或者<strong>中断导致当前运行程序终止</strong>。<br>​    </p>
+<h2 id="3-2-有关中断和异常了解性的内容"><a href="#3-2-有关中断和异常了解性的内容" class="headerlink" title="3.2 有关中断和异常了解性的内容"></a>3.2 有关中断和异常了解性的内容</h2><h3 id="3-2-1-中断和异常向量"><a href="#3-2-1-中断和异常向量" class="headerlink" title="3.2.1 中断和异常向量"></a>3.2.1 中断和异常向量</h3><p>​    为了帮助处理异常和中断，处理器为每个需被处理器特殊处理的异常和中断条件都赋予了一个独一无二的标识号，称为向量号。处理器使用赋予给一个异常或中断的<strong>向量号</strong>作为访问<strong>中断描述符表（IDT）</strong>的一个索引。中断描述符表提供了到一个异常或中断处理程序的入口点位置。<br>​    向量号的范围为<code>0</code>到<code>255</code>。其中<code>0</code>到<code>31</code>保留用作n<code>Intel 64</code>和<code>IA-32</code>体系架构处理器的系统架构定义的中断和异常，目前并不是该范围内（<code>0-31</code>）的所有向量号都被定义了功能。未被定义功能的向量号被保留日后使用。<strong>不要使用这些保留的向量号。</strong><br>​    在<code>32</code>到<code>255</code>范围内的所有向量号用于用户定义的中断，而且不保留给<code>Intel 64</code>和<code>IA-32</code>使用。这些中断通常用于外部I/O设备，以确保这些设备可以通过外部硬件中断机制发送中断给处理器。<br>​    表1展示了分配给系统架构定义的异常以及NMI中断的向量号。该表还给出了异常类型以及是否会产生一个错误码并保存在栈上。同时还给出了每个预定义的异常和NMI中断源。<br><img src="/2022/04/10/%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86/vector_num.jpg" alt="vector nums"></p>
+<center style="color:#1a1a1a;">表1 保护模式下的异常和中断</center>    
+
+<h3 id="3-2-2-中断源和异常源"><a href="#3-2-2-中断源和异常源" class="headerlink" title="3.2.2 中断源和异常源"></a>3.2.2 中断源和异常源</h3><pre><code>#### 3.2.2.1中断源
+</code></pre>
+<p>​    处理器从两种地方接收中断；</p>
+<ul>
+<li>外部（硬件产生）中断</li>
+<li>软件产生的终端</li>
+</ul>
+<h5 id="外部中断"><a href="#外部中断" class="headerlink" title="外部中断"></a>外部中断</h5><p>​    处理器通过处理器上的引脚或本地上的APIC来接收中断。 Pentium 4、Intel Xeon、P6系列和Pentium处理器上的主要的中断引脚是<code>LINT[1:0]</code>引脚，其连接到<strong>本地APIC（高级可编程中断控制器）</strong>。当本地APIC启用时，可以通过<strong>APIC的本地向量表（LVT）</strong>对<code>LINT[1:0]</code>引脚编程，使其与任何处理器的异常或中断向量相关联。<br>​    当本地APIC被全局/硬件禁用，这些引脚分别被配置为<code>INTR</code>和<code>NMI</code>引脚。 当<code>INTR</code>引脚接收到外部发生的中断信号时， 处理器从系统总线上读取由外部中断控制器（例如82590A）提供的中断向量号。 当<code>NMI</code>引脚接收到信号时，会产生一个<strong>不可屏蔽中断（NMI）</strong>，其使用固定的向量号<code>2</code>。<br>​    处理器的<code>本地APIC</code>通常会与基于系统的<code>I/O APIC</code>连接。因而，I/O APIC的引脚所接收到的外部中断信号可以通过系统总线（Pentium 4, Intel Core Duo, Intel Core 2, Intel®Atom™和Intel Xeon处理器）或APIC串行总线（P6家族和Pentium处理器）直接传递给本地APIC。 I/O APIC获得该中断的向量号，然后发送给本地APIC。 当系统中有多个处理器时，处理器之间也可以通过系统总线（Pentium 4、Intel Core Duo、Intel Core 2、Intel Atom、Intel Xeon处理器）或APIC串行总线9P6族和Pentium处理器）相互发送中断信号。<br>​    在Intel486处理器和不包含片上本地APIC的早期Pentium处理器上，<code>LINT[1:0]</code>引脚是不可用的。 这些处理器有专用的<code>NMI</code>和<code>INTR</code>引脚。 对于这些处理器，外部中断通常由基于系统的中断控制器（8259A）产生，通过INTR引脚发送中断信号。<br>​    需注意的是，处理器上的其他几个引脚可能会导致发生处理器中断。 然而，这些中断并不会被本章中描述的中断和异常机制处理。 这些引脚包括<code>RESET#， FLUSH#， STPCLK#， SMI#， R/S#和INIT#</code>引脚。 不是每个处理器都有这些引脚，这却决于处理器的实现。</p>
+<h5 id="可屏蔽硬件中断"><a href="#可屏蔽硬件中断" class="headerlink" title="可屏蔽硬件中断"></a>可屏蔽硬件中断</h5><p>​    任何通过<code>INTR</code>引脚或<code>本地APIC</code>接收到的<strong>外部中断</strong>都被称为<strong>可屏蔽硬件中断</strong>。 通过<code>INTR</code>引脚接收到的可屏蔽硬件中断包括<code>IA-32</code>体系结构定义的中断向量号<code>0到255</code>； 通过<code>本地APIC</code>接收到的可屏蔽硬件中断包括中断向量号<code>16到255</code>。</p>
+<h5 id="软件产生的中断"><a href="#软件产生的中断" class="headerlink" title="软件产生的中断"></a>软件产生的中断</h5><p>​    <code>INT n</code>指令可通过指定一个中断向量号，在软件中生成中断。 例如，<code>INT 35</code>指令强制隐式调用中断35的中断处理程序进行。<br>​    向量号0到255种的任意一个都可以用作这个指令的中断号。 然而，如果使用处理器预定义的<code>NMI向量</code>，处理器的响应将与正常方式产生的NMI中断不同。 如果在这条指令中指定使用向量号2 （NMI向量），则会调用NMI中断处理程序，但是处理器的NMI处理硬件并不会被激活。<br>​    注意：EFLAGS寄存器中的IF标志位不能屏蔽使用<code>INT n</code>指令从软件中产生的中断。 </p>
+<h4 id="3-2-2-2-异常源"><a href="#3-2-2-2-异常源" class="headerlink" title="3.2.2.2 异常源"></a>3.2.2.2 异常源</h4><p>​        处理器从三种来源接收异常；</p>
+<ul>
+<li>处理器检测到的程序错误异常</li>
+<li>软件产生的异常</li>
+<li>机器检查异常</li>
+</ul>
+<h5 id="程序错误异常"><a href="#程序错误异常" class="headerlink" title="程序错误异常"></a>程序错误异常</h5><p>在一个应用程序或操作系统执行期间，如果处理器检测到了程序错误，则会产生一个或多个异常。Intel 64和IA-32架构的处理器为其检测的每个异常都定义了一个向量号。一场可被分为故障、陷阱、中止。</p>
+<h5 id="软件产生的异常"><a href="#软件产生的异常" class="headerlink" title="软件产生的异常"></a>软件产生的异常</h5><p>​    <code>INTO、INT 3和BOUND</code>指令可在软件中生成异常。 这些指令可对指令流中指定点执行的特殊异常条件进行检查。 例如，<code>INT 3</code>会产生一个断点异常。<br>​    <code>INT n</code>指令可用于在软件中模拟指定的异常；但也存在限制。 如果<code>INT n</code>指令指定的向量号<code>n</code>是系统架构定义的异常的向量号之一，那么处理器会为该向量号产生一个对应的中断（以访问异常处理程序），但不会把产生的错误码压入栈，因为处理器将其看作为一个中断，而不是异常。 即使与之关联硬件产生的异常通常会产生一个错误码。虽然前面处理器并没有将错误码压入栈，但当处理异常时，异常处理程序仍会尝试将错误码弹出堆栈。因为处理器没有将错误码压入堆栈，而处理程序会把EIP（代正好处于缺失的错误码的位置处）弹栈，从而造成返回位置错误。</p>
+<h5 id="机器检查异常"><a href="#机器检查异常" class="headerlink" title="机器检查异常"></a>机器检查异常</h5><pre><code> `P6系列`和`Pentium`处理器提供内、外部机器检查机制，其检查内部芯片硬件和总线事务的操作。 是否进行机器检查取决于处理器的实现。 当检测到机器检查错误时，处理器产生机器检查异常信号（`向量18`）并返回错误代码。  
+</code></pre>
+<h3 id="3-2-3-异常的分类"><a href="#3-2-3-异常的分类" class="headerlink" title="3.2.3 异常的分类"></a>3.2.3 异常的分类</h3><p>​    根据<strong>异常的报告方式以及导致异常的指令</strong>是否能在不损害程序或任务执行连贯性的情况下重新启动（简言之，就是重新执行导致异常的指令，并从此继续执行），可以将异常分为<strong>故障（Faults）、陷阱（Traps）或中止（Abort）</strong>。</p>
+<ul>
+<li> 故障：故障是一种通常<strong>可被纠正</strong>的异常。一旦纠正，程序可以在不丢失程序执行的连贯性情况下继续执行（就是从异常处继续运行）。当报告了一个故障时，处理器会把<strong>机器状态恢复到产生故障的指令执行前的状态</strong>。此时异常处理程序的<strong>返回地址（保存的CS和EIP寄存器的内容）指向产生故障的指令</strong>，而不是其之后的指令。</li>
+<li>陷阱：陷阱是一种执行trapping指令后立即报告的异常。陷阱允许程序或任务<strong>继续执行</strong>，而不会丢失程序执行的连贯性。 trap处理程序的返回地址指向在trapping指令之的随后的一条指令。就是从异常指令的后一条指令处继续执行。</li>
+<li>中止：中止是这样一种异常，其并不总是报告引起异常的指令的精确位置，并且<strong>不允许异常程序或任务的重新继续执行</strong>。 中止用于报告严重错误，例如硬件错误和系统表中存在不一致性或非法值。  </li>
+</ul>
+<p>注意：被报告为故障的一个异常子集是不能重新继续程序执行的。 这样的异常会丢失处理器的某些状态信息。 例如，执行POPAD指令会导致堆栈帧越界，从而报告错误。 在这种情况下，异常处理程序会看到指令指针（CS:EIP）已经恢复，就像POPAD指令没有被执行一样。 但是，内部处理器状态（通用寄存器）将被修改。 这种情况被认为是编程错误。 操作系统会终止引起这类异常的应用程序。  </p>
+<h3 id="3-2-4-程序或任务的重新执行"><a href="#3-2-4-程序或任务的重新执行" class="headerlink" title="3.2.4 程序或任务的重新执行"></a>3.2.4 程序或任务的重新执行</h3><p>​    为了使得程序或任务在处理完异常或中断后重新恢复执行，所有的异常（<strong>除了中止</strong>）都必须能报告异常指令的精确位置。，并且所有中断必须在指令边界发生上。<br>​    对于<strong>故障类异常</strong>，返回指令的指针（在处理器产生异常时所保存）指向出错的指令。 因此，当程序或任务在处理完故障后重新开始执行时，将<strong>重新启动（重新执行）原来的出错指令</strong>。 重新执行故障指令通常用于<strong>处理访问操作数被阻塞所产生的异常</strong>。 这类故障最常见的例子是<strong>页故障异常（#PF）</strong>，当程序或任务<strong>引用不在内存中的页面上的操作数</strong>时，就会出现页故障异常。 当页面故障异常发生时，异常处理程序可以将该要引用页面加载到内存中，并通过重新执行出错指令来恢复程序或任务的执行。 为了确保重新执行对当前执行程序或任务是透明的（即用户意识不到发生了故障以及进行了处理），处理器会保存必要的寄存器和堆栈指针信息，以使得能返回到执行出错指令之前的状态。<br>​    对于<strong>陷阱类异常</strong>，返回指令的指针指向trapping指令的后一条指令。 如果在一条<strong>控制转移指令的执行期间</strong>检测到一个trap，则<strong>返回指令指针会反映出控制的转移情况</strong>。 例如，如果在执行JMP指令时检测到一个trap，则返回指令的指针会指向JMP指令的目的地址，而不是JMP指令之后一条指令的地址。 所有的陷阱异常都允许程序或任务在不丢失执行连贯性的情况下重新继续执行。 例如，溢出异常是陷阱异常。而返回指令的指针指向<strong>检查EFLAGS.OS（溢出）标志位</strong>的<code>INTO</code>指令的后一条指令。该陷阱异常的处理程序解决溢出情况。 从陷阱类异常处理程序返回后，程序或任务继续执行<code>INTO</code>指令后的指令。<br>​    <strong>中止类异常</strong>不支持可靠地重新执行程序或任务。 中止异常的处理程序通常会在中止异常发生时，<strong>收集有关处理器状态的诊断信息</strong>，然后尽可能优雅地关闭应用程序和系统。<br>​    <strong>中断会严格地支持被中断程序和任务的重新执行而不丢失执行的连贯性</strong>。 中断所保存的返回指令的指针指向处理器获取中断时将要执行的下一条指令边界处。 如果刚执行的指令有一个<code>repeat</code>（重复）前缀，则中断会在<strong>当前迭代结束</strong>，且<strong>寄存器已被设置好以执行下一次迭代</strong>后，才发生。<br>​    P6系列处理器的指令预测执行功能并不会影响处理器的中断。 中断发生在指令执行的<code>retirement</code>阶段的指令边界上；因此，它们总是在“按顺序”的指令流中获取。（这一部分与上一学期所学的计组中“指令级并行”相关）。<br>​      注意：Pentium 处理器和早期的IA-32处理器也执行不同数量的指令预取和初步译码。 对于这些处理器，异常和中断直到指令实际执行时才会发出信号。 对于给定的示例代码，当代码在任何IA-32处理器系列上运行时，异常信号都会发生（除非定义了新的异常或新的操作码）。</p>
+<h3 id="3-2-5-不可屏蔽中断（NMI）"><a href="#3-2-5-不可屏蔽中断（NMI）" class="headerlink" title="3.2.5 不可屏蔽中断（NMI）"></a>3.2.5 不可屏蔽中断（NMI）</h3><p>​    不可屏蔽中断（NMI）可通过以下两种方式产生:  </p>
+<ul>
+<li>NMI引脚接收到外部硬件中断信号</li>
+<li>处理器<strong>在NMI传输模式下</strong>在系统总线（Pentium 4、Intel Core Duo、Intel Core 2、Intel Atom和Intel Xeon处理器）或APIC串行总线（P6系列和Pentium处理器）上接收到消息</li>
+</ul>
+<p>​    当处理器从这两个来源之一收到一个NMI信号时，处理器会立即调用<strong>中断向量号2</strong>所指向的NMI处理程序来处理中断。 处理器也会设置某些硬件条件以确保在NMI处理程序执行完前不会收到其他中断，包括NMI中断。（即，当处理NMI中断时，不会被其他任何中断打断，也就说屏蔽了所有其他中断信号）。<br>​     此外，从上述的任一来源所收到的NMI信号时，其不能被EFLAGS寄存器中的IF标志位给屏蔽。<br>​     也可通过INTR引脚发送一个可屏蔽的硬件中断，且其中断向量号为2来调用NMI中断处理程序；然而，这个中断并不是一个真正的NMI中断。 一个真正的NMI中断必须通过上述两种来源的任一来源所传递，且处理器会激活相关的NMI处理硬件。</p>
+<h3 id="3-2-6-开中断和关中断"><a href="#3-2-6-开中断和关中断" class="headerlink" title="3.2.6 开中断和关中断"></a>3.2.6 开中断和关中断</h3><p>​    处理器可以抑制某些中断的产生，这取决于<strong>处理器的状态以及EFLAGS寄存器中的IF和RF标志</strong>。</p>
+<h4 id="屏蔽可屏蔽硬件中断"><a href="#屏蔽可屏蔽硬件中断" class="headerlink" title="屏蔽可屏蔽硬件中断"></a>屏蔽可屏蔽硬件中断</h4><p>​    IF标志位可以禁止为处理器INTR引脚或本地APIC收到的<strong>可屏蔽硬件中断</strong>提供服务。 当IF标志复位时，处理器会禁止发送到INTR引脚的中断或通过本地APIC产生的内部中断请求；当设置了IF标志位时，发送到INTR引脚或通过本地APIC的中断会作为正常的外部中断进行处理。<br>​    IF标志位<strong>不会影响</strong>发送到NMI引脚的<strong>不可屏蔽中断（NMI）</strong>，也不会影响在NMI传递模式通过本地APIC传递的消息，也不影响处理器产生的异常。 与EFLAGS寄存器中的其他标志一样，处理器在<strong>响应硬件复位操作</strong>时会复位IF标志位。<br>​    因这组可屏蔽硬件中断包括保留的中断和异常向量号0到32，这潜在地可能会引起混乱。 在架构上，当设置IF标志时，<strong>0到32</strong>内的任一向量号的中断都可<strong>通过INTR引脚</strong>发送到处理器，<strong>16到32</strong>内的任一向量号都可<strong>通过本地APIC</strong>发送。 处理器将产生一个中断，并调用由向量号指向的中断或异常处理程序。 例如，可以通过INTR引脚调用页面故障处理程序（通过向量号14）； 然而，这并不是一个真正的页面故障异常， 它实际是一个中断。 与<code>INT n</code>指令一样，当一个中断通过INTR引脚产生一个异常向量时，处理器不会将错误码压栈，所以异常处理程序可能不能正确执行。<br>​    可以通过<code>STI</code> （set interrupt-enable flag）和<code>CLI</code> （clear interrupt-enable flag）指令设置和复位IF标志。 这些指令只有在CPL等于或小于IOPL时才能执行（即，正在执行的程序的权限足够大）。 当CPL大于IOPL时（数字越大，权限越小），会产生一个一般保护异常（#GP）。<br>​    IF标志也会受到以下操作的影响:  </p>
+<ul>
+<li><code>PUSHF</code>指令将所有的标志位信息都存储在堆栈上，在栈中，这些标志位的信息可被检查和修改。<code>POPF</code>  指令可用于将被修改过的标志位信息加载回EFLAGS寄存器。 </li>
+<li><strong>任务切换</strong>和<code>POPF</code>和<code>IRET</code>指令会加载EFLAGS寄存器； 因此，其可用于修改IF标志的设置。</li>
+<li>当通过中断门进行中断处理时，IF标志被自动复位， 其禁止可屏蔽硬件中断。 （如果通过陷阱门处理中断，则IF标志位不会被复位）</li>
+</ul>
+<h4 id="屏蔽指令断点"><a href="#屏蔽指令断点" class="headerlink" title="屏蔽指令断点"></a>屏蔽指令断点</h4><p>​    EFLAGS寄存器中的RF （resume）标志位控制处理器对指令断点条件的响应。RF=1时，其禁止指令断点生成调试异常（#DB）； RF=0时，指令断点可以生成调试异常。 RF标志的主要功能是防止处理器进入指令断点上的调试异常循环。</p>
+<h4 id="任务切换时屏蔽异常和中断"><a href="#任务切换时屏蔽异常和中断" class="headerlink" title="任务切换时屏蔽异常和中断"></a>任务切换时屏蔽异常和中断</h4><p>​    为切换到一个不同的堆栈段，软件通常使用一对指令，例如:  </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV SS, AX</span><br><span class="line">MOV ESP, Stack Top</span><br></pre></td></tr></table></figure>
+
+<p>​    如果一个中断或异常发生在<strong>段选择符被加载到SS寄存器之后</strong>，但<strong>在ESP寄存器被加载之前</strong>，在中断或异常处理过程中，这两个逻辑地址在堆栈空间中是<strong>不一致</strong>的，。<br>​    为了防止这种情况发送，处理器在<code>MOV</code>到<code>SS</code>指令或<code>POP</code>到<code>SS</code>指令之后，屏蔽中断、调试异常和单步捕获异常，直到执行到下一条指令的指令边界。但这 仍然可能产生其他错误。 如果使用<code>LSS</code>指令修改SS寄存器的内容（推荐以此方法修改该寄存器），则不会发生此问题。 </p>
+<h3 id="3-2-7-异常和中断的优先级"><a href="#3-2-7-异常和中断的优先级" class="headerlink" title="3.2.7 异常和中断的优先级"></a>3.2.7 异常和中断的优先级</h3><p>​    如果在一个指令边界上有多个异常或中断等待处理，处理器会按照规定的顺序对它们进行处理。 异常源和中断源的优先级如表2所示。处理器首先处理<strong>最高优先级的异常或中断</strong>，执行转移到异常或中断处理程序的第一条指令。 <strong>低优先级异常会被丢弃</strong>； 而<strong>低优先级的中断被挂起等待</strong>。 当中断处理程序返回到产生异常和/或中断的程序或任务中时，被丢弃的异常会重新产生。  </p>
+<table>
+<thead>
+<tr>
+<th>优先级</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1（最高）</td>
+<td align="left">硬件复位（REST）和机器检查</td>
+</tr>
+<tr>
+<td>2</td>
+<td align="left">任务切换陷阱、TSS中设置了T标志位</td>
+</tr>
+<tr>
+<td>3</td>
+<td align="left">外部硬件介入：FLUSH、STOPCLK、SMI、INIT</td>
+</tr>
+<tr>
+<td>4</td>
+<td align="left">前一指令陷阱：断点、调试陷阱异常</td>
+</tr>
+<tr>
+<td>5</td>
+<td align="left">不可屏蔽硬件中断</td>
+</tr>
+<tr>
+<td>6</td>
+<td align="left">可屏蔽硬件中断</td>
+</tr>
+<tr>
+<td>7</td>
+<td align="left">代码断点故障</td>
+</tr>
+<tr>
+<td>8</td>
+<td align="left">取下条指令故障：违反代码段限长、代码页故障</td>
+</tr>
+<tr>
+<td>9</td>
+<td align="left">下条指令译码故障：指令长度&gt;15字节、无效操作码、协处理器不存在</td>
+</tr>
+<tr>
+<td>10（最低）</td>
+<td align="left">执行指令故障：溢出、边界检查、无效TSS、段不存在、堆栈故障、一般报告、数据页故障、对齐检查、浮点错误、虚拟化异常</td>
+</tr>
+</tbody></table>
+<center style="color:#1a1a1a;">表2 异常和中断的优先级</center>    
+
+<h2 id="3-3中断描述符表（IDT）"><a href="#3-3中断描述符表（IDT）" class="headerlink" title="3.3中断描述符表（IDT）"></a>3.3中断描述符表（IDT）</h2><p>​    中断描述符表（IDT）将每个异常或中断向量与用于其对应的<strong>异常或中断处理过程</strong>或<strong>任务的门描述符</strong>关联起来。 与GDT和LDT类似，IDT是由<strong>8字节长的描述符</strong>组成的一个数组（在保护模式下）。 但与GDT不同，IDT的<strong>第一个表项可以包含一个描述符</strong>。 为了构成IDT表中的一个索引值，处理器将异常或中断向量<strong>变大为8倍</strong>（门描述符的字节数）。 因为<strong>最多有256个</strong>中断或异常向量，所以IDT不需要包含多于256个描述符。 IDT表可以包含<strong>少于256个描述符</strong>，因为只有在可能发生的中断和异常时才需要描述符。 但IDT中所有<strong>空描述符项都应该将存在标志位设置为0</strong>。<br>​    IDT表的基址应该在8字节边界上进行对齐，以最大化填充缓存行的性能。限长值以字节为单位，将其基址相加以获得最后一个有效字节的地址。 限长值位0则正好只有1个有效字节。 因为IDT每个表项总是8字节长，所以限长应该总是比8的整数倍（即8N - 1）小1，即[0,8N-1]。<br>​    IDT表可以驻留<strong>在线性地址空间的任何地方</strong>。 如图1所示，处理器通过IDTR寄存器定位IDT表。 该寄存器存储了32位IDT表的基址和16位IDT表限长。  </p>
+<p><img src="/2022/04/10/%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86/IDT.jpg"></p>
+<center style="color:#1a1a1a;">图1 中断描述符表IDT和寄存器IDTR</center>    
+
+<p>​    <code>LIDT</code>（加载IDT寄存器）和<code>SIDT</code>（存储IDT寄存器）指令分别用于加载和存储IDTR寄存器的内容。 LIDT指令把<strong>存储在内存的基址和限长操作数</strong>加载到IDTR寄存器。 该指令只能在CPL为0时执行，通常被用于创建IDT表时的操作系统的初始化代码中。 操作系统也可以使用该指令从一个IDT变为一个IDT。 SIDT指令将存储在IDTR中的基址和段限长值复制到内存中，这个指令可在任何特权级别下执行。<br>​    如果中断或异常向量引用的描述符超出了IDT界限，则会产生一个通用保护异常（#GP）。<br>​    注意：因为中断只被发送到处理器核心一次，一个配置错误的IDT表可能会导致不完整的中断处理和/或阻塞中断。 在设置IDTR的<code>base/limit/access</code>字段以及<code>gate</code>描述符中的每个字段时，需要遵循IA-32架构规则。 这对Intel 64架构同样适用。 配置包括通过GDT或LDT隐式引用目标代码段和访问堆栈。  </p>
+<h2 id="3-4-IDT描述符"><a href="#3-4-IDT描述符" class="headerlink" title="3.4 IDT描述符"></a>3.4 IDT描述符</h2><p>​    IDT 表中可以存放三种类型的门描述符：  </p>
+<ul>
+<li>中断门（Interrupt-gate descriptor）</li>
+<li>陷阱门（Trap-gate descriptor）</li>
+<li>任务门（Task-gate descriptor）</li>
+</ul>
+<p>​    图2展示了任务门、中断门和陷阱门描述符的格式。 在IDT表中任务门的格式和GDT或LDT中任务门格式一致。任务门描述符含有一个用于异常和/或中断处理任务的TSS的段选择符。 中断门和陷阱门与call gate非常相似，它们含有一个长指针（段选择符和偏移量），处理器使用这个长指针将程序执行权转移到代码段中异常或中断的处理过程中。 这些门的不同之处在于处理器操作EFLAGS寄存器中IF标志的方式 。</p>
+<p><img src="/2022/04/10/%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86/gate.jpg"></p>
+<center style="color:#1a1a1a;">图2 IDT门描述符</center>    
+
+<h2 id="3-5-中断与异常处理"><a href="#3-5-中断与异常处理" class="headerlink" title="3.5 中断与异常处理"></a>3.5 中断与异常处理</h2><p>​    处理器对异常和中断处理过程的调用，与其使用CALL指令调用一个过程或者任务的方法类似。当响应异常或中断时，处理器首先使用<strong>异常或中断向量</strong>作为到IDT表中对应描述符的<strong>索引</strong>。如果该索引指向的是<strong>陷阱门或者中断门</strong>，则处理器<strong>调用异常或中断处理程序的方式与使用CALL指令调用一个调用门的方式类似</strong>。如果是索引指向的是一个<strong>任务门</strong>，处理器进行<strong>任务切换，切换到异常处理程序或中断处理程序任务</strong>，其<strong>调用方式与使用CALL指令调用一个任务门的方式类似</strong>。</p>
+<h3 id="3-5-1-异常或中断处理程序"><a href="#3-5-1-异常或中断处理程序" class="headerlink" title="3.5.1 异常或中断处理程序"></a>3.5.1 异常或中断处理程序</h3><p>​    异常或中断门引用运行在当前任务上下文中的异常或中断处理过程，如图3所示 。 门的段选择符指向GDT或当前LDT中可执行代码段的段描述符。 门描述符的偏移量字段指向异常或中断处理过程的开始处。  </p>
+<p>![](images/Interupt handle.jpg)</p>
+<center style="color:#1a1a1a;">图3 中断过程调用</center>    
+
+<p>​    当处理器执行异常或中断处理过程调用时会进行以下操作：</p>
+<ul>
+<li>如果处理过程将在一个数值更小（权限更大）的权限级别执行时，会发生堆栈的切换。堆栈切换时会发生如下操作：<ol>
+<li>处理器从当前执行任务的TSS中获取中断或异常处理过程使用的堆栈的段选择符和栈指针。然后将被中断过程的堆栈段选择符和栈指针压入新栈。</li>
+<li> 处理器将EFLAGS、CS、EIP寄存器的当前状态信息保存到新栈。（如图4所示）</li>
+<li>如果异常会产生一个错误码，那么该错误码在压入EIP值之后被压入新栈。</li>
+</ol>
+</li>
+<li>如果处理过程将在与被中断过程相同的权限级别执行时：<ol>
+<li>处理器将EFLAGS、CS、EIP寄存器的当前状态信息保存到当前栈。</li>
+<li>如果异常会产生一个错误码，那么该错误码在压入EIP值之后被压入当前栈。</li>
+</ol>
+</li>
+</ul>
+<p>![](images/stack switch.jpg)</p>
+<center style="color:#1a1a1a;">图4  转移到中断处理过程时堆栈的使用</center>    
+
+<p>​    要从异常或中断处理程序过程返回时，处理程序必须使用IRET（或IRETD）指令。 IRET指令与RET指令类似，区别在于其<strong>将保存的标志位信息恢复到EFLAGS寄存器中</strong>。<strong>只有当CPL值为0时</strong>，才会<strong>恢复EFLAGS寄存器的IOPL字段</strong>。 只有当<strong>CPL小于等于IOPL</strong>时，<strong>IF标志才会改变</strong>。<br>​    如果在调用处理程序过程时发生了堆栈切换，IRET指令在返回时切换回被中断的过程的堆栈。</p>
+<h4 id="异常和中断处理程序的保护机制"><a href="#异常和中断处理程序的保护机制" class="headerlink" title="异常和中断处理程序的保护机制"></a>异常和中断处理程序的保护机制</h4><p>​    <strong>异常和中断处理程序的特权级别保护方式</strong>与通过<strong>调用门调用普通过程时所使用的特权级别保护</strong>的方式类似。 处理器不允许把执行控制流转移到比<strong>CPL特权更小</strong>的代码段（数值上更大，权限小）中的异常或中断处理过程，否则将产生一个一般保护性异常 （#GP）。异常处理程序和中断处理程序的保护机制在以下方面有所不同:  </p>
+<ul>
+<li>因为中断和异常向量没有RPL，因此在隐式调用异常和中断处理过程时不会检查 RPL。  </li>
+<li>处理器只对<code>INT n</code>、<code>INT 3</code>或<code>INTO</code>指令产生的异常或中断才进行中断门或陷阱门的DPL的检查。其<strong>CPL必须小于或等于门的DPL</strong>。 这一约束阻止了在特权级别3上运行的应用程序或过程使用软件中断来访问重要的异常处理程序，比如页面故障处理程序，前提是这些处理程序位于<strong>更高特权的代码段</strong>中（数字更小）。 对于硬件产生的中断和处理器检测到的异常，处理器<strong>忽略中断门和陷阱门中的DPL</strong>。</li>
+</ul>
+<p>​    因为异常和中断通常可能在任意时间发生，所以这些有关特权级别的规则有效地加强了异常和中断处理过程能够运行的特权级的限制。我们可以利用以下技术之一来避免违反特权级保护：  </p>
+<ul>
+<li>异常或中断处理程序可以存放在一个一致性的代码段内。 这种技术可用于只需要访问堆栈上的数据的处理程序（例如，除出错异常）。如果处理程序需要访问数据段中的数据，那么必须以特权级 3 访问该数据段，但这样一来保护机制就失效了。</li>
+<li>异常或中断处理程序存放在一个非一致性且特权级别0的代码段内。这样一来处理程序总可以运行，而不管被中断程序或任务的当前特权级 CPL。</li>
+</ul>
+<h4 id="异常或中断处理程序标志位的使用"><a href="#异常或中断处理程序标志位的使用" class="headerlink" title="异常或中断处理程序标志位的使用"></a>异常或中断处理程序标志位的使用</h4><p>​    当通过一个中断门或一个陷阱门访问异常或中断处理程序时，处理器在把<strong>EFLAGS寄存器中的内容保存到堆栈上</strong>后，<strong>复位EFLAGS寄存器中的TF标志位</strong> （在调用异常和中断处理程序时，处理器还会将EFLAGS寄存器中VM、RF和NT标志位的信息保存在堆栈中，然后复位这些标志位）。 <strong>清除TF标志可以防止指令跟踪影响中断响应</strong>。 而随后的IRET指令会使用保存在堆栈上的EFLAGS寄存器内容中的值恢复TF（以及VM、RF和NT）标志位。<br>​    <strong>中断门和陷阱门</strong>之间的<strong>唯一区别</strong>在于处理器在EFLAGS寄存器中处理IF标志位的方式。 当通过<strong>中断门</strong>访问一个异常或中断处理过程时，处理器<strong>复位IF标志</strong>以防止其他中断干扰当前的中断处理程序。 随后的IRET指令使用保存在堆栈上的EFLAGS寄存器的值<strong>恢复IF标志位</strong>。 通过<strong>陷阱门</strong>访问处理程序过程<strong>不影响IF标志位</strong>。  </p>
+<h3 id="3-5-2-中断任务"><a href="#3-5-2-中断任务" class="headerlink" title="3.5.2 中断任务"></a>3.5.2 中断任务</h3><p>​    当通过IDT表中的任务门来访问一个异常或中断处理程序时，就会发生一个任务切换。 用一个单独的任务处理异常或中断有以下几个优点：</p>
+<ul>
+<li>被中断的程序或任务的完整上下文会被自动保存</li>
+<li>在处理异常或中断时，一个新的TSS允许处理程序使用新特权级别0的堆栈。如果当前的特权级别0的堆栈被损毁，导致产生了异常或中断时，可通过任务门访问处理程序，从而为处理程序提供新的特权级别0的堆栈来防止系统崩溃。 </li>
+<li>通过使用单独的IDT给中断或异常处理任务分配一个单独的地址空间，可进一步将其与其他任务隔离开。 </li>
+</ul>
+<p>​    但是使用单独的任务处理中断的缺点是：进行任务切换需要<strong>保存大量的机器状态</strong>，远多于使用中断门，导致其响应速度要比中断门慢，从而<strong>增加了中断延时</strong>。<br>​    使用IDT中的任务门引用GDT中的TSS描述符的过程，如图5所示。 切换到处理任务的过程与普通任务切换的过程相同。 返回到被中断任务的链接被存储在<strong>处理任务的TSS段的前一个任务链接字段</strong>中。 如果异常导致产生错误码，则将该错误码复制到新任务的堆栈中。</p>
+<p><img src="/2022/04/10/%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86/task.jpg"></p>
+<center style="color:#1a1a1a;">图5  中断任务切换</center>    
+
+<p>​     当在操作系统中使用异常或中断处理任务时，实际上有两种机制可用于任务调度：<strong>软件调度（操作系统的一部分）</strong>和<strong>硬件调度（处理器中断机制的一部分）</strong>。使用软件调度方法时则考虑到开启中断时，需要采用中断处理任务。            </p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://1nvisble.github.io/2022/04/10/%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2022/04/09/Leetcode59/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Leetcode59</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "tMzmCoClzWlTqD4Bt6fwEvl7-gzGzoHsz",
+    app_key: "yenrgDCsVOtSCvx3IWHen53i",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2019-2022
+        <i class="ri-heart-fill heart_icon"></i> 1nvisble
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="知无涯也"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+ 
+<script src="/js/clickBoom2.js"></script>
+ 
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+ 
+<script src="/js/dz.js"></script>
+ 
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=442867218&auto=1&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+</body>
+
+</html>
