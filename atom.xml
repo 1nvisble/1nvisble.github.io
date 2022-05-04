@@ -6,7 +6,7 @@
   <link href="https://1nvisble.github.io/atom.xml" rel="self"/>
   
   <link href="https://1nvisble.github.io/"/>
-  <updated>2022-04-13T09:02:46.542Z</updated>
+  <updated>2022-04-21T06:59:11.921Z</updated>
   <id>https://1nvisble.github.io/</id>
   
   <author>
@@ -15,6 +15,77 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Leetcode1——两数之和</title>
+    <link href="https://1nvisble.github.io/2022/04/21/Leetcode1%E2%80%94%E2%80%94%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/"/>
+    <id>https://1nvisble.github.io/2022/04/21/Leetcode1%E2%80%94%E2%80%94%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</id>
+    <published>2022-04-21T06:59:11.000Z</published>
+    <updated>2022-04-21T06:59:11.921Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Leetcode142-环形链表Ⅱ</title>
+    <link href="https://1nvisble.github.io/2022/04/17/Leetcode142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%E2%85%A1/"/>
+    <id>https://1nvisble.github.io/2022/04/17/Leetcode142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%E2%85%A1/</id>
+    <published>2022-04-17T01:01:04.000Z</published>
+    <updated>2022-04-17T01:07:57.687Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;环形链表Ⅱ&quot;&gt;&lt;a href=&quot;#环形链表Ⅱ&quot; class=&quot;headerlink&quot; title=&quot;环形链表Ⅱ&quot;&gt;&lt;/a&gt;环形链表Ⅱ&lt;/h1&gt;&lt;h2 id=&quot;题目描述&quot;&gt;&lt;a href=&quot;#题目描述&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="乐扣刷题" scheme="https://1nvisble.github.io/categories/%E4%B9%90%E6%89%A3%E5%88%B7%E9%A2%98/"/>
+    
+    <category term="链表" scheme="https://1nvisble.github.io/categories/%E4%B9%90%E6%89%A3%E5%88%B7%E9%A2%98/%E9%93%BE%E8%A1%A8/"/>
+    
+    
+    <category term="leetcode" scheme="https://1nvisble.github.io/tags/leetcode/"/>
+    
+    <category term="链表" scheme="https://1nvisble.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Leetcode206-反转链表</title>
+    <link href="https://1nvisble.github.io/2022/04/14/Leetcode206/"/>
+    <id>https://1nvisble.github.io/2022/04/14/Leetcode206/</id>
+    <published>2022-04-14T05:41:51.000Z</published>
+    <updated>2022-04-14T06:04:49.081Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;反转链表&quot;&gt;&lt;a href=&quot;#反转链表&quot; class=&quot;headerlink&quot; title=&quot;反转链表&quot;&gt;&lt;/a&gt;反转链表&lt;/h1&gt;&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="乐扣刷题" scheme="https://1nvisble.github.io/categories/%E4%B9%90%E6%89%A3%E5%88%B7%E9%A2%98/"/>
+    
+    <category term="链表" scheme="https://1nvisble.github.io/categories/%E4%B9%90%E6%89%A3%E5%88%B7%E9%A2%98/%E9%93%BE%E8%A1%A8/"/>
+    
+    
+    <category term="leetcode" scheme="https://1nvisble.github.io/tags/leetcode/"/>
+    
+    <category term="链表" scheme="https://1nvisble.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>Leetcode707</title>
@@ -496,79 +567,6 @@
     <category term="UML类图" scheme="https://1nvisble.github.io/tags/UML%E7%B1%BB%E5%9B%BE/"/>
     
     <category term="依赖" scheme="https://1nvisble.github.io/tags/%E4%BE%9D%E8%B5%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>可变数据类型和不可变数据类型以及Snaphot图</title>
-    <link href="https://1nvisble.github.io/2021/05/20/Snaphot/"/>
-    <id>https://1nvisble.github.io/2021/05/20/Snaphot/</id>
-    <published>2021-05-20T10:00:17.000Z</published>
-    <updated>2021-07-06T12:23:05.753Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;序言&quot;&gt;&lt;a href=&quot;#序言&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://1nvisble.github.io/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://1nvisble.github.io/tags/Java/"/>
-    
-    <category term="Snaphot" scheme="https://1nvisble.github.io/tags/Snaphot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello的自白.</title>
-    <link href="https://1nvisble.github.io/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/"/>
-    <id>https://1nvisble.github.io/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/</id>
-    <published>2021-05-04T12:51:39.469Z</published>
-    <updated>2021-06-28T03:29:57.055Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;Hello的自白&quot;&gt;&lt;a href=&quot;#Hello的自白&quot; class=&quot;headerlink&quot; title=&quot;Hello的自白&quot;&gt;&lt;/a&gt;Hello的自白&lt;/h1&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    <category term="CS" scheme="https://1nvisble.github.io/categories/CS/"/>
-    
-    
-    <category term="C" scheme="https://1nvisble.github.io/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="https://1nvisble.github.io/2021/05/04/hello-world/"/>
-    <id>https://1nvisble.github.io/2021/05/04/hello-world/</id>
-    <published>2021-05-04T00:42:32.016Z</published>
-    <updated>2021-05-04T00:42:32.016Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
-        
-      
-    
-    
-    
     
   </entry>
   
