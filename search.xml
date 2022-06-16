@@ -50,32 +50,53 @@
       </tags>
   </entry>
   <entry>
-    <title>Leetcode142-环形链表Ⅱ</title>
-    <url>/2022/04/17/Leetcode142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%E2%85%A1/</url>
-    <content><![CDATA[<h1 id="环形链表Ⅱ"><a href="#环形链表Ⅱ" class="headerlink" title="环形链表Ⅱ"></a>环形链表Ⅱ</h1><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a href="https://leetcode-cn.com/problems/linked-list-cycle-ii/">Leetcode142</a></p>
-<p>给定一个链表的头节点  head ，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。</p>
-<p>如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。如果 pos 是 -1，则在该链表中没有环。注意：pos 不作为参数进行传递，仅仅是为了标识链表的实际情况。</p>
-<p>不允许修改 链表。</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>定义一个快指针和一个慢指针，快指针一步走二，慢指针一步走一，其必定会在环内相遇。<br>解释：</p>
-<ul>
-<li><strong>fast指针一定先进入环中，如果fast指针和slow指针相遇的话，一定是在环中相遇。</strong></li>
-<li><strong>fast是一个节点一个节点的靠近slow的</strong>，所以fast一定可以和slow重合。</li>
+    <title>Hello的自白.</title>
+    <url>/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/</url>
+    <content><![CDATA[<h1 id="Hello的自白"><a href="#Hello的自白" class="headerlink" title="Hello的自白"></a>Hello的自白</h1><blockquote>
+<p>俺是Hello，额是每一个程序猿🐵的初恋(😊羞羞……)，</p>
+<p>却在短短几分钟后惨遭每个菜鸟的无情抛弃(😭呜呜….)，他们很快喜欢上sum、sort、matrix、PR、AI、IOT、BD、MIS……，从不回头😞。</p>
+</blockquote>
+<p><strong>只有我自己知道，我的出身有多么高贵，我的一生多么坎坷! ╰（‵□′）╯</strong></p>
+<p><strong>多年以后，那些真正懂我的大佬(也是曾经的<del>菜鸟一枚</del>)，才恍然感悟我的伟大 !</strong></p>
+<hr>
+<blockquote>
+<p>······<em>想当年</em>：</p>
+<p><strong>俺</strong>才是第一个玩P2P的:<em><strong><font color="#FF0000">From Program to Process</font></strong></em></p>
+<p>懵懵懂懂的你笨笨磕磕地将我一字一键敲进电脑存成<font color="#FF0000">hello.c(Program)</font>，无意识中将我<strong>预处理、编译、汇编、链接</strong>，历经<strong>艰辛-神秘-高贵-欣喜</strong>，我—<font color="#FF0000"><em><strong>Hello</strong></em></font>一个完美的生命诞生了 <strong>o((&gt;ω&lt; ))o</strong>。</p>
+<blockquote>
+<h6 id="你造吗？"><a href="#你造吗？" class="headerlink" title="你造吗？"></a>你造吗？</h6><ul>
+<li><p>在<strong>壳(Bash)<strong>里，</strong><font color="#000080">伟大的OS(进程管理)</font><strong>为我</strong><font color="#000080">fork(Process) </font><strong>，为我</strong><font color="#000080">execve</font></strong>, 为我<font color="#000080"><strong>mmap</strong></font>，</p>
+<p>分我时间片，让我得以在<font color="#000080"><strong>Hardware(CPU/RAM/IO)</strong></font>上驰骋<font color="#000080"><strong>（取指译码执行、流水线等）</strong></font>  </p>
+</li>
 </ul>
-<p>寻找环入口：</p>
-<p><strong>从头结点出发一个指针，从相遇节点 也出发一个指针，这两个指针每次只走一个节点， 那么当这两个指针相遇的时候就是 环形入口的节点</strong>。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">detectCycle</span><span class="params">(ListNode *head)</span> </span>&#123;</span><br><span class="line">        ListNode* fast = head;</span><br><span class="line">        ListNode* slow = head;</span><br><span class="line">        <span class="keyword">while</span>(fast != <span class="literal">NULL</span> &amp;&amp; fast-&gt;next!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">            fast = fast-&gt;next-&gt;next;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            <span class="keyword">if</span>(fast == slow)&#123;</span><br><span class="line">                ListNode* index1 = fast;</span><br><span class="line">                ListNode* index2 = head;</span><br><span class="line">                <span class="keyword">while</span>(index1 != index2)&#123;</span><br><span class="line">                    index1 = index1-&gt;next;</span><br><span class="line">                    index2 = index2-&gt;next;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> index1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<h6 id="你造吗？-1"><a href="#你造吗？-1" class="headerlink" title="你造吗？"></a>你造吗？</h6><ul>
+<li><strong>OS(存储管理)与MMU</strong>为VA到PA操碎了心:<strong>TLB、4级页表、3级Cache，Pagefile</strong>等等各显神通为我加速；<strong>IO管理与信号处理</strong>使尽了浑身解数，软硬结合，才使我能在键盘、主板、显卡、屏幕间游刃有余，虽说我在台上的表演只是一瞬间😶、演技看起来很Low、效果很苍白 （︶^︶）。</li>
+</ul>
+</blockquote>
+<p><strong>感谢OS!感谢Bash!在我完美谢幕后为我收尸</strong>。我赤条条来去无牵挂!😌</p>
+</blockquote>
+<hr>
+<p><strong>我朝CS(计算机系统-</strong><u><strong>Editor+Cpp+Compiler+AS+LD+OS+CPU/RAM/IO等</strong></u>)<strong>挥一挥手，不带走一片云彩!</strong> 😛    </p>
+<p><strong>想想俺也是<font color="#FF0000"> <em><strong>020:From Zero-0 to Zero-0</strong></em></font>.</strong>  <strong>(^人^)</strong>   </p>
+<p><strong>历史长河中一个个<del>菜鸟</del>与我擦肩而过，只有CS知道我的生、我的死，我的坎坷，“只有CS知道……我曾经……来…………过……”</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello world!\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://programmercarl.com/0142.%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8II.html#_142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8ii">代码随想录</a></p>
+<img src="/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/Hello2.jpg" class title="This is a Hello2 image">
+
+
+
+<hr>
+<p><strong>《Hello的自白》为哈工大CSAPP老师史老师原创的大作业——“程序人生”的导读，本人只是觉其有趣，哪一个程序猿与代码的初见不是“Hello world”呢，从而尝试用markdown写成博客发表，进行二次加工搬运，如有侵权，立即删除！</strong></p>
 ]]></content>
       <categories>
-        <category>乐扣刷题</category>
-        <category>链表</category>
+        <category>CS</category>
       </categories>
       <tags>
-        <tag>leetcode</tag>
-        <tag>链表</tag>
+        <tag>C</tag>
       </tags>
   </entry>
   <entry>
@@ -137,99 +158,6 @@
       </categories>
       <tags>
         <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello的自白.</title>
-    <url>/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/</url>
-    <content><![CDATA[<h1 id="Hello的自白"><a href="#Hello的自白" class="headerlink" title="Hello的自白"></a>Hello的自白</h1><img src="/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/Hello1.jpg" class title="This is a Hello1s image">
-
-
-
-<blockquote>
-<p>俺是Hello，额是每一个程序猿🐵的初恋(😊羞羞……)，</p>
-<p>却在短短几分钟后惨遭每个菜鸟的无情抛弃(😭呜呜….)，他们很快喜欢上sum、sort、matrix、PR、AI、IOT、BD、MIS……，从不回头😞。</p>
-</blockquote>
-<p><strong>只有我自己知道，我的出身有多么高贵，我的一生多么坎坷! ╰（‵□′）╯</strong></p>
-<p><strong>多年以后，那些真正懂我的大佬(也是曾经的<del>菜鸟一枚</del>)，才恍然感悟我的伟大 !</strong></p>
-<hr>
-<blockquote>
-<p>······<em>想当年</em>：</p>
-<p><strong>俺</strong>才是第一个玩P2P的:<em><strong><font color="#FF0000">From Program to Process</font></strong></em></p>
-<p>懵懵懂懂的你笨笨磕磕地将我一字一键敲进电脑存成<font color="#FF0000">hello.c(Program)</font>，无意识中将我<strong>预处理、编译、汇编、链接</strong>，历经<strong>艰辛-神秘-高贵-欣喜</strong>，我—<font color="#FF0000"><em><strong>Hello</strong></em></font>一个完美的生命诞生了 <strong>o((&gt;ω&lt; ))o</strong>。</p>
-<blockquote>
-<h6 id="你造吗？"><a href="#你造吗？" class="headerlink" title="你造吗？"></a>你造吗？</h6><ul>
-<li><p>在<strong>壳(Bash)<strong>里，</strong><font color="#000080">伟大的OS(进程管理)</font><strong>为我</strong><font color="#000080">fork(Process) </font><strong>，为我</strong><font color="#000080">execve</font></strong>, 为我<font color="#000080"><strong>mmap</strong></font>，</p>
-<p>分我时间片，让我得以在<font color="#000080"><strong>Hardware(CPU/RAM/IO)</strong></font>上驰骋<font color="#000080"><strong>（取指译码执行、流水线等）</strong></font>  </p>
-</li>
-</ul>
-</blockquote>
-<blockquote>
-<h6 id="你造吗？-1"><a href="#你造吗？-1" class="headerlink" title="你造吗？"></a>你造吗？</h6><ul>
-<li><strong>OS(存储管理)与MMU</strong>为VA到PA操碎了心:<strong>TLB、4级页表、3级Cache，Pagefile</strong>等等各显神通为我加速；<strong>IO管理与信号处理</strong>使尽了浑身解数，软硬结合，才使我能在键盘、主板、显卡、屏幕间游刃有余，虽说我在台上的表演只是一瞬间😶、演技看起来很Low、效果很苍白 （︶^︶）。</li>
-</ul>
-</blockquote>
-<p><strong>感谢OS!感谢Bash!在我完美谢幕后为我收尸</strong>。我赤条条来去无牵挂!😌</p>
-</blockquote>
-<hr>
-<p><strong>我朝CS(计算机系统-</strong><u><strong>Editor+Cpp+Compiler+AS+LD+OS+CPU/RAM/IO等</strong></u>)<strong>挥一挥手，不带走一片云彩!</strong> 😛    </p>
-<p><strong>想想俺也是<font color="#FF0000"> <em><strong>020:From Zero-0 to Zero-0</strong></em></font>.</strong>  <strong>(^人^)</strong>   </p>
-<p><strong>历史长河中一个个<del>菜鸟</del>与我擦肩而过，只有CS知道我的生、我的死，我的坎坷，“只有CS知道……我曾经……来…………过……”</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello world!\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<img src="/2021/05/04/Hello%E7%9A%84%E8%87%AA%E7%99%BD/Hello2.jpg" class title="This is a Hello2 image">
-
-
-
-<hr>
-<p><strong>《Hello的自白》为哈工大CSAPP老师史老师原创的大作业——“程序人生”的导读，本人只是觉其有趣，哪一个程序猿与代码的初见不是“Hello world”呢，从而尝试用markdown写成博客发表，进行二次加工搬运，如有侵权，立即删除！</strong></p>
-]]></content>
-      <categories>
-        <category>CS</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Leetcode203</title>
-    <url>/2022/04/12/Leetcode203/</url>
-    <content><![CDATA[<h2 id="链表移除元素"><a href="#链表移除元素" class="headerlink" title="链表移除元素"></a>链表移除元素</h2><p><a href="https://leetcode-cn.com/problems/remove-linked-list-elements">Leetcode203</a></p>
-<h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给你一个链表的头节点 <code>head</code> 和一个整数 <code>val</code> ，请你删除链表中所有满足 <code>Node.val == val</code> 的节点，并返回 <strong>新的头节点</strong> 。</p>
-<p>示例1：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入：head &#x3D; [1,2,6,3,4,5,6], val &#x3D; 6</span><br><span class="line">输出：[1,2,3,4,5]</span><br></pre></td></tr></table></figure>
-
-<p>示例2:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入：head &#x3D; [], val &#x3D; 1</span><br><span class="line">输出：[]</span><br></pre></td></tr></table></figure>
-
-<p>示例3：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入：head &#x3D; [7,7,7,7], val &#x3D; 7</span><br><span class="line">输出：[]</span><br></pre></td></tr></table></figure>
-
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><h4 id="普通做法"><a href="#普通做法" class="headerlink" title="普通做法"></a>普通做法</h4><p>普通做法就是将删除节点为头节点和非头节点分开处理的方法。</p>
-<ul>
-<li>删除节点为头节点：头节点改为下一个节点，循环删除，直至头节点不为删除节点</li>
-<li>删除节点为非头节点：遍历节点即可，找到删除的节点，将其上一个节点的尾部指向该删除节点的下一个节点，因为是单链表，需要记录上一节点，也可以用<code>prev-&gt;next</code>为当前节点。</li>
-</ul>
-<p>代码如下：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">removeElements</span><span class="params">(ListNode* head, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 删除头结点</span></span><br><span class="line">        <span class="keyword">while</span> (head != <span class="literal">NULL</span> &amp;&amp; head-&gt;val == val) &#123; <span class="comment">// 注意这里不是if</span></span><br><span class="line">            ListNode* tmp = head;</span><br><span class="line">            head = head-&gt;next;</span><br><span class="line">            <span class="keyword">delete</span> tmp;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 删除非头结点</span></span><br><span class="line">        ListNode* cur = head;</span><br><span class="line">        <span class="keyword">while</span> (cur != <span class="literal">NULL</span> &amp;&amp; cur-&gt;next!= <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (cur-&gt;next-&gt;val == val) &#123;</span><br><span class="line">                ListNode* tmp = cur-&gt;next;</span><br><span class="line">                cur-&gt;next = cur-&gt;next-&gt;next;</span><br><span class="line">                <span class="keyword">delete</span> tmp;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                cur = cur-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h4 id="虚拟头节点法"><a href="#虚拟头节点法" class="headerlink" title="虚拟头节点法"></a>虚拟头节点法</h4><p>创建一个新的不会被删除的头节点，其next指向head，这样一来所有节点都为非空节点，直接按非空节点删除即可。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">removeElements</span><span class="params">(ListNode* head, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        ListNode* virtulNode = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>,head); <span class="comment">//虚拟节点</span></span><br><span class="line">        ListNode* prev = virtulNode; </span><br><span class="line">        <span class="keyword">while</span>(prev-&gt;next!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(prev-&gt;next-&gt;val == val)&#123;</span><br><span class="line">                ListNode* temp = prev-&gt;next;</span><br><span class="line">                prev-&gt;next = prev-&gt;next-&gt;next;</span><br><span class="line">                <span class="keyword">delete</span> temp;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                prev = prev-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> virtulNode-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h4 id="递归法"><a href="#递归法" class="headerlink" title="递归法"></a>递归法</h4><p>递归删除节点</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">removeElements</span><span class="params">(ListNode* head, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(head == <span class="literal">NULL</span>) <span class="keyword">return</span> head;</span><br><span class="line">        head-&gt;next = <span class="built_in">removeElements</span>(head-&gt;next,val);</span><br><span class="line">        <span class="keyword">if</span>(head-&gt;val == val)&#123;</span><br><span class="line">            ListNode* next = head-&gt;next;</span><br><span class="line">            <span class="keyword">delete</span> head;</span><br><span class="line">            <span class="keyword">return</span> next;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>简单来说，就是，一直递归调用到最后一个元素，从最后一个元素开始删除，如果传进来的节点是一个要被删除的节点，则将其next返回给上一个节点的next，否则，就返回本节点给上一个节点的next，保持不变。</p>
-]]></content>
-      <categories>
-        <category>乐扣刷题</category>
-        <category>链表</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-        <tag>链表</tag>
       </tags>
   </entry>
   <entry>
@@ -312,9 +240,77 @@
       </tags>
   </entry>
   <entry>
+    <title>Leetcode142-环形链表Ⅱ</title>
+    <url>/2022/04/17/Leetcode142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%E2%85%A1/</url>
+    <content><![CDATA[<h1 id="环形链表Ⅱ"><a href="#环形链表Ⅱ" class="headerlink" title="环形链表Ⅱ"></a>环形链表Ⅱ</h1><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a href="https://leetcode-cn.com/problems/linked-list-cycle-ii/">Leetcode142</a></p>
+<p>给定一个链表的头节点  head ，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。</p>
+<p>如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。如果 pos 是 -1，则在该链表中没有环。注意：pos 不作为参数进行传递，仅仅是为了标识链表的实际情况。</p>
+<p>不允许修改 链表。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>定义一个快指针和一个慢指针，快指针一步走二，慢指针一步走一，其必定会在环内相遇。<br>解释：</p>
+<ul>
+<li><strong>fast指针一定先进入环中，如果fast指针和slow指针相遇的话，一定是在环中相遇。</strong></li>
+<li><strong>fast是一个节点一个节点的靠近slow的</strong>，所以fast一定可以和slow重合。</li>
+</ul>
+<p>寻找环入口：</p>
+<p><strong>从头结点出发一个指针，从相遇节点 也出发一个指针，这两个指针每次只走一个节点， 那么当这两个指针相遇的时候就是 环形入口的节点</strong>。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">detectCycle</span><span class="params">(ListNode *head)</span> </span>&#123;</span><br><span class="line">        ListNode* fast = head;</span><br><span class="line">        ListNode* slow = head;</span><br><span class="line">        <span class="keyword">while</span>(fast != <span class="literal">NULL</span> &amp;&amp; fast-&gt;next!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">            fast = fast-&gt;next-&gt;next;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            <span class="keyword">if</span>(fast == slow)&#123;</span><br><span class="line">                ListNode* index1 = fast;</span><br><span class="line">                ListNode* index2 = head;</span><br><span class="line">                <span class="keyword">while</span>(index1 != index2)&#123;</span><br><span class="line">                    index1 = index1-&gt;next;</span><br><span class="line">                    index2 = index2-&gt;next;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> index1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://programmercarl.com/0142.%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8II.html#_142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8ii">代码随想录</a></p>
+]]></content>
+      <categories>
+        <category>乐扣刷题</category>
+        <category>链表</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Leetcode1——两数之和</title>
     <url>/2022/04/21/Leetcode1%E2%80%94%E2%80%94%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
     <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>Leetcode203</title>
+    <url>/2022/04/12/Leetcode203/</url>
+    <content><![CDATA[<h2 id="链表移除元素"><a href="#链表移除元素" class="headerlink" title="链表移除元素"></a>链表移除元素</h2><p><a href="https://leetcode-cn.com/problems/remove-linked-list-elements">Leetcode203</a></p>
+<h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给你一个链表的头节点 <code>head</code> 和一个整数 <code>val</code> ，请你删除链表中所有满足 <code>Node.val == val</code> 的节点，并返回 <strong>新的头节点</strong> 。</p>
+<p>示例1：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入：head &#x3D; [1,2,6,3,4,5,6], val &#x3D; 6</span><br><span class="line">输出：[1,2,3,4,5]</span><br></pre></td></tr></table></figure>
+
+<p>示例2:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入：head &#x3D; [], val &#x3D; 1</span><br><span class="line">输出：[]</span><br></pre></td></tr></table></figure>
+
+<p>示例3：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入：head &#x3D; [7,7,7,7], val &#x3D; 7</span><br><span class="line">输出：[]</span><br></pre></td></tr></table></figure>
+
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><h4 id="普通做法"><a href="#普通做法" class="headerlink" title="普通做法"></a>普通做法</h4><p>普通做法就是将删除节点为头节点和非头节点分开处理的方法。</p>
+<ul>
+<li>删除节点为头节点：头节点改为下一个节点，循环删除，直至头节点不为删除节点</li>
+<li>删除节点为非头节点：遍历节点即可，找到删除的节点，将其上一个节点的尾部指向该删除节点的下一个节点，因为是单链表，需要记录上一节点，也可以用<code>prev-&gt;next</code>为当前节点。</li>
+</ul>
+<p>代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">removeElements</span><span class="params">(ListNode* head, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 删除头结点</span></span><br><span class="line">        <span class="keyword">while</span> (head != <span class="literal">NULL</span> &amp;&amp; head-&gt;val == val) &#123; <span class="comment">// 注意这里不是if</span></span><br><span class="line">            ListNode* tmp = head;</span><br><span class="line">            head = head-&gt;next;</span><br><span class="line">            <span class="keyword">delete</span> tmp;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 删除非头结点</span></span><br><span class="line">        ListNode* cur = head;</span><br><span class="line">        <span class="keyword">while</span> (cur != <span class="literal">NULL</span> &amp;&amp; cur-&gt;next!= <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (cur-&gt;next-&gt;val == val) &#123;</span><br><span class="line">                ListNode* tmp = cur-&gt;next;</span><br><span class="line">                cur-&gt;next = cur-&gt;next-&gt;next;</span><br><span class="line">                <span class="keyword">delete</span> tmp;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                cur = cur-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="虚拟头节点法"><a href="#虚拟头节点法" class="headerlink" title="虚拟头节点法"></a>虚拟头节点法</h4><p>创建一个新的不会被删除的头节点，其next指向head，这样一来所有节点都为非空节点，直接按非空节点删除即可。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">removeElements</span><span class="params">(ListNode* head, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        ListNode* virtulNode = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>,head); <span class="comment">//虚拟节点</span></span><br><span class="line">        ListNode* prev = virtulNode; </span><br><span class="line">        <span class="keyword">while</span>(prev-&gt;next!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(prev-&gt;next-&gt;val == val)&#123;</span><br><span class="line">                ListNode* temp = prev-&gt;next;</span><br><span class="line">                prev-&gt;next = prev-&gt;next-&gt;next;</span><br><span class="line">                <span class="keyword">delete</span> temp;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                prev = prev-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> virtulNode-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="递归法"><a href="#递归法" class="headerlink" title="递归法"></a>递归法</h4><p>递归删除节点</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">removeElements</span><span class="params">(ListNode* head, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(head == <span class="literal">NULL</span>) <span class="keyword">return</span> head;</span><br><span class="line">        head-&gt;next = <span class="built_in">removeElements</span>(head-&gt;next,val);</span><br><span class="line">        <span class="keyword">if</span>(head-&gt;val == val)&#123;</span><br><span class="line">            ListNode* next = head-&gt;next;</span><br><span class="line">            <span class="keyword">delete</span> head;</span><br><span class="line">            <span class="keyword">return</span> next;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>简单来说，就是，一直递归调用到最后一个元素，从最后一个元素开始删除，如果传进来的节点是一个要被删除的节点，则将其next返回给上一个节点的next，否则，就返回本节点给上一个节点的next，保持不变。</p>
+]]></content>
+      <categories>
+        <category>乐扣刷题</category>
+        <category>链表</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>链表</tag>
+      </tags>
   </entry>
   <entry>
     <title>Leetcode206-反转链表</title>
@@ -377,44 +373,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Leetcode704</title>
-    <url>/2022/04/05/Leetcode704/</url>
-    <content><![CDATA[<h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><p>​    <a href="https://leetcode-cn.com/problems/binary-search/submissions/">力扣二分查找题目</a></p>
-<p>​    二分查找这个算法简单，但却会屡屡出错，问题就出在边界上。针对边界的问题，有两种写法，一种是闭区间，一种是开区间。<br>​    此外，需注意的是，使用二分查找的条件：<strong>已排序的数组</strong>，无重复元素。</p>
-<h3 id="第一种写法"><a href="#第一种写法" class="headerlink" title="第一种写法"></a>第一种写法</h3><ul>
-<li>搜索区间：[left , right];</li>
-<li>left、right初始化：left = 0; right = array.size -1;（也就说最右边数组元素的下标，例长度为7的数组，最右边数组下标为6）;</li>
-<li>终止条件：left &lt;= right;</li>
-<li>left改变：left = middle + 1;</li>
-<li>right；right = middle-1；</li>
-<li>middle = left + ((right - left) / 2);（防止溢出 等同于(left + right)/2）;</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">search</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = nums.<span class="built_in">size</span>() - <span class="number">1</span>; <span class="comment">// 定义target在左闭右闭的区间里，[left, right]</span></span><br><span class="line">        <span class="keyword">while</span> (left &lt;= right) &#123; <span class="comment">// 当left==right，区间[left, right]依然有效，所以用 &lt;=</span></span><br><span class="line">            <span class="keyword">int</span> middle = left + ((right - left) / <span class="number">2</span>);<span class="comment">// 防止溢出 等同于(left + right)/2</span></span><br><span class="line">            <span class="keyword">if</span> (nums[middle] &gt; target) &#123;</span><br><span class="line">                right = middle - <span class="number">1</span>; <span class="comment">// target 在左区间，所以[left, middle - 1]</span></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[middle] &lt; target) &#123;</span><br><span class="line">                left = middle + <span class="number">1</span>; <span class="comment">// target 在右区间，所以[middle + 1, right]</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">// nums[middle] == target</span></span><br><span class="line">                <span class="keyword">return</span> middle; <span class="comment">// 数组中找到目标值，直接返回下标</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 未找到目标值</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="第二种写法"><a href="#第二种写法" class="headerlink" title="第二种写法"></a>第二种写法</h3><ul>
-<li>搜索区间；[left, right);</li>
-<li>left、right初始化：left = 0; right = array.size ;（数组的长度，例长度为7的数组，以该索引访问数组则会越界，故上面的搜素区间为左开右闭）。</li>
-<li>终止条件：left &lt; right;</li>
-<li>left改变：left = middle + 1;</li>
-<li>right；right = middle；</li>
-<li>middle = left + ((right - left) / 2);（防止溢出 等同于(left + right)/2）;</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">search</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = nums.<span class="built_in">size</span>(); <span class="comment">// 定义target在左闭右开的区间里，即：[left, right)</span></span><br><span class="line">        <span class="keyword">while</span> (left &lt; right) &#123; <span class="comment">// 因为left == right的时候，在[left, right)是无效的空间，所以使用 &lt;</span></span><br><span class="line">            <span class="keyword">int</span> middle = left + ((right - left) &gt;&gt; <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span> (nums[middle] &gt; target) &#123;</span><br><span class="line">                right = middle; <span class="comment">// target 在左区间，在[left, middle)中</span></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[middle] &lt; target) &#123;</span><br><span class="line">                left = middle + <span class="number">1</span>; <span class="comment">// target 在右区间，在[middle + 1, right)中</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">// nums[middle] == target</span></span><br><span class="line">                <span class="keyword">return</span> middle; <span class="comment">// 数组中找到目标值，直接返回下标</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 未找到目标值</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="类似题目"><a href="#类似题目" class="headerlink" title="类似题目"></a>类似题目</h3><p><a href="https://programmercarl.com/0035.%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE.html">搜索插入位置</a><br><a href="https://programmercarl.com/0034.%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE.html">在排序数组中查找元素的第一个和最后一个位置</a></p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://programmercarl.com/0704.%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE.html">代码随想录</a></p>
-]]></content>
-      <categories>
-        <category>乐扣刷题</category>
-        <category>数组</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-        <tag>数组</tag>
-        <tag>二分查找</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Leetcode59</title>
     <url>/2022/04/09/Leetcode59/</url>
     <content><![CDATA[<h2 id="螺旋矩阵"><a href="#螺旋矩阵" class="headerlink" title="螺旋矩阵"></a>螺旋矩阵</h2><p><a href="https://leetcode-cn.com/problems/spiral-matrix-ii/submissions/">Leetcode59</a></p>
@@ -454,6 +412,44 @@
       </tags>
   </entry>
   <entry>
+    <title>Leetcode704</title>
+    <url>/2022/04/05/Leetcode704/</url>
+    <content><![CDATA[<h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><p>​    <a href="https://leetcode-cn.com/problems/binary-search/submissions/">力扣二分查找题目</a></p>
+<p>​    二分查找这个算法简单，但却会屡屡出错，问题就出在边界上。针对边界的问题，有两种写法，一种是闭区间，一种是开区间。<br>​    此外，需注意的是，使用二分查找的条件：<strong>已排序的数组</strong>，无重复元素。</p>
+<h3 id="第一种写法"><a href="#第一种写法" class="headerlink" title="第一种写法"></a>第一种写法</h3><ul>
+<li>搜索区间：[left , right];</li>
+<li>left、right初始化：left = 0; right = array.size -1;（也就说最右边数组元素的下标，例长度为7的数组，最右边数组下标为6）;</li>
+<li>终止条件：left &lt;= right;</li>
+<li>left改变：left = middle + 1;</li>
+<li>right；right = middle-1；</li>
+<li>middle = left + ((right - left) / 2);（防止溢出 等同于(left + right)/2）;</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">search</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = nums.<span class="built_in">size</span>() - <span class="number">1</span>; <span class="comment">// 定义target在左闭右闭的区间里，[left, right]</span></span><br><span class="line">        <span class="keyword">while</span> (left &lt;= right) &#123; <span class="comment">// 当left==right，区间[left, right]依然有效，所以用 &lt;=</span></span><br><span class="line">            <span class="keyword">int</span> middle = left + ((right - left) / <span class="number">2</span>);<span class="comment">// 防止溢出 等同于(left + right)/2</span></span><br><span class="line">            <span class="keyword">if</span> (nums[middle] &gt; target) &#123;</span><br><span class="line">                right = middle - <span class="number">1</span>; <span class="comment">// target 在左区间，所以[left, middle - 1]</span></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[middle] &lt; target) &#123;</span><br><span class="line">                left = middle + <span class="number">1</span>; <span class="comment">// target 在右区间，所以[middle + 1, right]</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">// nums[middle] == target</span></span><br><span class="line">                <span class="keyword">return</span> middle; <span class="comment">// 数组中找到目标值，直接返回下标</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 未找到目标值</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="第二种写法"><a href="#第二种写法" class="headerlink" title="第二种写法"></a>第二种写法</h3><ul>
+<li>搜索区间；[left, right);</li>
+<li>left、right初始化：left = 0; right = array.size ;（数组的长度，例长度为7的数组，以该索引访问数组则会越界，故上面的搜素区间为左开右闭）。</li>
+<li>终止条件：left &lt; right;</li>
+<li>left改变：left = middle + 1;</li>
+<li>right；right = middle；</li>
+<li>middle = left + ((right - left) / 2);（防止溢出 等同于(left + right)/2）;</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">search</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = nums.<span class="built_in">size</span>(); <span class="comment">// 定义target在左闭右开的区间里，即：[left, right)</span></span><br><span class="line">        <span class="keyword">while</span> (left &lt; right) &#123; <span class="comment">// 因为left == right的时候，在[left, right)是无效的空间，所以使用 &lt;</span></span><br><span class="line">            <span class="keyword">int</span> middle = left + ((right - left) &gt;&gt; <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span> (nums[middle] &gt; target) &#123;</span><br><span class="line">                right = middle; <span class="comment">// target 在左区间，在[left, middle)中</span></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[middle] &lt; target) &#123;</span><br><span class="line">                left = middle + <span class="number">1</span>; <span class="comment">// target 在右区间，在[middle + 1, right)中</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">// nums[middle] == target</span></span><br><span class="line">                <span class="keyword">return</span> middle; <span class="comment">// 数组中找到目标值，直接返回下标</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 未找到目标值</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="类似题目"><a href="#类似题目" class="headerlink" title="类似题目"></a>类似题目</h3><p><a href="https://programmercarl.com/0035.%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE.html">搜索插入位置</a><br><a href="https://programmercarl.com/0034.%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE.html">在排序数组中查找元素的第一个和最后一个位置</a></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://programmercarl.com/0704.%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE.html">代码随想录</a></p>
+]]></content>
+      <categories>
+        <category>乐扣刷题</category>
+        <category>数组</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>数组</tag>
+        <tag>二分查找</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Leetcode707</title>
     <url>/2022/04/13/Leetcode707/</url>
     <content><![CDATA[<h2 id="设计链表"><a href="#设计链表" class="headerlink" title="设计链表"></a>设计链表</h2><p><a href="https://leetcode-cn.com/problems/design-linked-list/">Leetcode707</a></p>
@@ -476,33 +472,6 @@
       <tags>
         <tag>leetcode</tag>
         <tag>链表</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Leetcode977</title>
-    <url>/2022/04/07/Leetcode977/</url>
-    <content><![CDATA[<h2 id="有序数组的平方"><a href="#有序数组的平方" class="headerlink" title="有序数组的平方"></a>有序数组的平方</h2><p><a href="https://leetcode-cn.com/problems/squares-of-a-sorted-array/submissions/">Leetcode977</a></p>
-<p>​    给你一个按 <strong>非递减顺序</strong> 排序的整数数组 <code>nums</code>，返回 <strong>每个数字的平方</strong> 组成的新数组，要求也按 <strong>非递减顺序</strong> 排序。</p>
-<p>示例 1：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">输入：nums = [<span class="number">-4</span>,<span class="number">-1</span>,<span class="number">0</span>,<span class="number">3</span>,<span class="number">10</span>]</span><br><span class="line">输出：[<span class="number">0</span>,<span class="number">1</span>,<span class="number">9</span>,<span class="number">16</span>,<span class="number">100</span>]</span><br><span class="line">解释：平方后，数组变为 [<span class="number">16</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">9</span>,<span class="number">100</span>]</span><br><span class="line">排序后，数组变为 [<span class="number">0</span>,<span class="number">1</span>,<span class="number">9</span>,<span class="number">16</span>,<span class="number">100</span>]</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例 2：</strong></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">输入：nums = [<span class="number">-7</span>,<span class="number">-3</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">11</span>]</span><br><span class="line">输出：[<span class="number">4</span>,<span class="number">9</span>,<span class="number">9</span>,<span class="number">49</span>,<span class="number">121</span>]</span><br></pre></td></tr></table></figure>
-
-<h3 id="暴力法"><a href="#暴力法" class="headerlink" title="暴力法"></a>暴力法</h3><p>​    最简单的当然就是暴力法，直接平方，再排序。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">sortedSquares</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">            nums[i] = nums[i] * nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(),nums.<span class="built_in">end</span>());</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="双指针法"><a href="#双指针法" class="headerlink" title="双指针法"></a>双指针法</h3><p>​    已知数组是有序的，非递减排序，只不过负数平方之后，可能比一些数要大得多，例如$ (-4)^2 &gt; 1^2$ ，从而影响排列顺序。<br>​    <strong>重点：</strong>数组平方的<strong>最大值就在数组的两端</strong>，不是<strong>最左边就是最右边</strong>，不可能是中间。<br>​    因此，这里考虑使用一个双指针，一个指向数组第一项——i，一个指向数组最后一项——j。<br>​    定义一个新数组result，和nums数组一样的大小，让<strong>k指向result数组终止位置</strong>。<br>​    当前面比后面大时，直接将其赋给新数组的最后一项，i++；<br>​    当后面比前面大时，直接将其赋给新数组的最后一项，j–；</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">sortedSquares</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;  <span class="comment">//左边指针</span></span><br><span class="line">        <span class="keyword">int</span> right = nums.<span class="built_in">size</span>()<span class="number">-1</span>; <span class="comment">//右边指针</span></span><br><span class="line">        <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">result</span><span class="params">(nums.size())</span></span>;</span><br><span class="line">        <span class="keyword">int</span> k = right; <span class="comment">//指向result数组最后一个元素</span></span><br><span class="line">        <span class="keyword">while</span>(left &lt;= right)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[left] * nums[left] &lt; nums[right]*nums[right])&#123;</span><br><span class="line">                result[k--] = nums[right]*nums[right];</span><br><span class="line">                right--;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                result[k--] = nums[left]*nums[left];</span><br><span class="line">                left++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>乐扣刷题</category>
-        <category>数组</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-        <tag>数组</tag>
       </tags>
   </entry>
   <entry>
@@ -642,22 +611,31 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2021/05/04/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+    <title>Leetcode977</title>
+    <url>/2022/04/07/Leetcode977/</url>
+    <content><![CDATA[<h2 id="有序数组的平方"><a href="#有序数组的平方" class="headerlink" title="有序数组的平方"></a>有序数组的平方</h2><p><a href="https://leetcode-cn.com/problems/squares-of-a-sorted-array/submissions/">Leetcode977</a></p>
+<p>​    给你一个按 <strong>非递减顺序</strong> 排序的整数数组 <code>nums</code>，返回 <strong>每个数字的平方</strong> 组成的新数组，要求也按 <strong>非递减顺序</strong> 排序。</p>
+<p>示例 1：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">输入：nums = [<span class="number">-4</span>,<span class="number">-1</span>,<span class="number">0</span>,<span class="number">3</span>,<span class="number">10</span>]</span><br><span class="line">输出：[<span class="number">0</span>,<span class="number">1</span>,<span class="number">9</span>,<span class="number">16</span>,<span class="number">100</span>]</span><br><span class="line">解释：平方后，数组变为 [<span class="number">16</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">9</span>,<span class="number">100</span>]</span><br><span class="line">排序后，数组变为 [<span class="number">0</span>,<span class="number">1</span>,<span class="number">9</span>,<span class="number">16</span>,<span class="number">100</span>]</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p><strong>示例 2：</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">输入：nums = [<span class="number">-7</span>,<span class="number">-3</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">11</span>]</span><br><span class="line">输出：[<span class="number">4</span>,<span class="number">9</span>,<span class="number">9</span>,<span class="number">49</span>,<span class="number">121</span>]</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<h3 id="暴力法"><a href="#暴力法" class="headerlink" title="暴力法"></a>暴力法</h3><p>​    最简单的当然就是暴力法，直接平方，再排序。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">sortedSquares</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">            nums[i] = nums[i] * nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(),nums.<span class="built_in">end</span>());</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<h3 id="双指针法"><a href="#双指针法" class="headerlink" title="双指针法"></a>双指针法</h3><p>​    已知数组是有序的，非递减排序，只不过负数平方之后，可能比一些数要大得多，例如$ (-4)^2 &gt; 1^2$ ，从而影响排列顺序。<br>​    <strong>重点：</strong>数组平方的<strong>最大值就在数组的两端</strong>，不是<strong>最左边就是最右边</strong>，不可能是中间。<br>​    因此，这里考虑使用一个双指针，一个指向数组第一项——i，一个指向数组最后一项——j。<br>​    定义一个新数组result，和nums数组一样的大小，让<strong>k指向result数组终止位置</strong>。<br>​    当前面比后面大时，直接将其赋给新数组的最后一项，i++；<br>​    当后面比前面大时，直接将其赋给新数组的最后一项，j–；</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">sortedSquares</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;  <span class="comment">//左边指针</span></span><br><span class="line">        <span class="keyword">int</span> right = nums.<span class="built_in">size</span>()<span class="number">-1</span>; <span class="comment">//右边指针</span></span><br><span class="line">        <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">result</span><span class="params">(nums.size())</span></span>;</span><br><span class="line">        <span class="keyword">int</span> k = right; <span class="comment">//指向result数组最后一个元素</span></span><br><span class="line">        <span class="keyword">while</span>(left &lt;= right)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[left] * nums[left] &lt; nums[right]*nums[right])&#123;</span><br><span class="line">                result[k--] = nums[right]*nums[right];</span><br><span class="line">                right--;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                result[k--] = nums[left]*nums[left];</span><br><span class="line">                left++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
+      <categories>
+        <category>乐扣刷题</category>
+        <category>数组</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>数组</tag>
+      </tags>
   </entry>
   <entry>
     <title>UML类图简述及IDEA中UML插件的安装和使用</title>
@@ -864,6 +842,24 @@
       </tags>
   </entry>
   <entry>
+    <title>Hello World</title>
+    <url>/2021/05/04/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>适配器模式</title>
     <url>/2021/06/24/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>老师上课讲了7种设计模式，分为三种类型:创建型模式，结构型模式，行为类模式。</p>
@@ -918,123 +914,6 @@
       <tags>
         <tag>Java</tag>
         <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>保护模式内存管理</title>
-    <url>/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<h1 id="2-保护模式内存管理"><a href="#2-保护模式内存管理" class="headerlink" title="2. 保护模式内存管理"></a>2. 保护模式内存管理</h1><h2 id="2-1-内存管理概览"><a href="#2-1-内存管理概览" class="headerlink" title="2.1 内存管理概览"></a>2.1 内存管理概览</h2><p>​    IA-32架构的内存管理机制主要分为两部分：<strong>段式</strong>和<strong>页式</strong>。 <strong>分段</strong>提供了一种隔绝各个代码、数据和堆栈区域的机制，以致多个程序（或任务）可以运行在同一个处理器上，但不会相互干扰。 <strong>分页</strong>则为传统需求页的虚拟内存系统提供了一种实现机制，在虚拟内存系统中，程序运行所需的环境的各个部分按需映射到物理内存中。 分页同样可以为多个任务之间提供隔离措施。 当在保护模式下运行时，必须采用某种形式的分段机制。 这里没有<strong>模式位</strong>以设置禁用分段机制，也就说在保护模式的内存管理中<strong>分段机制</strong>是<strong>必需</strong>的。 但是，<strong>分页机制</strong>是<strong>可选</strong>的。<br>​    这两种机制（分段和分页）是可以被配置以致支持使用共享内存的简单的单程序（或单任务）系统、多任务系统或多处理器系统。<br>​    如图1所示，段式管理提供了一种机制：其将处理器的<strong>可寻址内存空间</strong>（也被称为<strong>线性地址空间</strong>）划分为较小的受保护的地址空间区域，称为<strong>段</strong>。 段可以用来保存<strong>程序的代码、数据和堆栈</strong>，也可用于保存<strong>系统数据结构</strong>（例如TSS或LDT）。 如果一个处理器中有多个程序（或任务）正在运行，那么每个程序都会被分配自己的一组段空间。 然后处理器可以加强这些段之间的界限，并且确保一个程序不会通过访问写入另一个程序的段而干扰另一个程序的运行。分段机制还允许对段进行分类，这样一来便可限制对特定类型段所要执行的操作。<br> <img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/segment_and_page.jpg"></p>
-<center style="color:#1a1a1a;">图1 分段与分页</center>    
-
-<p>​    一个系统中的所有段都包含在处理器的线性地址空间中。 为了定位到指定段中的一个字节，程序必须提供一个逻辑地址（也称为远指针）。 <strong>逻辑地址</strong>由一个<strong>段选择子</strong>和一个<strong>偏移量</strong>组成。 <strong>段选择子</strong>是一个段的<strong>唯一标识</strong>。 此外，段选择子还提供了段描述符表（如全局描述符表，GDT）中到一个被称为段描述符的数据结构的偏移量。 每个段都有一个段描述符，它指定了段的大小、段的访问权限和特权级别、段的类型以及段的第一个字节在线性地址空间中的位置（即段基址)。 将逻辑地址的偏移量部分与段的基址相加，就可以定位段内的某个字节。 因此<strong>基址加上偏移量</strong>就形成了在处理器的线性地址空间中的一个<strong>线性地址</strong>。<br>​    如果不启用分页，那么处理器的线性地址空间会被直接映射到处理器的物理地址空间。 物理地址空间定义为处理器可以在其地址总线上生成的地址范围。<br>​    因为多任务计算系统定义的线性地址空间通常都要比其含有的物理内存容量大得多，所以需要采取一些“虚拟化”线性地址空间的方法。而这种线性地址空间的虚拟化是通过处理器的分页机制来处理的。<br>​    分页机制支持建立一个<strong>虚拟内存</strong>环境，在这个环境中，可以用小量的物理内存（RAM和ROM）和一些磁盘存储空间就可以模拟大容量的线性地址空间。启用分页机制时，每个段被划为分为页（通常每个页大小为4KB），这些页存储在物理内存或硬盘中。 操作系统或程序通过维护一个页目录和一组页表来跟踪这些页。当程序（或任务）视图访问线性地址空间中的一个地址位置时，处理器便会使用页目录和页表将线性地址转换为一个物理地址，然后在该内存位置上执行所要求的操作（读或写）。<br>​    如果当前被访问的页面不在物理内存中，处理器便会中断当前程序的执行（通过产生一个页错误异常）。 然后，操作系统执行程序将从磁盘读取该页面进入物理内存，然后继续执行刚才被中断的程序。<br>​      当分页机制在操作系统或执行程序正常运作时，对于正确执行的程序来说，物理内存和磁盘之间的页面交换是透明的。 即使在IA-32处理器中，16位的程序也可在虚拟8086模式下运行时进行分页（透明地）。</p>
-<p>​    总结：</p>
-<ul>
-<li><strong>逻辑地址（Logical Address）</strong>：一个逻辑地址由两部份组成，<strong>段标识符</strong>: <strong>段内偏移量</strong>。段标识符是由一个16位长的字段组成，称为<strong>段选择子</strong>（段选择子就是段标识符）。</li>
-<li><strong>线性地址（Linear Address）</strong>：一个<strong>段的基址</strong>加上<strong>段内偏移量</strong>，形成线性地址空间中的一个线性地址。线性地址是逻辑地址到物理地址变换之间的中间层。这里段内偏移量就是逻辑地址中的段内偏移量。而段的基址跟逻辑地址中段标识符有关，通过段标识符（段选择子）可获得段描述符表中与该段选择子相关联的段描述符，段描述符提供了该段的基址。</li>
-<li><strong>物理地址（Physical Address）</strong>：物理内存中的地址。</li>
-</ul>
-<h2 id="2-2-分段机制"><a href="#2-2-分段机制" class="headerlink" title="2.2 分段机制"></a>2.2 分段机制</h2><p>​    IA-32架构支持的分段机制可用于实现多种系统设计。这些设计范围从最小使用分段来保护程序的平坦模型，到使用分段来创建良好健壮性的操作环境的多段模型，在这种环境中，多个程序和任务可同时可靠运行的<br>​    下面几节给出了几个例子，说明如何在系统中使用分段来提高内存管理的性能和可靠性。 </p>
-<h3 id="2-2-1-基本平坦模型（Basic-Flat-Model）"><a href="#2-2-1-基本平坦模型（Basic-Flat-Model）" class="headerlink" title="2.2.1 基本平坦模型（Basic Flat Model）"></a>2.2.1 基本平坦模型（Basic Flat Model）</h3><p>​    最简单的系统内存模型就是就是基本<strong>“平坦模型”</strong>，在这种模型中，操作系统或应用程序可访问一个连续的、未分段的地址空间。这样一来最大程度地向系统设计人员和程序员隐藏了体系机构的分段机制。<br>​    若要在IA-32架构下实现内存的一个基本平坦模型，则需要至少创建两个段描述符，一个用于引用代码段，一个用于引用数据段（如图2所示）。 然而，这两个段都会被映射到整个线性地址空间：即，这两个段描述符具有相同的基址：0和相同的段限长（段的最大长度）：4 GB。 通过将段限长设置为4 GB，可以避免分段机制对超过段空间大小的内存的引用产生异常，即使指定的地址不存在物理内存中。 ROM （EPROM）通常位于物理地址空间的顶部，因为处理器从FFFF_FFF0H开始执行。 RAM （DRAM）则位于在地址空间的底部，因为复位初始化后DS数据段的初始基址为0。<br><img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/flat_model.jpg"></p>
-<center style="color:#1a1a1a;">图2 平坦模型</center>    
-
-<h3 id="2-2-2-保护平坦模型（Protected-Flat-Model）"><a href="#2-2-2-保护平坦模型（Protected-Flat-Model）" class="headerlink" title="2.2.2 保护平坦模型（Protected Flat Model）"></a>2.2.2 保护平坦模型（Protected Flat Model）</h3><p>​    保护平坦模型类似于基本平坦模型，指示保护平坦模型将段限制在包含<strong>物理内存实际存在的地址范围内</strong>（如图3所示）。当尝试访问不存在的内存时，会产生一个<strong>通用保护异常（#GP）</strong>。该模型针对某些程序bug提供了最低水平的硬件保护。<br><img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/protected_flat_model.jpg"></p>
-<center style="color:#1a1a1a;">图3 保护平坦模型</center>    
-
-<p>​    这个保护平坦模型可以被拓展变得更加复杂，以提供更多保护功能。例如，为了确保分页机制能提供用户程序和监控程序之间代码和数据的隔离，这里需要定义<strong>四个段</strong>：<strong>权限级别为3</strong>的<strong>用户程序</strong>代码段和数据段、<strong>权限级别为0</strong>的<strong>监管程序</strong>代码段和数据段。通常这些段都相互<strong>覆盖</strong>，并且在线性地址空间的<strong>起始地址都为0</strong>。这种平坦分段模型搭配简单的分页结构可以保护操作系统不受应用程序影响，此外通过为每个任务或进程增加单独的分页结构，其还可以确保一个应用程序不受其他应用程序影响。一些流行的多任务操作系统也使用此种类似的设计。</p>
-<h3 id="2-2-3-多段模型（Multi-Segment-Model）"><a href="#2-2-3-多段模型（Multi-Segment-Model）" class="headerlink" title="2.2.3 多段模型（Multi-Segment Model）"></a>2.2.3 多段模型（Multi-Segment Model）</h3><p>​    多段模型（如图4所示）利用了分段机制所提供的全部功能，为<strong>代码、数据结构、程序和任务</strong>都提供了<strong>硬件级强制保护</strong>。在这个模型中，每个程序（或任务）都被分配了自己的段描述符和段空间。段可以是其分配段的程序所<strong>私有</strong>的，也可多个程序<strong>共享</strong>。此外，操作系统硬件来控制对运行在系统中的各个程序的所有段和执行环境的访问。<br>​    <img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/multi-sgement.jpg"></p>
-<center style="color:#1a1a1a;">图4 多段模型</center>        
-
-<p>​    对内存访问的检查不仅可以防止引用超过段大小的地址，还可以防止程序对某些段执行不被允许的操作。例如，一个代码为只读段，因此可使用硬件来防止对该代码段的写操作。每个段的访问权限信息也可用于设置保护区和保护级别。保护级别则可用于保护操作系统程序不被未经授权的应用程序访问。<br>​    分页机制可以与图2、图3和图4中所描述的任一分段模型搭配使用。 处理器的分页机制将线性地址空间（在线性地址空间中，段也被映射）划分为页面（如图1所示）。 然后在线性地址空间中的页面会映射到物理地址空间中的页面。 分页机制提供了几种页级保护功能，它们可以与段保护功能一起使用，也可以代替段保护功能。 例如，它允许逐页执行读写保护。 分页机制还提供了两级用户-监管保护，也可以逐页指定这种保护。</p>
-<h2 id="2-3-逻辑地址和线性地址的转换"><a href="#2-3-逻辑地址和线性地址的转换" class="headerlink" title="2.3 逻辑地址和线性地址的转换"></a>2.3 逻辑地址和线性地址的转换</h2><p>​    在系统保护模式中，处理器需要经过两部分的地址转换以完成到物理地址空间的转换：逻辑地址转换和线性地址空间分页。<br>​    即使最小程度地使用分段，处理器地址空间中的每一个字节都需要使用逻辑地址访问。一个<strong>逻辑地址</strong>由<strong>16位段选择符</strong>和<strong>32位偏移量</strong>组成，如图5所示。<strong>段选择符</strong>标识该字节所位于的段，偏移量确定字节相对于段基址的<strong>段内位置</strong>。<br>     处理器会将每个逻辑地址转换成线性地址。 线性地址是处理器线性地址空间中的一个32位地址。 与物理地址空间类似，线性地址空间是一个平坦的（未分段的）、大小为$2^{32}$字节的地址空间，地址范围从0开始到0xFFFFFFFF结束。<strong>线性地址空间</strong>包含<strong>所有的段</strong>和<strong>系统定义的系统表</strong>。<br><img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/logic_address.jpg"></p>
-<center style="color:#1a1a1a;">图5 逻辑地址到线性地址的转换</center>    
-
-<p>​    从逻辑地址转换到线性地址，处理器需要做如下操作：</p>
-<ol>
-<li>使用<strong>段选择子中的偏移量</strong>来定位在GDT或LDT中对应的段描述符，然后读取到处理器中。（这步仅当一个新的段选择子被加载到段寄存器时才需要）。</li>
-<li>检查段描述符以检查<strong>段的访问权限和范围</strong>，以确保该段是可访问的，并且保证<strong>段偏移在段的大小范围</strong>内。</li>
-<li>将<strong>段描述符中的段的基址</strong>与<strong>段偏移量</strong>相加，形成一个<strong>线性地址</strong>。  </li>
-</ol>
-<p>​    如果不使用分页机制，处理器将会将线性地址直接映射为物理地址（也就是说，也就是说，线性地址可以直接送到处理器的地址总线，也就是说，线性地址等同于物理地址）。 如果线性地址空间被分页，启用分页机制，则会使用第二级地址转换来将线性地址转换为物理地址。</p>
-<h3 id="2-3-1-段选择子（Segment-Selectors）"><a href="#2-3-1-段选择子（Segment-Selectors）" class="headerlink" title="2.3.1 段选择子（Segment Selectors）"></a>2.3.1 段选择子（Segment Selectors）</h3><p>​    一个段选择子是一个<strong>段的16位标识符</strong>（如图6所示）。段选择子不直接指向一个段，反而指向定义了一个段的段描述符。一个段选择子包含了如下几项信息：</p>
-<ul>
-<li>Index：索引（第3到15位），共13位，可从GDT或LDT中8192（$2^{13}$）个段描述符中选择一个。处理器将索引值乘以8（一个段描述符的大小为8字节），并将其与GDT或LDT的基址（分别来自GDTR或LDTR寄存器）相加可定位一个段描述符。  </li>
-<li>TI (table indicator) flag  ：表指示标志位（第2位），指示所使用段描述符表，当复位时，表示选择GDT；设置该表示位时，表示选择LDT。</li>
-<li>Requested Privilege Level (RPL)  ：请求特权级别（第0和第1位），共两位，指示该段选择子的权限级别。权限级别的范围为0到3，<strong>权限级别0为最高权限级别</strong>。</li>
-</ul>
-<p><img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/selector.jpg"></p>
-<center style="color:#1a1a1a;">图6 段选择子</center>    
-
-<p>​    处理器不使用GDT的<strong>第一个表项</strong>。 指向这个GDT表项的段选择子（即索引值为0且TI标志设置为01的段选择子）称为<strong>“空段选择器”</strong>。 当空选择器加载入段寄存器（除CS或SS寄存器（代码段寄存器、堆栈段寄存器）外）时，处理器不会产生异常。 然而，当使用存储空选择器的段寄存器访问内存时，它会产生一个异常。 空选择器可以用于<strong>初始化未使用的段寄存器</strong>。 用空段选择器加载CS或SS寄存器会导致生成一个通用保护异常（#GP）。<br>​    段选择子作为指针变量的一部分对应用程序可见，段选择子的值通常由链接编辑器或链接加载器分配或修改，而不是应用程序。    </p>
-<h3 id="2-3-2-段寄存器（Segment-Registers）"><a href="#2-3-2-段寄存器（Segment-Registers）" class="headerlink" title="2.3.2 段寄存器（Segment Registers）"></a>2.3.2 段寄存器（Segment Registers）</h3><p>​    为了减少地址转换时间和降低编程复杂度，处理器提拱了至多可存储<strong>6个段选择子的寄存器</strong>（如图7所示）。每个段寄存器支持一种特定类型的内存引用（代码、堆栈或数据）。对于执行任何类型的程序，至少要将<strong>有效的段选择符</strong>加载到<strong>代码段（CS）、数据段（DS）和堆栈段（SS）</strong>。处理器还提供另外的数据段寄存器（ES、FS、GS），可贝用于让当前正在执行的程序（或任务）能够访问其他几个数据段。<br>​    对于访问一个段的一个程序，段选择器必须已经加载到一个段寄存器中。 因此，尽管一个系统可以定义上千个段，但只有6个段可立即访问使用。 在程序执行期间，通过将其他段的段选择子加载到这些寄存器中，就可以访问其他段。<br><img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/Segment_Register.jpg"></p>
-  <center style="color:#1a1a1a;">图7 段寄存器</center>        
-
-<p>​    每个段寄存器都有一个<strong>“可见”</strong>部分和一个<strong>“隐藏”</strong>部分 （隐藏部分有时被称为<strong>“描述符缓存”</strong>或<strong>“影子寄存器”</strong>）。当一个段选择符被加载到段寄存器的可见部分时，处理器会同时将<strong>段选择符所指向的段描述符的段基址、段限长、 以及访问控制信息</strong>加载到段寄存器的隐藏部分。 段选择符缓存在段寄存器中的信息（可见和隐藏部分）使得处理器可以直接进行地址转换，而不需要再花费额外的总线周期从段描述符读取段的基址和段限长信息。 在一个多处理器系统中，处理器都访问同一个描述符表，如果描述表被修改，则软件应负责重新加载段寄存器。 如果不重新加载，则可能出现段描述符已经被修改，却仍在使用缓存在段寄存器中的旧段描述符的清空。<br>​    提供了以下两种方法来加载段寄存器：</p>
-<ul>
-<li>使用MOV，POP，LDS，LES，LSS，LGS和LFS 等指令加载。这些指令<strong>显式</strong>地引用段寄存器。</li>
-<li>隐式加载指令，例如使用长指针方法的CALL，JMP和RET指令，还有SYSENTER和SYSEXIT指令，IRET，INT <em>n</em>，INTO和INT3指令。这些指令执行时会附带修改CS寄存器的内容（有时也会修改其它寄存器的内容）。</li>
-<li>MOV指令也可被用于把段寄存器的可见部分的内容加载到一个通用目的寄存器。</li>
-</ul>
-<h3 id="2-3-3-段描述符（Segment-Descriptors）"><a href="#2-3-3-段描述符（Segment-Descriptors）" class="headerlink" title="2.3.3 段描述符（Segment Descriptors）"></a>2.3.3 段描述符（Segment Descriptors）</h3><p>​    一个段描述符是GDT或LDT中的一个数据结构，其提供处理器中一个段的大小、位置、访问控制和状态信息。段描述符通常由编译器、链接器、加载器或操作系统或执行程序创建，而不是应用程序创建。图8展示了所有类型的段描述符的通用描述符格式。<br>​    <img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/segment_descripotor.jpg"></p>
-  <center style="color:#1a1a1a;">图8 段描述符</center>        
-
-<p>​    一个段描述符的标志位和字段信息如下：</p>
-<ul>
-<li>Segment limit field ：段限长字段，指明一个段的大小。处理器会把<strong>两个段限长字段</strong>拼接形成一个<strong>20位长的值</strong>。并根据颗粒度标志位G的两种不同的值来解释段限长字段的含义。<br>若G=0，段大小的范围为1字节到1MB字节，单位为1字节。若G=1，段大小的范围为4KB到4GB字节，单位为4KB字节。<br>处理器通过两种不同方式使用段限长，其依据是段是<strong>向上扩展段</strong>还是<strong>向下扩展段</strong>。  对于向上拓展的段，逻辑地址的段偏移量的范围为<strong>0字节到段限长值</strong>。大于段限长的偏移量将会产生一个一般保护异常（#GP，所有段都会产生除了堆栈段外）或一个堆栈错误异常（#SS表示SS段）  。对于一个向下拓展段，则相反，段偏移量的范围为<strong>段限长1字节增长到0xFFFFFFFFH或0xFFFFH</strong>（这个取决于B标志位的设置）。小于或等于段限制的偏移量会产生一般保护异常或堆栈故障异常。对于向下拓展段，减少段限长的值允许在段地址空间底部分配新的内存，而不是再顶部。因为IA-32架构所使用的栈总是向下增长的，所以这种机制便于栈的扩展。</li>
-<li>Base address fields  ：基址字段，该字段定义了段的0字节在4GB大小的线性地址空间中的位置。 处理器将<strong>三个基址字段</strong>拼接在一起形成一个<strong>32位长</strong>的值。 段基址应按16字节边界进行对齐。 虽然16字节对齐不是必需的，但是通过把程序的代码和数据按16字节边界上对齐，可使得程序性能最佳。（即，边界对齐便于数据的访问）</li>
-<li>Type field  ：类型字段，指示<strong>该段或门的类型</strong>，并指明段的访问类型和段的扩展方向。根据描述符类型标志位，这个字段会有两种含义：<strong>应用程序（数据、代码）段描述符</strong>或<strong>系统段描述符</strong>。对于代码段、数据段、系统段，这个字段的编码并不相同。</li>
-<li>S (descriptor type) flag：描述符类型标志位，其指明了一个段描述符是一个系统段描述符（该标志位复位）还是一个代码或数据段描述符（该标志位被设置）。</li>
-<li>DPL（descriptor privilege level  ）field：指明该段的特权级别。特权级别的取值范围为<strong>0 -3</strong>，<strong>0是权限级别最高</strong>。DPL用于控制对段的访问。</li>
-<li>P(segment-present) flag：段存在标志位，指明段是否于内存中存在（P=1，在内存中；P＝0，不存在内存中）。若P＝0，当一个段描述符的段选择符加载进段寄存器时处理器会产生一个<strong>段不存在异常</strong>。内存管理软件可以使用此标志位来控制在某一给定时间将指定的段加载进物理内存中，这为管理虚拟内存提供了除分页以外的控制。图9展示了P＝0时一个段描述符的格式。当复位该标志位时，操作系统或执行程序可以<strong>自由使用格式中标为“可用”（Available）的位置</strong>来存储自己的数据，例如有关不存在段实际在什么地方的信息。</li>
-<li>D/B(default operation size/default stack pointer size and/or upper bound) flag  ：D/B（默认操作大小/默认栈指针大小和/或上界限）标志，其根据段描述符描述的是一个可执行代码段、还是下扩数据段、或堆栈段来执行不同的功能。（对于32位代码和数据段，该标志位应该总被设置为1；对于16位数据和代码段，该标志段被设置为0）。<ul>
-<li><strong>可执行代码段：</strong>此时这个标志被称为<strong>D标志位</strong>，其指明段中的指令引用有效地址和操作数的默认长度。当D＝1，则默认值为32位地址和32位或8位操作数；当D＝0，则默认值为16位地址和16位或8 位操作数。指令前缀0x66H可用来选择非默认值的操作数大小；指令0x67H可用来选择非默认值的操作地址大小。</li>
-<li><strong>堆栈段（由SS寄存器指向的数据段）：</strong>此时这个标志被称为<strong>B标志位</strong>，它用于指明隐含栈操作（如pushes、pops、calls）时的栈指针的大小。当B＝1，则使用一个32位的栈指针，它存储在32位的ESP寄存器中；假如B=0，则使用一个16位的栈指针，它存储在16位的SP寄存器中。假如堆栈段被设置成一个下扩数据段，那么B标志也同时指定了堆栈段的上界限。</li>
-<li><strong>下扩段（Expand-downdata segment）</strong>此时标志叫作<strong>B标志</strong>，它指明堆栈段的上界。当B=1,上界为0xFFFFFFFFH（4Gbytes）；当B＝0，上界为0xFFFFH（64KBytes）。</li>
-</ul>
-</li>
-<li>G (granularity) flag  ：颗粒度标志位G，其决定了段限长域字段的单位。当G＝0时，段限长的单位为字节；当G＝1时，段限长的单位为4KB（这个标志位不会影响基地址的颗粒度，基地址的颗粒度总是字节单位。）。若设置了该标志位，则在使用段限长检查偏移量时，不会检查偏移量的12位最低有效位。 例如，当G=1时，段限长为0表明有效偏移量为0到4095。</li>
-<li>L（64-bit code segment) flag  ：L标志位，在IA-32e模式下，段描述符第二个双字的第21位表示该代码段是否存储了本地64位代码。 当L=1时，表示在64位模式下执行该代码段中存储的指令。 当L=0时。表示在兼容模式下执行此代码段中存储的指令。 如果设置了L位，则必须复位D标志位。 当在非IA-32e模式或该段非代码段时，第21位是保留的，并且应该总是设置为0。  </li>
-<li>Available and reserved bits  ：可用和保留位，段描述符的第二个双字的第20位是保留给操作系统软件使用的；</li>
-</ul>
-<p><img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/descriptor(P=0).jpg"></p>
-  <center style="color:#1a1a1a;">图9    P=0时的段描述符</center>        
-
-<h2 id="2-4描述符的分类"><a href="#2-4描述符的分类" class="headerlink" title="2.4描述符的分类"></a>2.4描述符的分类</h2><h3 id="数据段和代码段描述符（Data-and-Code-segment-Descriptor）"><a href="#数据段和代码段描述符（Data-and-Code-segment-Descriptor）" class="headerlink" title="数据段和代码段描述符（Data and Code segment Descriptor）"></a>数据段和代码段描述符（Data and Code segment Descriptor）</h3><p>​    当段描述符中的<strong>S标志位被设置</strong>时，该描述符描述的是一个代码或数据段。类型字段（type）的<strong>最高有效位</strong>（第二个双字的第11位）用于决定是一个数据段（复位）还是一个代码段描（置位）。<br>​    即：</p>
-<ul>
-<li>当S=1，type的最高有效位为0时，该段描述符指向一个数据段；</li>
-<li>当S=1，type的最高有效位为1时，该段描述符指向一个代码段。</li>
-</ul>
-<p>​    对于数据段描述符，类型字段的低3位（第8、9、10位）的含义分别为被访问accessed (A)、可写write-enable (W)和拓展方向expand -direction (E)。表1展示了代码段和数据段的类型字段比特位编码的说明。根据可写比特位W的设置, 数据段可以是只读的，也可以是可读/写的。<br><img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/date_and_code.jpg"> </p>
-  <center style="color:#1a1a1a;">表1   代码段和数据段描述符类型</center>        
-
-<p>​    <strong>堆栈段</strong>必须是一个<strong>可读/写的数据段</strong>。若将不可写数据段的段选择符加载到 SS 寄存器中，则会导致产生一个一般保护异常。如果堆栈段的长度会动态变化，那么堆栈段可以是一个<strong>向下扩展的数据段</strong>（扩展方向标志被设置）。因而，动态改变段限长的值将导致栈空间被添加到栈底部。  如果希望堆栈段的大小保持不变，则堆栈段可以是向上拓展或向下拓展类型。<br>​    被访问位A指明该段自上次操作系统或执行程序复位<strong>该位后是否被访问过</strong>。 如果包含段描述符的内存类型支持<strong>处理器写操作</strong>，那么处理器每次将<strong>段选择符加载到段寄存器</strong>时都会设置这个位。 该位会一直保持被设置状态，直到其<strong>显式复位</strong>。 该标志位既可以用于虚拟内存管理，也可以用于调试。<br>​    对于代码段，类型字段的低三位的含义（第8、9、10位）分别为<strong>被访问accessed (A)、可读read enable (R)、 一致conforming (C)<strong>。代码段可以是</strong>只能执行或可执行/可读</strong>，这取决于<strong>可读位的设置</strong>。 当<strong>常数或其他静态数据以及指令码</strong>存储在了一个ROM 中时，就可以使用一个可执行/可读代码段。  通过使用<strong>带CS前缀的指令</strong>或者把<strong>代码段选择符</strong>加载进一个<strong>数据段寄存器</strong>（DS、ES、FS或GS寄存器），就可读取代码段中的数据。 在<strong>保护模式</strong>下，<strong>代码段是不可写</strong>的。<br>​    代码段可以是<strong>一致性和非一致性的</strong>。操作系统允许执行在当前特权级的程序向一个<strong>更高权级的一致性代码段</strong>进行转移。当向一个<strong>不同特权级别</strong>的<strong>非一致性代码段</strong>进行执行转移时，会产生一个通用保护异常（#GP），除非使用<strong>调用门（call gate）或任务门（task  gate）</strong>（这个我们已经在读书笔记1中，有所了解，通过门，可以进行<strong>跨权限级别的访问</strong>）。一些系统工具（不访问保护设施）和一些处理某些异常类型（如除出错，溢出）的处理程序可以放在一致性代码段内。<strong>需要保护其不能被更低特权级程序</strong>访问的程序应该放在非一致性代码段内。<br>​     所有的<strong>数据段</strong>都是<strong>非一致性</strong>的，这意味着它们不能<strong>被更低特权级（权限数字值较大）的程序或过程访问</strong>。与代码段不同的是，<strong>数据段</strong>总是能被<strong>更高特权级（权限数字值较小，数字越小，权限越高）的程序或过程访问</strong>，而不需要使用特别的访问门。<br>​    当GDT或LDT中的<strong>段描述符存储在在ROM</strong>中时，若软件或处理器试图<strong>更新（写入）位于ROM的段描述符</strong>，则处理器就会进入一个<strong>无限循环</strong>。 为了避免该问题发生，将ROM中所有段描述符的<strong>访问位都置位</strong>。同时，会将那些试图修改ROM中段描述符的操作系统代码或执行代码删除掉。<br>​    <strong>注意：</strong>不能通过call或jump转入更低权限级别（权限数字值较大）的代码段执行，不管目标段是一个一致性还是非一致代码段。这种转移执行的尝试操作，将会引起一个一般保护异常。</p>
-<h3 id="系统描述符类型（SYSTEM-DESCRIPTOR-TYPES-）"><a href="#系统描述符类型（SYSTEM-DESCRIPTOR-TYPES-）" class="headerlink" title="系统描述符类型（SYSTEM DESCRIPTOR TYPES  ）"></a>系统描述符类型（SYSTEM DESCRIPTOR TYPES  ）</h3><p>​    当段描述符中的<strong>S标志位（描述符类型）被复位</strong>时，表明该段描述符为一个系统描述符。处理器能识别以下一些类型的系统段描述符：</p>
-<ul>
-<li><p>本地描述符表(LDT)的段描述符</p>
-</li>
-<li><p>任务状态段(TSS)描述符</p>
-</li>
-<li><p>调用门描述符</p>
-</li>
-<li><p>中断门描述符</p>
-</li>
-<li><p>陷阱门描述符</p>
-</li>
-<li><p>任务门描述符</p>
-<p>这些描述符可分为两大类：<strong>系统段描述符和门描述符</strong>。系统段描述符指向一个系统段（LDT或TSS段）。门描述符就是他们自己——“门”，这些门描述符存储了代码段中指向程序入口点的指针（调用、中断和陷阱门），或者存储了TSS的段选择符（任务门）。  图2占了系统段描述符和门描述符类型字段的编码及说明。</p>
-</li>
-</ul>
-<p><img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/system_descriptor.jpg"></p>
-  <center style="color:#1a1a1a;">表2   系统段描述符类型</center>            
-
-]]></content>
-      <categories>
-        <category>体系结构</category>
-        <category>操作系统</category>
-      </categories>
-      <tags>
-        <tag>X86</tag>
-        <tag>体系结构</tag>
-        <tag>内存管理</tag>
       </tags>
   </entry>
   <entry>
@@ -1501,6 +1380,123 @@
 ]]></content>
       <tags>
         <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>保护模式内存管理</title>
+    <url>/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h1 id="2-保护模式内存管理"><a href="#2-保护模式内存管理" class="headerlink" title="2. 保护模式内存管理"></a>2. 保护模式内存管理</h1><h2 id="2-1-内存管理概览"><a href="#2-1-内存管理概览" class="headerlink" title="2.1 内存管理概览"></a>2.1 内存管理概览</h2><p>​    IA-32架构的内存管理机制主要分为两部分：<strong>段式</strong>和<strong>页式</strong>。 <strong>分段</strong>提供了一种隔绝各个代码、数据和堆栈区域的机制，以致多个程序（或任务）可以运行在同一个处理器上，但不会相互干扰。 <strong>分页</strong>则为传统需求页的虚拟内存系统提供了一种实现机制，在虚拟内存系统中，程序运行所需的环境的各个部分按需映射到物理内存中。 分页同样可以为多个任务之间提供隔离措施。 当在保护模式下运行时，必须采用某种形式的分段机制。 这里没有<strong>模式位</strong>以设置禁用分段机制，也就说在保护模式的内存管理中<strong>分段机制</strong>是<strong>必需</strong>的。 但是，<strong>分页机制</strong>是<strong>可选</strong>的。<br>​    这两种机制（分段和分页）是可以被配置以致支持使用共享内存的简单的单程序（或单任务）系统、多任务系统或多处理器系统。<br>​    如图1所示，段式管理提供了一种机制：其将处理器的<strong>可寻址内存空间</strong>（也被称为<strong>线性地址空间</strong>）划分为较小的受保护的地址空间区域，称为<strong>段</strong>。 段可以用来保存<strong>程序的代码、数据和堆栈</strong>，也可用于保存<strong>系统数据结构</strong>（例如TSS或LDT）。 如果一个处理器中有多个程序（或任务）正在运行，那么每个程序都会被分配自己的一组段空间。 然后处理器可以加强这些段之间的界限，并且确保一个程序不会通过访问写入另一个程序的段而干扰另一个程序的运行。分段机制还允许对段进行分类，这样一来便可限制对特定类型段所要执行的操作。<br> <img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/segment_and_page.jpg"></p>
+<center style="color:#1a1a1a;">图1 分段与分页</center>    
+
+<p>​    一个系统中的所有段都包含在处理器的线性地址空间中。 为了定位到指定段中的一个字节，程序必须提供一个逻辑地址（也称为远指针）。 <strong>逻辑地址</strong>由一个<strong>段选择子</strong>和一个<strong>偏移量</strong>组成。 <strong>段选择子</strong>是一个段的<strong>唯一标识</strong>。 此外，段选择子还提供了段描述符表（如全局描述符表，GDT）中到一个被称为段描述符的数据结构的偏移量。 每个段都有一个段描述符，它指定了段的大小、段的访问权限和特权级别、段的类型以及段的第一个字节在线性地址空间中的位置（即段基址)。 将逻辑地址的偏移量部分与段的基址相加，就可以定位段内的某个字节。 因此<strong>基址加上偏移量</strong>就形成了在处理器的线性地址空间中的一个<strong>线性地址</strong>。<br>​    如果不启用分页，那么处理器的线性地址空间会被直接映射到处理器的物理地址空间。 物理地址空间定义为处理器可以在其地址总线上生成的地址范围。<br>​    因为多任务计算系统定义的线性地址空间通常都要比其含有的物理内存容量大得多，所以需要采取一些“虚拟化”线性地址空间的方法。而这种线性地址空间的虚拟化是通过处理器的分页机制来处理的。<br>​    分页机制支持建立一个<strong>虚拟内存</strong>环境，在这个环境中，可以用小量的物理内存（RAM和ROM）和一些磁盘存储空间就可以模拟大容量的线性地址空间。启用分页机制时，每个段被划为分为页（通常每个页大小为4KB），这些页存储在物理内存或硬盘中。 操作系统或程序通过维护一个页目录和一组页表来跟踪这些页。当程序（或任务）视图访问线性地址空间中的一个地址位置时，处理器便会使用页目录和页表将线性地址转换为一个物理地址，然后在该内存位置上执行所要求的操作（读或写）。<br>​    如果当前被访问的页面不在物理内存中，处理器便会中断当前程序的执行（通过产生一个页错误异常）。 然后，操作系统执行程序将从磁盘读取该页面进入物理内存，然后继续执行刚才被中断的程序。<br>​      当分页机制在操作系统或执行程序正常运作时，对于正确执行的程序来说，物理内存和磁盘之间的页面交换是透明的。 即使在IA-32处理器中，16位的程序也可在虚拟8086模式下运行时进行分页（透明地）。</p>
+<p>​    总结：</p>
+<ul>
+<li><strong>逻辑地址（Logical Address）</strong>：一个逻辑地址由两部份组成，<strong>段标识符</strong>: <strong>段内偏移量</strong>。段标识符是由一个16位长的字段组成，称为<strong>段选择子</strong>（段选择子就是段标识符）。</li>
+<li><strong>线性地址（Linear Address）</strong>：一个<strong>段的基址</strong>加上<strong>段内偏移量</strong>，形成线性地址空间中的一个线性地址。线性地址是逻辑地址到物理地址变换之间的中间层。这里段内偏移量就是逻辑地址中的段内偏移量。而段的基址跟逻辑地址中段标识符有关，通过段标识符（段选择子）可获得段描述符表中与该段选择子相关联的段描述符，段描述符提供了该段的基址。</li>
+<li><strong>物理地址（Physical Address）</strong>：物理内存中的地址。</li>
+</ul>
+<h2 id="2-2-分段机制"><a href="#2-2-分段机制" class="headerlink" title="2.2 分段机制"></a>2.2 分段机制</h2><p>​    IA-32架构支持的分段机制可用于实现多种系统设计。这些设计范围从最小使用分段来保护程序的平坦模型，到使用分段来创建良好健壮性的操作环境的多段模型，在这种环境中，多个程序和任务可同时可靠运行的<br>​    下面几节给出了几个例子，说明如何在系统中使用分段来提高内存管理的性能和可靠性。 </p>
+<h3 id="2-2-1-基本平坦模型（Basic-Flat-Model）"><a href="#2-2-1-基本平坦模型（Basic-Flat-Model）" class="headerlink" title="2.2.1 基本平坦模型（Basic Flat Model）"></a>2.2.1 基本平坦模型（Basic Flat Model）</h3><p>​    最简单的系统内存模型就是就是基本<strong>“平坦模型”</strong>，在这种模型中，操作系统或应用程序可访问一个连续的、未分段的地址空间。这样一来最大程度地向系统设计人员和程序员隐藏了体系机构的分段机制。<br>​    若要在IA-32架构下实现内存的一个基本平坦模型，则需要至少创建两个段描述符，一个用于引用代码段，一个用于引用数据段（如图2所示）。 然而，这两个段都会被映射到整个线性地址空间：即，这两个段描述符具有相同的基址：0和相同的段限长（段的最大长度）：4 GB。 通过将段限长设置为4 GB，可以避免分段机制对超过段空间大小的内存的引用产生异常，即使指定的地址不存在物理内存中。 ROM （EPROM）通常位于物理地址空间的顶部，因为处理器从FFFF_FFF0H开始执行。 RAM （DRAM）则位于在地址空间的底部，因为复位初始化后DS数据段的初始基址为0。<br><img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/flat_model.jpg"></p>
+<center style="color:#1a1a1a;">图2 平坦模型</center>    
+
+<h3 id="2-2-2-保护平坦模型（Protected-Flat-Model）"><a href="#2-2-2-保护平坦模型（Protected-Flat-Model）" class="headerlink" title="2.2.2 保护平坦模型（Protected Flat Model）"></a>2.2.2 保护平坦模型（Protected Flat Model）</h3><p>​    保护平坦模型类似于基本平坦模型，指示保护平坦模型将段限制在包含<strong>物理内存实际存在的地址范围内</strong>（如图3所示）。当尝试访问不存在的内存时，会产生一个<strong>通用保护异常（#GP）</strong>。该模型针对某些程序bug提供了最低水平的硬件保护。<br><img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/protected_flat_model.jpg"></p>
+<center style="color:#1a1a1a;">图3 保护平坦模型</center>    
+
+<p>​    这个保护平坦模型可以被拓展变得更加复杂，以提供更多保护功能。例如，为了确保分页机制能提供用户程序和监控程序之间代码和数据的隔离，这里需要定义<strong>四个段</strong>：<strong>权限级别为3</strong>的<strong>用户程序</strong>代码段和数据段、<strong>权限级别为0</strong>的<strong>监管程序</strong>代码段和数据段。通常这些段都相互<strong>覆盖</strong>，并且在线性地址空间的<strong>起始地址都为0</strong>。这种平坦分段模型搭配简单的分页结构可以保护操作系统不受应用程序影响，此外通过为每个任务或进程增加单独的分页结构，其还可以确保一个应用程序不受其他应用程序影响。一些流行的多任务操作系统也使用此种类似的设计。</p>
+<h3 id="2-2-3-多段模型（Multi-Segment-Model）"><a href="#2-2-3-多段模型（Multi-Segment-Model）" class="headerlink" title="2.2.3 多段模型（Multi-Segment Model）"></a>2.2.3 多段模型（Multi-Segment Model）</h3><p>​    多段模型（如图4所示）利用了分段机制所提供的全部功能，为<strong>代码、数据结构、程序和任务</strong>都提供了<strong>硬件级强制保护</strong>。在这个模型中，每个程序（或任务）都被分配了自己的段描述符和段空间。段可以是其分配段的程序所<strong>私有</strong>的，也可多个程序<strong>共享</strong>。此外，操作系统硬件来控制对运行在系统中的各个程序的所有段和执行环境的访问。<br>​    <img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/multi-sgement.jpg"></p>
+<center style="color:#1a1a1a;">图4 多段模型</center>        
+
+<p>​    对内存访问的检查不仅可以防止引用超过段大小的地址，还可以防止程序对某些段执行不被允许的操作。例如，一个代码为只读段，因此可使用硬件来防止对该代码段的写操作。每个段的访问权限信息也可用于设置保护区和保护级别。保护级别则可用于保护操作系统程序不被未经授权的应用程序访问。<br>​    分页机制可以与图2、图3和图4中所描述的任一分段模型搭配使用。 处理器的分页机制将线性地址空间（在线性地址空间中，段也被映射）划分为页面（如图1所示）。 然后在线性地址空间中的页面会映射到物理地址空间中的页面。 分页机制提供了几种页级保护功能，它们可以与段保护功能一起使用，也可以代替段保护功能。 例如，它允许逐页执行读写保护。 分页机制还提供了两级用户-监管保护，也可以逐页指定这种保护。</p>
+<h2 id="2-3-逻辑地址和线性地址的转换"><a href="#2-3-逻辑地址和线性地址的转换" class="headerlink" title="2.3 逻辑地址和线性地址的转换"></a>2.3 逻辑地址和线性地址的转换</h2><p>​    在系统保护模式中，处理器需要经过两部分的地址转换以完成到物理地址空间的转换：逻辑地址转换和线性地址空间分页。<br>​    即使最小程度地使用分段，处理器地址空间中的每一个字节都需要使用逻辑地址访问。一个<strong>逻辑地址</strong>由<strong>16位段选择符</strong>和<strong>32位偏移量</strong>组成，如图5所示。<strong>段选择符</strong>标识该字节所位于的段，偏移量确定字节相对于段基址的<strong>段内位置</strong>。<br>     处理器会将每个逻辑地址转换成线性地址。 线性地址是处理器线性地址空间中的一个32位地址。 与物理地址空间类似，线性地址空间是一个平坦的（未分段的）、大小为$2^{32}$字节的地址空间，地址范围从0开始到0xFFFFFFFF结束。<strong>线性地址空间</strong>包含<strong>所有的段</strong>和<strong>系统定义的系统表</strong>。<br><img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/logic_address.jpg"></p>
+<center style="color:#1a1a1a;">图5 逻辑地址到线性地址的转换</center>    
+
+<p>​    从逻辑地址转换到线性地址，处理器需要做如下操作：</p>
+<ol>
+<li>使用<strong>段选择子中的偏移量</strong>来定位在GDT或LDT中对应的段描述符，然后读取到处理器中。（这步仅当一个新的段选择子被加载到段寄存器时才需要）。</li>
+<li>检查段描述符以检查<strong>段的访问权限和范围</strong>，以确保该段是可访问的，并且保证<strong>段偏移在段的大小范围</strong>内。</li>
+<li>将<strong>段描述符中的段的基址</strong>与<strong>段偏移量</strong>相加，形成一个<strong>线性地址</strong>。  </li>
+</ol>
+<p>​    如果不使用分页机制，处理器将会将线性地址直接映射为物理地址（也就是说，也就是说，线性地址可以直接送到处理器的地址总线，也就是说，线性地址等同于物理地址）。 如果线性地址空间被分页，启用分页机制，则会使用第二级地址转换来将线性地址转换为物理地址。</p>
+<h3 id="2-3-1-段选择子（Segment-Selectors）"><a href="#2-3-1-段选择子（Segment-Selectors）" class="headerlink" title="2.3.1 段选择子（Segment Selectors）"></a>2.3.1 段选择子（Segment Selectors）</h3><p>​    一个段选择子是一个<strong>段的16位标识符</strong>（如图6所示）。段选择子不直接指向一个段，反而指向定义了一个段的段描述符。一个段选择子包含了如下几项信息：</p>
+<ul>
+<li>Index：索引（第3到15位），共13位，可从GDT或LDT中8192（$2^{13}$）个段描述符中选择一个。处理器将索引值乘以8（一个段描述符的大小为8字节），并将其与GDT或LDT的基址（分别来自GDTR或LDTR寄存器）相加可定位一个段描述符。  </li>
+<li>TI (table indicator) flag  ：表指示标志位（第2位），指示所使用段描述符表，当复位时，表示选择GDT；设置该表示位时，表示选择LDT。</li>
+<li>Requested Privilege Level (RPL)  ：请求特权级别（第0和第1位），共两位，指示该段选择子的权限级别。权限级别的范围为0到3，<strong>权限级别0为最高权限级别</strong>。</li>
+</ul>
+<p><img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/selector.jpg"></p>
+<center style="color:#1a1a1a;">图6 段选择子</center>    
+
+<p>​    处理器不使用GDT的<strong>第一个表项</strong>。 指向这个GDT表项的段选择子（即索引值为0且TI标志设置为01的段选择子）称为<strong>“空段选择器”</strong>。 当空选择器加载入段寄存器（除CS或SS寄存器（代码段寄存器、堆栈段寄存器）外）时，处理器不会产生异常。 然而，当使用存储空选择器的段寄存器访问内存时，它会产生一个异常。 空选择器可以用于<strong>初始化未使用的段寄存器</strong>。 用空段选择器加载CS或SS寄存器会导致生成一个通用保护异常（#GP）。<br>​    段选择子作为指针变量的一部分对应用程序可见，段选择子的值通常由链接编辑器或链接加载器分配或修改，而不是应用程序。    </p>
+<h3 id="2-3-2-段寄存器（Segment-Registers）"><a href="#2-3-2-段寄存器（Segment-Registers）" class="headerlink" title="2.3.2 段寄存器（Segment Registers）"></a>2.3.2 段寄存器（Segment Registers）</h3><p>​    为了减少地址转换时间和降低编程复杂度，处理器提拱了至多可存储<strong>6个段选择子的寄存器</strong>（如图7所示）。每个段寄存器支持一种特定类型的内存引用（代码、堆栈或数据）。对于执行任何类型的程序，至少要将<strong>有效的段选择符</strong>加载到<strong>代码段（CS）、数据段（DS）和堆栈段（SS）</strong>。处理器还提供另外的数据段寄存器（ES、FS、GS），可贝用于让当前正在执行的程序（或任务）能够访问其他几个数据段。<br>​    对于访问一个段的一个程序，段选择器必须已经加载到一个段寄存器中。 因此，尽管一个系统可以定义上千个段，但只有6个段可立即访问使用。 在程序执行期间，通过将其他段的段选择子加载到这些寄存器中，就可以访问其他段。<br><img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/Segment_Register.jpg"></p>
+  <center style="color:#1a1a1a;">图7 段寄存器</center>        
+
+<p>​    每个段寄存器都有一个<strong>“可见”</strong>部分和一个<strong>“隐藏”</strong>部分 （隐藏部分有时被称为<strong>“描述符缓存”</strong>或<strong>“影子寄存器”</strong>）。当一个段选择符被加载到段寄存器的可见部分时，处理器会同时将<strong>段选择符所指向的段描述符的段基址、段限长、 以及访问控制信息</strong>加载到段寄存器的隐藏部分。 段选择符缓存在段寄存器中的信息（可见和隐藏部分）使得处理器可以直接进行地址转换，而不需要再花费额外的总线周期从段描述符读取段的基址和段限长信息。 在一个多处理器系统中，处理器都访问同一个描述符表，如果描述表被修改，则软件应负责重新加载段寄存器。 如果不重新加载，则可能出现段描述符已经被修改，却仍在使用缓存在段寄存器中的旧段描述符的清空。<br>​    提供了以下两种方法来加载段寄存器：</p>
+<ul>
+<li>使用MOV，POP，LDS，LES，LSS，LGS和LFS 等指令加载。这些指令<strong>显式</strong>地引用段寄存器。</li>
+<li>隐式加载指令，例如使用长指针方法的CALL，JMP和RET指令，还有SYSENTER和SYSEXIT指令，IRET，INT <em>n</em>，INTO和INT3指令。这些指令执行时会附带修改CS寄存器的内容（有时也会修改其它寄存器的内容）。</li>
+<li>MOV指令也可被用于把段寄存器的可见部分的内容加载到一个通用目的寄存器。</li>
+</ul>
+<h3 id="2-3-3-段描述符（Segment-Descriptors）"><a href="#2-3-3-段描述符（Segment-Descriptors）" class="headerlink" title="2.3.3 段描述符（Segment Descriptors）"></a>2.3.3 段描述符（Segment Descriptors）</h3><p>​    一个段描述符是GDT或LDT中的一个数据结构，其提供处理器中一个段的大小、位置、访问控制和状态信息。段描述符通常由编译器、链接器、加载器或操作系统或执行程序创建，而不是应用程序创建。图8展示了所有类型的段描述符的通用描述符格式。<br>​    <img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/segment_descripotor.jpg"></p>
+  <center style="color:#1a1a1a;">图8 段描述符</center>        
+
+<p>​    一个段描述符的标志位和字段信息如下：</p>
+<ul>
+<li>Segment limit field ：段限长字段，指明一个段的大小。处理器会把<strong>两个段限长字段</strong>拼接形成一个<strong>20位长的值</strong>。并根据颗粒度标志位G的两种不同的值来解释段限长字段的含义。<br>若G=0，段大小的范围为1字节到1MB字节，单位为1字节。若G=1，段大小的范围为4KB到4GB字节，单位为4KB字节。<br>处理器通过两种不同方式使用段限长，其依据是段是<strong>向上扩展段</strong>还是<strong>向下扩展段</strong>。  对于向上拓展的段，逻辑地址的段偏移量的范围为<strong>0字节到段限长值</strong>。大于段限长的偏移量将会产生一个一般保护异常（#GP，所有段都会产生除了堆栈段外）或一个堆栈错误异常（#SS表示SS段）  。对于一个向下拓展段，则相反，段偏移量的范围为<strong>段限长1字节增长到0xFFFFFFFFH或0xFFFFH</strong>（这个取决于B标志位的设置）。小于或等于段限制的偏移量会产生一般保护异常或堆栈故障异常。对于向下拓展段，减少段限长的值允许在段地址空间底部分配新的内存，而不是再顶部。因为IA-32架构所使用的栈总是向下增长的，所以这种机制便于栈的扩展。</li>
+<li>Base address fields  ：基址字段，该字段定义了段的0字节在4GB大小的线性地址空间中的位置。 处理器将<strong>三个基址字段</strong>拼接在一起形成一个<strong>32位长</strong>的值。 段基址应按16字节边界进行对齐。 虽然16字节对齐不是必需的，但是通过把程序的代码和数据按16字节边界上对齐，可使得程序性能最佳。（即，边界对齐便于数据的访问）</li>
+<li>Type field  ：类型字段，指示<strong>该段或门的类型</strong>，并指明段的访问类型和段的扩展方向。根据描述符类型标志位，这个字段会有两种含义：<strong>应用程序（数据、代码）段描述符</strong>或<strong>系统段描述符</strong>。对于代码段、数据段、系统段，这个字段的编码并不相同。</li>
+<li>S (descriptor type) flag：描述符类型标志位，其指明了一个段描述符是一个系统段描述符（该标志位复位）还是一个代码或数据段描述符（该标志位被设置）。</li>
+<li>DPL（descriptor privilege level  ）field：指明该段的特权级别。特权级别的取值范围为<strong>0 -3</strong>，<strong>0是权限级别最高</strong>。DPL用于控制对段的访问。</li>
+<li>P(segment-present) flag：段存在标志位，指明段是否于内存中存在（P=1，在内存中；P＝0，不存在内存中）。若P＝0，当一个段描述符的段选择符加载进段寄存器时处理器会产生一个<strong>段不存在异常</strong>。内存管理软件可以使用此标志位来控制在某一给定时间将指定的段加载进物理内存中，这为管理虚拟内存提供了除分页以外的控制。图9展示了P＝0时一个段描述符的格式。当复位该标志位时，操作系统或执行程序可以<strong>自由使用格式中标为“可用”（Available）的位置</strong>来存储自己的数据，例如有关不存在段实际在什么地方的信息。</li>
+<li>D/B(default operation size/default stack pointer size and/or upper bound) flag  ：D/B（默认操作大小/默认栈指针大小和/或上界限）标志，其根据段描述符描述的是一个可执行代码段、还是下扩数据段、或堆栈段来执行不同的功能。（对于32位代码和数据段，该标志位应该总被设置为1；对于16位数据和代码段，该标志段被设置为0）。<ul>
+<li><strong>可执行代码段：</strong>此时这个标志被称为<strong>D标志位</strong>，其指明段中的指令引用有效地址和操作数的默认长度。当D＝1，则默认值为32位地址和32位或8位操作数；当D＝0，则默认值为16位地址和16位或8 位操作数。指令前缀0x66H可用来选择非默认值的操作数大小；指令0x67H可用来选择非默认值的操作地址大小。</li>
+<li><strong>堆栈段（由SS寄存器指向的数据段）：</strong>此时这个标志被称为<strong>B标志位</strong>，它用于指明隐含栈操作（如pushes、pops、calls）时的栈指针的大小。当B＝1，则使用一个32位的栈指针，它存储在32位的ESP寄存器中；假如B=0，则使用一个16位的栈指针，它存储在16位的SP寄存器中。假如堆栈段被设置成一个下扩数据段，那么B标志也同时指定了堆栈段的上界限。</li>
+<li><strong>下扩段（Expand-downdata segment）</strong>此时标志叫作<strong>B标志</strong>，它指明堆栈段的上界。当B=1,上界为0xFFFFFFFFH（4Gbytes）；当B＝0，上界为0xFFFFH（64KBytes）。</li>
+</ul>
+</li>
+<li>G (granularity) flag  ：颗粒度标志位G，其决定了段限长域字段的单位。当G＝0时，段限长的单位为字节；当G＝1时，段限长的单位为4KB（这个标志位不会影响基地址的颗粒度，基地址的颗粒度总是字节单位。）。若设置了该标志位，则在使用段限长检查偏移量时，不会检查偏移量的12位最低有效位。 例如，当G=1时，段限长为0表明有效偏移量为0到4095。</li>
+<li>L（64-bit code segment) flag  ：L标志位，在IA-32e模式下，段描述符第二个双字的第21位表示该代码段是否存储了本地64位代码。 当L=1时，表示在64位模式下执行该代码段中存储的指令。 当L=0时。表示在兼容模式下执行此代码段中存储的指令。 如果设置了L位，则必须复位D标志位。 当在非IA-32e模式或该段非代码段时，第21位是保留的，并且应该总是设置为0。  </li>
+<li>Available and reserved bits  ：可用和保留位，段描述符的第二个双字的第20位是保留给操作系统软件使用的；</li>
+</ul>
+<p><img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/descriptor(P=0).jpg"></p>
+  <center style="color:#1a1a1a;">图9    P=0时的段描述符</center>        
+
+<h2 id="2-4描述符的分类"><a href="#2-4描述符的分类" class="headerlink" title="2.4描述符的分类"></a>2.4描述符的分类</h2><h3 id="数据段和代码段描述符（Data-and-Code-segment-Descriptor）"><a href="#数据段和代码段描述符（Data-and-Code-segment-Descriptor）" class="headerlink" title="数据段和代码段描述符（Data and Code segment Descriptor）"></a>数据段和代码段描述符（Data and Code segment Descriptor）</h3><p>​    当段描述符中的<strong>S标志位被设置</strong>时，该描述符描述的是一个代码或数据段。类型字段（type）的<strong>最高有效位</strong>（第二个双字的第11位）用于决定是一个数据段（复位）还是一个代码段描（置位）。<br>​    即：</p>
+<ul>
+<li>当S=1，type的最高有效位为0时，该段描述符指向一个数据段；</li>
+<li>当S=1，type的最高有效位为1时，该段描述符指向一个代码段。</li>
+</ul>
+<p>​    对于数据段描述符，类型字段的低3位（第8、9、10位）的含义分别为被访问accessed (A)、可写write-enable (W)和拓展方向expand -direction (E)。表1展示了代码段和数据段的类型字段比特位编码的说明。根据可写比特位W的设置, 数据段可以是只读的，也可以是可读/写的。<br><img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/date_and_code.jpg"> </p>
+  <center style="color:#1a1a1a;">表1   代码段和数据段描述符类型</center>        
+
+<p>​    <strong>堆栈段</strong>必须是一个<strong>可读/写的数据段</strong>。若将不可写数据段的段选择符加载到 SS 寄存器中，则会导致产生一个一般保护异常。如果堆栈段的长度会动态变化，那么堆栈段可以是一个<strong>向下扩展的数据段</strong>（扩展方向标志被设置）。因而，动态改变段限长的值将导致栈空间被添加到栈底部。  如果希望堆栈段的大小保持不变，则堆栈段可以是向上拓展或向下拓展类型。<br>​    被访问位A指明该段自上次操作系统或执行程序复位<strong>该位后是否被访问过</strong>。 如果包含段描述符的内存类型支持<strong>处理器写操作</strong>，那么处理器每次将<strong>段选择符加载到段寄存器</strong>时都会设置这个位。 该位会一直保持被设置状态，直到其<strong>显式复位</strong>。 该标志位既可以用于虚拟内存管理，也可以用于调试。<br>​    对于代码段，类型字段的低三位的含义（第8、9、10位）分别为<strong>被访问accessed (A)、可读read enable (R)、 一致conforming (C)<strong>。代码段可以是</strong>只能执行或可执行/可读</strong>，这取决于<strong>可读位的设置</strong>。 当<strong>常数或其他静态数据以及指令码</strong>存储在了一个ROM 中时，就可以使用一个可执行/可读代码段。  通过使用<strong>带CS前缀的指令</strong>或者把<strong>代码段选择符</strong>加载进一个<strong>数据段寄存器</strong>（DS、ES、FS或GS寄存器），就可读取代码段中的数据。 在<strong>保护模式</strong>下，<strong>代码段是不可写</strong>的。<br>​    代码段可以是<strong>一致性和非一致性的</strong>。操作系统允许执行在当前特权级的程序向一个<strong>更高权级的一致性代码段</strong>进行转移。当向一个<strong>不同特权级别</strong>的<strong>非一致性代码段</strong>进行执行转移时，会产生一个通用保护异常（#GP），除非使用<strong>调用门（call gate）或任务门（task  gate）</strong>（这个我们已经在读书笔记1中，有所了解，通过门，可以进行<strong>跨权限级别的访问</strong>）。一些系统工具（不访问保护设施）和一些处理某些异常类型（如除出错，溢出）的处理程序可以放在一致性代码段内。<strong>需要保护其不能被更低特权级程序</strong>访问的程序应该放在非一致性代码段内。<br>​     所有的<strong>数据段</strong>都是<strong>非一致性</strong>的，这意味着它们不能<strong>被更低特权级（权限数字值较大）的程序或过程访问</strong>。与代码段不同的是，<strong>数据段</strong>总是能被<strong>更高特权级（权限数字值较小，数字越小，权限越高）的程序或过程访问</strong>，而不需要使用特别的访问门。<br>​    当GDT或LDT中的<strong>段描述符存储在在ROM</strong>中时，若软件或处理器试图<strong>更新（写入）位于ROM的段描述符</strong>，则处理器就会进入一个<strong>无限循环</strong>。 为了避免该问题发生，将ROM中所有段描述符的<strong>访问位都置位</strong>。同时，会将那些试图修改ROM中段描述符的操作系统代码或执行代码删除掉。<br>​    <strong>注意：</strong>不能通过call或jump转入更低权限级别（权限数字值较大）的代码段执行，不管目标段是一个一致性还是非一致代码段。这种转移执行的尝试操作，将会引起一个一般保护异常。</p>
+<h3 id="系统描述符类型（SYSTEM-DESCRIPTOR-TYPES-）"><a href="#系统描述符类型（SYSTEM-DESCRIPTOR-TYPES-）" class="headerlink" title="系统描述符类型（SYSTEM DESCRIPTOR TYPES  ）"></a>系统描述符类型（SYSTEM DESCRIPTOR TYPES  ）</h3><p>​    当段描述符中的<strong>S标志位（描述符类型）被复位</strong>时，表明该段描述符为一个系统描述符。处理器能识别以下一些类型的系统段描述符：</p>
+<ul>
+<li><p>本地描述符表(LDT)的段描述符</p>
+</li>
+<li><p>任务状态段(TSS)描述符</p>
+</li>
+<li><p>调用门描述符</p>
+</li>
+<li><p>中断门描述符</p>
+</li>
+<li><p>陷阱门描述符</p>
+</li>
+<li><p>任务门描述符</p>
+<p>这些描述符可分为两大类：<strong>系统段描述符和门描述符</strong>。系统段描述符指向一个系统段（LDT或TSS段）。门描述符就是他们自己——“门”，这些门描述符存储了代码段中指向程序入口点的指针（调用、中断和陷阱门），或者存储了TSS的段选择符（任务门）。  图2占了系统段描述符和门描述符类型字段的编码及说明。</p>
+</li>
+</ul>
+<p><img src="/2022/04/03/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/system_descriptor.jpg"></p>
+  <center style="color:#1a1a1a;">表2   系统段描述符类型</center>            
+
+]]></content>
+      <categories>
+        <category>体系结构</category>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>X86</tag>
+        <tag>体系结构</tag>
+        <tag>内存管理</tag>
       </tags>
   </entry>
   <entry>
